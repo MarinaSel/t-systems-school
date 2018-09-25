@@ -10,7 +10,10 @@
 
     <properties>
         <spring-framework-version>5.0.8.RELEASE</spring-framework-version>
+<<<<<<< HEAD
 		<hibernate-version>5.3.5.Final</hibernate-version>
+=======
+>>>>>>> 98f438e41e681d76ab37b816be6330205961b2aa
     </properties>
 
     <build>
@@ -63,7 +66,11 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
+<<<<<<< HEAD
             <version>${hibernate-version}</version>
+=======
+            <version>5.3.5.Final</version>
+>>>>>>> 98f438e41e681d76ab37b816be6330205961b2aa
         </dependency>
 
     </dependencies>
