@@ -3,9 +3,14 @@ import com.training.models.statuses.VehicleStatus;
 import javax.persistence.*;
 import java.util.*;
 
-@Entity(name = "vehicle")
-class Vehicle {
+@Entity
+class VehicleEntity {
     @Id
+    @SequenceGenerator(name = "vehicles_id_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "vehicles_id_seq")
+    private Long id;
+
+    @Column(name = "registration_number", nullable = false)
     private String registrationNumber;
 
     @Column(name = "capacity", nullable = false)
@@ -21,18 +26,21 @@ class Vehicle {
     Set<DriverEntity> drivers;
 
     @OneToMany(mappedBy = "vehicle")
-    Set<Load> loads;
+    Set<LoadEntity> loads;
 
-    public Vehicle(String registrationNumber, Integer capacity, VehicleStatus vehicleStatus, String currentCity) {
-        this.registrationNumber = registrationNumber;
-        this.capacity = capacity;
-        this.vehicleStatus = vehicleStatus;
-        this.currentCity = currentCity;
-        drivers = new HashSet<>();
-        loads = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "location_id", nullable = false)
+    private LocationEntity location;
+
+    protected VehicleEntity(){}
+
+    public Long getId() {
+        return id;
     }
 
-    protected Vehicle(){}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getRegistrationNumber() {
         return registrationNumber;
@@ -74,25 +82,20 @@ class Vehicle {
         this.drivers = drivers;
     }
 
-    public Set<Load> getLoads() {
+    public Set<LoadEntity> getLoads() {
         return loads;
     }
 
-    public void setLoads(Set<Load> loads) {
+    public void setLoads(Set<LoadEntity> loads) {
         this.loads = loads;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Vehicle vehicle = (Vehicle) o;
-        return Objects.equals(registrationNumber, vehicle.registrationNumber);
+    public LocationEntity getLocation() {
+        return location;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(registrationNumber, capacity, vehicleStatus, currentCity, drivers, loads);
+    public void setLocation(LocationEntity location) {
+        this.location = location;
     }
 
     @Override

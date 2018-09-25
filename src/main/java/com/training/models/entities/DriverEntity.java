@@ -4,9 +4,14 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
 
-@Entity(name = "driver")
+@Entity
 class DriverEntity {
     @Id
+    @SequenceGenerator(name = "drivers_id_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "drivers_id_seq")
+    private Long id;
+
+    @Column(name = "driving_license_num", nullable = false)
     private Integer drivingLicenseNum;
 
     @Column(name = "first_name", nullable = false)
@@ -25,19 +30,19 @@ class DriverEntity {
     private String currentCity;
 
     @ManyToOne
-    @JoinColumn(name = "registration_number", nullable = true)
-    private Vehicle registrationNumber;
+    @JoinColumn(name = "vehicle_id", nullable = true)
+    private VehicleEntity vehicle;
 
-    public DriverEntity(Integer drivingLicenseNum, String firstName, String secondName, Date licenseEndDate, DriverStatus driverStatus, String currentCity) {
-        this.drivingLicenseNum = drivingLicenseNum;
-        this.firstName = firstName;
-        this.secondName = secondName;
-        this.licenseEndDate = licenseEndDate;
-        this.driverStatus = driverStatus;
-        this.currentCity = currentCity;
+    protected DriverEntity() {
     }
 
-    protected DriverEntity(){}
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Integer getDrivingLicenseNum() {
         return drivingLicenseNum;
@@ -87,37 +92,25 @@ class DriverEntity {
         this.currentCity = currentCity;
     }
 
-    public Vehicle getRegistrationNumber() {
-        return registrationNumber;
+    public VehicleEntity getVehicle() {
+        return vehicle;
     }
 
-    public void setRegistrationNumber(Vehicle registrationNumber) {
-        this.registrationNumber = registrationNumber;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        DriverEntity driver = (DriverEntity) o;
-        return Objects.equals(drivingLicenseNum, driver.drivingLicenseNum);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(drivingLicenseNum, firstName, secondName, licenseEndDate, driverStatus, currentCity, registrationNumber);
+    public void setVehicle(VehicleEntity vehicle) {
+        this.vehicle = vehicle;
     }
 
     @Override
     public String toString() {
-        return "Driver{" +
-                "drivingLicenseNum=" + drivingLicenseNum +
+        return "DriverEntity{" +
+                "id=" + id +
+                ", drivingLicenseNum=" + drivingLicenseNum +
                 ", firstName='" + firstName + '\'' +
                 ", secondName='" + secondName + '\'' +
                 ", licenseEndDate=" + licenseEndDate +
                 ", driverStatus=" + driverStatus +
                 ", currentCity='" + currentCity + '\'' +
-                ", registrationNumber=" + registrationNumber +
+                ", vehicle=" + vehicle +
                 '}';
     }
 }
