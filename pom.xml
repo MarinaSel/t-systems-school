@@ -10,21 +10,32 @@
 
     <properties>
         <spring-framework-version>5.0.8.RELEASE</spring-framework-version>
-		<hibernate-version>5.3.5.Final</hibernate-version>
-        <liquibase-version>3.1.1</liquibase-version>
-        <tomcat-version>9.0.12</tomcat-version>
-        <postgresql-version>42.2.5</postgresql-version>
+		<hibernate.version>5.3.5.Final</hibernate.version>
+        <liquibase.version>3.6.2</liquibase.version>
+        <tomcat.version>9.0.12</tomcat.version>
+        <postgresql.version>42.2.5</postgresql.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>${liquibase.version}</version>
                 <configuration>
-                    <source>8</source>
-                    <target>8</target>
+                    <propertyFile>src/main/resources/properties/liquibase.properties</propertyFile>
                 </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generateChangeLog</goal>
+                            <goal>update</goal>
+                        </goals>
+                    </execution>
+
+                </executions>
             </plugin>
         </plugins>
     </build>
@@ -66,27 +77,26 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>${hibernate-version}</version>
+            <version>${hibernate.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
-            <version>${liquibase-version}</version>
+            <version>${liquibase.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-jdbc</artifactId>
-            <version>${tomcat-version}</version>
+            <version>${tomcat.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>${postgresql-version}</version>
+            <version>${postgresql.version}</version>
         </dependency>
 
     </dependencies>
-
 </project>
