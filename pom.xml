@@ -11,6 +11,9 @@
     <properties>
         <spring-framework-version>5.0.8.RELEASE</spring-framework-version>
 		<hibernate-version>5.3.5.Final</hibernate-version>
+        <liquibase-version>3.1.1</liquibase-version>
+        <tomcat-version>9.0.12</tomcat-version>
+        <postgresql-version>42.2.5</postgresql-version>
     </properties>
 
     <build>
@@ -63,7 +66,25 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>5.3.5.Final</version>
+            <version>${hibernate-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>${liquibase-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-jdbc</artifactId>
+            <version>${tomcat-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql-version}</version>
         </dependency>
 
     </dependencies>
