@@ -1,10 +1,10 @@
-package com.training.models.entities;
-import com.training.models.statuses.VehicleStatus;
+package com.training.model.entities;
+import com.training.model.statuses.VehicleStatus;
 import javax.persistence.*;
 import java.util.*;
 
 @Entity
-class VehicleEntity {
+public class VehicleEntity {
     @Id
     @SequenceGenerator(name = "vehicles_id_seq")
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "vehicles_id_seq")

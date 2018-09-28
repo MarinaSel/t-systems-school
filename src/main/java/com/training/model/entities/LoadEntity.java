@@ -1,9 +1,9 @@
-package com.training.models.entities;
-import com.training.models.statuses.LoadStatus;
+package com.training.model.entities;
+import com.training.model.statuses.LoadStatus;
 import javax.persistence.*;
 
 @Entity
-class LoadEntity {
+public class LoadEntity {
     @Id
     @SequenceGenerator(name = "loads_id_seq")
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "loads_id_seq")
@@ -16,7 +16,7 @@ class LoadEntity {
     private Integer weight;
 
     @ManyToOne
-    @JoinColumn(name = "vehicle_id", nullable = true)
+    @JoinColumn(name = "vehicle_id", nullable = false)
     private VehicleEntity vehicle;
 
     @ManyToOne

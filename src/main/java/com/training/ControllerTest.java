@@ -1,21 +1,25 @@
 package com.training;
 
-import liquibase.integration.spring.SpringLiquibase;
+import com.training.service.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.sql.DataSource;
 
 @Controller
+@EnableJpaRepositories("com.training.repository")
 public class ControllerTest {
+    @Autowired
+    public ControllerTest(DriverService driverService) {
+        this.driverService = driverService;
+    }
+
     @RequestMapping(value = "/")
     public String home(){
-        System.out.println(d.toString());
         return "test";
     }
 
-    @Autowired
-    private DataSource d;
+    private final DriverService driverService;
 
 }

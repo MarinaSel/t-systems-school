@@ -1,4 +1,4 @@
-package com.training.models.entities;
+package com.training.model.entities;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -16,11 +16,11 @@ public class LocationEntity {
     @Column(name = "longitude", nullable = false)
     private Double longitude;
 
-    @OneToMany(mappedBy = "locations")
-    Set<LoadEntity> loads;
+    @OneToMany(mappedBy = "location")
+    private Set<LoadEntity> loads;
 
-    @OneToMany(mappedBy = "locations")
-    Set<VehicleEntity> vehicles;
+    @OneToMany(mappedBy = "location")
+    private Set<VehicleEntity> vehicles;
 
     protected LocationEntity(){}
 

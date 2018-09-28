@@ -1,11 +1,10 @@
-package com.training.models.entities;
-import com.training.models.statuses.DriverStatus;
+package com.training.model.entities;
+import com.training.model.statuses.DriverStatus;
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Objects;
 
 @Entity
-class DriverEntity {
+public class DriverEntity {
     @Id
     @SequenceGenerator(name = "drivers_id_seq")
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "drivers_id_seq")
