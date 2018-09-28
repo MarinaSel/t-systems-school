@@ -6,8 +6,13 @@
          version="2.5">
 
     <context-param>
+        <param-name>contextClass</param-name>
+        <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
+    </context-param>
+
+    <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>WEB-INF/dispatcher-servlet.xml</param-value>
+        <param-value>com.training.config.DataConfig</param-value>
     </context-param>
 
     <servlet>
@@ -22,6 +27,6 @@
     </servlet-mapping>
 
     <listener>
-        <listener-class>org.springframework.web.context.ContextLoader</listener-class>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 </web-app>
