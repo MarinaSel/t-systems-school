@@ -1,5 +1,12 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
-<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" 
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext 
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+                   http://www.liquibase.org/xml/ns/dbchangelog 
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+    
     <changeSet author="Marina" id="1537912316403-1">
         <createTable tableName="drivers">
             <column autoIncrement="true" name="id" type="BIGSERIAL">
@@ -83,15 +90,15 @@
         </createTable>
     </changeSet>
     <changeSet author="Marina" id="1537912316403-5">
-        <addForeignKeyConstraint baseColumnNames="location_id" baseTableName="loads" constraintName="locations_loads_fk" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="locations" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="location_id" baseTableName="loads" constraintName="locations_loads_fk" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="locations"/>
     </changeSet>
     <changeSet author="Marina" id="1537912316403-6">
-        <addForeignKeyConstraint baseColumnNames="location_id" baseTableName="vehicles" constraintName="locations_vehicles_fk" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="locations" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="location_id" baseTableName="vehicles" constraintName="locations_vehicles_fk" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="locations" />
     </changeSet>
     <changeSet author="Marina" id="1537912316403-7">
-        <addForeignKeyConstraint baseColumnNames="vehicle_id" baseTableName="drivers" constraintName="vehicles_drivers_fk" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="vehicles" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="vehicle_id" baseTableName="drivers" constraintName="vehicles_drivers_fk" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="vehicles" />
     </changeSet>
     <changeSet author="Marina" id="1537912316403-8">
-        <addForeignKeyConstraint baseColumnNames="vehicle_id" baseTableName="loads" constraintName="vehicles_loads_fk" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="vehicles" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="vehicle_id" baseTableName="loads" constraintName="vehicles_loads_fk" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="vehicles" />
     </changeSet>
 </databaseChangeLog>

@@ -1,6 +1,6 @@
 package com.training;
 
-import com.training.service.DriverService;
+import com.training.services.impl.DriverServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Controller;
@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
-@EnableJpaRepositories("com.training.repository")
+@EnableJpaRepositories("com.training.repositories")
 public class ControllerTest {
     @Autowired
-    public ControllerTest(DriverService driverService) {
+    public ControllerTest(DriverServiceImpl driverService) {
         this.driverService = driverService;
     }
 
@@ -20,6 +20,6 @@ public class ControllerTest {
         return "test";
     }
 
-    private final DriverService driverService;
+    private final DriverServiceImpl driverService;
 
 }

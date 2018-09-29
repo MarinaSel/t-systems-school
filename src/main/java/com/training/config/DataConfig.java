@@ -23,15 +23,11 @@ import java.util.Properties;
 @Component
 @PropertySources({ @PropertySource("classpath:properties/database.properties") })
 @EnableTransactionManagement
-@EnableJpaRepositories("com.training.repository")
+@EnableJpaRepositories("com.training.repositories")
 public class DataConfig {
 
-    private final Environment env;
-
     @Autowired
-    public DataConfig(Environment env) {
-        this.env = env;
-    }
+    private Environment env;
 
     @Bean
     public DataSource dataSource() {
@@ -60,8 +56,8 @@ public class DataConfig {
     @Bean
     public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
 
-        PlatformTransactionManager txManager = new JpaTransactionManager();
-        ((JpaTransactionManager)txManager).setEntityManagerFactory(entityManagerFactory);
+        JpaTransactionManager txManager = new JpaTransactionManager();
+        txManager.setEntityManagerFactory(entityManagerFactory);
 
         return txManager;
     }

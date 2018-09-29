@@ -3,12 +3,13 @@ import com.training.model.statuses.LoadStatus;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "loads")
 public class LoadEntity {
     @Id
-    @SequenceGenerator(name = "loads_id_seq")
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "loads_id_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Embedded
     @Column(name = "status", nullable = false)
     private LoadStatus loadStatus;
 

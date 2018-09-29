@@ -4,14 +4,14 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Table(name = "drivers")
 public class DriverEntity {
     @Id
-    @SequenceGenerator(name = "drivers_id_seq")
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "drivers_id_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "driving_license_num", nullable = false)
-    private Integer drivingLicenseNum;
+    private String drivingLicenseNum;
 
     @Column(name = "first_name", nullable = false)
     private String firstName;
@@ -19,9 +19,11 @@ public class DriverEntity {
     @Column(name = "second_name", nullable = false)
     private String secondName;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "license_end_date")
     private Date licenseEndDate;
 
+    @Embedded
     @Column(name = "status", nullable = false)
     private DriverStatus driverStatus;
 
@@ -43,11 +45,11 @@ public class DriverEntity {
         this.id = id;
     }
 
-    public Integer getDrivingLicenseNum() {
+    public String getDrivingLicenseNum() {
         return drivingLicenseNum;
     }
 
-    public void setDrivingLicenseNum(Integer drivingLicenseNum) {
+    public void setDrivingLicenseNum(String drivingLicenseNum) {
         this.drivingLicenseNum = drivingLicenseNum;
     }
 

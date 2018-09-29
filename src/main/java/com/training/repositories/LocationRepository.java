@@ -1,4 +1,4 @@
-package com.training.repository;
+package com.training.repositories;
 
 import com.training.model.entities.LocationEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,37 +1,44 @@
-package com.training.service;
+package com.training.services.impl;
 
 import com.training.model.entities.DriverEntity;
-import com.training.repository.DriverRepository;
+import com.training.repositories.DriverRepository;
+import com.training.services.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import java.util.List;
 
 @Service
 @ComponentScan
-public class DriverService{
-
-    private final DriverRepository driverRepository;
+public class DriverServiceImpl implements DriverService {
 
     @Autowired
-    public DriverService(DriverRepository driverRepository) {
-        this.driverRepository = driverRepository;
-    }
+    private DriverRepository driverRepository;
 
+    @Override
     public DriverEntity get(Long id){
         return driverRepository.getOne(id);
     }
 
+    @Override
     public DriverEntity update(DriverEntity driverEntity){
         return driverRepository.saveAndFlush(driverEntity);
     }
 
+    @Override
     public DriverEntity create(DriverEntity driverEntity){
         return driverRepository.saveAndFlush(driverEntity);
     }
 
+    @Override
+    public void delete(DriverEntity driverEntity){
+        driverRepository.delete(driverEntity);
+    }
 
-
-
+    @Override
+    public List<DriverEntity> findAll(){
+        return driverRepository.findAll();
+    }
 }

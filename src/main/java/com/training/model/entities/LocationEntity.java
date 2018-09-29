@@ -4,15 +4,18 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
+@Table(name = "locations")
 public class LocationEntity {
     @Id
-    @SequenceGenerator(name = "locations_id_seq")
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "locations_id_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "name", nullable = false)
     private String name;
+
     @Column(name = "latitude", nullable = false)
     private Double latitude;
+
     @Column(name = "longitude", nullable = false)
     private Double longitude;
 

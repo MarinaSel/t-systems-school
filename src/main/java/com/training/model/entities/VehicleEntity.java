@@ -4,18 +4,19 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
+@Table(name = "vehicles")
 public class VehicleEntity {
     @Id
-    @SequenceGenerator(name = "vehicles_id_seq")
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "vehicles_id_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "registration_number", nullable = false)
+    @Column(name = "registration_number", nullable = false, length = 7)
     private String registrationNumber;
 
     @Column(name = "capacity", nullable = false)
     private Integer capacity;
 
+    @Embedded
     @Column(name = "status", nullable = false)
     private VehicleStatus vehicleStatus;
 
