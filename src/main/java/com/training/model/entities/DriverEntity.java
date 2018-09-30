@@ -16,14 +16,14 @@ public class DriverEntity {
     @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @Column(name = "second_name", nullable = false)
-    private String secondName;
+    @Column(name = "last_name", nullable = false)
+    private String lastName;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "license_end_date")
     private Date licenseEndDate;
 
-    @Embedded
+    @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private DriverStatus driverStatus;
 
@@ -31,10 +31,10 @@ public class DriverEntity {
     private String currentCity;
 
     @ManyToOne
-    @JoinColumn(name = "vehicle_id", nullable = true)
+    @JoinColumn(name = "vehicle_id")
     private VehicleEntity vehicle;
 
-    protected DriverEntity() {
+    public DriverEntity() {
     }
 
     public Long getId() {
@@ -61,12 +61,12 @@ public class DriverEntity {
         this.firstName = firstName;
     }
 
-    public String getSecondName() {
-        return secondName;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setSecondName(String secondName) {
-        this.secondName = secondName;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public Date getLicenseEndDate() {
@@ -107,7 +107,7 @@ public class DriverEntity {
                 "id=" + id +
                 ", drivingLicenseNum=" + drivingLicenseNum +
                 ", firstName='" + firstName + '\'' +
-                ", secondName='" + secondName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", licenseEndDate=" + licenseEndDate +
                 ", driverStatus=" + driverStatus +
                 ", currentCity='" + currentCity + '\'' +

@@ -9,7 +9,7 @@ public class LoadEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Embedded
+    @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private LoadStatus loadStatus;
 

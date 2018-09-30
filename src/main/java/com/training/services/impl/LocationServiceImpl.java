@@ -4,7 +4,9 @@ import com.training.model.entities.LocationEntity;
 import com.training.repositories.LocationRepository;
 import com.training.services.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class LocationServiceImpl implements LocationService {
 
     @Autowired

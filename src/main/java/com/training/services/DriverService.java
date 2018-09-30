@@ -14,5 +14,5 @@ public interface DriverService {
 
     void delete(DriverEntity driverEntity);
 
-    List<DriverEntity> findAll();
+    List<DriverEntity> getDrivers();
 }

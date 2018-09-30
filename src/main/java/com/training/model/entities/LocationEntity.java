@@ -19,12 +19,6 @@ public class LocationEntity {
     @Column(name = "longitude", nullable = false)
     private Double longitude;
 
-    @OneToMany(mappedBy = "location")
-    private Set<LoadEntity> loads;
-
-    @OneToMany(mappedBy = "location")
-    private Set<VehicleEntity> vehicles;
-
     protected LocationEntity(){}
 
     public Long getId() {
@@ -59,22 +53,6 @@ public class LocationEntity {
         this.longitude = longitude;
     }
 
-    public Set<LoadEntity> getLoads() {
-        return loads;
-    }
-
-    public void setLoads(Set<LoadEntity> loads) {
-        this.loads = loads;
-    }
-
-    public Set<VehicleEntity> getVehicles() {
-        return vehicles;
-    }
-
-    public void setVehicles(Set<VehicleEntity> vehicles) {
-        this.vehicles = vehicles;
-    }
-
     @Override
     public String toString() {
         return "LocationEntity{" +
@@ -82,8 +60,6 @@ public class LocationEntity {
                 ", name='" + name + '\'' +
                 ", latitude=" + latitude +
                 ", longitude=" + longitude +
-                ", loads=" + loads +
-                ", vehicles=" + vehicles +
                 '}';
     }
 }

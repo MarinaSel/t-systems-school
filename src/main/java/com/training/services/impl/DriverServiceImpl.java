@@ -38,7 +38,7 @@ public class DriverServiceImpl implements DriverService {
     }
 
     @Override
-    public List<DriverEntity> findAll(){
+    public List<DriverEntity> getDrivers(){
         return driverRepository.findAll();
     }
 }

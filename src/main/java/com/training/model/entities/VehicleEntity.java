@@ -16,7 +16,7 @@ public class VehicleEntity {
     @Column(name = "capacity", nullable = false)
     private Integer capacity;
 
-    @Embedded
+    @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private VehicleStatus vehicleStatus;
 
