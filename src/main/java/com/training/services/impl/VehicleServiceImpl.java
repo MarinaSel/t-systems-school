@@ -2,7 +2,7 @@ package com.training.services.impl;
 
 import com.training.model.entities.VehicleEntity;
 import com.training.repositories.VehicleRepository;
-import com.training.services.VehicleService;
+import com.training.services.interfaces.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

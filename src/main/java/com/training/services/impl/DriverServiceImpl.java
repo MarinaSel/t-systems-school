@@ -2,11 +2,10 @@ package com.training.services.impl;
 
 import com.training.model.entities.DriverEntity;
 import com.training.repositories.DriverRepository;
-import com.training.services.DriverService;
+import com.training.services.interfaces.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

@@ -2,7 +2,7 @@ package com.training.services.impl;
 
 import com.training.model.entities.LoadEntity;
 import com.training.repositories.LoadRepository;
-import com.training.services.LoadService;
+import com.training.services.interfaces.LoadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

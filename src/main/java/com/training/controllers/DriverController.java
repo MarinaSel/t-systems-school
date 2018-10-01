@@ -1,7 +1,7 @@
 package com.training.controllers;
 
 import com.training.model.entities.DriverEntity;
-import com.training.services.DriverService;
+import com.training.services.interfaces.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
