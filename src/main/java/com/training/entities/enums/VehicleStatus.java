@@ -1,4 +1,4 @@
-package com.training.model.statuses;
+package com.training.entities.enums;
 
 public enum VehicleStatus {
     WORKING, UNWORKING;

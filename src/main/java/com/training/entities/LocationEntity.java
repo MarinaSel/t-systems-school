@@ -1,13 +1,13 @@
-package com.training.model.entities;
+package com.training.entities;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Table(name = "locations")
 public class LocationEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "locations_id_seq", sequenceName = "locations_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "locations_id_seq")
     private Long id;
 
     @Column(name = "name", nullable = false)

@@ -1,18 +1,23 @@
-package com.training.model.entities;
-import com.training.model.statuses.LoadStatus;
+package com.training.entities;
+import com.training.entities.enums.LoadStatus;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "loads")
 public class LoadEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "loads_id_seq", sequenceName = "loads_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "loads_id_seq")
     private Long id;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private LoadStatus loadStatus;
 
+    @NotNull
     @Column(name = "weight",nullable = false)
     private Integer weight;
 
@@ -20,11 +25,7 @@ public class LoadEntity {
     @JoinColumn(name = "vehicle_id", nullable = false)
     private VehicleEntity vehicle;
 
-    @ManyToOne
-    @JoinColumn(name = "location_id", nullable = false)
-    private LocationEntity location;
-
-    protected LoadEntity(){}
+    public LoadEntity(){}
 
     public Long getId() {
         return id;
@@ -58,14 +59,6 @@ public class LoadEntity {
         this.vehicle = vehicle;
     }
 
-    public LocationEntity getLocation() {
-        return location;
-    }
-
-    public void setLocation(LocationEntity location) {
-        this.location = location;
-    }
-
     @Override
     public String toString() {
         return "LoadEntity{" +
@@ -73,7 +66,6 @@ public class LoadEntity {
                 ", loadStatus=" + loadStatus +
                 ", weight=" + weight +
                 ", vehicle=" + vehicle +
-                ", location=" + location +
                 '}';
     }
 }

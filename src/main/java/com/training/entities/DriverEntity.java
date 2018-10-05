@@ -1,42 +1,57 @@
-package com.training.model.entities;
-import com.training.model.statuses.DriverStatus;
+package com.training.entities;
+import com.training.entities.enums.DriverStatus;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
 @Table(name = "drivers")
 public class DriverEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "drivers_id_seq", initialValue = 1, sequenceName = "drivers_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "drivers_id_seq")
     private Long id;
 
-    @Column(name = "driving_license_num", nullable = false)
+    @NotNull
+    @Size(max = 7)
+    @Column(name = "driving_license_num", nullable = false, unique = true)
     private String drivingLicenseNum;
 
+    @NotNull
     @Column(name = "first_name", nullable = false)
     private String firstName;
 
+    @NotNull
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
+
+    @NotNull
     @Temporal(TemporalType.DATE)
-    @Column(name = "license_end_date")
+    @DateTimeFormat(pattern = "dd-mm-yyyy")
+    @Column(name = "license_end_date", nullable = false)
     private Date licenseEndDate;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private DriverStatus driverStatus;
 
-    @Column(name = "current_city", nullable = false)
+    @Column(name = "current_city")
     private String currentCity;
 
     @ManyToOne
     @JoinColumn(name = "vehicle_id")
     private VehicleEntity vehicle;
 
-    public DriverEntity() {
+    @PrePersist
+    public void prePersist() {
+        if(driverStatus == null)
+            driverStatus = DriverStatus.UNDEFINED;
     }
-
     public Long getId() {
         return id;
     }
@@ -105,7 +120,7 @@ public class DriverEntity {
     public String toString() {
         return "DriverEntity{" +
                 "id=" + id +
-                ", drivingLicenseNum=" + drivingLicenseNum +
+                ", drivingLicenseNum='" + drivingLicenseNum + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", licenseEndDate=" + licenseEndDate +

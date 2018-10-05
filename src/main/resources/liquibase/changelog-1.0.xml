@@ -1,18 +1,26 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
-<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
-    <changeSet author="Marina" id="1538317232425-10">
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="Marina" id="1">
+        <createSequence sequenceName="drivers_id_seq"/>
+        <createSequence sequenceName="loads_id_seq"/>
+        <createSequence sequenceName="locations_id_seq"/>
+        <createSequence sequenceName="vehicles_id_seq"/>
+    </changeSet>
+    <changeSet author="Marina" id="2">
         <createTable tableName="drivers">
             <column autoIncrement="true" name="id" type="BIGSERIAL">
                 <constraints primaryKey="true" primaryKeyName="drivers_pk"/>
             </column>
-            <column name="vehicle_id" type="BIGINT"/>
-            <column name="driving_license_num" type="VARCHAR(7)">
+            <column name="vehicle_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="first_name" type="VARCHAR">
+            <column name="driving_license_num" type="VARCHAR(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="last_name" type="VARCHAR">
+            <column name="first_name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="VARCHAR(50)">
                 <constraints nullable="false"/>
             </column>
             <column name="license_end_date" type="date">
@@ -21,12 +29,10 @@
             <column name="status" type="VARCHAR">
                 <constraints nullable="false"/>
             </column>
-            <column name="current_city" type="VARCHAR">
-                <constraints nullable="false"/>
-            </column>
+            <column name="current_city" type="VARCHAR"/>
         </createTable>
     </changeSet>
-    <changeSet author="Marina" id="1538317232425-3">
+    <changeSet author="Marina" id="3">
         <createTable tableName="loads">
             <column autoIncrement="true" name="id" type="BIGSERIAL">
                 <constraints primaryKey="true" primaryKeyName="loads_pk"/>
@@ -34,18 +40,16 @@
             <column name="vehicle_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="location_id" type="BIGINT">
-                <constraints nullable="false"/>
-            </column>
+            <column name="location_id" type="BIGINT"/>
             <column name="status" type="VARCHAR">
                 <constraints nullable="false"/>
             </column>
-            <column name="weight" type="INTEGER">
+            <column name="weight" type="INT">
                 <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="Marina" id="1538317232425-4">
+    <changeSet author="Marina" id="4">
         <createTable tableName="locations">
             <column autoIncrement="true" name="id" type="BIGSERIAL">
                 <constraints primaryKey="true" primaryKeyName="locations_pk"/>
@@ -61,35 +65,30 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="Marina" id="1538317232425-5">
+    <changeSet author="Marina" id="5">
         <createTable tableName="vehicles">
             <column autoIncrement="true" name="id" type="BIGSERIAL">
                 <constraints primaryKey="true" primaryKeyName="vehicles_pk"/>
             </column>
-            <column name="location_id" type="BIGINT">
-                <constraints nullable="false"/>
-            </column>
+            <column name="location_id" type="BIGINT"/>
             <column name="registration_number" type="VARCHAR(7)">
                 <constraints nullable="false"/>
             </column>
-            <column name="capacity" type="INTEGER">
+            <column name="status" type="VARCHAR">
                 <constraints nullable="false"/>
             </column>
-            <column name="current_city" type="VARCHAR">
+            <column name="capacity" type="INT">
                 <constraints nullable="false"/>
             </column>
+            <column name="current_city" type="VARCHAR"/>
         </createTable>
     </changeSet>
-    <changeSet author="Marina" id="1538317232425-6">
-        <addForeignKeyConstraint baseColumnNames="location_id" baseTableName="loads" constraintName="locations_loads_fk" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="locations" validate="true"/>
-    </changeSet>
-    <changeSet author="Marina" id="1538317232425-7">
-        <addForeignKeyConstraint baseColumnNames="location_id" baseTableName="vehicles" constraintName="locations_vehicles_fk" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="locations" validate="true"/>
-    </changeSet>
-    <changeSet author="Marina" id="1538317232425-8">
-        <addForeignKeyConstraint baseColumnNames="vehicle_id" baseTableName="drivers" constraintName="vehicles_drivers_fk" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="vehicles" validate="true"/>
-    </changeSet>
-    <changeSet author="Marina" id="1538317232425-9">
-        <addForeignKeyConstraint baseColumnNames="vehicle_id" baseTableName="loads" constraintName="vehicles_loads_fk" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="vehicles" validate="true"/>
+    <changeSet author="Marina" id="6">
+        <addUniqueConstraint columnNames="driving_license_num" constraintName="drivers_driving_license_num_key" tableName="drivers"/>
+        <addUniqueConstraint columnNames="registration_number" constraintName="vehicles_registration_number_key" tableName="vehicles"/>
+        <addForeignKeyConstraint baseColumnNames="location_id" baseTableName="loads" constraintName="locations_loads_fk" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="locations"/>
+        <addForeignKeyConstraint baseColumnNames="location_id" baseTableName="vehicles" constraintName="locations_vehicles_fk" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="locations"/>
+        <addForeignKeyConstraint baseColumnNames="vehicle_id" baseTableName="drivers" constraintName="vehicles_drivers_fk" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="vehicles"/>
+        <addForeignKeyConstraint baseColumnNames="vehicle_id" baseTableName="loads" constraintName="vehicles_loads_fk" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="vehicles"/>
     </changeSet>
 </databaseChangeLog>

@@ -1,6 +1,6 @@
 package com.training.services.impl;
 
-import com.training.model.entities.LocationEntity;
+import com.training.entities.LocationEntity;
 import com.training.repositories.LocationRepository;
 import com.training.services.interfaces.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +28,8 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public void delete(LocationEntity locationEntity){
-        locationRepository.delete(locationEntity);
+    public void remove(Long id){
+        locationRepository.deleteById(id);
     }
 
 

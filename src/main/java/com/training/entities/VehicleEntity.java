@@ -1,26 +1,35 @@
-package com.training.model.entities;
-import com.training.model.statuses.VehicleStatus;
+package com.training.entities;
+import com.training.entities.enums.VehicleStatus;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.*;
 
 @Entity
 @Table(name = "vehicles")
 public class VehicleEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "vehicles_id_seq", initialValue = 1, sequenceName = "vehicles_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "vehicles_id_seq")
     private Long id;
 
-    @Column(name = "registration_number", nullable = false, length = 7)
+    @Size(max = 7)
+    @NotNull
+    @Column(name = "registration_number", nullable = false, length = 7, unique = true)
     private String registrationNumber;
 
+    @NotNull
     @Column(name = "capacity", nullable = false)
     private Integer capacity;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private VehicleStatus vehicleStatus;
 
-    @Column(name = "current_city", nullable = false)
+    @NotNull
+    @Column(name = "current_city")
     private String currentCity;
 
     @OneToMany(mappedBy = "vehicle")
@@ -30,10 +39,16 @@ public class VehicleEntity {
     Set<LoadEntity> loads;
 
     @ManyToOne
-    @JoinColumn(name = "location_id", nullable = false)
+    @JoinColumn(name = "location_id")
     private LocationEntity location;
 
-    protected VehicleEntity(){}
+    @PrePersist
+    public void prePersist() {
+        if(vehicleStatus == null)
+            vehicleStatus = VehicleStatus.UNWORKING;
+    }
+
+    public VehicleEntity(){}
 
     public Long getId() {
         return id;
