@@ -8,7 +8,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-public class LoadMapper {
+public final class LoadMapper {
+
+    private LoadMapper(){};
 
     public static LoadEntity getEntityFromModel(Load load){
         LoadEntity loadEntity = new LoadEntity();

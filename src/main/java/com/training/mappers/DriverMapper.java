@@ -8,7 +8,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-public class DriverMapper {
+public final class DriverMapper {
+
+    private DriverMapper(){};
 
     public static DriverEntity getEntityFromModel(Driver driver){
         DriverEntity driverEntity = new DriverEntity();

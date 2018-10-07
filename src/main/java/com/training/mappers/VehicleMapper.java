@@ -6,7 +6,9 @@ import com.training.models.Vehicle;
 import java.util.LinkedList;
 import java.util.List;
 
-public class VehicleMapper {
+public final class VehicleMapper {
+
+    private VehicleMapper(){};
 
     public static Vehicle getModelFromEntity(VehicleEntity vehicleEntity){
         Vehicle vehicle = new Vehicle();

@@ -20,30 +20,29 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
-@RequestMapping
 public class VehicleController {
 
     @Autowired
     private VehicleService vehicleService;
 
-    @RequestMapping("/vehicles")
+    @GetMapping("/vehicles")
     public ModelAndView allVehiclesView() {
         List<Vehicle> vehicles = vehicleService.getAll();
         return new ModelAndView("vehiclesView", "vehicle", vehicles);
     }
 
-    @RequestMapping(value = "/addVehicle", method = RequestMethod.GET)
+    @GetMapping(value = "/addVehicle")
     public ModelAndView getAddDriverPage() {
         return new ModelAndView("addVehicleView", "newVehicle", new VehicleEntity());
     }
 
-    @RequestMapping(value="/addVehicle",method = RequestMethod.POST)
+    @PostMapping(value="/addVehicle")
     public ModelAndView addVehicle(@ModelAttribute("newVehicle") Vehicle newVehicle){
         vehicleService.create(newVehicle);
         return new ModelAndView("redirect:/vehicles");
     }
 
-    @RequestMapping(value = "/removeVehicle/{id}")
+    @GetMapping(value = "/removeVehicle/{id}")
     public ModelAndView deleteVehicle(@PathVariable("id") Long id){
         vehicleService.remove(id);
         return new ModelAndView("redirect:/vehicles");
