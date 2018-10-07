@@ -1,16 +1,39 @@
-package com.training.model;
+package com.training.models;
 
-import org.springframework.stereotype.Component;
+import com.training.entities.enums.DriverStatus;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
-@Component
 public class Driver {
 
+    private Long id;
     private String firstName;
     private String lastName;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date licenseEndDate;
     private String drivingLicenseNum;
+    private DriverStatus status;
+
+    public Driver(){}
+
+    public Driver(Long id, String firstName, String lastName, Date licenseEndDate, String drivingLicenseNum, DriverStatus status) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.licenseEndDate = licenseEndDate;
+        this.drivingLicenseNum = drivingLicenseNum;
+        this.status = status;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getDrivingLicenseNum() {
         return drivingLicenseNum;
@@ -42,5 +65,13 @@ public class Driver {
 
     public void setLicenseEndDate(Date licenseEndDate) {
         this.licenseEndDate = licenseEndDate;
+    }
+
+    public DriverStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(DriverStatus status) {
+        this.status = status;
     }
 }

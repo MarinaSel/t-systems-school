@@ -1,6 +1,7 @@
 package com.training.controllers;
 
 import com.training.entities.LoadEntity;
+import com.training.models.Load;
 import com.training.services.interfaces.LoadService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,17 +22,17 @@ public class LoadController {
 
     @RequestMapping(value = "/load", method = RequestMethod.GET)
     public ModelAndView addLoadView() {
-        return new ModelAndView("addLoad", "newLoad", new LoadEntity());
+        return new ModelAndView("addLoad", "newLoad", new Load());
     }
 
     @RequestMapping(value="/addLoad",method = RequestMethod.POST)
-    public ModelAndView addLoad(@ModelAttribute("newLoad") LoadEntity newLoad){
+    public ModelAndView addLoad(@ModelAttribute("newLoad") Load newLoad){
         loadService.create(newLoad);
         return new ModelAndView("redirect:/loadsView");
     }
     @RequestMapping("/loadsView")
     public ModelAndView viewAllLoads() {
-        List<LoadEntity> loads = loadService.getAll();
+        List<Load> loads = loadService.getAll();
         return new ModelAndView("loadsView", "loads", loads);
     }
 

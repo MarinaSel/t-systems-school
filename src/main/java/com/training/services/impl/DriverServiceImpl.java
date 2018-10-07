@@ -1,10 +1,13 @@
 package com.training.services.impl;
 
 import com.training.entities.DriverEntity;
+import com.training.mappers.DriverMapper;
+import com.training.models.Driver;
 import com.training.repositories.DriverRepository;
 import com.training.services.interfaces.DriverService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,18 +20,19 @@ public class DriverServiceImpl implements DriverService{
     private DriverRepository driverRepository;
 
     @Transactional
-    public DriverEntity get(Long id){
-        return driverRepository.getOne(id);
+    public Driver get(Long id){
+        return DriverMapper.getModelFromEntity(driverRepository.getOne(id));
     }
 
     @Transactional
-    public DriverEntity update(DriverEntity driverEntity){
-        return driverRepository.saveAndFlush(driverEntity);
+    public Driver update(Driver driver){
+        DriverEntity driverEntity = driverRepository.saveAndFlush(DriverMapper.getEntityFromModel(driver));
+        return DriverMapper.getModelFromEntity(driverEntity);
     }
 
     @Transactional
-    public void create(DriverEntity driverEntity){
-        driverRepository.saveAndFlush(driverEntity);
+    public void create(Driver driver){
+        driverRepository.saveAndFlush(DriverMapper.getEntityFromModel(driver));
     }
 
     @Transactional
@@ -37,7 +41,7 @@ public class DriverServiceImpl implements DriverService{
     }
 
     @Transactional
-    public List<DriverEntity> getAll(){
-        return driverRepository.findAll();
+    public List<Driver> getAll(){
+        return DriverMapper.getModelListFromEntityList(driverRepository.findAll());
     }
 }

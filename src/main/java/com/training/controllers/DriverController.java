@@ -1,8 +1,7 @@
 package com.training.controllers;
 
 import com.training.entities.DriverEntity;
-import com.training.entities.enums.DriverStatus;
-import com.training.model.Driver;
+import com.training.models.Driver;
 import com.training.services.interfaces.DriverService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,30 +16,25 @@ import java.util.List;
 
 
 @Controller
-@ComponentScan("com.training.model")
+@ComponentScan("com.training.models")
 public class DriverController {
 
     @Autowired
     private DriverService driverService;
 
-    @GetMapping("/homePage")
-    public ModelAndView homePage(){
-        return new ModelAndView("homePage");
-    }
-
-    @GetMapping(value = "/addDriver")
+    @GetMapping(value = "/getAddDriverView")
     public ModelAndView getAddDriverPage() {
         return new ModelAndView("addDriverView");
     }
 
-    @PostMapping(value="/add")
-    public ModelAndView addDriver(@ModelAttribute("newDriver") DriverEntity newDriver){
+    @PostMapping(value="/addDriver")
+    public ModelAndView addDriver(@ModelAttribute("newDriver") Driver newDriver){
         driverService.create(newDriver);
         return new ModelAndView("redirect:/drivers");
     }
     @GetMapping("/drivers")
     public ModelAndView getAllDriversPage() {
-        List<DriverEntity> drivers = driverService.getAll();
+        List<Driver> drivers = driverService.getAll();
         return new ModelAndView("driversView", "drivers", drivers);
     }
 
@@ -52,7 +46,7 @@ public class DriverController {
 
     @GetMapping("/edit/{id}")
     public ModelAndView getDriverById(@PathVariable("id") Long id, RedirectAttributes redirectAttributes){
-        DriverEntity driverToEdit = driverService.get(id);
+        Driver driverToEdit = driverService.get(id);
         redirectAttributes.addFlashAttribute("editableDriver", driverToEdit);
         return new ModelAndView("redirect:/editDriver");
     }
@@ -63,7 +57,7 @@ public class DriverController {
     }
 
     @PostMapping("/updateDriver")
-    public ModelAndView editDriverView(@ModelAttribute("editableDriver") DriverEntity driver){
+    public ModelAndView editDriverView(@ModelAttribute("editableDriver") Driver driver){
         driverService.update(driver);
         return new ModelAndView("redirect:/drivers");
     }

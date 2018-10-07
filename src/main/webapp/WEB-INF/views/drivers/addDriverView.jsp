@@ -21,7 +21,7 @@
 
 <h1>Add new driver</h1>
 
-    <form method="post" action="/add" modelAttribute = "driver">
+    <form method="post" action="/addDriver" modelAttribute = "newDriver">
         <table>
             <tr>
                 <th align="left">First name</th>

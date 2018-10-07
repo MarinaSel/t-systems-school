@@ -30,13 +30,14 @@
                 <td>${driver.drivingLicenseNum}</td>
                 <td>${driver.licenseEndDate}</td>
                 <td>${driver.status}</td>
+
                 <td><a href="/edit/${driver.id}">Edit</a></td>
                 <td><a href="/removeDriver/${driver.id}">Delete</a></td>
             </tr>
         </c:forEach>
     </table>
 
-   <p><a href="/addDriver">Add new driver</a></p>
+   <p><a href="/getAddDriverView">Add new driver</a></p>
    <p><a href="homePage">Home page</a></p>
 </body>
 </html>

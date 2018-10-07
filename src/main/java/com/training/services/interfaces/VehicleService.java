@@ -1,11 +1,11 @@
 package com.training.services.interfaces;
 
-import com.training.entities.VehicleEntity;
+import com.training.models.Vehicle;
 import com.training.services.BaseService;
 
 import java.util.List;
 
-public interface VehicleService extends BaseService<VehicleEntity, Long> {
+public interface VehicleService extends BaseService<Vehicle, Long> {
 
-    List<VehicleEntity> getAll();
+    List<Vehicle> getAll();
 }

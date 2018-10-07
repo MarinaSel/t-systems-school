@@ -1,6 +1,8 @@
 package com.training.services.impl;
 
 import com.training.entities.VehicleEntity;
+import com.training.mappers.VehicleMapper;
+import com.training.models.Vehicle;
 import com.training.repositories.VehicleRepository;
 import com.training.services.interfaces.VehicleService;
 
@@ -17,17 +19,18 @@ public class VehicleServiceImpl implements VehicleService {
     private VehicleRepository vehicleRepository;
 
     @Transactional
-    public VehicleEntity get(Long id){
-        return vehicleRepository.getOne(id);
+    public Vehicle get(Long id){
+        return VehicleMapper.getModelFromEntity(vehicleRepository.getOne(id));
     }
 
     @Transactional
-    public void create(VehicleEntity vehicleEntity){ vehicleRepository.saveAndFlush(vehicleEntity);
+    public void create(Vehicle vehicle){ vehicleRepository.saveAndFlush(VehicleMapper.getEntityFromModel(vehicle));
     }
 
     @Transactional
-    public VehicleEntity update(VehicleEntity vehicleEntity){
-        return vehicleRepository.saveAndFlush(vehicleEntity);
+    public Vehicle update(Vehicle vehicle){
+        VehicleEntity vehicleEntity = vehicleRepository.saveAndFlush(VehicleMapper.getEntityFromModel(vehicle));
+        return VehicleMapper.getModelFromEntity(vehicleEntity);
     }
 
     @Transactional
@@ -36,7 +39,7 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Transactional
-    public List<VehicleEntity> getAll() {
-        return vehicleRepository.findAll();
+    public List<Vehicle> getAll() {
+        return VehicleMapper.getModelListFromEntityList(vehicleRepository.findAll());
     }
 }

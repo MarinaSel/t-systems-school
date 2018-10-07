@@ -12,8 +12,8 @@
     </tr>
     <c:forEach items="${loads}" var="load">
         <tr>
-            <td>${load.status}</td>
             <td>${load.weight}</td>
+            <td>${load.status}</td>
         </tr>
     </c:forEach>
 </table>

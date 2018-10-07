@@ -1,6 +1,8 @@
 package com.training.services.impl;
 
 import com.training.entities.LoadEntity;
+import com.training.mappers.LoadMapper;
+import com.training.models.Load;
 import com.training.repositories.LoadRepository;
 import com.training.services.interfaces.LoadService;
 
@@ -17,18 +19,19 @@ public class LoadServiceImpl implements LoadService {
     LoadRepository loadRepository;
 
     @Transactional
-    public LoadEntity get(Long id){
-        return loadRepository.getOne(id);
+    public Load get(Long id){
+        return LoadMapper.getModelFromEntity(loadRepository.getOne(id));
     }
 
     @Transactional
-    public void create(LoadEntity loadEntity){
-        loadRepository.saveAndFlush(loadEntity);
+    public void create(Load load){
+        loadRepository.saveAndFlush(LoadMapper.getEntityFromModel(load));
     }
 
     @Transactional
-    public LoadEntity update(LoadEntity loadEntity){
-        return loadRepository.saveAndFlush(loadEntity);
+    public Load update(Load load){
+        LoadEntity loadEntity = LoadMapper.getEntityFromModel(load);
+        return LoadMapper.getModelFromEntity(loadEntity);
     }
 
     @Transactional
@@ -37,8 +40,8 @@ public class LoadServiceImpl implements LoadService {
     }
 
     @Transactional
-    public List<LoadEntity> getAll(){
-        return loadRepository.findAll();
+    public List<Load> getAll(){
+        return LoadMapper.getModelListFromEntityList(loadRepository.findAll());
     }
 
 }
