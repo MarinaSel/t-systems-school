@@ -50,7 +50,6 @@ public class DriverEntity {
     private VehicleEntity vehicle;
 
     @PrePersist
-    @PreUpdate
     public void prePersist() {
         if(status == null)
             status = DriverStatus.UNDEFINED;

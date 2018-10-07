@@ -2,6 +2,7 @@ package com.training.controllers;
 
 import com.training.entities.VehicleEntity;
 import com.training.services.interfaces.VehicleService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;

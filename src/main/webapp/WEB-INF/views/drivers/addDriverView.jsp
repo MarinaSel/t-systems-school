@@ -21,7 +21,7 @@
 
 <h1>Add new driver</h1>
 
-    <form method="post" action="/addDriver" modelAttribute = "driver">
+    <form method="post" action="/add" modelAttribute = "driver">
         <table>
             <tr>
                 <th align="left">First name</th>
@@ -44,7 +44,7 @@
             <tr>
                 <th align="left">License end date</th>
                 <td>
-                    <input name="licenseEndDate" id = "licenseEndDate_id" required/>
+                    <input name="licenseEndDate" id = "licenseEndDate_id" required readonly = "true"/>
                 </td>
             </tr>
             <td>

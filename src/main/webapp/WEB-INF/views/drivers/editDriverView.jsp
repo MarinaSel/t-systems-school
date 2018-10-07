@@ -18,11 +18,11 @@
 
 <body>
 
-<form method="post" action="/updatingDriver" modelAttribute = "editableDriver">
+<form method="post" action="/updateDriver" modelAttribute = "editableDriver">
     <table>
         <tr>
             <td>
-                <input type="hidden" name="id" value="${editableDriver.id}" maxlength="50" required/>
+                <input type="hidden" name="id" value="${editableDriver.id}" />
             </td>
         </tr>
         <tr>
@@ -46,7 +46,19 @@
         <tr>
             <th align="left">License end date</th>
             <td>
-                <input type="date"  name="licenseEndDate" value="${editableDriver.licenseEndDate}" id="licenseEndDate_id" required/>
+                <input name="licenseEndDate" value="${editableDriver.licenseEndDate}" id="licenseEndDate_id" readonly="true" required/>
+            </td>
+        </tr>
+        <tr>
+            <th align="left">Status</th>
+            <td>
+               <select name="status" required>
+                   <option value="" selected disabled hidden>${editableDriver.status}</option>
+                   <option>UNDEFINED</option>
+                   <option>WORK</option>
+                   <option>REST</option>
+                   <option>DRIVING</option>
+               </select>
             </td>
         </tr>
         <td>
