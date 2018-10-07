@@ -3,64 +3,66 @@ package com.training.controllers;
 import com.training.entities.DriverEntity;
 import com.training.services.interfaces.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
 
 @Controller
-@RequestMapping
+@ComponentScan("com.training.model")
 public class DriverController {
 
     @Autowired
     private DriverService driverService;
 
-    @RequestMapping("/homePage")
+    @GetMapping("/homePage")
     public String homePage(){
         return "homePage";
     }
 
-    @RequestMapping(value = "/driver", method = RequestMethod.GET)
-    public ModelAndView addDriverView() {
-        return new ModelAndView("addDriver", "newDriver", new DriverEntity());
+    @GetMapping(value = "/addDriverPage")
+    public ModelAndView getAddDriverPage() {
+        return new ModelAndView("addDriverView");
     }
 
-    @RequestMapping(value="/addDriver",method = RequestMethod.POST)
+    @PostMapping(value="/addDriver")
     public ModelAndView addDriver(@ModelAttribute("newDriver") DriverEntity newDriver){
         driverService.create(newDriver);
-        return new ModelAndView("redirect:/driversView");
+        return new ModelAndView("redirect:/driversViewPage");
     }
-    @RequestMapping("/driversView")
-    public ModelAndView viewAllDrivers() {
+    @GetMapping("/driversViewPage")
+    public ModelAndView getAllDriversPage() {
         List<DriverEntity> drivers = driverService.getAll();
-        return new ModelAndView("driversView", "drivers", drivers);
+        return new ModelAndView("allDriversView", "drivers", drivers);
     }
 
-    @RequestMapping("/removeDriver/{id}")
-    public ModelAndView deleteDriver(@PathVariable("id") Long id){
+    @GetMapping("/removingDriver/{id}")
+    public ModelAndView removeDriver(@PathVariable("id") Long id){
         driverService.remove(id);
-        return new ModelAndView("redirect:/driversView");
+        return new ModelAndView("redirect:/driversViewPage");
     }
 
-    @RequestMapping("/edit/{id}")
-    public ModelAndView editDriver(@PathVariable("id") Long id){
-        DriverEntity driver = driverService.get(id);
-        return new ModelAndView("redirect:/editDriver","editedDriver", driver);
+    @GetMapping("/driverEditingPage/{id}")
+    public ModelAndView getDriverById(@PathVariable("id") Long id, RedirectAttributes redirectAttributes){
+        DriverEntity driverToEdit = driverService.get(id);
+        redirectAttributes.addFlashAttribute("editableDriver", driverToEdit);
+        return new ModelAndView("redirect:/editingDriverView");
     }
 
-    @RequestMapping("/editDriver")
-    public ModelAndView editDriverView(){
-        return new ModelAndView("editDriver");
+    @GetMapping("/editingDriverView")
+    public ModelAndView getEditDriverPage(Model model){
+        return new ModelAndView("editDriverView", model.asMap());
     }
 
-    @RequestMapping(value="/editSave",method = RequestMethod.POST)
-    public ModelAndView editSave(@ModelAttribute("editedDriver") DriverEntity driver ){
-        System.out.println(driver.toString());
+    @PostMapping("/updatingDriver")
+    public ModelAndView editDriverView(@ModelAttribute("editableDriver") DriverEntity driver){
         driverService.update(driver);
-        return new ModelAndView("redirect:/driversView");
+        return new ModelAndView("redirect:/driversViewPage");
     }
-
 }
 

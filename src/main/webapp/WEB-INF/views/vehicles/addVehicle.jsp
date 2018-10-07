@@ -16,6 +16,7 @@
             <input type="submit" value="Save"/>
         </td>
     </table>
+    <p><a href="homePage">Home page</a></p>
 </form>
 </body>
 </html>

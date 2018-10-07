@@ -21,6 +21,7 @@
             <th>Edit</th>
             <th>Delete</th>
         </tr>
+
         <c:forEach items="${drivers}" var="driver">
             <tr>
                 <td>${driver.id}</td>
@@ -28,12 +29,14 @@
                 <td>${driver.lastName}</td>
                 <td>${driver.drivingLicenseNum}</td>
                 <td>${driver.licenseEndDate}</td>
-                <td>${driver.driverStatus}</td>
-                <td><a href="/edit/${driver.id}">Edit</a></td>
-                <td><a href="/removeDriver/${driver.id}">Delete</a></td>
+                <td>${driver.status}</td>
+                <td><a href="/driverEditingPage/${driver.id}">Edit</a></td>
+                <td><a href="/removingDriver/${driver.id}">Delete</a></td>
             </tr>
         </c:forEach>
     </table>
-   <p><a href="driver">Add new driver</a></p>
+
+   <p><a href="/addDriverPage">Add new driver</a></p>
+   <p><a href="homePage">Home page</a></p>
 </body>
 </html>

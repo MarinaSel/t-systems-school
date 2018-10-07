@@ -5,7 +5,7 @@
     <title>Home page</title>
 </head>
 <body>
-<a href="driversView">Drivers</a>
+<a href="driversViewPage">Drivers</a>
 <p><a href = "vehiclesView">Vehicles</a></p>
 <p><a href="loadsView">Loads</a></p>
 

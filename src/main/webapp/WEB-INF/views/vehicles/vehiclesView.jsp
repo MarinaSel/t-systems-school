@@ -22,11 +22,12 @@
             <td>${vehicle.id}</td>
             <td>${vehicle.registrationNumber}</td>
             <td>${vehicle.capacity}</td>
-            <td>${vehicle.vehicleStatus}</td>
+            <td>${vehicle.status}</td>
             <td><a href="/removeVehicle/${vehicle.id}">Delete</a></td>
         </tr>
     </c:forEach>
 </table>
 <p><a href="vehicle">Add new vehicle</a></p>
+<p><a href="homePage">Home page</a></p>
 </body>
 </html>

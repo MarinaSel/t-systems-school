@@ -4,7 +4,7 @@ import com.training.entities.enums.VehicleStatus;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "vehicles")
@@ -26,7 +26,7 @@ public class VehicleEntity {
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    private VehicleStatus vehicleStatus;
+    private VehicleStatus status;
 
     @NotNull
     @Column(name = "current_city")
@@ -44,8 +44,8 @@ public class VehicleEntity {
 
     @PrePersist
     public void prePersist() {
-        if(vehicleStatus == null)
-            vehicleStatus = VehicleStatus.UNWORKING;
+        if(status == null)
+            status = VehicleStatus.UNWORKING;
     }
 
     public VehicleEntity(){}
@@ -74,12 +74,12 @@ public class VehicleEntity {
         this.capacity = capacity;
     }
 
-    public VehicleStatus getVehicleStatus() {
-        return vehicleStatus;
+    public VehicleStatus getStatus() {
+        return status;
     }
 
-    public void setVehicleStatus(VehicleStatus vehicleStatus) {
-        this.vehicleStatus = vehicleStatus;
+    public void setStatus(VehicleStatus status) {
+        this.status = status;
     }
 
     public String getCurrentCity() {
@@ -119,7 +119,7 @@ public class VehicleEntity {
         return "Vehicle{" +
                 "registrationNumber='" + registrationNumber + '\'' +
                 ", capacity=" + capacity +
-                ", vehicleStatus=" + vehicleStatus +
+                ", status=" + status +
                 ", currentCity='" + currentCity + '\'' +
                 ", drivers=" + drivers +
                 ", loads=" + loads +

@@ -10,35 +10,37 @@ import java.util.Date;
 @Entity
 @Table(name = "drivers")
 public class DriverEntity {
+
     @Id
     @SequenceGenerator(name = "drivers_id_seq", initialValue = 1, sequenceName = "drivers_id_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "drivers_id_seq")
     private Long id;
 
     @NotNull
-    @Size(max = 7)
-    @Column(name = "driving_license_num", nullable = false, unique = true)
+    @Size(max = 50)
+    @Column(name = "driving_license_num", nullable = false, unique = true, length = 50)
     private String drivingLicenseNum;
 
     @NotNull
-    @Column(name = "first_name", nullable = false)
+    @Size(max = 50)
+    @Column(name = "first_name", nullable = false, length = 50)
     private String firstName;
 
     @NotNull
-    @Column(name = "last_name", nullable = false)
+    @Size(max = 50)
+    @Column(name = "last_name", nullable = false, length = 50)
     private String lastName;
-
 
     @NotNull
     @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "dd-mm-yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "license_end_date", nullable = false)
     private Date licenseEndDate;
 
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    private DriverStatus driverStatus;
+    private DriverStatus status;
 
     @Column(name = "current_city")
     private String currentCity;
@@ -48,10 +50,12 @@ public class DriverEntity {
     private VehicleEntity vehicle;
 
     @PrePersist
+    @PreUpdate
     public void prePersist() {
-        if(driverStatus == null)
-            driverStatus = DriverStatus.UNDEFINED;
+        if(status == null)
+            status = DriverStatus.UNDEFINED;
     }
+
     public Long getId() {
         return id;
     }
@@ -92,12 +96,12 @@ public class DriverEntity {
         this.licenseEndDate = licenseEndDate;
     }
 
-    public DriverStatus getDriverStatus() {
-        return driverStatus;
+    public DriverStatus getStatus() {
+        return status;
     }
 
-    public void setDriverStatus(DriverStatus driverStatus) {
-        this.driverStatus = driverStatus;
+    public void setStatus(DriverStatus status) {
+        this.status = status;
     }
 
     public String getCurrentCity() {
@@ -124,7 +128,7 @@ public class DriverEntity {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", licenseEndDate=" + licenseEndDate +
-                ", driverStatus=" + driverStatus +
+                ", status=" + status +
                 ", currentCity='" + currentCity + '\'' +
                 ", vehicle=" + vehicle +
                 '}';

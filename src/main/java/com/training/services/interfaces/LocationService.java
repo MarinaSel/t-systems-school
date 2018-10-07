@@ -1,6 +1,5 @@
 package com.training.services.interfaces;
 
-import com.training.entities.LoadEntity;
 import com.training.entities.LocationEntity;
 import com.training.services.BaseService;
 

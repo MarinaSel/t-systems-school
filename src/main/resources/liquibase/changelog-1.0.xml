@@ -6,13 +6,13 @@
         <createSequence sequenceName="locations_id_seq"/>
         <createSequence sequenceName="vehicles_id_seq"/>
     </changeSet>
-    <changeSet author="Marina" id="2">
+    <changeSet author="Marina" id="8">
+        <dropTable tableName="drivers"/>
         <createTable tableName="drivers">
             <column autoIncrement="true" name="id" type="BIGSERIAL">
                 <constraints primaryKey="true" primaryKeyName="drivers_pk"/>
             </column>
             <column name="vehicle_id" type="BIGINT">
-                <constraints nullable="false"/>
             </column>
             <column name="driving_license_num" type="VARCHAR(50)">
                 <constraints nullable="false"/>

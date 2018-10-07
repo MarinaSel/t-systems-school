@@ -1,22 +1,23 @@
 package com.training.model;
 
-import com.training.entities.enums.DriverStatus;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
+@Component
 public class Driver {
 
     private String firstName;
     private String lastName;
     private Date licenseEndDate;
-    private DriverStatus driverStatus;
+    private String drivingLicenseNum;
 
-    public DriverStatus getDriverStatus() {
-        return driverStatus;
+    public String getDrivingLicenseNum() {
+        return drivingLicenseNum;
     }
 
-    public void setDriverStatus(DriverStatus driverStatus) {
-        this.driverStatus = driverStatus;
+    public void setDrivingLicenseNum(String drivingLicenseNum) {
+        this.drivingLicenseNum = drivingLicenseNum;
     }
 
     public String getFirstName() {

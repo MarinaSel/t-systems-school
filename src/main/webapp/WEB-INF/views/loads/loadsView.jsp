@@ -12,7 +12,7 @@
     </tr>
     <c:forEach items="${loads}" var="load">
         <tr>
-            <td>${load.loadStatus}</td>
+            <td>${load.status}</td>
             <td>${load.weight}</td>
         </tr>
     </c:forEach>

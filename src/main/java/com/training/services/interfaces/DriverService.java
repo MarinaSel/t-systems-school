@@ -8,4 +8,5 @@ import java.util.List;
 public interface DriverService extends BaseService<DriverEntity, Long> {
 
     List<DriverEntity> getAll();
+
 }

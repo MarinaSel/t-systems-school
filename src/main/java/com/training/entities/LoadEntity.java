@@ -15,7 +15,7 @@ public class LoadEntity {
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    private LoadStatus loadStatus;
+    private LoadStatus status;
 
     @NotNull
     @Column(name = "weight",nullable = false)
@@ -35,12 +35,12 @@ public class LoadEntity {
         this.id = id;
     }
 
-    public LoadStatus getLoadStatus() {
-        return loadStatus;
+    public LoadStatus getStatus() {
+        return status;
     }
 
-    public void setLoadStatus(LoadStatus loadStatus) {
-        this.loadStatus = loadStatus;
+    public void setStatus(LoadStatus status) {
+        this.status = status;
     }
 
     public Integer getWeight() {
@@ -63,7 +63,7 @@ public class LoadEntity {
     public String toString() {
         return "LoadEntity{" +
                 "id=" + id +
-                ", loadStatus=" + loadStatus +
+                ", status=" + status +
                 ", weight=" + weight +
                 ", vehicle=" + vehicle +
                 '}';
