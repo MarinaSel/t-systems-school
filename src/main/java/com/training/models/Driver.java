@@ -5,27 +5,18 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
-public class Driver {
+public class Driver extends BaseModel{
 
     private Long id;
     private String firstName;
     private String lastName;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date licenseEndDate;
     private String drivingLicenseNum;
     private DriverStatus status;
 
-    public Driver(){}
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date licenseEndDate;
 
-    public Driver(Long id, String firstName, String lastName, Date licenseEndDate, String drivingLicenseNum, DriverStatus status) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.licenseEndDate = licenseEndDate;
-        this.drivingLicenseNum = drivingLicenseNum;
-        this.status = status;
-    }
+    public Driver(){}
 
     public Long getId() {
         return id;

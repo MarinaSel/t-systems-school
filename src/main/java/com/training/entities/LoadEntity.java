@@ -1,4 +1,5 @@
 package com.training.entities;
+import com.training.entities.enums.BaseEntity;
 import com.training.entities.enums.LoadStatus;
 
 
@@ -17,7 +18,8 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "loads")
-public class LoadEntity {
+public class LoadEntity extends BaseEntity {
+
     @Id
     @SequenceGenerator(name = "loads_id_seq", sequenceName = "loads_id_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "loads_id_seq")
@@ -33,7 +35,7 @@ public class LoadEntity {
     private Integer weight;
 
     @ManyToOne
-    @JoinColumn(name = "vehicle_id", nullable = false)
+    @JoinColumn(name = "vehicle_id")
     private VehicleEntity vehicle;
 
     public LoadEntity(){}
@@ -68,6 +70,21 @@ public class LoadEntity {
 
     public void setVehicle(VehicleEntity vehicle) {
         this.vehicle = vehicle;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        LoadEntity that = (LoadEntity) o;
+
+        return id != null ? id.equals(that.id) : that.id == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
     }
 
     @Override

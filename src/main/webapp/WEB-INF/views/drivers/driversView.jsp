@@ -18,6 +18,7 @@
             <th>Driver's license number</th>
             <th>License end date</th>
             <th>Driver status</th>
+            <th>Creation date</th>
             <th>Edit</th>
             <th>Delete</th>
         </tr>
@@ -30,6 +31,7 @@
                 <td>${driver.drivingLicenseNum}</td>
                 <td>${driver.licenseEndDate}</td>
                 <td>${driver.status}</td>
+                <td>${driver.creationDate}</td>
 
                 <td><a href="/edit/${driver.id}">Edit</a></td>
                 <td><a href="/removeDriver/${driver.id}">Delete</a></td>

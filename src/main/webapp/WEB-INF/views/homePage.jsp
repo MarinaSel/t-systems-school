@@ -16,7 +16,7 @@
     <a href="/vehicles">Vehicles</a>
 </p>
 <p>
-    <a href=>
+    <a href="/loads">Loads</a>
 </p>
 </body>
 </html>

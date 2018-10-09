@@ -15,19 +15,25 @@ public final class LoadMapper {
     public static LoadEntity getEntityFromModel(Load load){
         LoadEntity loadEntity = new LoadEntity();
 
-        load.setId(loadEntity.getId());
-        load.setWeight(loadEntity.getWeight());
-        load.setLoadStatus(loadEntity.getStatus());
+        loadEntity.setId(load.getId());
+        loadEntity.setWeight(load.getWeight());
+        loadEntity.setStatus(load.getStatus());
+        loadEntity.setCreationDate(load.getCreationDate());
 
         return loadEntity;
     }
 
     public static Load getModelFromEntity(LoadEntity loadEntity){
+
+        if(loadEntity == null){
+            return null;
+        }
         Load load = new Load();
 
         load.setId(loadEntity.getId());
         load.setWeight(loadEntity.getWeight());
-        load.setLoadStatus(loadEntity.getStatus());
+        load.setStatus(loadEntity.getStatus());
+        load.setCreationDate(loadEntity.getCreationDate());
 
         return load;
     }
@@ -55,6 +61,10 @@ public final class LoadMapper {
     }
 
     public static Set<LoadEntity> getEntitySetFromModelSet(Set<Load> loads){
+
+        if(loads == null){
+            return null;
+        }
         Set<LoadEntity> loadEntities = new HashSet<>();
 
         for (Load load :

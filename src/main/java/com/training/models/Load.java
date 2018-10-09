@@ -2,18 +2,14 @@ package com.training.models;
 
 import com.training.entities.enums.LoadStatus;
 
-public class Load {
+public class Load extends BaseModel{
+
     private Long id;
     private Integer weight;
     private LoadStatus loadStatus;
 
-    public Load(){}
 
-    public Load(Long id, Integer weight, LoadStatus loadStatus) {
-        this.id = id;
-        this.weight = weight;
-        this.loadStatus = loadStatus;
-    }
+    public Load(){}
 
     public Long getId() {
         return id;
@@ -31,11 +27,11 @@ public class Load {
         this.weight = weight;
     }
 
-    public LoadStatus getLoadStatus() {
+    public LoadStatus getStatus() {
         return loadStatus;
     }
 
-    public void setLoadStatus(LoadStatus loadStatus) {
+    public void setStatus(LoadStatus loadStatus) {
         this.loadStatus = loadStatus;
     }
 }

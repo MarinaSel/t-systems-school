@@ -47,6 +47,7 @@
                         <goals>
                             <goal>generateChangeLog</goal>
                             <goal>update</goal>
+                            <goal>migrate</goal>
                         </goals>
                     </execution>
 

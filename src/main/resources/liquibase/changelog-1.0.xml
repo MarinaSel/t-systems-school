@@ -6,8 +6,7 @@
         <createSequence sequenceName="locations_id_seq"/>
         <createSequence sequenceName="vehicles_id_seq"/>
     </changeSet>
-    <changeSet author="Marina" id="8">
-        <dropTable tableName="drivers"/>
+    <changeSet author="Marina" id="60">
         <createTable tableName="drivers">
             <column autoIncrement="true" name="id" type="BIGSERIAL">
                 <constraints primaryKey="true" primaryKeyName="drivers_pk"/>
@@ -29,16 +28,18 @@
             <column name="status" type="VARCHAR">
                 <constraints nullable="false"/>
             </column>
+            <column name="creation_date" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
             <column name="current_city" type="VARCHAR"/>
         </createTable>
     </changeSet>
-    <changeSet author="Marina" id="3">
+    <changeSet author="Marina" id="61">
         <createTable tableName="loads">
             <column autoIncrement="true" name="id" type="BIGSERIAL">
                 <constraints primaryKey="true" primaryKeyName="loads_pk"/>
             </column>
             <column name="vehicle_id" type="BIGINT">
-                <constraints nullable="false"/>
             </column>
             <column name="location_id" type="BIGINT"/>
             <column name="status" type="VARCHAR">
@@ -47,9 +48,12 @@
             <column name="weight" type="INT">
                 <constraints nullable="false"/>
             </column>
+            <column name="creation_date" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
-    <changeSet author="Marina" id="4">
+    <changeSet author="Marina" id="57">
         <createTable tableName="locations">
             <column autoIncrement="true" name="id" type="BIGSERIAL">
                 <constraints primaryKey="true" primaryKeyName="locations_pk"/>
@@ -65,7 +69,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="Marina" id="5">
+    <changeSet author="Marina" id="62">
         <createTable tableName="vehicles">
             <column autoIncrement="true" name="id" type="BIGSERIAL">
                 <constraints primaryKey="true" primaryKeyName="vehicles_pk"/>
@@ -80,10 +84,13 @@
             <column name="capacity" type="INT">
                 <constraints nullable="false"/>
             </column>
+            <column name="creation_date" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
             <column name="current_city" type="VARCHAR"/>
         </createTable>
     </changeSet>
-    <changeSet author="Marina" id="6">
+    <changeSet author="Marina" id="41">
         <addUniqueConstraint columnNames="driving_license_num" constraintName="drivers_driving_license_num_key" tableName="drivers"/>
         <addUniqueConstraint columnNames="registration_number" constraintName="vehicles_registration_number_key" tableName="vehicles"/>
         <addForeignKeyConstraint baseColumnNames="location_id" baseTableName="loads" constraintName="locations_loads_fk" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="locations"/>

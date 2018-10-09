@@ -1,10 +1,14 @@
 package com.training.models;
 
 import com.training.entities.enums.VehicleStatus;
+import liquibase.exception.DatabaseException;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.util.Date;
 import java.util.Set;
 
-public class Vehicle {
+public class Vehicle extends BaseModel{
+
     private Long id;
     private String registrationNumber;
     private Integer capacity;
@@ -13,15 +17,6 @@ public class Vehicle {
     private Set<Load> loads;
 
     public Vehicle(){}
-
-    public Vehicle(Long id, String registrationNumber, Integer capacity, VehicleStatus loadStatus, Set<Driver> drivers, Set<Load> loads) {
-        this.id = id;
-        this.registrationNumber = registrationNumber;
-        this.capacity = capacity;
-        this.status = loadStatus;
-        this.drivers = drivers;
-        this.loads = loads;
-    }
 
     public Long getId() {
         return id;

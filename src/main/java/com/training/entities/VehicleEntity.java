@@ -1,4 +1,5 @@
 package com.training.entities;
+import com.training.entities.enums.BaseEntity;
 import com.training.entities.enums.VehicleStatus;
 
 import javax.persistence.*;
@@ -8,7 +9,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "vehicles")
-public class VehicleEntity {
+public class VehicleEntity extends BaseEntity {
     @Id
     @SequenceGenerator(name = "vehicles_id_seq", initialValue = 1, sequenceName = "vehicles_id_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "vehicles_id_seq")
@@ -33,10 +34,10 @@ public class VehicleEntity {
     private String currentCity;
 
     @OneToMany(mappedBy = "vehicle")
-    Set<DriverEntity> drivers;
+    private Set<DriverEntity> drivers;
 
     @OneToMany(mappedBy = "vehicle")
-    Set<LoadEntity> loads;
+    private Set<LoadEntity> loads;
 
     @ManyToOne
     @JoinColumn(name = "location_id")

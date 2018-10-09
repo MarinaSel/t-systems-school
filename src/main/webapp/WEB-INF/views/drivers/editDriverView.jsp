@@ -22,7 +22,10 @@
     <table>
         <tr>
             <td>
-                <input type="hidden" name="id" value="${editableDriver.id}" />
+                <input type="hidden" name="id" value="${editableDriver.id}"/>
+            </td>
+            <td>
+                <input type="hidden" name="creationDate" value="${editableDriver.creationDate}">
             </td>
         </tr>
         <tr>

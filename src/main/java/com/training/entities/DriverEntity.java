@@ -1,4 +1,5 @@
 package com.training.entities;
+import com.training.entities.enums.BaseEntity;
 import com.training.entities.enums.DriverStatus;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -23,7 +24,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "drivers")
-public class DriverEntity {
+public class DriverEntity extends BaseEntity {
 
     @Id
     @SequenceGenerator(name = "drivers_id_seq", initialValue = 1, sequenceName = "drivers_id_seq")
@@ -131,6 +132,21 @@ public class DriverEntity {
 
     public void setVehicle(VehicleEntity vehicle) {
         this.vehicle = vehicle;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        DriverEntity that = (DriverEntity) o;
+
+        return id != null ? id.equals(that.id) : that.id == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
     }
 
     @Override
