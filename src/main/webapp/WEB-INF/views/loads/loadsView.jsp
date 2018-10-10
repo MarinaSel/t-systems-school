@@ -9,17 +9,32 @@
 <body>
 <table border="2">
     <tr>
-        <th>Load status</th>
         <th>Weight</th>
+        <th>Load status</th>
+        <th>Vehicle registration number</th>
         <th>Edit</th>
+        <th>Drivers' names</th>
+        <th>Driving licenses numbers</th>
     </tr>
 
     <c:forEach items="${loads}" var="load">
         <tr>
             <td>${load.weight}</td>
             <td>${load.status}</td>
+            <td>${load.vehicle.registrationNumber}</td>
 
             <td><a href="/editLoad/${load.id}">Edit</a></td>
+
+            <td>
+            <c:forEach items="${load.vehicle.drivers}" var="driver">
+                <p>${driver.firstName} ${driver.lastName}</p>
+            </c:forEach>
+            </td>
+            <td>
+            <c:forEach items="${load.vehicle.drivers}" var="driver">
+               <p>${driver.drivingLicenseNum}</p>
+            </c:forEach>
+            </td>
         </tr>
     </c:forEach>
 </table>

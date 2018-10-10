@@ -1,5 +1,6 @@
 package com.training.mappers;
 
+import com.training.entities.DriverEntity;
 import com.training.entities.VehicleEntity;
 import com.training.models.Vehicle;
 
@@ -15,6 +16,26 @@ public final class VehicleMapper {
         if(vehicleEntity == null){
             return null;
         }
+        Vehicle vehicle = commonFields(vehicleEntity);
+        vehicle.setLoads(LoadMapper.getModelSetFromEntitySet(vehicleEntity.getLoads()));
+        vehicle.setDrivers(DriverMapper.getModelSetFromEntitySet(vehicleEntity.getDrivers()));
+
+        return vehicle;
+    }
+
+    public static Vehicle getSimpleModelFromEntity(VehicleEntity vehicleEntity){
+
+        if(vehicleEntity == null){
+            return null;
+        }
+        Vehicle vehicle = commonFields(vehicleEntity);
+        vehicle.setDrivers(DriverMapper.getModelSetFromEntitySet(vehicleEntity.getDrivers()));
+
+        return vehicle;
+    }
+
+    private static Vehicle commonFields(VehicleEntity vehicleEntity){
+
         Vehicle vehicle = new Vehicle();
 
         vehicle.setId(vehicleEntity.getId());
@@ -22,8 +43,6 @@ public final class VehicleMapper {
         vehicle.setCapacity(vehicleEntity.getCapacity());
         vehicle.setStatus(vehicleEntity.getStatus());
         vehicle.setCreationDate(vehicleEntity.getCreationDate());
-        vehicle.setLoads(LoadMapper.getModelSetFromEntitySet(vehicleEntity.getLoads()));
-        vehicle.setDrivers(DriverMapper.getModelSetFromEntitySet(vehicleEntity.getDrivers()));
 
         return vehicle;
     }
@@ -37,7 +56,6 @@ public final class VehicleMapper {
         vehicleEntity.setCapacity(vehicle.getCapacity());
         vehicleEntity.setStatus(vehicle.getStatus());
         vehicleEntity.setCreationDate(vehicle.getCreationDate());
-        vehicleEntity.setLoads(LoadMapper.getEntitySetFromModelSet(vehicle.getLoads()));
         vehicleEntity.setDrivers(DriverMapper.getEntitySetFromModelSet(vehicle.getDrivers()));
 
         return vehicleEntity;
@@ -46,11 +64,9 @@ public final class VehicleMapper {
     public static List<Vehicle> getModelListFromEntityList(List<VehicleEntity> vehicleEntities){
         List<Vehicle> vehicles = new LinkedList<>();
 
-        for (VehicleEntity vehicleEntity :
-                vehicleEntities) {
-            vehicles.add(VehicleMapper.getModelFromEntity(vehicleEntity));
+        for (VehicleEntity vehicleEntity : vehicleEntities) {
+            vehicles.add(getModelFromEntity(vehicleEntity));
         }
-        
         return vehicles;
     }
 

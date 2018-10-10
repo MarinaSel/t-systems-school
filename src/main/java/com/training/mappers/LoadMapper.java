@@ -28,14 +28,32 @@ public final class LoadMapper {
         if(loadEntity == null){
             return null;
         }
+        Load load = commonFields(loadEntity);
+
+        load.setVehicle(VehicleMapper.getSimpleModelFromEntity(loadEntity.getVehicle()));
+
+        return load;
+    }
+
+    public static Load getSimpleModelFromEntity(LoadEntity loadEntity){
+
+        if(loadEntity == null){
+            return null;
+        }
+        Load load = commonFields(loadEntity);
+
+        return load;
+    }
+
+    private static Load commonFields(LoadEntity loadEntity){
         Load load = new Load();
 
         load.setId(loadEntity.getId());
         load.setWeight(loadEntity.getWeight());
         load.setStatus(loadEntity.getStatus());
         load.setCreationDate(loadEntity.getCreationDate());
-
         return load;
+
     }
 
     public static List<Load> getModelListFromEntityList(List<LoadEntity> loadEntities){
@@ -43,21 +61,21 @@ public final class LoadMapper {
 
         for (LoadEntity loadEntity :
                 loadEntities) {
-            loads.add(LoadMapper.getModelFromEntity(loadEntity));
+            loads.add(getModelFromEntity(loadEntity));
         }
 
         return loads;
     }
 
     public static Set<Load> getModelSetFromEntitySet(Set<LoadEntity> loadEntities){
-        if(loadEntities == null){
+       /* if(loadEntities == null){
             return null;
-        }
+        }*/
         Set<Load> loads = new HashSet<>();
 
         for (LoadEntity loadEntity :
                 loadEntities) {
-            loads.add(LoadMapper.getModelFromEntity(loadEntity));
+            loads.add(getSimpleModelFromEntity(loadEntity));
         }
 
         return loads;
@@ -72,7 +90,7 @@ public final class LoadMapper {
 
         for (Load load :
                 loads) {
-            loadEntities.add(LoadMapper.getEntityFromModel(load));
+            loadEntities.add(getEntityFromModel(load));
         }
 
         return loadEntities;

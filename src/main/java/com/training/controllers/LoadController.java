@@ -1,8 +1,10 @@
 package com.training.controllers;
 
 import com.training.models.Load;
+import com.training.models.Vehicle;
 import com.training.services.interfaces.LoadService;
 
+import com.training.services.interfaces.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,10 +25,16 @@ public class LoadController {
     @Autowired
     private LoadService loadService;
 
+    @Autowired
+    private VehicleService vehicleService;
+
     @GetMapping("/editLoad/{id}")
     public ModelAndView getLoadById(@PathVariable("id") Long id, RedirectAttributes redirectAttributes){
         Load loadToEdit = loadService.get(id);
+        List<Vehicle> vehicles = vehicleService.getAllFreeWithNecessaryCapacity(loadToEdit.getWeight());
         redirectAttributes.addFlashAttribute("editableLoad", loadToEdit);
+        redirectAttributes.addFlashAttribute("freeVehicles", vehicles);
+
         return new ModelAndView("redirect:/getAddLoadPage");
     }
 
@@ -36,14 +44,14 @@ public class LoadController {
     }
 
     @PostMapping(value="/addLoad")
-    public ModelAndView addLoad(@ModelAttribute("editableLoad") Load newLoad){
+    public ModelAndView addLoad(@ModelAttribute("editableLoad") Load newLoad, Model model){
         loadService.create(newLoad);
         return new ModelAndView("redirect:/loads");
     }
+
     @GetMapping("/loads")
     public ModelAndView viewAllLoads() {
         List<Load> loads = loadService.getAll();
         return new ModelAndView("loadsView", "loads", loads);
     }
-
 }

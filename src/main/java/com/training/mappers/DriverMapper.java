@@ -31,6 +31,18 @@ public final class DriverMapper {
         if(driverEntity == null){
             return null;
         }
+        Driver driver = commonFields(driverEntity);
+        driver.setVehicle(VehicleMapper.getModelFromEntity(driverEntity.getVehicle()));
+
+        return driver;
+    }
+
+    public static Driver getSimpleModelFromEntity(DriverEntity driverEntity){
+        return commonFields(driverEntity);
+    }
+
+    private static Driver commonFields(DriverEntity driverEntity){
+
         Driver driver = new Driver();
 
         driver.setId(driverEntity.getId());
@@ -51,7 +63,7 @@ public final class DriverMapper {
         List<Driver> drivers = new LinkedList<>();
 
         for (DriverEntity driverEntity: driverEntities) {
-            drivers.add(DriverMapper.getModelFromEntity(driverEntity));
+            drivers.add(getModelFromEntity(driverEntity));
         }
         return drivers;
     }
@@ -65,7 +77,7 @@ public final class DriverMapper {
 
         for (DriverEntity driverEntity :
                 driverEntities) {
-            drivers.add(DriverMapper.getModelFromEntity(driverEntity));
+            drivers.add(getSimpleModelFromEntity(driverEntity));
         }
 
         return drivers;
@@ -75,9 +87,8 @@ public final class DriverMapper {
 
         Set<DriverEntity> driverEntities = new HashSet<>();
 
-        for (Driver driver :
-                drivers) {
-            driverEntities.add(DriverMapper.getEntityFromModel(driver));
+        for (Driver driver : drivers) {
+            driverEntities.add(getEntityFromModel(driver));
         }
 
         return driverEntities;

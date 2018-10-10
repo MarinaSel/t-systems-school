@@ -4,13 +4,14 @@ import com.training.entities.enums.VehicleStatus;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "vehicles")
 public class VehicleEntity extends BaseEntity {
     @Id
-    @SequenceGenerator(name = "vehicles_id_seq", initialValue = 1, sequenceName = "vehicles_id_seq")
+    @SequenceGenerator(name = "vehicles_id_seq", sequenceName = "vehicles_id_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "vehicles_id_seq")
     private Long id;
 
@@ -33,10 +34,10 @@ public class VehicleEntity extends BaseEntity {
     private String currentCity;
 
     @OneToMany(mappedBy = "vehicle")
-    private Set<DriverEntity> drivers;
+    private Set<DriverEntity> drivers = new HashSet<>();
 
     @OneToMany(mappedBy = "vehicle")
-    private Set<LoadEntity> loads;
+    private Set<LoadEntity> loads = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "location_id")
@@ -44,8 +45,7 @@ public class VehicleEntity extends BaseEntity {
 
     @PrePersist
     public void prePersist() {
-        if(status == null)
-            status = VehicleStatus.UNWORKING;
+        status = VehicleStatus.FREE;
     }
 
     public VehicleEntity(){}

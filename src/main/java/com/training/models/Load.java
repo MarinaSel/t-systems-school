@@ -7,7 +7,7 @@ public class Load extends BaseModel{
     private Long id;
     private Integer weight;
     private LoadStatus status;
-
+    private Vehicle vehicle;
 
     public Load(){}
 
@@ -17,6 +17,14 @@ public class Load extends BaseModel{
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
     }
 
     public Integer getWeight() {

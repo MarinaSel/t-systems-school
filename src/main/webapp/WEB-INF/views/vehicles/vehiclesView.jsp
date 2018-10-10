@@ -12,24 +12,19 @@
 <body>
 <table border="2">
     <tr>
-        <th>ID</th>
         <th>Registration number</th>
         <th>Capacity</th>
         <th>Status</th>
 
         <th>Edit</th>
-        <th>Delete</th>
     </tr>
-    <c:forEach items="${vehicle}" var="vehicle">
+    <c:forEach items="${vehicles}" var="vehicle">
         <tr>
-            <td>${vehicle.id}</td>
             <td>${vehicle.registrationNumber}</td>
             <td>${vehicle.capacity}</td>
             <td>${vehicle.status}</td>
-            <td>${vehicle.drivers}</td>
 
             <td><a href="/editVehicle/${vehicle.id}">Edit</a></td>
-            <td><a href="/removeVehicle/${vehicle.id}">Delete</a></td>
         </tr>
     </c:forEach>
 </table>

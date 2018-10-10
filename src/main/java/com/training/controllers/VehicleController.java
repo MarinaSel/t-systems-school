@@ -24,7 +24,7 @@ public class VehicleController {
     @GetMapping("/vehicles")
     public ModelAndView allVehiclesView() {
         List<Vehicle> vehicles = vehicleService.getAll();
-        return new ModelAndView("vehiclesView", "vehicle", vehicles);
+        return new ModelAndView("vehiclesView", "vehicles", vehicles);
     }
 
     @GetMapping("/editVehicle/{id}")

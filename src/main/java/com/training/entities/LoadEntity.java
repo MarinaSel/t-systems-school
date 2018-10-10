@@ -41,7 +41,7 @@ public class LoadEntity extends BaseEntity {
     @PrePersist
     public void prePersist(){
         if(status == null){
-            status = LoadStatus.CREATED;
+            status = LoadStatus.NOT_ASSIGNED;
         }
     }
 

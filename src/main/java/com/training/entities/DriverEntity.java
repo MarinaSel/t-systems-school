@@ -26,7 +26,7 @@ import java.util.Date;
 public class DriverEntity extends BaseEntity {
 
     @Id
-    @SequenceGenerator(name = "drivers_id_seq", initialValue = 1, sequenceName = "drivers_id_seq")
+    @SequenceGenerator(name = "drivers_id_seq", sequenceName = "drivers_id_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "drivers_id_seq")
     private Long id;
 

@@ -1,6 +1,8 @@
 package com.training.services.impl;
 
+import com.training.entities.LoadEntity;
 import com.training.entities.VehicleEntity;
+import com.training.entities.enums.VehicleStatus;
 import com.training.mappers.VehicleMapper;
 import com.training.models.Vehicle;
 import com.training.repositories.VehicleRepository;
@@ -41,5 +43,22 @@ public class VehicleServiceImpl implements VehicleService {
     @Transactional
     public List<Vehicle> getAll() {
         return VehicleMapper.getModelListFromEntityList(vehicleRepository.findAll());
+    }
+
+    @Override
+    public List<Vehicle> getAllFreeWithNecessaryCapacity(Integer necessaryCapacity) {
+        List<VehicleEntity> vehicles = vehicleRepository.findAllByStatusAndCapacityGreaterThanEqual(VehicleStatus.FREE, necessaryCapacity);
+
+        for (VehicleEntity vehicle : vehicles) {
+            int sumWeight = 0;
+
+            for (LoadEntity load : vehicle.getLoads()) {
+                sumWeight += load.getWeight();
+            }
+            if (necessaryCapacity > vehicle.getCapacity() - sumWeight){
+                vehicles.remove(vehicle);
+            }
+        }
+        return VehicleMapper.getModelListFromEntityList(vehicles);
     }
 }
