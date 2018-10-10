@@ -21,32 +21,54 @@
 
 <h1>Add new driver</h1>
 
-    <form method="post" action="/addDriver" modelAttribute = "newDriver">
+    <form method="post" action="/addDriver" modelAttribute = "editableDriver">
         <table>
+            <tr>
+                <td>
+                    <input type="hidden" name="id" value="${editableDriver.id}"/>
+                </td>
+                <td>
+                    <input type="hidden" name="creationDate" value="${editableDriver.creationDate}">
+                </td>
+            </tr>
             <tr>
                 <th align="left">First name</th>
                 <td>
-                    <input name="firstName" maxlength="50" required/>
+                    <input name="firstName" maxlength="50" value="${editableDriver.firstName}" required/>
                 </td>
             </tr>
             <tr>
                 <th align="left">Second name</th>
                 <td>
-                    <input name="lastName" maxlength="50" required/>
+                    <input name="lastName" maxlength="50" value="${editableDriver.lastName}" required/>
                 </td>
             </tr>
             <tr>
                 <th align="left">Driver's license number</th>
                 <td>
-                    <input name="drivingLicenseNum" required/>
+                    <input name="drivingLicenseNum" value="${editableDriver.drivingLicenseNum}" required/>
                 </td>
             </tr>
             <tr>
                 <th align="left">License end date</th>
                 <td>
-                    <input name="licenseEndDate" id = "licenseEndDate_id" required readonly = "true"/>
+                    <input name="licenseEndDate" id = "licenseEndDate_id" value="${editableDriver.licenseEndDate}" required readonly = "true"/>
                 </td>
             </tr>
+            <c:if test="${!empty editableDriver.status}">
+                <tr>
+                    <th align="left">Status</th>
+                    <td>
+                        <select name="status" required>
+                            <option value="" selected disabled hidden>${editableDriver.status}</option>
+                            <option>UNDEFINED</option>
+                            <option>WORK</option>
+                            <option>REST</option>
+                            <option>DRIVING</option>
+                        </select>
+                    </td>
+                </tr>
+            </c:if>
             <td>
                 <input type="submit" value="Save"/>
             </td>

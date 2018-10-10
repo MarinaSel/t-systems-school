@@ -1,6 +1,6 @@
 package com.training.listeners;
 
-import com.training.entities.enums.BaseEntity;
+import com.training.entities.BaseEntity;
 
 import javax.persistence.PrePersist;
 import java.util.Date;

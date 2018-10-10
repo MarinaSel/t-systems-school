@@ -1,7 +1,5 @@
 package com.training.controllers;
 
-import com.training.entities.DriverEntity;
-import com.training.entities.VehicleEntity;
 import com.training.models.Vehicle;
 import com.training.services.interfaces.VehicleService;
 
@@ -12,8 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -31,14 +27,21 @@ public class VehicleController {
         return new ModelAndView("vehiclesView", "vehicle", vehicles);
     }
 
-    @GetMapping(value = "/addVehicle")
-    public ModelAndView getAddDriverPage() {
-        return new ModelAndView("addVehicleView", "newVehicle", new VehicleEntity());
+    @GetMapping("/editVehicle/{id}")
+    public ModelAndView getVehicleById(@PathVariable("id") Long id, RedirectAttributes redirectAttributes){
+        Vehicle vehicleToEdit = vehicleService.get(id);
+        redirectAttributes.addFlashAttribute("editableVehicle", vehicleToEdit);
+        return new ModelAndView("redirect:/getAddVehicleView");
+    }
+
+    @GetMapping(value = "/getAddVehicleView")
+    public ModelAndView getAddVehiclePage(Model model) {
+        return new ModelAndView("addVehicleView", model.asMap());
     }
 
     @PostMapping(value="/addVehicle")
-    public ModelAndView addVehicle(@ModelAttribute("newVehicle") Vehicle newVehicle){
-        vehicleService.create(newVehicle);
+    public ModelAndView addVehicle(@ModelAttribute("editableVehicle") Vehicle vehicle){
+        vehicleService.create(vehicle);
         return new ModelAndView("redirect:/vehicles");
     }
 

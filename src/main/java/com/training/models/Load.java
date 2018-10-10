@@ -6,7 +6,7 @@ public class Load extends BaseModel{
 
     private Long id;
     private Integer weight;
-    private LoadStatus loadStatus;
+    private LoadStatus status;
 
 
     public Load(){}
@@ -28,10 +28,10 @@ public class Load extends BaseModel{
     }
 
     public LoadStatus getStatus() {
-        return loadStatus;
+        return status;
     }
 
     public void setStatus(LoadStatus loadStatus) {
-        this.loadStatus = loadStatus;
+        this.status = loadStatus;
     }
 }

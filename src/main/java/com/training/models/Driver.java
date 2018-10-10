@@ -12,6 +12,7 @@ public class Driver extends BaseModel{
     private String lastName;
     private String drivingLicenseNum;
     private DriverStatus status;
+    private Vehicle vehicle;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date licenseEndDate;
@@ -24,6 +25,14 @@ public class Driver extends BaseModel{
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
     }
 
     public String getDrivingLicenseNum() {

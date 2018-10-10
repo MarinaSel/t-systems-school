@@ -1,5 +1,4 @@
 package com.training.entities;
-import com.training.entities.enums.BaseEntity;
 import com.training.entities.enums.DriverStatus;
 import org.springframework.format.annotation.DateTimeFormat;
 

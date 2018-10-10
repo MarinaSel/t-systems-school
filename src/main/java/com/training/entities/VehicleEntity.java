@@ -1,5 +1,4 @@
 package com.training.entities;
-import com.training.entities.enums.BaseEntity;
 import com.training.entities.enums.VehicleStatus;
 
 import javax.persistence.*;

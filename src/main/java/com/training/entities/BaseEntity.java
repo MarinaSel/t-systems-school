@@ -1,4 +1,4 @@
-package com.training.entities.enums;
+package com.training.entities;
 
 import com.training.listeners.DateSettingListener;
 import org.springframework.format.annotation.DateTimeFormat;

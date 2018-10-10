@@ -33,7 +33,7 @@
                 <td>${driver.status}</td>
                 <td>${driver.creationDate}</td>
 
-                <td><a href="/edit/${driver.id}">Edit</a></td>
+                <td><a href="/editDriver/${driver.id}">Edit</a></td>
                 <td><a href="/removeDriver/${driver.id}">Delete</a></td>
             </tr>
         </c:forEach>

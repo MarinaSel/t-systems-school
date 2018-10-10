@@ -6,6 +6,7 @@ import com.training.services.interfaces.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -19,16 +20,24 @@ public class DriverController {
     @Autowired
     private DriverService driverService;
 
+    @GetMapping("/editDriver/{id}")
+    public ModelAndView getDriverById(@PathVariable("id") Long id, RedirectAttributes redirectAttributes){
+        Driver driverToEdit = driverService.get(id);
+        redirectAttributes.addFlashAttribute("editableDriver", driverToEdit);
+        return new ModelAndView("redirect:/getAddDriverView");
+    }
+
     @GetMapping(value = "/getAddDriverView")
-    public ModelAndView getAddDriverPage() {
-        return new ModelAndView("addDriverView");
+    public ModelAndView getAddDriverPage(Model model) {
+        return new ModelAndView("addDriverView", model.asMap());
     }
 
     @PostMapping(value="/addDriver")
-    public ModelAndView addDriver(@ModelAttribute("newDriver") Driver newDriver){
-        driverService.create(newDriver);
+    public ModelAndView addDriver(@ModelAttribute("editableDriver") Driver driver){
+        driverService.create(driver);
         return new ModelAndView("redirect:/drivers");
     }
+
     @GetMapping("/drivers")
     public ModelAndView getAllDriversPage() {
         List<Driver> drivers = driverService.getAll();
@@ -40,25 +49,5 @@ public class DriverController {
         driverService.remove(id);
         return new ModelAndView("redirect:/drivers");
     }
-
-    @GetMapping("/edit/{id}")
-    public ModelAndView getDriverById(@PathVariable("id") Long id, RedirectAttributes redirectAttributes){
-        Driver driverToEdit = driverService.get(id);
-        redirectAttributes.addFlashAttribute("editableDriver", driverToEdit);
-        return new ModelAndView("redirect:/editDriver");
-    }
-
-    @GetMapping("/editDriver")
-    public ModelAndView getEditDriverPage(Model model){
-        return new ModelAndView("editDriverView", model.asMap());
-    }
-
-    @PostMapping("/updateDriver")
-    public ModelAndView editDriverView(@ModelAttribute("editableDriver") Driver driver){
-        driverService.update(driver);
-        return new ModelAndView("redirect:/drivers");
-    }
-
-
 }
 
