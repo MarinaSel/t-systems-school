@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
     <title>Loads</title>
 </head>
 <body>
@@ -39,6 +40,6 @@
     </c:forEach>
 </table>
 
-<p><a href="/getAddLoadPage">Add new load</a></p>
+<p><a href="/addLoad">Add new load</a></p>
 </body>
 </html>

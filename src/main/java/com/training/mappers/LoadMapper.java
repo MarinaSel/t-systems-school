@@ -19,6 +19,7 @@ public final class LoadMapper {
         loadEntity.setWeight(load.getWeight());
         loadEntity.setStatus(load.getStatus());
         loadEntity.setCreationDate(load.getCreationDate());
+        loadEntity.setVehicle(VehicleMapper.getEntityFromModel(load.getVehicle()));
 
         return loadEntity;
     }
@@ -52,6 +53,8 @@ public final class LoadMapper {
         load.setWeight(loadEntity.getWeight());
         load.setStatus(loadEntity.getStatus());
         load.setCreationDate(loadEntity.getCreationDate());
+        load.setVehicle(VehicleMapper.getSimpleModelFromEntity(loadEntity.getVehicle()));
+
         return load;
 
     }

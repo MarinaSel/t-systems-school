@@ -12,8 +12,7 @@ public final class VehicleMapper {
     private VehicleMapper(){};
 
     public static Vehicle getModelFromEntity(VehicleEntity vehicleEntity){
-
-        if(vehicleEntity == null){
+        if (vehicleEntity == null){
             return null;
         }
         Vehicle vehicle = commonFields(vehicleEntity);
@@ -48,7 +47,9 @@ public final class VehicleMapper {
     }
 
     public static VehicleEntity getEntityFromModel(Vehicle vehicle){
-
+        if (vehicle == null){
+            return null;
+        }
         VehicleEntity vehicleEntity = new VehicleEntity();
 
         vehicleEntity.setId(vehicle.getId());

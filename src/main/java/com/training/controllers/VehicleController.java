@@ -1,5 +1,6 @@
 package com.training.controllers;
 
+import com.training.models.Driver;
 import com.training.models.Vehicle;
 import com.training.services.interfaces.VehicleService;
 

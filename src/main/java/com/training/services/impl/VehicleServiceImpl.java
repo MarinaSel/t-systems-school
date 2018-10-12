@@ -1,9 +1,8 @@
 package com.training.services.impl;
 
-import com.training.entities.LoadEntity;
 import com.training.entities.VehicleEntity;
 import com.training.entities.enums.VehicleStatus;
-import com.training.mappers.VehicleMapper;
+import com.training.models.Load;
 import com.training.models.Vehicle;
 import com.training.repositories.VehicleRepository;
 import com.training.services.interfaces.VehicleService;
@@ -14,6 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static com.training.mappers.VehicleMapper.getEntityFromModel;
+import static com.training.mappers.VehicleMapper.getModelFromEntity;
+import static com.training.mappers.VehicleMapper.getModelListFromEntityList;
+
 @Service
 public class VehicleServiceImpl implements VehicleService {
 
@@ -22,17 +25,17 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Transactional
     public Vehicle get(Long id){
-        return VehicleMapper.getModelFromEntity(vehicleRepository.getOne(id));
+        return getModelFromEntity(vehicleRepository.getOne(id));
     }
 
     @Transactional
-    public void create(Vehicle vehicle){ vehicleRepository.saveAndFlush(VehicleMapper.getEntityFromModel(vehicle));
+    public void create(Vehicle vehicle){ vehicleRepository.saveAndFlush(getEntityFromModel(vehicle));
     }
 
     @Transactional
     public Vehicle update(Vehicle vehicle){
-        VehicleEntity vehicleEntity = vehicleRepository.saveAndFlush(VehicleMapper.getEntityFromModel(vehicle));
-        return VehicleMapper.getModelFromEntity(vehicleEntity);
+        VehicleEntity vehicleEntity = vehicleRepository.saveAndFlush(getEntityFromModel(vehicle));
+        return getModelFromEntity(vehicleEntity);
     }
 
     @Transactional
@@ -42,23 +45,33 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Transactional
     public List<Vehicle> getAll() {
-        return VehicleMapper.getModelListFromEntityList(vehicleRepository.findAll());
+        return getModelListFromEntityList(vehicleRepository.findAll());
     }
 
-    @Override
-    public List<Vehicle> getAllFreeWithNecessaryCapacity(Integer necessaryCapacity) {
-        List<VehicleEntity> vehicles = vehicleRepository.findAllByStatusAndCapacityGreaterThanEqual(VehicleStatus.FREE, necessaryCapacity);
+    @Transactional
+    public List<Vehicle> getAllFreeWithNecessaryCapacityAndDrivers(Integer necessaryCapacity) {
+        List<Vehicle> vehicles = getModelListFromEntityList(vehicleRepository.findAllByStatusAndCapacityGreaterThanEqual(
+                VehicleStatus.FREE, necessaryCapacity));
 
-        for (VehicleEntity vehicle : vehicles) {
+        for (Vehicle vehicle : vehicles) {
+            if (vehicle.getDrivers().size() == 0){
+                vehicles.remove(vehicle);
+                continue;
+            }
             int sumWeight = 0;
 
-            for (LoadEntity load : vehicle.getLoads()) {
+            for (Load load : vehicle.getLoads()) {
                 sumWeight += load.getWeight();
             }
             if (necessaryCapacity > vehicle.getCapacity() - sumWeight){
                 vehicles.remove(vehicle);
             }
         }
-        return VehicleMapper.getModelListFromEntityList(vehicles);
+        return vehicles;
+    }
+
+    @Override
+    public Vehicle findByRegistrationNumber(String registrationNumber) {
+        return getModelFromEntity(vehicleRepository.findVehicleEntityByRegistrationNumber(registrationNumber));
     }
 }

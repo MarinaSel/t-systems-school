@@ -1,7 +1,9 @@
 package com.training.controllers;
 
+import com.training.entities.enums.LoadStatus;
 import com.training.models.Load;
 import com.training.models.Vehicle;
+import com.training.services.interfaces.DriverService;
 import com.training.services.interfaces.LoadService;
 
 import com.training.services.interfaces.VehicleService;
@@ -31,21 +33,37 @@ public class LoadController {
     @GetMapping("/editLoad/{id}")
     public ModelAndView getLoadById(@PathVariable("id") Long id, RedirectAttributes redirectAttributes){
         Load loadToEdit = loadService.get(id);
-        List<Vehicle> vehicles = vehicleService.getAllFreeWithNecessaryCapacity(loadToEdit.getWeight());
+        String registrationNumber ="";
+        List<Vehicle> vehicles = vehicleService.getAllFreeWithNecessaryCapacityAndDrivers(loadToEdit.getWeight());
+
         redirectAttributes.addFlashAttribute("editableLoad", loadToEdit);
         redirectAttributes.addFlashAttribute("freeVehicles", vehicles);
+        redirectAttributes.addFlashAttribute("regNum", registrationNumber);
 
         return new ModelAndView("redirect:/getAddLoadPage");
     }
 
+    @GetMapping("/addLoad")
+    public ModelAndView addLoad(RedirectAttributes redirectAttributes){
+        redirectAttributes.addFlashAttribute("editableLoad", new Load());
+        return new ModelAndView("redirect:/getAddLoadPage");
+    }
+
     @GetMapping(value = "/getAddLoadPage")
-    public ModelAndView getAddLoadView(Model model) {
+    public ModelAndView getSaveLoadView(Model model) {
         return new ModelAndView("addLoadView", model.asMap());
     }
 
-    @PostMapping(value="/addLoad")
-    public ModelAndView addLoad(@ModelAttribute("editableLoad") Load newLoad, Model model){
-        loadService.create(newLoad);
+    @PostMapping(value="/saveLoad")
+    public ModelAndView saveLoad(@ModelAttribute("editableLoad") Load load,
+                                 @ModelAttribute("regNum") String registrationNumber){
+        System.out.println(load == null ? "null" : load.toString());
+        System.out.println(registrationNumber == null ? "null" : registrationNumber.length() == 0 ? "empty" : registrationNumber);
+        if (registrationNumber != null && registrationNumber.length() != 0){
+            load.setVehicle(vehicleService.findByRegistrationNumber(registrationNumber));
+            load.setStatus(LoadStatus.IN_PROGRESS);
+        }
+        loadService.create(load);
         return new ModelAndView("redirect:/loads");
     }
 
@@ -54,4 +72,7 @@ public class LoadController {
         List<Load> loads = loadService.getAll();
         return new ModelAndView("loadsView", "loads", loads);
     }
+
+
+
 }

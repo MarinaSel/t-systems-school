@@ -66,7 +66,7 @@ public class DriverEntity extends BaseEntity {
     @PrePersist
     public void prePersist() {
         if(status == null)
-            status = DriverStatus.UNDEFINED;
+            status = DriverStatus.FREE;
     }
 
     public Long getId() {

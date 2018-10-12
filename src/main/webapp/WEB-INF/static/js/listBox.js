@@ -1,0 +1,7 @@
+$(function () {
+    $(".select").select2({
+
+        }
+    );
+});
+

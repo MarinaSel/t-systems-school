@@ -1,6 +1,7 @@
 package com.training.services.impl;
 
 import com.training.entities.DriverEntity;
+import com.training.entities.enums.DriverStatus;
 import com.training.mappers.DriverMapper;
 import com.training.models.Driver;
 import com.training.repositories.DriverRepository;
@@ -43,5 +44,9 @@ public class DriverServiceImpl implements DriverService{
     @Transactional
     public List<Driver> getAll(){
         return DriverMapper.getModelListFromEntityList(driverRepository.findAll());
+    }
+    @Override
+    public List<Driver> getAllFree() {
+        return DriverMapper.getModelListFromEntityList(driverRepository.findAllByStatus(DriverStatus.FREE));
     }
 }

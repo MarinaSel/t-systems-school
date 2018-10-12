@@ -12,7 +12,6 @@
 <body>
    <table border="2">
         <tr>
-            <th>ID</th>
             <th>First name</th>
             <th>Second name</th>
             <th>Driver's license number</th>
@@ -25,7 +24,6 @@
 
         <c:forEach items="${drivers}" var="driver">
             <tr>
-                <td>${driver.id}</td>
                 <td>${driver.firstName}</td>
                 <td>${driver.lastName}</td>
                 <td>${driver.drivingLicenseNum}</td>

@@ -11,4 +11,6 @@ import java.util.List;
 public interface VehicleRepository extends JpaRepository<VehicleEntity, Long> {
 
     List<VehicleEntity> findAllByStatusAndCapacityGreaterThanEqual(VehicleStatus status, Integer capacity);
+
+    VehicleEntity findVehicleEntityByRegistrationNumber(String registrationNumber);
 }

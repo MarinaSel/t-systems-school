@@ -12,14 +12,14 @@
 <html>
 
 <head>
-    <title>Add Driver</title>
+    <title>${empty editableDriver.id ? 'Add' : 'Edit'} driver</title>
 
     <script src="resources/js/datepicker.js"></script>
 </head>
 
 <body>
 
-<h1>Add new driver</h1>
+<h1>${empty editableDriver.id ? 'Add' : 'Edit'} driver</h1>
 
     <form method="post" action="/addDriver" modelAttribute = "editableDriver">
         <table>
@@ -61,7 +61,7 @@
                     <td>
                         <select name="status" required>
                             <option value="" selected disabled hidden>${editableDriver.status}</option>
-                            <option>UNDEFINED</option>
+                            <option>FREE</option>
                             <option>WORK</option>
                             <option>REST</option>
                             <option>DRIVING</option>

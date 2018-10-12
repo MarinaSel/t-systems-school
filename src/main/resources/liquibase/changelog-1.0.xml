@@ -69,14 +69,14 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="Marina" id="62">
+    <changeSet author="Marina" id="68">
         <createTable tableName="vehicles">
             <column autoIncrement="true" name="id" type="BIGSERIAL">
                 <constraints primaryKey="true" primaryKeyName="vehicles_pk"/>
             </column>
             <column name="location_id" type="BIGINT"/>
-            <column name="registration_number" type="VARCHAR(7)">
-                <constraints nullable="false"/>
+            <column name="registration_number" type="VARCHAR(7)" >
+                <constraints nullable="false" unique="true"/>
             </column>
             <column name="status" type="VARCHAR">
                 <constraints nullable="false"/>
