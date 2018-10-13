@@ -1,5 +1,6 @@
 package com.training.entities;
 import com.training.entities.enums.LoadStatus;
+import org.springframework.format.annotation.DateTimeFormat;
 
 
 import javax.persistence.Column;
@@ -14,7 +15,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 @Entity
 @Table(name = "loads")
@@ -24,6 +28,17 @@ public class LoadEntity extends BaseEntity {
     @SequenceGenerator(name = "loads_id_seq", sequenceName = "loads_id_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "loads_id_seq")
     private Long id;
+
+    @Column(name = "title", nullable = false)
+    private String title;
+
+    @Column(name = "description", nullable = false)
+    private String description;
+
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "date_of_delivery", nullable = false)
+    private Date dayOfDelivery;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -53,6 +68,30 @@ public class LoadEntity extends BaseEntity {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Date getDayOfDelivery() {
+        return dayOfDelivery;
+    }
+
+    public void setDayOfDelivery(Date dayOfDelivery) {
+        this.dayOfDelivery = dayOfDelivery;
     }
 
     public LoadStatus getStatus() {

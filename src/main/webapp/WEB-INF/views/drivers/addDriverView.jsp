@@ -52,7 +52,7 @@
             <tr>
                 <th align="left">License end date</th>
                 <td>
-                    <input name="licenseEndDate" id = "licenseEndDate_id" value="${editableDriver.licenseEndDate}" required readonly = "true"/>
+                    <input name="licenseEndDate" id = "dayOfDelivery" value="${editableDriver.licenseEndDate}" required readonly = "true"/>
                 </td>
             </tr>
             <c:if test="${!empty editableDriver.status}">

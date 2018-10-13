@@ -2,6 +2,7 @@ package com.training.controllers;
 
 import com.training.models.Driver;
 import com.training.models.Vehicle;
+import com.training.services.interfaces.DriverService;
 import com.training.services.interfaces.VehicleService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ public class VehicleController {
     @Autowired
     private VehicleService vehicleService;
 
+    @Autowired
+    private DriverService driverService;
+
     @GetMapping("/vehicles")
     public ModelAndView allVehiclesView() {
         List<Vehicle> vehicles = vehicleService.getAll();
@@ -31,17 +35,35 @@ public class VehicleController {
     @GetMapping("/editVehicle/{id}")
     public ModelAndView getVehicleById(@PathVariable("id") Long id, RedirectAttributes redirectAttributes){
         Vehicle vehicleToEdit = vehicleService.get(id);
+        List<Driver> drivers = driverService.getAllFree();
+        String name = "";
+        String drivingLicenseNum = "";
+        redirectAttributes.addFlashAttribute("drivers", drivers);
+        redirectAttributes.addFlashAttribute("name", name);
+        redirectAttributes.addFlashAttribute("drivingLicenseNum", drivingLicenseNum);
         redirectAttributes.addFlashAttribute("editableVehicle", vehicleToEdit);
-        return new ModelAndView("redirect:/getAddVehicleView");
+        return new ModelAndView("redirect:/getSaveVehiclePage");
     }
 
-    @GetMapping(value = "/getAddVehicleView")
-    public ModelAndView getAddVehiclePage(Model model) {
-        return new ModelAndView("addVehicleView", model.asMap());
+    @GetMapping("/addVehicle")
+    public ModelAndView addVehicle(RedirectAttributes redirectAttributes){
+        redirectAttributes.addFlashAttribute("editableVehicle", new Vehicle());
+        return new ModelAndView("redirect:/getSaveVehiclePage");
     }
 
-    @PostMapping(value="/addVehicle")
-    public ModelAndView addVehicle(@ModelAttribute("editableVehicle") Vehicle vehicle){
+    @GetMapping(value = "/getSaveVehiclePage")
+    public ModelAndView getSaveVehiclePage(Model model) {
+        return new ModelAndView("saveVehicleView", model.asMap());
+    }
+
+    @PostMapping(value="/saveVehicle")
+    public ModelAndView saveVehicle(@ModelAttribute("editableVehicle") Vehicle vehicle,
+                                    @ModelAttribute("name") String name,
+                                    @ModelAttribute("drivingLicenseNum") String drivingLicenseNum){
+        if (drivingLicenseNum != null && drivingLicenseNum.length() != 0){
+            vehicle.setDrivers(driverService.findByDrivingLicenseNum(drivingLicenseNum));
+
+        }
         vehicleService.create(vehicle);
         return new ModelAndView("redirect:/vehicles");
     }

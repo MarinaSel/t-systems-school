@@ -1,6 +1,7 @@
 package com.training.controllers;
 
 import com.training.entities.enums.LoadStatus;
+import com.training.entities.enums.VehicleStatus;
 import com.training.models.Load;
 import com.training.models.Vehicle;
 import com.training.services.interfaces.DriverService;
@@ -40,27 +41,27 @@ public class LoadController {
         redirectAttributes.addFlashAttribute("freeVehicles", vehicles);
         redirectAttributes.addFlashAttribute("regNum", registrationNumber);
 
-        return new ModelAndView("redirect:/getAddLoadPage");
+        return new ModelAndView("redirect:/getSaveLoadPage");
     }
 
     @GetMapping("/addLoad")
     public ModelAndView addLoad(RedirectAttributes redirectAttributes){
         redirectAttributes.addFlashAttribute("editableLoad", new Load());
-        return new ModelAndView("redirect:/getAddLoadPage");
+        return new ModelAndView("redirect:/getSaveLoadPage");
     }
 
-    @GetMapping(value = "/getAddLoadPage")
+    @GetMapping(value = "/getSaveLoadPage")
     public ModelAndView getSaveLoadView(Model model) {
-        return new ModelAndView("addLoadView", model.asMap());
+        return new ModelAndView("saveLoadView", model.asMap());
     }
 
     @PostMapping(value="/saveLoad")
     public ModelAndView saveLoad(@ModelAttribute("editableLoad") Load load,
                                  @ModelAttribute("regNum") String registrationNumber){
-        System.out.println(load == null ? "null" : load.toString());
-        System.out.println(registrationNumber == null ? "null" : registrationNumber.length() == 0 ? "empty" : registrationNumber);
+        Vehicle vehicle = vehicleService.findByRegistrationNumber(registrationNumber);
         if (registrationNumber != null && registrationNumber.length() != 0){
-            load.setVehicle(vehicleService.findByRegistrationNumber(registrationNumber));
+            load.setVehicle(vehicle);
+            vehicle.setStatus(VehicleStatus.WORKING);
             load.setStatus(LoadStatus.IN_PROGRESS);
         }
         loadService.create(load);

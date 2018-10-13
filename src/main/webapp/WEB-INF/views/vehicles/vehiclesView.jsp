@@ -15,20 +15,29 @@
         <th>Registration number</th>
         <th>Capacity</th>
         <th>Status</th>
-
         <th>Edit</th>
+        <th>Drivers name</th>
+        <th>Drivers license number</th>
     </tr>
     <c:forEach items="${vehicles}" var="vehicle">
         <tr>
             <td>${vehicle.registrationNumber}</td>
             <td>${vehicle.capacity}</td>
             <td>${vehicle.status}</td>
-
             <td><a href="/editVehicle/${vehicle.id}">Edit</a></td>
+            <td><c:forEach items="${vehicle.drivers}" var="driver">
+                    <p>${driver.firstName} ${driver.lastName}</p>
+                </c:forEach>
+            </td>
+            <td>
+                <c:forEach items="${vehicle.drivers}" var="driver">
+                <p>${driver.drivingLicenseNum}</p>
+                </c:forEach>
+            </td>
         </tr>
     </c:forEach>
 </table>
-<p><a href="/getAddVehicleView">Add new vehicle</a></p>
+<p><a href="/addVehicle">Add new vehicle</a></p>
 <p><a href="homePage">Home page</a></p>
 </body>
 </html>

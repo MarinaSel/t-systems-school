@@ -34,10 +34,19 @@
             <column name="current_city" type="VARCHAR"/>
         </createTable>
     </changeSet>
-    <changeSet author="Marina" id="61">
+    <changeSet author="Marina" id="72">
         <createTable tableName="loads">
             <column autoIncrement="true" name="id" type="BIGSERIAL">
                 <constraints primaryKey="true" primaryKeyName="loads_pk"/>
+            </column>
+            <column name="title" type="VARCHAR">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_of_delivery" type="DATE">
+                <constraints nullable="false"/>
             </column>
             <column name="vehicle_id" type="BIGINT">
             </column>

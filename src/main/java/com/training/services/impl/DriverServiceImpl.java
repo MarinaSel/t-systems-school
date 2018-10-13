@@ -2,17 +2,18 @@ package com.training.services.impl;
 
 import com.training.entities.DriverEntity;
 import com.training.entities.enums.DriverStatus;
-import com.training.mappers.DriverMapper;
 import com.training.models.Driver;
 import com.training.repositories.DriverRepository;
 import com.training.services.interfaces.DriverService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
+
+import static com.training.mappers.DriverMapper.*;
 
 @Service
 public class DriverServiceImpl implements DriverService{
@@ -22,18 +23,18 @@ public class DriverServiceImpl implements DriverService{
 
     @Transactional
     public Driver get(Long id){
-        return DriverMapper.getModelFromEntity(driverRepository.getOne(id));
+        return getModelFromEntity(driverRepository.getOne(id));
     }
 
     @Transactional
     public Driver update(Driver driver){
-        DriverEntity driverEntity = driverRepository.saveAndFlush(DriverMapper.getEntityFromModel(driver));
-        return DriverMapper.getModelFromEntity(driverEntity);
+        DriverEntity driverEntity = driverRepository.saveAndFlush(getEntityFromModel(driver));
+        return getModelFromEntity(driverEntity);
     }
 
     @Transactional
     public void create(Driver driver){
-        driverRepository.saveAndFlush(DriverMapper.getEntityFromModel(driver));
+        driverRepository.saveAndFlush(getEntityFromModel(driver));
     }
 
     @Transactional
@@ -43,10 +44,15 @@ public class DriverServiceImpl implements DriverService{
 
     @Transactional
     public List<Driver> getAll(){
-        return DriverMapper.getModelListFromEntityList(driverRepository.findAll());
+        return getModelListFromEntityList(driverRepository.findAll());
     }
-    @Override
+    @Transactional
     public List<Driver> getAllFree() {
-        return DriverMapper.getModelListFromEntityList(driverRepository.findAllByStatus(DriverStatus.FREE));
+        return getModelListFromEntityList(driverRepository.findAllByStatus(DriverStatus.FREE));
+    }
+
+    @Transactional
+    public Set<Driver> findByDrivingLicenseNum(String drivingLicenseNum) {
+        return getModelSetFromEntitySet(driverRepository.findByDrivingLicenseNum(drivingLicenseNum));
     }
 }

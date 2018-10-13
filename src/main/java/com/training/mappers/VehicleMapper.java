@@ -35,6 +35,9 @@ public final class VehicleMapper {
 
     private static Vehicle commonFields(VehicleEntity vehicleEntity){
 
+        if (vehicleEntity == null){
+            return null;
+        }
         Vehicle vehicle = new Vehicle();
 
         vehicle.setId(vehicleEntity.getId());

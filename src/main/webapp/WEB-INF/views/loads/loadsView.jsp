@@ -10,21 +10,30 @@
 <body>
 <table border="2">
     <tr>
+        <th>Title</th>
+        <th>Description</th>
         <th>Weight</th>
+        <th>Day of delivery</th>
         <th>Load status</th>
-        <th>Vehicle registration number</th>
         <th>Edit</th>
+        <th>Vehicle registration number</th>
+        <th>Veh Sttud</th>
         <th>Drivers' names</th>
         <th>Driving licenses numbers</th>
     </tr>
 
     <c:forEach items="${loads}" var="load">
         <tr>
+            <td>${load.title}</td>
+            <td>${load.description}</td>
+            <td>${load.dayOfDelivery}</td>
             <td>${load.weight}</td>
             <td>${load.status}</td>
-            <td>${load.vehicle.registrationNumber}</td>
 
             <td><a href="/editLoad/${load.id}">Edit</a></td>
+
+            <td>${load.vehicle.registrationNumber}</td>
+            <td>${load.vehicle.status}</td>
 
             <td>
             <c:forEach items="${load.vehicle.drivers}" var="driver">
@@ -40,6 +49,8 @@
     </c:forEach>
 </table>
 
+
 <p><a href="/addLoad">Add new load</a></p>
+<p><a href="/homePage">Home</a></p>
 </body>
 </html>

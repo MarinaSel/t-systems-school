@@ -1,6 +1,7 @@
 $(function () {
-    $("#licenseEndDate_id").datepicker({
+    $("#dayOfDelivery").datepicker({
         dateFormat:"yy-mm-dd",
         minDate:+1
     });
 });
+

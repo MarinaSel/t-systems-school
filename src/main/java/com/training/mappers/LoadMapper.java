@@ -16,6 +16,9 @@ public final class LoadMapper {
         LoadEntity loadEntity = new LoadEntity();
 
         loadEntity.setId(load.getId());
+        loadEntity.setTitle(load.getTitle());
+        loadEntity.setDescription(load.getDescription());
+        loadEntity.setDayOfDelivery(load.getDayOfDelivery());
         loadEntity.setWeight(load.getWeight());
         loadEntity.setStatus(load.getStatus());
         loadEntity.setCreationDate(load.getCreationDate());
@@ -41,15 +44,17 @@ public final class LoadMapper {
         if(loadEntity == null){
             return null;
         }
-        Load load = commonFields(loadEntity);
 
-        return load;
+        return commonFields(loadEntity);
     }
 
     private static Load commonFields(LoadEntity loadEntity){
         Load load = new Load();
 
         load.setId(loadEntity.getId());
+        load.setTitle(loadEntity.getTitle());
+        load.setDescription(loadEntity.getDescription());
+        load.setDayOfDelivery(loadEntity.getDayOfDelivery());
         load.setWeight(loadEntity.getWeight());
         load.setStatus(loadEntity.getStatus());
         load.setCreationDate(loadEntity.getCreationDate());
