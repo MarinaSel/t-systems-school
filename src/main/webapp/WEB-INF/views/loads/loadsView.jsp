@@ -12,12 +12,12 @@
     <tr>
         <th>Title</th>
         <th>Description</th>
-        <th>Weight</th>
         <th>Day of delivery</th>
+        <th>Weight</th>
         <th>Load status</th>
         <th>Edit</th>
         <th>Vehicle registration number</th>
-        <th>Veh Sttud</th>
+        <th>Vehicle status</th>
         <th>Drivers' names</th>
         <th>Driving licenses numbers</th>
     </tr>

@@ -1,8 +1,8 @@
 package com.training.rest;
 
-import com.training.models.Vehicle;
-import com.training.services.interfaces.VehicleService;
+import com.training.models.Driver;
 
+import com.training.services.interfaces.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,14 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/vehicle")
-public class VehicleResource {
-
+@RequestMapping("/api/driver")
+public class DriversResource {
     @Autowired
-    private VehicleService vehicleService;
+    private DriverService driverService;
 
     @GetMapping
-    public List<Vehicle> getVehicles(@RequestParam(value = "weight") Integer weight) {
-        return vehicleService.getAllFreeWithNecessaryCapacityAndDrivers(weight);
+    public List<Driver> getDrivers() {
+        return driverService.getAllFree();
     }
 }

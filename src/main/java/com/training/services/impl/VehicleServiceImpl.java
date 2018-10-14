@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Iterator;
 import java.util.List;
 
 import static com.training.mappers.VehicleMapper.getEntityFromModel;
@@ -52,25 +53,24 @@ public class VehicleServiceImpl implements VehicleService {
     public List<Vehicle> getAllFreeWithNecessaryCapacityAndDrivers(Integer necessaryCapacity) {
         List<Vehicle> vehicles = getModelListFromEntityList(vehicleRepository.findAllByStatusAndCapacityGreaterThanEqual(
                 VehicleStatus.FREE, necessaryCapacity));
+        Iterator<Vehicle> iterator = vehicles.iterator();
 
-        for (Vehicle vehicle : vehicles) {
-            if (vehicle.getDrivers().size() == 0){
-                vehicles.remove(vehicle);
-                continue;
-            }
+        while (iterator.hasNext()){
+            Vehicle vehicle = iterator.next();
+
             int sumWeight = 0;
-
             for (Load load : vehicle.getLoads()) {
                 sumWeight += load.getWeight();
             }
-            if (necessaryCapacity > vehicle.getCapacity() - sumWeight){
-                vehicles.remove(vehicle);
+
+            if ((vehicle.getCapacity() - sumWeight < necessaryCapacity)){
+                iterator.remove();
             }
         }
         return vehicles;
     }
 
-    @Override
+    @Transactional
     public Vehicle findByRegistrationNumber(String registrationNumber) {
         return getModelFromEntity(vehicleRepository.findVehicleEntityByRegistrationNumber(registrationNumber));
     }

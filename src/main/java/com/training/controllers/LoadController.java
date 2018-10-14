@@ -34,7 +34,7 @@ public class LoadController {
     @GetMapping("/editLoad/{id}")
     public ModelAndView getLoadById(@PathVariable("id") Long id, RedirectAttributes redirectAttributes){
         Load loadToEdit = loadService.get(id);
-        String registrationNumber ="";
+        String registrationNumber = "";
         List<Vehicle> vehicles = vehicleService.getAllFreeWithNecessaryCapacityAndDrivers(loadToEdit.getWeight());
 
         redirectAttributes.addFlashAttribute("editableLoad", loadToEdit);
