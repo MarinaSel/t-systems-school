@@ -13,6 +13,8 @@ public final class LoadMapper {
     private LoadMapper(){};
 
     public static LoadEntity getEntityFromModel(Load load){
+        if(load == null)
+            return null;
         LoadEntity loadEntity = new LoadEntity();
 
         loadEntity.setId(load.getId());
@@ -26,6 +28,7 @@ public final class LoadMapper {
 
         return loadEntity;
     }
+
 
     public static Load getModelFromEntity(LoadEntity loadEntity){
 

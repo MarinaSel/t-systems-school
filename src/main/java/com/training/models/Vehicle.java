@@ -66,4 +66,16 @@ public class Vehicle extends BaseModel{
     public void setStatus(VehicleStatus loadStatus) {
         this.status = loadStatus;
     }
+
+    @Override
+    public String toString() {
+        return "Vehicle{" +
+                "id=" + id +
+                ", registrationNumber='" + registrationNumber + '\'' +
+                ", capacity=" + capacity +
+                ", status=" + status +
+                ", drivers=" + drivers +
+                ", loads=" + loads +
+                '}';
+    }
 }

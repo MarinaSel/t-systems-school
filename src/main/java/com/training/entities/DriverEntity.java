@@ -69,6 +69,12 @@ public class DriverEntity extends BaseEntity {
             status = DriverStatus.FREE;
     }
 
+    public void preUpdate(){
+        if(vehicle!=null){
+            status = DriverStatus.WORK;
+        }
+    }
+
     public Long getId() {
         return id;
     }

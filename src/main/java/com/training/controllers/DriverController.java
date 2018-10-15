@@ -41,7 +41,7 @@ public class DriverController {
     @GetMapping("/drivers")
     public ModelAndView getAllDriversPage() {
         List<Driver> drivers = driverService.getAll();
-        return new ModelAndView("driversView", "drivers", drivers);
+        return new ModelAndView("driversView").addObject("drivers", drivers);
     }
 
     @GetMapping("/removeDriver/{id}")

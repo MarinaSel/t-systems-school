@@ -74,4 +74,17 @@ public class Load extends BaseModel{
     public void setStatus(LoadStatus loadStatus) {
         this.status = loadStatus;
     }
+
+    @Override
+    public String toString() {
+        return "Load{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", dayOfDelivery=" + dayOfDelivery +
+                ", weight=" + weight +
+                ", status=" + status +
+                ", vehicle=" + vehicle +
+                '}';
+    }
 }

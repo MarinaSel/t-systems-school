@@ -8,45 +8,56 @@
     <title>Loads</title>
 </head>
 <body>
-<table border="2">
-    <tr>
-        <th>Title</th>
-        <th>Description</th>
-        <th>Day of delivery</th>
-        <th>Weight</th>
-        <th>Load status</th>
-        <th>Edit</th>
-        <th>Vehicle registration number</th>
-        <th>Vehicle status</th>
-        <th>Drivers' names</th>
-        <th>Driving licenses numbers</th>
-    </tr>
-
-    <c:forEach items="${loads}" var="load">
+<table border="2" class="table-striped ">
+    <thread>
         <tr>
-            <td>${load.title}</td>
-            <td>${load.description}</td>
-            <td>${load.dayOfDelivery}</td>
-            <td>${load.weight}</td>
-            <td>${load.status}</td>
-
-            <td><a href="/editLoad/${load.id}">Edit</a></td>
-
-            <td>${load.vehicle.registrationNumber}</td>
-            <td>${load.vehicle.status}</td>
-
-            <td>
-            <c:forEach items="${load.vehicle.drivers}" var="driver">
-                <p>${driver.firstName} ${driver.lastName}</p>
-            </c:forEach>
-            </td>
-            <td>
-            <c:forEach items="${load.vehicle.drivers}" var="driver">
-               <p>${driver.drivingLicenseNum}</p>
-            </c:forEach>
-            </td>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Day of delivery</th>
+            <th>Weight</th>
+            <th>Load status</th>
+            <th>Delivered</th>
+            <th>Edit</th>
+            <th>Vehicle registration number</th>
+            <th>Vehicle status</th>
+            <th>Drivers' names</th>
+            <th>Driving licenses numbers</th>
+            <th>Drivers status</th>
         </tr>
-    </c:forEach>
+
+        <c:forEach items="${loads}" var="load">
+            <tr>
+                <td>${load.title}</td>
+                <td>${load.description}</td>
+                <td>${load.dayOfDelivery}</td>
+                <td>${load.weight}</td>
+                <td>${load.status}</td>
+                <td><a href="/loadDone/${load.id}">Delivered</a></td>
+
+                <td><a href="/editLoad/${load.id}">Edit</a></td>
+
+                <td>${load.vehicle.registrationNumber}</td>
+                <td>${load.vehicle.status}</td>
+
+                <td>
+                    <c:forEach items="${load.vehicle.drivers}" var="driver">
+                        <p>${driver.firstName} ${driver.lastName}</p>
+                    </c:forEach>
+                </td>
+                <td>
+                    <c:forEach items="${load.vehicle.drivers}" var="driver">
+                        <p>${driver.drivingLicenseNum}</p>
+                    </c:forEach>
+                </td>
+                <td>
+                    <c:forEach items="${load.vehicle.drivers}" var="driver">
+                        <p>${driver.status}</p>
+                    </c:forEach>
+                </td>
+            </tr>
+        </c:forEach>
+    </thread>
+
 </table>
 
 

@@ -6,7 +6,7 @@
         <createSequence sequenceName="locations_id_seq"/>
         <createSequence sequenceName="vehicles_id_seq"/>
     </changeSet>
-    <changeSet author="Marina" id="60">
+    <changeSet author="Marina" id="74">
         <createTable tableName="drivers">
             <column autoIncrement="true" name="id" type="BIGSERIAL">
                 <constraints primaryKey="true" primaryKeyName="drivers_pk"/>
@@ -34,7 +34,7 @@
             <column name="current_city" type="VARCHAR"/>
         </createTable>
     </changeSet>
-    <changeSet author="Marina" id="72">
+    <changeSet author="Marina" id="73">
         <createTable tableName="loads">
             <column autoIncrement="true" name="id" type="BIGSERIAL">
                 <constraints primaryKey="true" primaryKeyName="loads_pk"/>
@@ -78,7 +78,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="Marina" id="68">
+    <changeSet author="Marina" id="75">
         <createTable tableName="vehicles">
             <column autoIncrement="true" name="id" type="BIGSERIAL">
                 <constraints primaryKey="true" primaryKeyName="vehicles_pk"/>

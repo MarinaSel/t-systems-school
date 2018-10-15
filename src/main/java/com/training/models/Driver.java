@@ -74,4 +74,17 @@ public class Driver extends BaseModel{
     public void setStatus(DriverStatus status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "Driver{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", drivingLicenseNum='" + drivingLicenseNum + '\'' +
+                ", status=" + status +
+                ", vehicle=" + vehicle +
+                ", licenseEndDate=" + licenseEndDate +
+                '}';
+    }
 }

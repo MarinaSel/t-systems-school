@@ -13,19 +13,6 @@
 <head>
     <title>${empty editableVehicle.id ? 'Add' : 'Edit'} vehicle</title>
     <script src="resources/js/listBox.js"></script>
-    <script>
-        function showDrivers(){
-            var selectBox = document.getElementById('status');
-            var userInput = selectBox.options[selectBox.selectedIndex].value;
-            if(userInput == 'BROKEN'){
-                document.getElementById('drivers').style.visibility = 'hidden';
-            }
-            else{
-                document.getElementById('drivers').style.visibility = 'visible';
-            }
-            return false;
-        };
-    </script>
 </head>
 <body>
 <h1>${empty editableVehicle.id ? 'Add' : 'Edit'} vehicle</h1>
@@ -56,7 +43,7 @@
             <tr>
                 <th align="left">Status</th>
                 <td>
-                    <select name="status" id="status" onchange="showDrivers();" required>
+                    <select name="status" id="status" required>
                         <option value="" selected disabled hidden>${editableVehicle.status}</option>
                         <option>BROKEN</option>
                         <option>WORKING</option>
@@ -66,30 +53,6 @@
             </tr>
         </c:if>
 
-
-        <tr id="drivers">
-            <c:if test="${!empty editableVehicle.status and editableVehicle.status != 'BROKEN'}">
-
-            <th align="left">Primary driver</th>
-            <td>
-                <select class="select" name="drivingLicenseNum" style="width:100%">
-                    <option value="" selected disabled hidden></option>
-                    <c:forEach items="${drivers}" var="driver">
-                        <option>${driver.drivingLicenseNum}</option>
-                    </c:forEach>
-                </select>
-            </td>
-            <th align="left">Second driver</th>
-            <td>
-                <select class="select" name="drivingLicenseNum" style="width:100%">
-                    <option value="" selected disabled hidden></option>
-                    <c:forEach items="${drivers}" var="driver">
-                        <option>${driver.drivingLicenseNum}</option>
-                    </c:forEach>
-                </select>
-            </td>
-        </tr>
-        </c:if>
         <td>
             <input type="submit" value="Save"/>
         </td>

@@ -85,6 +85,9 @@ public final class DriverMapper {
 
     public static Set<DriverEntity> getEntitySetFromModelSet(Set<Driver> drivers){
 
+        if(drivers == null){
+            return null;
+        }
         Set<DriverEntity> driverEntities = new HashSet<>();
 
         for (Driver driver : drivers) {
