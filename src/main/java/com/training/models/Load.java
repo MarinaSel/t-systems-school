@@ -3,16 +3,24 @@ package com.training.models;
 import com.training.entities.enums.LoadStatus;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class Load extends BaseModel{
 
     private Long id;
+
+    @NotNull(message = "Title cannot be null")
     private String title;
+
+    @NotNull(message = "Description cannot be null")
     private String description;
 
+    @NotNull(message = "Day od delivery cannot be null")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dayOfDelivery;
+
+    @NotNull(message = "Weight cannot be null")
     private Integer weight;
     private LoadStatus status;
     private Vehicle vehicle;

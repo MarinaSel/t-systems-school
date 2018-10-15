@@ -2,14 +2,21 @@ package com.training.models;
 
 import com.training.entities.enums.VehicleStatus;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
 public class Vehicle extends BaseModel{
 
     private Long id;
+
+    @Size(max = 7, message = "Registration number is invalid")
+    @NotNull(message = "Registration number cannot be null")
     private String registrationNumber;
     private Integer capacity;
+
+    @NotNull(message = "Capacity cannot be null")
     private VehicleStatus status;
     private Set<Driver> drivers;
     private Set<Load> loads;

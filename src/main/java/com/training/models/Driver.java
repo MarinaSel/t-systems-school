@@ -3,17 +3,29 @@ package com.training.models;
 import com.training.entities.enums.DriverStatus;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 public class Driver extends BaseModel{
 
     private Long id;
+
+    @NotNull(message = "First name cannot be null")
+    @Size(max = 50, message = "First name is invalid")
     private String firstName;
+
+    @NotNull(message = "Last name cannot be null")
+    @Size(max = 50,  message = "Last name is invalid")
     private String lastName;
+
+    @NotNull(message = "Driving license number cannot be null")
+    @Size(max = 50, message = "Driving license number is invalid")
     private String drivingLicenseNum;
     private DriverStatus status;
     private Vehicle vehicle;
 
+    @NotNull(message = "License end date cannot be null")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date licenseEndDate;
 

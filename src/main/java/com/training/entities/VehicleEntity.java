@@ -15,12 +15,12 @@ public class VehicleEntity extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "vehicles_id_seq")
     private Long id;
 
-    @Size(max = 7)
-    @NotNull
+    @Size(max = 7, message = "Registration number is invalid")
+    @NotNull(message = "Registration number cannot be null")
     @Column(name = "registration_number", nullable = false, length = 7, unique = true)
     private String registrationNumber;
 
-    @NotNull
+    @NotNull(message = "Capacity cannot be null")
     @Column(name = "capacity", nullable = false)
     private Integer capacity;
 
@@ -29,7 +29,6 @@ public class VehicleEntity extends BaseEntity {
     @Column(name = "status", nullable = false)
     private VehicleStatus status;
 
-    @NotNull
     @Column(name = "current_city")
     private String currentCity;
 

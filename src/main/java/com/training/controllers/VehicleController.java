@@ -35,12 +35,6 @@ public class VehicleController {
     @GetMapping("/editVehicle/{id}")
     public ModelAndView getVehicleById(@PathVariable("id") Long id, RedirectAttributes redirectAttributes){
         Vehicle vehicleToEdit = vehicleService.get(id);
-        List<Driver> drivers = driverService.getAllFree();
-        String name = "";
-        String drivingLicenseNum = "";
-        redirectAttributes.addFlashAttribute("drivers", drivers);
-        redirectAttributes.addFlashAttribute("name", name);
-        redirectAttributes.addFlashAttribute("drivingLicenseNum", drivingLicenseNum);
         redirectAttributes.addFlashAttribute("editableVehicle", vehicleToEdit);
         return new ModelAndView("redirect:/getSaveVehiclePage");
     }
@@ -57,13 +51,8 @@ public class VehicleController {
     }
 
     @PostMapping(value="/saveVehicle")
-    public ModelAndView saveVehicle(@ModelAttribute("editableVehicle") Vehicle vehicle,
-                                    @ModelAttribute("name") String name,
-                                    @ModelAttribute("drivingLicenseNum") String drivingLicenseNum){
-        if (drivingLicenseNum != null && drivingLicenseNum.length() != 0){
-            vehicle.setDrivers(driverService.findByDrivingLicenseNum(drivingLicenseNum));
+    public ModelAndView saveVehicle(@ModelAttribute("editableVehicle") Vehicle vehicle){
 
-        }
         vehicleService.create(vehicle);
         return new ModelAndView("redirect:/vehicles");
     }

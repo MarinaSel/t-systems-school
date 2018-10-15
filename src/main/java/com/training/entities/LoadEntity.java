@@ -31,12 +31,15 @@ public class LoadEntity extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "loads_id_seq")
     private Long id;
 
+    @NotNull(message = "Title cannot be null")
     @Column(name = "title", nullable = false)
     private String title;
 
+    @NotNull(message = "Description cannot be null")
     @Column(name = "description", nullable = false)
     private String description;
 
+    @NotNull(message = "Day od delivery cannot be null")
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "date_of_delivery", nullable = false)
@@ -47,7 +50,7 @@ public class LoadEntity extends BaseEntity {
     @Column(name = "status", nullable = false)
     private LoadStatus status;
 
-    @NotNull
+    @NotNull(message = "Weight cannot be null")
     @Column(name = "weight",nullable = false)
     private Integer weight;
 

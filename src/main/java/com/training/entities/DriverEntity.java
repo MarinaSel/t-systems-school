@@ -30,22 +30,22 @@ public class DriverEntity extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "drivers_id_seq")
     private Long id;
 
-    @NotNull
-    @Size(max = 50)
+    @NotNull(message = "Driving license number cannot be null")
+    @Size(max = 50, message = "Driving license number is invalid")
     @Column(name = "driving_license_num", nullable = false, unique = true, length = 50)
     private String drivingLicenseNum;
 
-    @NotNull
-    @Size(max = 50)
+    @NotNull(message = "First name cannot be null")
+    @Size(max = 50, message = "First name is invalid")
     @Column(name = "first_name", nullable = false, length = 50)
     private String firstName;
 
-    @NotNull
-    @Size(max = 50)
+    @NotNull(message = "Last name cannot be null")
+    @Size(max = 50,  message = "Last name is invalid")
     @Column(name = "last_name", nullable = false, length = 50)
     private String lastName;
 
-    @NotNull
+    @NotNull(message = "License end date cannot be null")
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "license_end_date", nullable = false)
