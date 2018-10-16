@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class LoadServiceImpl implements LoadService {
 
     private final static Logger logger = LogManager.getLogger(LoadServiceImpl.class);
@@ -22,14 +23,14 @@ public class LoadServiceImpl implements LoadService {
     @Autowired
     private LoadRepository loadRepository;
 
-    @Transactional
+    @Override
     public Load get(Long id){
         Load load = LoadMapper.getModelFromEntity(loadRepository.getOne(id));
         logger.info("Got load with id = {}", load.getId());
         return load;
     }
 
-    @Transactional
+    @Override
     public Load save(Load load){
         LoadEntity loadEntity = LoadMapper.getEntityFromModel(load);
         if(load.getId()==null){
@@ -41,13 +42,13 @@ public class LoadServiceImpl implements LoadService {
         return LoadMapper.getModelFromEntity(loadEntity);
     }
 
-    @Transactional
+    @Override
     public void remove(Long id){
         loadRepository.deleteById(id);
         logger.info("Deleted load with id = {}", id);
     }
 
-    @Transactional
+    @Override
     public List<Load> getAll(){
         List<Load> loads = LoadMapper.getModelListFromEntityList(loadRepository.findAll());
         logger.info("Found all loads");

@@ -19,6 +19,7 @@ import java.util.Set;
 import static com.training.mappers.DriverMapper.*;
 
 @Service
+@Transactional
 public class DriverServiceImpl implements DriverService{
 
     private final static Logger logger = LogManager.getLogger(DriverServiceImpl.class);
@@ -26,14 +27,14 @@ public class DriverServiceImpl implements DriverService{
     @Autowired
     private DriverRepository driverRepository;
 
-    @Transactional
+    @Override
     public Driver get(Long id){
         Driver driver = getModelFromEntity(driverRepository.getOne(id));
         logger.info("Got driver with id = {}", driver.getId());
         return driver;
     }
 
-    @Transactional
+    @Override
     public Driver save(Driver driver){
         DriverEntity driverEntity = driverRepository.saveAndFlush(getEntityFromModel(driver));
         if(driver.getId() == null){
@@ -45,30 +46,30 @@ public class DriverServiceImpl implements DriverService{
         return getModelFromEntity(driverEntity);
     }
 
-    @Transactional
+    @Override
     public void remove(Long id){
         driverRepository.deleteById(id);
         logger.info("Deleted driver with id = {}", id);
     }
 
-    @Transactional
+    @Override
     public List<Driver> getAll(){
         List<Driver> drivers = getModelListFromEntityList(driverRepository.findAll());
         logger.info("Found all drivers");
         return drivers;
     }
 
-    @Transactional
+    @Override
     public List<Driver> getAllFree() {
         List<Driver> drivers = getModelListFromEntityList(driverRepository.findAllByStatus(DriverStatus.FREE));
         logger.info("Found all drivers with status FREE");
         return drivers;
     }
 
-    @Transactional
-    public Set<Driver> findByDrivingLicenseNum(String drivingLicenseNum) {
-        Set<Driver> drivers = getModelSetFromEntitySet(driverRepository.findByDrivingLicenseNum(drivingLicenseNum));
-        logger.info("Found drivers with driving license number = {}", drivingLicenseNum);
-        return drivers;
+    @Override
+    public Driver findByDrivingLicenseNum(String drivingLicenseNum) {
+        Driver driver = getModelFromEntity(driverRepository.findByDrivingLicenseNum(drivingLicenseNum));
+        logger.info("Found driver with driving license number = {}", drivingLicenseNum);
+        return driver;
     }
 }

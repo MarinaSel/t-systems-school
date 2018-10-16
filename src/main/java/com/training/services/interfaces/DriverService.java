@@ -12,6 +12,6 @@ public interface DriverService extends BaseService<Driver, Long> {
 
     List<Driver> getAllFree();
 
-    Set<Driver> findByDrivingLicenseNum(String drivingLicenseNum);
+    Driver findByDrivingLicenseNum(String drivingLicenseNum);
 
 }

@@ -14,6 +14,6 @@ public interface DriverRepository extends JpaRepository<DriverEntity, Long> {
 
     List<DriverEntity> findAllByStatus(DriverStatus status);
 
-    Set<DriverEntity> findByDrivingLicenseNum(String drivingLicenseNum);
+    DriverEntity findByDrivingLicenseNum(String drivingLicenseNum);
 
 }

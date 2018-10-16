@@ -21,6 +21,7 @@ import static com.training.mappers.VehicleMapper.getModelFromEntity;
 import static com.training.mappers.VehicleMapper.getModelListFromEntityList;
 
 @Service
+@Transactional
 public class VehicleServiceImpl implements VehicleService {
 
     private final static Logger logger = LogManager.getLogger(VehicleServiceImpl.class);
@@ -28,14 +29,14 @@ public class VehicleServiceImpl implements VehicleService {
     @Autowired
     private VehicleRepository vehicleRepository;
 
-    @Transactional
+    @Override
     public Vehicle get(Long id){
         Vehicle vehicle = getModelFromEntity(vehicleRepository.getOne(id));
         logger.info("Found vehicle with id = {}", vehicle.getId());
         return vehicle;
     }
 
-    @Transactional
+    @Override
     public Vehicle save(Vehicle vehicle){
         VehicleEntity vehicleEntity = vehicleRepository.saveAndFlush(getEntityFromModel(vehicle));
         if(vehicle.getId()==null){
@@ -47,20 +48,20 @@ public class VehicleServiceImpl implements VehicleService {
         return getModelFromEntity(vehicleEntity);
     }
 
-    @Transactional
+    @Override
     public void remove(Long id){
         vehicleRepository.deleteById(id);
         logger.info("Deleted vehicle with id = {}", id);
     }
 
-    @Transactional
+    @Override
     public List<Vehicle> getAll() {
         List<Vehicle> vehicles = getModelListFromEntityList(vehicleRepository.findAll());
         logger.info("Found all vehicles");
         return vehicles;
     }
 
-    @Transactional
+    @Override
     public List<Vehicle> getAllFreeWithNecessaryCapacityAndDrivers(Integer necessaryCapacity) {
         List<Vehicle> vehicles = getModelListFromEntityList(vehicleRepository.findAllByStatusAndCapacityGreaterThanEqual(
                 VehicleStatus.FREE, necessaryCapacity));
@@ -82,7 +83,7 @@ public class VehicleServiceImpl implements VehicleService {
         return vehicles;
     }
 
-    @Transactional
+    @Override
     public Vehicle findByRegistrationNumber(String registrationNumber) {
         Vehicle vehicle = getModelFromEntity(vehicleRepository.findVehicleEntityByRegistrationNumber(registrationNumber));
         logger.info("Found vehicle by registration number = {}", registrationNumber);
