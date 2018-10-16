@@ -74,7 +74,7 @@
             </td>
         </table>
 
-        <p><a href="/getAddDriverView">Home page</a></p>
+        <p><a href="/drivers">Drivers</a></p>
     </form>
 </body>
 </html>

@@ -29,7 +29,7 @@ public class VehicleController {
     @GetMapping("/vehicles")
     public ModelAndView allVehiclesView() {
         List<Vehicle> vehicles = vehicleService.getAll();
-        return new ModelAndView("vehiclesView", "vehicles", vehicles);
+        return new ModelAndView("vehiclesView").addObject("vehicles", vehicles);
     }
 
     @GetMapping("/editVehicle/{id}")
@@ -47,13 +47,12 @@ public class VehicleController {
 
     @GetMapping(value = "/getSaveVehiclePage")
     public ModelAndView getSaveVehiclePage(Model model) {
-        return new ModelAndView("saveVehicleView", model.asMap());
+        return new ModelAndView("saveVehicleView").addAllObjects(model.asMap());
     }
 
     @PostMapping(value="/saveVehicle")
     public ModelAndView saveVehicle(@ModelAttribute("editableVehicle") Vehicle vehicle){
-
-        vehicleService.create(vehicle);
+        vehicleService.save(vehicle);
         return new ModelAndView("redirect:/vehicles");
     }
 

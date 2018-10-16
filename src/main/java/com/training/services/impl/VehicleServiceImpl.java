@@ -7,6 +7,8 @@ import com.training.models.Vehicle;
 import com.training.repositories.VehicleRepository;
 import com.training.services.interfaces.VehicleService;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,32 +23,41 @@ import static com.training.mappers.VehicleMapper.getModelListFromEntityList;
 @Service
 public class VehicleServiceImpl implements VehicleService {
 
+    private final static Logger logger = LogManager.getLogger(VehicleServiceImpl.class);
+
     @Autowired
     private VehicleRepository vehicleRepository;
 
     @Transactional
     public Vehicle get(Long id){
-        return getModelFromEntity(vehicleRepository.getOne(id));
+        Vehicle vehicle = getModelFromEntity(vehicleRepository.getOne(id));
+        logger.info("Found vehicle with id = {}", vehicle.getId());
+        return vehicle;
     }
 
     @Transactional
-    public void create(Vehicle vehicle){ vehicleRepository.saveAndFlush(getEntityFromModel(vehicle));
-    }
-
-    @Transactional
-    public Vehicle update(Vehicle vehicle){
+    public Vehicle save(Vehicle vehicle){
         VehicleEntity vehicleEntity = vehicleRepository.saveAndFlush(getEntityFromModel(vehicle));
+        if(vehicle.getId()==null){
+            logger.info("Created vehicle with id = {}", vehicleEntity.getId());
+        }
+        else{
+            logger.info("Updated vehicle with id = {}", vehicle.getId());
+        }
         return getModelFromEntity(vehicleEntity);
     }
 
     @Transactional
     public void remove(Long id){
         vehicleRepository.deleteById(id);
+        logger.info("Deleted vehicle with id = {}", id);
     }
 
     @Transactional
     public List<Vehicle> getAll() {
-        return getModelListFromEntityList(vehicleRepository.findAll());
+        List<Vehicle> vehicles = getModelListFromEntityList(vehicleRepository.findAll());
+        logger.info("Found all vehicles");
+        return vehicles;
     }
 
     @Transactional
@@ -67,11 +78,14 @@ public class VehicleServiceImpl implements VehicleService {
                 iterator.remove();
             }
         }
+        logger.info("Found all vehicles with capacity = {} and status FREE", necessaryCapacity);
         return vehicles;
     }
 
     @Transactional
     public Vehicle findByRegistrationNumber(String registrationNumber) {
-        return getModelFromEntity(vehicleRepository.findVehicleEntityByRegistrationNumber(registrationNumber));
+        Vehicle vehicle = getModelFromEntity(vehicleRepository.findVehicleEntityByRegistrationNumber(registrationNumber));
+        logger.info("Found vehicle by registration number = {}", registrationNumber);
+        return vehicle;
     }
 }

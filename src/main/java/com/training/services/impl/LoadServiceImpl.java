@@ -6,6 +6,8 @@ import com.training.models.Load;
 import com.training.repositories.LoadRepository;
 import com.training.services.interfaces.LoadService;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,33 +17,41 @@ import java.util.List;
 @Service
 public class LoadServiceImpl implements LoadService {
 
+    private final static Logger logger = LogManager.getLogger(LoadServiceImpl.class);
+
     @Autowired
-    LoadRepository loadRepository;
+    private LoadRepository loadRepository;
 
     @Transactional
     public Load get(Long id){
-        return LoadMapper.getModelFromEntity(loadRepository.getOne(id));
+        Load load = LoadMapper.getModelFromEntity(loadRepository.getOne(id));
+        logger.info("Got load with id = {}", load.getId());
+        return load;
     }
 
     @Transactional
-    public void create(Load load){
-        loadRepository.saveAndFlush(LoadMapper.getEntityFromModel(load));
-    }
-
-    @Transactional
-    public Load update(Load load){
+    public Load save(Load load){
         LoadEntity loadEntity = LoadMapper.getEntityFromModel(load);
+        if(load.getId()==null){
+            logger.info("Created load with id = {}", loadEntity.getId());
+        }
+        else{
+            logger.info("Updated load with id = {}", load.getId());
+        }
         return LoadMapper.getModelFromEntity(loadEntity);
     }
 
     @Transactional
     public void remove(Long id){
         loadRepository.deleteById(id);
+        logger.info("Deleted load with id = {}", id);
     }
 
     @Transactional
     public List<Load> getAll(){
-        return LoadMapper.getModelListFromEntityList(loadRepository.findAll());
+        List<Load> loads = LoadMapper.getModelListFromEntityList(loadRepository.findAll());
+        logger.info("Found all loads");
+        return loads;
     }
 
 }

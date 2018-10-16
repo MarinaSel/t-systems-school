@@ -19,12 +19,7 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Transactional
-    public void create(LocationEntity locationEntity){
-        locationRepository.saveAndFlush(locationEntity);
-    }
-
-    @Transactional
-    public LocationEntity update(LocationEntity locationEntity){
+    public LocationEntity save(LocationEntity locationEntity){
         return locationRepository.saveAndFlush(locationEntity);
     }
 

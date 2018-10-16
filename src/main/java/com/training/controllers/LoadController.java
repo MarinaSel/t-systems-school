@@ -64,7 +64,7 @@ public class LoadController {
 
     @GetMapping(value = "/getSaveLoadPage")
     public ModelAndView getSaveLoadView(Model model) {
-        return new ModelAndView("saveLoadView", model.asMap());
+        return new ModelAndView("saveLoadView").addAllObjects(model.asMap());
     }
 
     @PostMapping(value="/saveLoad")
@@ -78,18 +78,18 @@ public class LoadController {
             load.getVehicle().setStatus(VehicleStatus.WORKING);
             load.setStatus(LoadStatus.IN_PROGRESS);
         }
-        if (drivingLicenseNum != null && registrationNumber.length() != 0){
+        if (drivingLicenseNum != null && drivingLicenseNum.length() != 0){
             load.getVehicle().setDrivers(driverService.findByDrivingLicenseNum(drivingLicenseNum));
-            System.out.println(load.toString());
+
         }
-        loadService.create(load);
+        loadService.save(load);
         return new ModelAndView("redirect:/loads");
     }
 
     @GetMapping("/loads")
     public ModelAndView viewAllLoads() {
         List<Load> loads = loadService.getAll();
-        return new ModelAndView("loadsView", "loads", loads);
+        return new ModelAndView("loadsView").addObject("loads", loads);
     }
 
 }
