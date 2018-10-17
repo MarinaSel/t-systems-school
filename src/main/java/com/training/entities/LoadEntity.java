@@ -1,8 +1,8 @@
 package com.training.entities;
-import com.training.entities.enums.LoadStatus;
-import com.training.entities.enums.VehicleStatus;
-import org.springframework.format.annotation.DateTimeFormat;
 
+import com.training.entities.enums.LoadStatus;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,7 +19,9 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 import javax.validation.constraints.NotNull;
+
 import java.util.Date;
 
 @Entity
@@ -61,7 +63,12 @@ public class LoadEntity extends BaseEntity {
     @PrePersist
     public void prePersist(){
         if(status == null){
-            status = LoadStatus.NOT_ASSIGNED;
+            if (vehicle == null){
+                status = LoadStatus.NOT_ASSIGNED;
+            }
+            else{
+                status = LoadStatus.IN_PROGRESS;
+            }
         }
     }
 
@@ -69,7 +76,6 @@ public class LoadEntity extends BaseEntity {
     public void preUpdate(){
         if(vehicle != null){
             status = LoadStatus.IN_PROGRESS;
-            vehicle.setStatus(VehicleStatus.WORKING);
         }
     }
 

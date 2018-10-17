@@ -14,9 +14,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Set;
 
-import static com.training.mappers.DriverMapper.*;
+import static com.training.mappers.DriverMapper.getModelFromEntity;
+import static com.training.mappers.DriverMapper.getEntityFromModel;
+import static com.training.mappers.DriverMapper.getModelListFromEntityList;
+
 
 @Service
 @Transactional
@@ -36,7 +38,9 @@ public class DriverServiceImpl implements DriverService{
 
     @Override
     public Driver save(Driver driver){
-        DriverEntity driverEntity = driverRepository.saveAndFlush(getEntityFromModel(driver));
+        DriverEntity driverEntity = getEntityFromModel(driver);
+        driverRepository.saveAndFlush(driverEntity);
+
         if(driver.getId() == null){
             logger.info("Created driver with id = {}", driverEntity.getId());
         }

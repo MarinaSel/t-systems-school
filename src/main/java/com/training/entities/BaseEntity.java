@@ -1,6 +1,7 @@
 package com.training.entities;
 
 import com.training.listeners.DateSettingListener;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
@@ -8,6 +9,7 @@ import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 import java.util.Date;
 
 @MappedSuperclass

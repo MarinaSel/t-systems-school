@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface VehicleRepository extends JpaRepository<VehicleEntity, Long> {
 
-    List<VehicleEntity> findAllByStatusAndCapacityGreaterThanEqual(VehicleStatus status, Integer capacity);
+    List<VehicleEntity> findAllByStatus(VehicleStatus status);
 
     VehicleEntity findVehicleEntityByRegistrationNumber(String registrationNumber);
 }

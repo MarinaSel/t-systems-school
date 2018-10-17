@@ -60,7 +60,6 @@ public final class VehicleMapper {
         vehicleEntity.setCapacity(vehicle.getCapacity());
         vehicleEntity.setStatus(vehicle.getStatus());
         vehicleEntity.setCreationDate(vehicle.getCreationDate());
-        vehicleEntity.setDrivers(DriverMapper.getEntitySetFromModelSet(vehicle.getDrivers()));
 
         return vehicleEntity;
     }

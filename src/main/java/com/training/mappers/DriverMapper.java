@@ -23,6 +23,7 @@ public final class DriverMapper {
         driverEntity.setLicenseEndDate(driver.getLicenseEndDate());
         driverEntity.setStatus(driver.getStatus());
         driverEntity.setCreationDate(driver.getCreationDate());
+        driverEntity.setVehicle(VehicleMapper.getEntityFromModel(driver.getVehicle()));
 
         return driverEntity;
     }

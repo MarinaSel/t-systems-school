@@ -20,7 +20,7 @@
             <th>Edit</th>
             <th>Vehicle registration number</th>
             <th>Vehicle status</th>
-            <th>Drivers' names</th>
+            <th>Drivers names</th>
             <th>Driving licenses numbers</th>
             <th>Drivers status</th>
         </tr>
@@ -39,21 +39,18 @@
                 <td>${load.vehicle.registrationNumber}</td>
                 <td>${load.vehicle.status}</td>
 
-                <td>
-                    <c:forEach items="${load.vehicle.drivers}" var="driver">
+
+                <c:forEach items="${load.vehicle.drivers}" var="driver">
+                    <td>
                         <p>${driver.firstName} ${driver.lastName}</p>
-                    </c:forEach>
-                </td>
-                <td>
-                    <c:forEach items="${load.vehicle.drivers}" var="driver">
+                    </td>
+                    <td>
                         <p>${driver.drivingLicenseNum}</p>
-                    </c:forEach>
-                </td>
-                <td>
-                    <c:forEach items="${load.vehicle.drivers}" var="driver">
+                    </td>
+                    <td>
                         <p>${driver.status}</p>
-                    </c:forEach>
-                </td>
+                    </td>
+                </c:forEach>
             </tr>
         </c:forEach>
     </thread>

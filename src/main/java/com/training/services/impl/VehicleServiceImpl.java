@@ -9,6 +9,7 @@ import com.training.services.interfaces.VehicleService;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,8 +39,10 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     public Vehicle save(Vehicle vehicle){
-        VehicleEntity vehicleEntity = vehicleRepository.saveAndFlush(getEntityFromModel(vehicle));
-        if(vehicle.getId()==null){
+        VehicleEntity vehicleEntity = getEntityFromModel(vehicle);
+        vehicleRepository.saveAndFlush(vehicleEntity);
+
+        if(vehicle.getId() == null){
             logger.info("Created vehicle with id = {}", vehicleEntity.getId());
         }
         else{
@@ -63,8 +66,7 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     public List<Vehicle> getAllFreeWithNecessaryCapacityAndDrivers(Integer necessaryCapacity) {
-        List<Vehicle> vehicles = getModelListFromEntityList(vehicleRepository.findAllByStatusAndCapacityGreaterThanEqual(
-                VehicleStatus.FREE, necessaryCapacity));
+        List<Vehicle> vehicles = getModelListFromEntityList(vehicleRepository.findAllByStatus(VehicleStatus.FREE));
         Iterator<Vehicle> iterator = vehicles.iterator();
 
         while (iterator.hasNext()){

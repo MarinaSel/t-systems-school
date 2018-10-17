@@ -1,5 +1,7 @@
 package com.training.entities;
+
 import com.training.entities.enums.DriverStatus;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
@@ -12,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -19,6 +22,7 @@ import javax.persistence.TemporalType;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
 import java.util.Date;
 
 @Entity
@@ -41,7 +45,7 @@ public class DriverEntity extends BaseEntity {
     private String firstName;
 
     @NotNull(message = "Last name cannot be null")
-    @Size(max = 50,  message = "Last name is invalid")
+    @Size(max = 50, message = "Last name is invalid")
     @Column(name = "last_name", nullable = false, length = 50)
     private String lastName;
 
@@ -65,12 +69,12 @@ public class DriverEntity extends BaseEntity {
 
     @PrePersist
     public void prePersist() {
-        if(status == null)
-            status = DriverStatus.FREE;
+        status = DriverStatus.FREE;
     }
 
-    public void preUpdate(){
-        if(vehicle!=null){
+    @PreUpdate
+    public void preUpdate() {
+        if (vehicle != null) {
             status = DriverStatus.WORK;
         }
     }

@@ -9,7 +9,7 @@ public interface VehicleService extends BaseService<Vehicle, Long> {
 
     List<Vehicle> getAll();
 
-    List<Vehicle> getAllFreeWithNecessaryCapacityAndDrivers(Integer capacity);
+    List<Vehicle> getAllFreeWithNecessaryCapacityAndDrivers(Integer necessaryCapacity/*, Long loadId*/);
 
     Vehicle findByRegistrationNumber(String registrationNumber);
 }

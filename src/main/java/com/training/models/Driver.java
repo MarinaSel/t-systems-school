@@ -1,10 +1,12 @@
 package com.training.models;
 
 import com.training.entities.enums.DriverStatus;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
 import java.util.Date;
 
 public class Driver extends BaseModel{

@@ -1,6 +1,7 @@
 package com.training.config;
 
 import liquibase.integration.spring.SpringLiquibase;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 

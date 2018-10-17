@@ -16,8 +16,8 @@
         <th>Capacity</th>
         <th>Status</th>
         <th>Edit</th>
-        <th>Drivers name</th>
-        <th>Drivers license number</th>
+        <th>Drivers names</th>
+        <th>Drivers license numbers</th>
     </tr>
     <c:forEach items="${vehicles}" var="vehicle">
         <tr>

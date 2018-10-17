@@ -1,9 +1,11 @@
 package com.training.models;
 
 import com.training.entities.enums.LoadStatus;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
+
 import java.util.Date;
 
 public class Load extends BaseModel{

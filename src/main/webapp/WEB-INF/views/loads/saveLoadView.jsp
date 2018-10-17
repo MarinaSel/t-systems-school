@@ -31,7 +31,7 @@
         <table>
             <tr>
                 <td>
-                    <input type="hidden" name="id" value="${editableLoad.id}"/>
+                    <input  type="hidden" name="id" value="${editableLoad.id}"/>
                 </td>
             </tr>
             <tr>
@@ -78,9 +78,11 @@
                 <td>
                     <select class="select" id="vehicles" name="regNum" style="width:100%" onchange="showDrivers();">
                         <option value="${editableLoad.vehicle.registrationNumber}" selected>${editableLoad.vehicle.registrationNumber}</option>
-                        <c:forEach items="${freeVehicles}" var="vehicle">
-                            <option>${vehicle.registrationNumber}</option>
-                        </c:forEach>
+                        <c:if test="${!empty editableLoad.id}">
+                            <c:forEach items="${freeVehicles}" var="vehicle">
+                                <option>${vehicle.registrationNumber}</option>
+                            </c:forEach>
+                        </c:if>
                     </select>
                 </td>
             </tr>
@@ -88,18 +90,21 @@
             <tr>
                 <th align="left">Primary driver</th>
                 <td>
-                    <select id="primaryDriver" class="select" name="drivingLicenseNum" style="width:100%" disabled="disabled">
+                    <select id="primaryDriver" class="select" name="drivingLicenseNumPrimary" style="width:100%" disabled="disabled">
                         <option value="" selected disabled hidden></option>
-                        <c:forEach items="${freeDrivers}" var="driver">
-                            <option>${driver.drivingLicenseNum}</option>
-                        </c:forEach>
+                        <c:if test="${!empty editableLoad.vehicle}">
+                            <c:forEach items="${freeDrivers}" var="driver">
+                                <option>${driver.drivingLicenseNum}</option>
+                            </c:forEach>
+                        </c:if>
+
                     </select>
                 </td>
             </tr>
             <tr>
                 <th align="left">Second driver</th>
                 <td>
-                    <select class="select" id="secondDriver" name="drivingLicenseNum" style="width:100%" disabled="disabled">
+                    <select class="select" id="secondDriver" name="drivingLicenseNumSecond" style="width:100%" disabled="disabled">
                         <option value="" selected disabled hidden></option>
                         <option></option>
                         <c:forEach items="${freeDrivers}" var="driver">

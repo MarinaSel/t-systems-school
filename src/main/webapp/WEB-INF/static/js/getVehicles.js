@@ -2,12 +2,15 @@ function getVehicle() {
     var weight = $('#vehicleWeight').val();
     $.ajax({
         type: 'GET',
-        datatype:"json",
+        datatype: "json",
         url: "/api/vehicle",
-        data: {"weight": weight},
+        data: {
+            "weight": weight
+        },
         success: function (result) {
             var insert = '';
             $('#vehicles').empty();
+            insert += '<option></option>';
 
             $.each(result, function (index, value) {
                 insert += '<option>' + value.registrationNumber + '</option>';
