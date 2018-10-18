@@ -6,6 +6,7 @@
 
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <!DOCTYPE html>
+<link rel="stylesheet" type="text/css" href="resources/css/selectForStatus.css"/>
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -13,7 +14,6 @@
 
 <head>
     <title>${empty editableDriver.id ? 'Add' : 'Edit'} driver</title>
-
     <script src="resources/js/datepicker.js"></script>
 </head>
 
@@ -59,7 +59,7 @@
                 <tr>
                     <th align="left">Status</th>
                     <td>
-                        <select name="status" required>
+                        <select class="soflow" name="status" required>
                             <option value="" selected disabled hidden>${editableDriver.status}</option>
                             <option>FREE</option>
                             <option>WORK</option>

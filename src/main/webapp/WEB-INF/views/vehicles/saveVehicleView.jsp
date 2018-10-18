@@ -12,7 +12,7 @@
 <html>
 <head>
     <title>${empty editableVehicle.id ? 'Add' : 'Edit'} vehicle</title>
-    <script src="resources/js/listBox.js"></script>
+    <link rel="stylesheet" type="text/css" href="resources/css/selectForStatus.css"/>
 </head>
 <body>
 <h1>${empty editableVehicle.id ? 'Add' : 'Edit'} vehicle</h1>
@@ -43,7 +43,7 @@
             <tr>
                 <th align="left">Status</th>
                 <td>
-                    <select name="status" id="status" onchange="showDrivers();" required>
+                    <select name="status" class="soflow" onchange="showDrivers();" required>
                         <option value="" selected disabled hidden>${editableVehicle.status}</option>
                         <option>BROKEN</option>
                         <option>WORKING</option>

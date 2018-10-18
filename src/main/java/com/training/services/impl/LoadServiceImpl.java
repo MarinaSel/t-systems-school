@@ -67,7 +67,6 @@ public class LoadServiceImpl implements LoadService {
         if(loadEntity.getVehicle() != null){
             loadEntity.setVehicle(null);
             loadEntity.setStatus(LoadStatus.DONE);
-
         }
         return getModelFromEntity(loadEntity);
     }
