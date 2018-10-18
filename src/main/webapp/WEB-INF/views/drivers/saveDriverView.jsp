@@ -21,7 +21,7 @@
 
 <h1>${empty editableDriver.id ? 'Add' : 'Edit'} driver</h1>
 
-    <form method="post" action="/addDriver" modelAttribute = "editableDriver">
+    <form method="post" action="/saveDriver" modelAttribute = "editableDriver">
         <table>
             <tr>
                 <td>

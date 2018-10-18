@@ -9,5 +9,4 @@ import java.util.List;
 @Repository
 public interface LoadRepository extends JpaRepository<LoadEntity, Long> {
 
-
 }

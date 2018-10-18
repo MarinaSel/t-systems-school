@@ -23,15 +23,15 @@ public class DriverController {
     public ModelAndView getDriverById(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
         Driver driverToEdit = driverService.get(id);
         redirectAttributes.addFlashAttribute("editableDriver", driverToEdit);
-        return new ModelAndView("redirect:/getAddDriverView");
+        return new ModelAndView("redirect:/getSaveDriverView");
     }
 
-    @GetMapping("/getAddDriverView")
+    @GetMapping("/getSaveDriverView")
     public ModelAndView getAddDriverPage(Model model) {
-        return new ModelAndView("addDriverView").addAllObjects(model.asMap());
+        return new ModelAndView("saveDriverView").addAllObjects(model.asMap());
     }
 
-    @PostMapping("/addDriver")
+    @PostMapping("/saveDriver")
     public ModelAndView addDriver(@ModelAttribute("editableDriver") Driver driver) {
         driverService.save(driver);
         return new ModelAndView("redirect:/drivers");

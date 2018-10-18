@@ -1,6 +1,7 @@
 package com.training.services.impl;
 
 import com.training.entities.LoadEntity;
+import com.training.entities.enums.LoadStatus;
 import com.training.models.Load;
 import com.training.repositories.LoadRepository;
 import com.training.services.interfaces.LoadService;
@@ -60,4 +61,14 @@ public class LoadServiceImpl implements LoadService {
         return loads;
     }
 
+    @Override
+    public Load deleteVehicleFromLoad(Long id) {
+        LoadEntity loadEntity = loadRepository.getOne(id);
+        if(loadEntity.getVehicle() != null){
+            loadEntity.setVehicle(null);
+            loadEntity.setStatus(LoadStatus.DONE);
+
+        }
+        return getModelFromEntity(loadEntity);
+    }
 }

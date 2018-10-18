@@ -37,7 +37,7 @@
         </c:forEach>
     </table>
 
-   <p><a href="/getAddDriverView">Add new driver</a></p>
+   <p><a href="/getSaveDriverView">Add new driver</a></p>
    <p><a href="homePage">Home page</a></p>
 </body>
 </html>

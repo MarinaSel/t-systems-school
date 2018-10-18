@@ -7,5 +7,7 @@ import java.util.List;
 
 public interface LoadService extends BaseService<Load, Long> {
 
+    Load deleteVehicleFromLoad(Long id);
+
     List<Load> getAll();
 }

@@ -16,8 +16,7 @@
             <th>Day of delivery</th>
             <th>Weight</th>
             <th>Load status</th>
-            <th>Delivered</th>
-            <th>Edit</th>
+            <th>Function</th>
             <th>Vehicle registration number</th>
             <th>Vehicle status</th>
             <th>Drivers names</th>
@@ -32,25 +31,32 @@
                 <td>${load.dayOfDelivery}</td>
                 <td>${load.weight}</td>
                 <td>${load.status}</td>
-                <td><a href="/loadDone/${load.id}">Delivered</a></td>
 
-                <td><a href="/editLoad/${load.id}">Edit</a></td>
+                <td>
+                    <c:if test="${load.status != 'DONE'}">
+                        <a href="/loadDone/${load.id}">Delivered</a>
+                        <a href="/editLoad/${load.id}">Edit</a>
+                    </c:if>
+                </td>
 
                 <td>${load.vehicle.registrationNumber}</td>
                 <td>${load.vehicle.status}</td>
 
-
-                <c:forEach items="${load.vehicle.drivers}" var="driver">
-                    <td>
+                <td>
+                    <c:forEach items="${load.vehicle.drivers}" var="driver">
                         <p>${driver.firstName} ${driver.lastName}</p>
-                    </td>
-                    <td>
+                    </c:forEach>
+                </td>
+                <td>
+                    <c:forEach items="${load.vehicle.drivers}" var="driver">
                         <p>${driver.drivingLicenseNum}</p>
-                    </td>
-                    <td>
+                    </c:forEach>
+                </td>
+                <td>
+                    <c:forEach items="${load.vehicle.drivers}" var="driver">
                         <p>${driver.status}</p>
-                    </td>
-                </c:forEach>
+                    </c:forEach>
+                </td>
             </tr>
         </c:forEach>
     </thread>

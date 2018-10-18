@@ -19,7 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
-import java.util.Set;
 
 @Controller
 public class LoadController {
@@ -45,8 +44,6 @@ public class LoadController {
 
         String drivingLicenseNumPrimary = "";
         String drivingLicenseNumSecond = "";
-
-
 
         redirectAttributes.addFlashAttribute("editableLoad", loadToEdit);
         redirectAttributes.addFlashAttribute("freeVehicles", vehicles);
@@ -103,6 +100,13 @@ public class LoadController {
     public ModelAndView viewAllLoads() {
         List<Load> loads = loadService.getAll();
         return new ModelAndView("loadsView").addObject("loads", loads);
+    }
+
+    @GetMapping("/loadDone/{id}")
+    public ModelAndView deliveredLoad(@PathVariable("id") Long id){
+        Load load = loadService.deleteVehicleFromLoad(id);
+        loadService.save(load);
+        return new ModelAndView("redirect:/loads");
     }
 
 }

@@ -90,7 +90,7 @@
             <tr>
                 <th align="left">Primary driver</th>
                 <td>
-                    <select id="primaryDriver" class="select" name="drivingLicenseNumPrimary" style="width:100%" disabled="disabled">
+                    <select id="primaryDriver" class="select" name="drivingLicenseNumPrimary" style="width:100%" disabled="disabled" required>
                         <option value="" selected disabled hidden></option>
                         <c:if test="${!empty editableLoad.vehicle}">
                             <c:forEach items="${freeDrivers}" var="driver">
@@ -104,7 +104,7 @@
             <tr>
                 <th align="left">Second driver</th>
                 <td>
-                    <select class="select" id="secondDriver" name="drivingLicenseNumSecond" style="width:100%" disabled="disabled">
+                    <select class="select" id="secondDriver" name="drivingLicenseNumSecond" style="width:100%" disabled="disabled" required>
                         <option value="" selected disabled hidden></option>
                         <option></option>
                         <c:forEach items="${freeDrivers}" var="driver">
