@@ -1,9 +1,11 @@
 package com.training.config;
 
+import liquibase.integration.spring.SpringLiquibase;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 
@@ -25,7 +27,10 @@ import java.util.Properties;
 
 @Configuration
 @Component
-@PropertySources({ @PropertySource("classpath:properties/database.properties") })
+@PropertySources({
+        @PropertySource("classpath:properties/database.properties"),
+        @PropertySource("classpath:properties/liquibase.properties")
+})
 @EnableTransactionManagement
 @EnableJpaRepositories("com.training.repositories")
 public class DataConfig {
@@ -35,7 +40,6 @@ public class DataConfig {
 
     @Bean
     public DataSource dataSource() {
-
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(env.getProperty("spring.datasource.driver_class_name"));
         dataSource.setUrl(env.getProperty("spring.datasource.url"));
@@ -46,6 +50,15 @@ public class DataConfig {
     }
 
     @Bean
+    public SpringLiquibase liquibase(DataSource dataSource) {
+        SpringLiquibase liquibase = new SpringLiquibase();
+        liquibase.setChangeLog(env.getProperty("changeLogFile"));
+        liquibase.setDataSource(dataSource);
+        return liquibase;
+    }
+
+    @Bean
+    @DependsOn("liquibase")
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(){
 
         LocalContainerEntityManagerFactoryBean lemfb = new LocalContainerEntityManagerFactoryBean();

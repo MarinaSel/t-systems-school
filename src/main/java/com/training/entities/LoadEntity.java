@@ -29,7 +29,7 @@ import java.util.Date;
 public class LoadEntity extends BaseEntity {
 
     @Id
-    @SequenceGenerator(name = "loads_id_seq", sequenceName = "loads_id_seq")
+    @SequenceGenerator(name = "loads_id_seq", sequenceName = "loads_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "loads_id_seq")
     private Long id;
 

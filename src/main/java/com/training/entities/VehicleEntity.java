@@ -26,7 +26,7 @@ import java.util.Set;
 @Table(name = "vehicles")
 public class VehicleEntity extends BaseEntity {
     @Id
-    @SequenceGenerator(name = "vehicles_id_seq", sequenceName = "vehicles_id_seq")
+    @SequenceGenerator(name = "vehicles_id_seq", sequenceName = "vehicles_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "vehicles_id_seq")
     private Long id;
 
