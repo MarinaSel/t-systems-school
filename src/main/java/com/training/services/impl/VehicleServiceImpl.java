@@ -1,9 +1,12 @@
 package com.training.services.impl;
 
+import com.training.entities.DriverEntity;
 import com.training.entities.VehicleEntity;
+import com.training.entities.enums.DriverStatus;
 import com.training.entities.enums.VehicleStatus;
 import com.training.models.Load;
 import com.training.models.Vehicle;
+import com.training.repositories.DriverRepository;
 import com.training.repositories.VehicleRepository;
 import com.training.services.interfaces.VehicleService;
 
@@ -16,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import static com.training.mappers.VehicleMapper.getEntityFromModel;
 import static com.training.mappers.VehicleMapper.getModelFromEntity;
@@ -29,6 +33,9 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Autowired
     private VehicleRepository vehicleRepository;
+
+    @Autowired
+    private DriverRepository driverRepository;
 
     @Override
     public Vehicle get(Long id){
@@ -90,5 +97,20 @@ public class VehicleServiceImpl implements VehicleService {
         Vehicle vehicle = getModelFromEntity(vehicleRepository.findVehicleEntityByRegistrationNumber(registrationNumber));
         logger.info("Found vehicle by registration number = {}", registrationNumber);
         return vehicle;
+    }
+
+    @Override
+    public void checkVehicleIfEndedDelivery(VehicleEntity vehicleEntity){
+        if(vehicleEntity.getLoads() == null || vehicleEntity.getLoads().isEmpty()){
+            Set<DriverEntity> drivers = vehicleEntity.getDrivers();
+            for (DriverEntity driverEntity : drivers) {
+                driverEntity.setStatus(DriverStatus.FREE);
+                driverEntity.setVehicle(null);
+                driverRepository.saveAndFlush(driverEntity);
+            }
+            vehicleEntity.getDrivers().clear();
+            vehicleEntity.setStatus(VehicleStatus.FREE);
+            vehicleRepository.saveAndFlush(vehicleEntity);
+        }
     }
 }

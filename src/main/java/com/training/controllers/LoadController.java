@@ -1,6 +1,5 @@
 package com.training.controllers;
 
-import com.training.entities.enums.LoadStatus;
 import com.training.models.Driver;
 import com.training.models.Load;
 import com.training.models.Vehicle;

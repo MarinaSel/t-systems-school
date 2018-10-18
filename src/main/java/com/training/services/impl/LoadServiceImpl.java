@@ -1,10 +1,12 @@
 package com.training.services.impl;
 
 import com.training.entities.LoadEntity;
+import com.training.entities.VehicleEntity;
 import com.training.entities.enums.LoadStatus;
 import com.training.models.Load;
 import com.training.repositories.LoadRepository;
 import com.training.services.interfaces.LoadService;
+import com.training.services.interfaces.VehicleService;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,6 +29,9 @@ public class LoadServiceImpl implements LoadService {
 
     @Autowired
     private LoadRepository loadRepository;
+
+    @Autowired
+    private VehicleService vehicleService;
 
     @Override
     public Load get(Long id){
@@ -64,9 +69,13 @@ public class LoadServiceImpl implements LoadService {
     @Override
     public Load deleteVehicleFromLoad(Long id) {
         LoadEntity loadEntity = loadRepository.getOne(id);
-        if(loadEntity.getVehicle() != null){
+        VehicleEntity vehicleEntity = loadEntity.getVehicle();
+        if(vehicleEntity != null){
+            vehicleEntity.getLoads().remove(loadEntity);
+            vehicleService.checkVehicleIfEndedDelivery(vehicleEntity);
             loadEntity.setVehicle(null);
             loadEntity.setStatus(LoadStatus.DONE);
+            loadRepository.saveAndFlush(loadEntity);
         }
         return getModelFromEntity(loadEntity);
     }
