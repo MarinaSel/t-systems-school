@@ -113,4 +113,15 @@ public class VehicleServiceImpl implements VehicleService {
             vehicleRepository.saveAndFlush(vehicleEntity);
         }
     }
+
+    @Override
+    public Vehicle changeVehicleStatusForBeginDelivery(Long id) {
+        VehicleEntity vehicleEntity = vehicleRepository.getOne(id);
+        if (vehicleEntity.getLoads() != null && !vehicleEntity.getLoads().isEmpty()) {
+            vehicleEntity.setStatus(VehicleStatus.WORKING);
+            vehicleRepository.saveAndFlush(vehicleEntity);
+        }
+        return getModelFromEntity(vehicleEntity);
+    }
+
 }

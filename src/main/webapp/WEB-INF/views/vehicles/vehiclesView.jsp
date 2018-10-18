@@ -15,7 +15,7 @@
         <th>Registration number</th>
         <th>Capacity</th>
         <th>Status</th>
-        <th>Edit</th>
+        <th>Actions</th>
         <th>Drivers names</th>
         <th>Drivers license numbers</th>
     </tr>
@@ -24,7 +24,13 @@
             <td>${vehicle.registrationNumber}</td>
             <td>${vehicle.capacity}</td>
             <td>${vehicle.status}</td>
-            <td><a href="/editVehicle/${vehicle.id}">Edit</a></td>
+
+            <td>
+                <a href="/editVehicle/${vehicle.id}">Edit</a>
+                <c:if test="${vehicle.status != 'BROKEN' && vehicle.status != 'WORKING' && vehicle.loads == null}">
+                    <a href="/sent/${vehicle.id}">Begin delivery</a>
+                </c:if>
+            </td>
             <td><c:forEach items="${vehicle.drivers}" var="driver">
                     <p>${driver.firstName} ${driver.lastName}</p>
                 </c:forEach>

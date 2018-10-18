@@ -67,15 +67,15 @@ public class LoadEntity extends BaseEntity {
                 status = LoadStatus.NOT_ASSIGNED;
             }
             else{
-                status = LoadStatus.IN_PROGRESS;
+                status = LoadStatus.ASSIGNED;
             }
         }
     }
 
     @PreUpdate
     public void preUpdate(){
-        if(vehicle != null){
-            status = LoadStatus.IN_PROGRESS;
+        if(vehicle != null && status != LoadStatus.IN_PROGRESS){
+            status = LoadStatus.ASSIGNED;
         }
     }
 

@@ -16,7 +16,7 @@
             <th>Day of delivery</th>
             <th>Weight</th>
             <th>Load status</th>
-            <th>Function</th>
+            <th>Actions</th>
             <th>Vehicle registration number</th>
             <th>Vehicle status</th>
             <th>Drivers names</th>
@@ -34,7 +34,7 @@
 
                 <td>
                     <c:if test="${load.status != 'DONE'}">
-                        <a href="/loadDone/${load.id}">Delivered</a>
+                        <a href="/delivered/${load.id}">Delivered</a>
                         <a href="/editLoad/${load.id}">Edit</a>
                     </c:if>
                 </td>

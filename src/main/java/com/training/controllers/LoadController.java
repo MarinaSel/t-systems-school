@@ -101,7 +101,7 @@ public class LoadController {
         return new ModelAndView("loadsView").addObject("loads", loads);
     }
 
-    @GetMapping("/loadDone/{id}")
+    @GetMapping("/delivered/{id}")
     public ModelAndView deliveredLoad(@PathVariable("id") Long id){
         Load load = loadService.deleteVehicleFromLoad(id);
         loadService.save(load);

@@ -15,4 +15,6 @@ public interface VehicleService extends BaseService<Vehicle, Long> {
     Vehicle findByRegistrationNumber(String registrationNumber);
 
     void checkVehicleIfEndedDelivery(VehicleEntity vehicleEntity);
+
+    Vehicle changeVehicleStatusForBeginDelivery(Long id);
 }

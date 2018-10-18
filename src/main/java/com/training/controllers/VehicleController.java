@@ -1,5 +1,6 @@
 package com.training.controllers;
 
+import com.training.models.Load;
 import com.training.models.Vehicle;
 import com.training.services.interfaces.DriverService;
 import com.training.services.interfaces.VehicleService;
@@ -44,20 +45,27 @@ public class VehicleController {
         return new ModelAndView("redirect:/getSaveVehiclePage");
     }
 
-    @GetMapping(value = "/getSaveVehiclePage")
+    @GetMapping("/getSaveVehiclePage")
     public ModelAndView getSaveVehiclePage(Model model) {
         return new ModelAndView("saveVehicleView").addAllObjects(model.asMap());
     }
 
-    @PostMapping(value="/saveVehicle")
+    @PostMapping("/saveVehicle")
     public ModelAndView saveVehicle(@ModelAttribute("editableVehicle") Vehicle vehicle){
         vehicleService.save(vehicle);
         return new ModelAndView("redirect:/vehicles");
     }
 
-    @GetMapping(value = "/removeVehicle/{id}")
+    @GetMapping("/removeVehicle/{id}")
     public ModelAndView deleteVehicle(@PathVariable("id") Long id){
         vehicleService.remove(id);
         return new ModelAndView("redirect:/vehicles");
+    }
+
+    @GetMapping("/sent/{id}")
+    public ModelAndView beginDelivery(@PathVariable("id") Long id){
+        Vehicle vehicle = vehicleService.changeVehicleStatusForBeginDelivery(id);
+        vehicleService.save(vehicle);
+        return new ModelAndView("redirect:/loads");
     }
 }
