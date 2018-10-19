@@ -79,9 +79,9 @@ public final class LoadMapper {
     }
 
     public static Set<Load> getModelSetFromEntitySet(Set<LoadEntity> loadEntities){
-       /* if(loadEntities == null){
+        if(loadEntities == null){
             return null;
-        }*/
+        }
         Set<Load> loads = new HashSet<>();
 
         for (LoadEntity loadEntity :

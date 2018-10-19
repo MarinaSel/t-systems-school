@@ -57,12 +57,19 @@ public class VehicleEntity extends BaseEntity {
     @JoinColumn(name = "location_id")
     private LocationEntity location;
 
+    public VehicleEntity(){}
+
+    public VehicleEntity(@Size(max = 7, message = "Registration number is invalid") @NotNull(message = "Registration number cannot be null") String registrationNumber, @NotNull(message = "Capacity cannot be null") Integer capacity, @NotNull VehicleStatus status) {
+        this.registrationNumber = registrationNumber;
+        this.capacity = capacity;
+        this.status = status;
+    }
+
     @PrePersist
     public void prePersist() {
         status = VehicleStatus.FREE;
     }
 
-    public VehicleEntity(){}
 
     public Long getId() {
         return id;
@@ -126,6 +133,35 @@ public class VehicleEntity extends BaseEntity {
 
     public void setLocation(LocationEntity location) {
         this.location = location;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        VehicleEntity that = (VehicleEntity) o;
+
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (registrationNumber != null ? !registrationNumber.equals(that.registrationNumber) : that.registrationNumber != null)
+            return false;
+        if (capacity != null ? !capacity.equals(that.capacity) : that.capacity != null) return false;
+        if (status != that.status) return false;
+        if (drivers != null ? !drivers.equals(that.drivers) : that.drivers != null) return false;
+        if (loads != null ? !loads.equals(that.loads) : that.loads != null) return false;
+        return location != null ? location.equals(that.location) : that.location == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (registrationNumber != null ? registrationNumber.hashCode() : 0);
+        result = 31 * result + (capacity != null ? capacity.hashCode() : 0);
+        result = 31 * result + (status != null ? status.hashCode() : 0);
+        result = 31 * result + (drivers != null ? drivers.hashCode() : 0);
+        result = 31 * result + (loads != null ? loads.hashCode() : 0);
+        result = 31 * result + (location != null ? location.hashCode() : 0);
+        return result;
     }
 
     @Override

@@ -67,6 +67,17 @@ public class DriverEntity extends BaseEntity {
     @JoinColumn(name = "vehicle_id")
     private VehicleEntity vehicle;
 
+    public DriverEntity(){}
+
+    public DriverEntity(@NotNull(message = "Driving license number cannot be null") @Size(max = 50, message = "Driving license number is invalid") String drivingLicenseNum, @NotNull(message = "First name cannot be null") @Size(max = 50, message = "First name is invalid") String firstName, @NotNull(message = "Last name cannot be null") @Size(max = 50, message = "Last name is invalid") String lastName, @NotNull(message = "License end date cannot be null") Date licenseEndDate, @NotNull DriverStatus status, VehicleEntity vehicle) {
+        this.drivingLicenseNum = drivingLicenseNum;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.licenseEndDate = licenseEndDate;
+        this.status = status;
+        this.vehicle = vehicle;
+    }
+
     @PrePersist
     public void prePersist() {
         status = DriverStatus.FREE;
@@ -150,12 +161,28 @@ public class DriverEntity extends BaseEntity {
 
         DriverEntity that = (DriverEntity) o;
 
-        return id != null ? id.equals(that.id) : that.id == null;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (drivingLicenseNum != null ? !drivingLicenseNum.equals(that.drivingLicenseNum) : that.drivingLicenseNum != null)
+            return false;
+        if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
+        if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
+        if (licenseEndDate != null ? !licenseEndDate.equals(that.licenseEndDate) : that.licenseEndDate != null)
+            return false;
+        if (status != that.status) return false;
+        return vehicle != null ? vehicle.equals(that.vehicle) : that.vehicle == null;
     }
 
     @Override
     public int hashCode() {
-        return id != null ? id.hashCode() : 0;
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (drivingLicenseNum != null ? drivingLicenseNum.hashCode() : 0);
+        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
+        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        result = 31 * result + (licenseEndDate != null ? licenseEndDate.hashCode() : 0);
+        result = 31 * result + (status != null ? status.hashCode() : 0);
+        result = 31 * result + (currentCity != null ? currentCity.hashCode() : 0);
+        result = 31 * result + (vehicle != null ? vehicle.hashCode() : 0);
+        return result;
     }
 
     @Override

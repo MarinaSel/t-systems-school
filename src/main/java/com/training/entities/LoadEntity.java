@@ -60,6 +60,17 @@ public class LoadEntity extends BaseEntity {
     @JoinColumn(name = "vehicle_id")
     private VehicleEntity vehicle;
 
+    public LoadEntity(){}
+
+    public LoadEntity(@NotNull(message = "Title cannot be null") String title, @NotNull(message = "Description cannot be null") String description, @NotNull(message = "Day od delivery cannot be null") Date dayOfDelivery, @NotNull LoadStatus status, @NotNull(message = "Weight cannot be null") Integer weight, VehicleEntity vehicle) {
+        this.title = title;
+        this.description = description;
+        this.dayOfDelivery = dayOfDelivery;
+        this.status = status;
+        this.weight = weight;
+        this.vehicle = vehicle;
+    }
+
     @PrePersist
     public void prePersist(){
         if(status == null){
@@ -78,8 +89,6 @@ public class LoadEntity extends BaseEntity {
             status = LoadStatus.ASSIGNED;
         }
     }
-
-    public LoadEntity(){}
 
     public Long getId() {
         return id;
@@ -144,12 +153,26 @@ public class LoadEntity extends BaseEntity {
 
         LoadEntity that = (LoadEntity) o;
 
-        return id != null ? id.equals(that.id) : that.id == null;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (title != null ? !title.equals(that.title) : that.title != null) return false;
+        if (description != null ? !description.equals(that.description) : that.description != null) return false;
+        if (dayOfDelivery != null ? !dayOfDelivery.equals(that.dayOfDelivery) : that.dayOfDelivery != null)
+            return false;
+        if (status != that.status) return false;
+        if (weight != null ? !weight.equals(that.weight) : that.weight != null) return false;
+        return vehicle != null ? vehicle.equals(that.vehicle) : that.vehicle == null;
     }
 
     @Override
     public int hashCode() {
-        return id != null ? id.hashCode() : 0;
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (title != null ? title.hashCode() : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (dayOfDelivery != null ? dayOfDelivery.hashCode() : 0);
+        result = 31 * result + (status != null ? status.hashCode() : 0);
+        result = 31 * result + (weight != null ? weight.hashCode() : 0);
+        result = 31 * result + (vehicle != null ? vehicle.hashCode() : 0);
+        return result;
     }
 
     @Override

@@ -21,14 +21,17 @@ public class Vehicle extends BaseModel{
     @NotNull(message = "Capacity cannot be null")
     private VehicleStatus status;
 
-    private Set<Driver> drivers;
-    private Set<Load> loads;
+    private Set<Driver> drivers = new HashSet<>();
+    private Set<Load> loads = new HashSet<>();
 
-    public Vehicle(){
-        drivers = new HashSet<>();
-        loads = new HashSet<>();
+    public Vehicle(Long id, @Size(min = 7, max = 7, message = "Registration number is invalid") @NotNull(message = "Registration number cannot be null") String registrationNumber, Integer capacity, @NotNull(message = "Capacity cannot be null") VehicleStatus status) {
+        this.id = id;
+        this.registrationNumber = registrationNumber;
+        this.capacity = capacity;
+        this.status = status;
     }
 
+    public Vehicle(){}
     public Long getId() {
         return id;
     }
@@ -84,12 +87,24 @@ public class Vehicle extends BaseModel{
 
         Vehicle vehicle = (Vehicle) o;
 
-        return id != null ? id.equals(vehicle.id) : vehicle.id == null;
+        if (id != null ? !id.equals(vehicle.id) : vehicle.id != null) return false;
+        if (registrationNumber != null ? !registrationNumber.equals(vehicle.registrationNumber) : vehicle.registrationNumber != null)
+            return false;
+        if (capacity != null ? !capacity.equals(vehicle.capacity) : vehicle.capacity != null) return false;
+        if (status != vehicle.status) return false;
+        if (drivers != null ? !drivers.equals(vehicle.drivers) : vehicle.drivers != null) return false;
+        return loads != null ? loads.equals(vehicle.loads) : vehicle.loads == null;
     }
 
     @Override
     public int hashCode() {
-        return id != null ? id.hashCode() : 0;
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (registrationNumber != null ? registrationNumber.hashCode() : 0);
+        result = 31 * result + (capacity != null ? capacity.hashCode() : 0);
+        result = 31 * result + (status != null ? status.hashCode() : 0);
+        result = 31 * result + (drivers != null ? drivers.hashCode() : 0);
+        result = 31 * result + (loads != null ? loads.hashCode() : 0);
+        return result;
     }
 
     @Override

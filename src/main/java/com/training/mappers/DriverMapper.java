@@ -14,6 +14,9 @@ public final class DriverMapper {
 
     public static DriverEntity getEntityFromModel(Driver driver){
 
+        if(driver == null){
+            return null;
+        }
         DriverEntity driverEntity = new DriverEntity();
 
         driverEntity.setId(driver.getId());
