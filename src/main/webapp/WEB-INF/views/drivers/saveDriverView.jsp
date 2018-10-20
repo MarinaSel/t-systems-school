@@ -3,26 +3,27 @@
          pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"
            uri="http://java.sun.com/jsp/jstl/core"%>
-
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <!DOCTYPE html>
-<link rel="stylesheet" type="text/css" href="resources/css/selectForStatus.css"/>
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<html>
 
+<html>
 <head>
     <title>${empty editableDriver.id ? 'Add' : 'Edit'} driver</title>
+
+    <link rel="stylesheet" type="text/css" href="resources/css/selectForStatus.css"/>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <%@include file="/WEB-INF/views/navbar.html"%>
     <script src="resources/js/datepicker.js"></script>
 </head>
 
 <body>
 
-<h1>${empty editableDriver.id ? 'Add' : 'Edit'} driver</h1>
-
+<h1 align="center">${empty editableDriver.id ? 'Add' : 'Edit'} driver</h1>
+<hr>
     <form method="post" action="/saveDriver" modelAttribute = "editableDriver">
-        <table>
+        <table align="center" class="table table-striped table-bordered" style="width: 400px">
             <tr>
                 <td>
                     <input type="hidden" name="id" value="${editableDriver.id}"/>
@@ -69,12 +70,11 @@
                     </td>
                 </tr>
             </c:if>
-            <td>
-                <input type="submit" value="Save"/>
+            <td colspan="2">
+                <input class="btn btn-success" type="submit" value="Save"/>
             </td>
         </table>
 
-        <p><a href="/drivers">Drivers</a></p>
     </form>
 </body>
 </html>

@@ -3,13 +3,16 @@
            uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
-<head>
 
+<head>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <%@include file="/WEB-INF/views/navbar.html"%>
     <title>Loads</title>
 </head>
+
 <body>
-<table border="2" class="table-striped ">
-    <thread>
+    <table class="table table-striped table-bordered table-fixed">
+        <thead>
         <tr>
             <th>Title</th>
             <th>Description</th>
@@ -23,7 +26,9 @@
             <th>Driving licenses numbers</th>
             <th>Drivers status</th>
         </tr>
+        </thead>
 
+        <tbody>
         <c:forEach items="${loads}" var="load">
             <tr>
                 <td>${load.title}</td>
@@ -34,8 +39,8 @@
 
                 <td>
                     <c:if test="${load.status != 'DONE'}">
-                        <a href="/delivered/${load.id}">Delivered</a>
-                        <a href="/editLoad/${load.id}">Edit</a>
+                        <a href="/delivered/${load.id}" class="btn btn-success btn-sm">Delivered</a>
+                        <a href="/editLoad/${load.id}" class="btn btn-info btn-sm">Edit</a>
                     </c:if>
                 </td>
 
@@ -59,12 +64,12 @@
                 </td>
             </tr>
         </c:forEach>
-    </thread>
 
-</table>
+        <td colspan="11">
+            <a href="/getSaveLoadPage" class="btn btn-success">Add new load</a>
+        </td>
+        </tbody>
 
-
-<p><a href="/addLoad">Add new load</a></p>
-<p><a href="/homePage">Home</a></p>
+    </table>
 </body>
 </html>

@@ -147,8 +147,6 @@ public class VehicleEntity extends BaseEntity {
             return false;
         if (capacity != null ? !capacity.equals(that.capacity) : that.capacity != null) return false;
         if (status != that.status) return false;
-        if (drivers != null ? !drivers.equals(that.drivers) : that.drivers != null) return false;
-        if (loads != null ? !loads.equals(that.loads) : that.loads != null) return false;
         return location != null ? location.equals(that.location) : that.location == null;
     }
 
@@ -158,8 +156,6 @@ public class VehicleEntity extends BaseEntity {
         result = 31 * result + (registrationNumber != null ? registrationNumber.hashCode() : 0);
         result = 31 * result + (capacity != null ? capacity.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
-        result = 31 * result + (drivers != null ? drivers.hashCode() : 0);
-        result = 31 * result + (loads != null ? loads.hashCode() : 0);
         result = 31 * result + (location != null ? location.hashCode() : 0);
         return result;
     }

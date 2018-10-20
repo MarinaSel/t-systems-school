@@ -5,19 +5,19 @@
 <%@ taglib prefix="c"
            uri="http://java.sun.com/jsp/jstl/core"%>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 <!DOCTYPE html>
 <html>
 <head>
     <title>${empty editableVehicle.id ? 'Add' : 'Edit'} vehicle</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="resources/css/selectForStatus.css"/>
+    <%@include file="/WEB-INF/views/navbar.html"%>
 </head>
 <body>
-<h1>${empty editableVehicle.id ? 'Add' : 'Edit'} vehicle</h1>
+<h1 align="center">${empty editableVehicle.id ? 'Add' : 'Edit'} vehicle</h1>
+<hr>
 <form method="post" action="/saveVehicle" modelAttribute = "editableVehicle">
-    <table>
+    <table align="center" class="table table-bordered table-striped" style="width: 400px">
         <tr>
             <td>
                 <input type="hidden" name="id" value="${editableVehicle.id}"/>
@@ -53,12 +53,13 @@
             </tr>
         </c:if>
 
-        <td>
-            <input type="submit" value="Save"/>
+        <td colspan="2">
+            <input class="btn btn-success" type="submit" value="Save"/>
         </td>
     </table>
-    <p><a href="/vehicles">Vehicles</a></p>
-    <p><a href="/homePage">Home</a> </p>
 </form>
 </body>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 </html>

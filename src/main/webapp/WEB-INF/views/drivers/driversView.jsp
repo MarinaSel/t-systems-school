@@ -8,21 +8,25 @@
 <html>
 <head>
     <title>Drivers</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <%@include file="/WEB-INF/views/navbar.html"%>
 </head>
-<body>
-   <table border="2">
-        <tr>
-            <th>First name</th>
-            <th>Second name</th>
-            <th>Driver's license number</th>
-            <th>License end date</th>
-            <th>Driver status</th>
-            <th>Creation date</th>
-            <th>Edit</th>
-            <th>Delete</th>
-        </tr>
 
-        <c:forEach items="${drivers}" var="driver">
+<body>
+   <table class="table table-striped table-bordered">
+       <thead>
+       <tr>
+           <th>First name</th>
+           <th>Second name</th>
+           <th>Driver's license number</th>
+           <th>License end date</th>
+           <th>Driver status</th>
+           <th>Creation date</th>
+           <th>Actions</th>
+       </tr>
+       </thead>
+
+        <tbody><c:forEach items="${drivers}" var="driver">
             <tr>
                 <td>${driver.firstName}</td>
                 <td>${driver.lastName}</td>
@@ -31,13 +35,13 @@
                 <td>${driver.status}</td>
                 <td>${driver.creationDate}</td>
 
-                <td><a href="/editDriver/${driver.id}">Edit</a></td>
-                <td><a href="/removeDriver/${driver.id}">Delete</a></td>
+                <td>
+                    <a href="/editDriver/${driver.id}" class="btn btn-info btn-sm">Edit</a>
+                    <a href="/removeDriver/${driver.id}" class="btn btn-danger btn-sm">Delete</a>
+                </td>
             </tr>
         </c:forEach>
+        </tbody>
     </table>
-
-   <p><a href="/getSaveDriverView">Add new driver</a></p>
-   <p><a href="homePage">Home page</a></p>
 </body>
 </html>
