@@ -35,27 +35,27 @@
         <tr>
             <th align="left">Title</th>
             <td>
-                <input name="title" value="${editableLoad.title}"/>
+                <input name="title" value="${editableLoad.title}" placeholder="Enter the title"/>
             </td>
         </tr>
 
         <tr>
             <th align="left">Description</th>
             <td>
-                <input name="description" value="${editableLoad.description}"/>
+                <input name="description" value="${editableLoad.description}" placeholder="Enter the description"/>
             </td>
         </tr>
 
         <tr>
             <th align="left">Day of delivery</th>
             <td>
-                <input name="dayOfDelivery" id="dayOfDelivery" value="${editableLoad.dayOfDelivery}"/>
+                <input name="dayOfDelivery" id="dayOfDelivery" value="${editableLoad.dayOfDelivery}" placeholder="Choose the day of delivery"/>
             </td>
         </tr>
         <tr>
             <th align="left">Weight</th>
             <td>
-                <input id="vehicleWeight" type="number" name="weight" value="${editableLoad.weight}"
+                <input id="vehicleWeight" type="number" name="weight" value="${editableLoad.weight}" placeholder="Enter the weight"
                        oninput="getVehicle()" required/>
             </td>
         </tr>

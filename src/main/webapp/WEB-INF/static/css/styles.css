@@ -1,6 +1,12 @@
 select{
-    width: 100%;
+    width: 220px;
 }
 #table{
-    width: 400px;
+    width: 600px;
+}
+#table-width{
+    width:450px;
+}
+input{
+    width: 220px;
 }

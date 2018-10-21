@@ -18,7 +18,7 @@
 <h1 align="center">${empty editableVehicle.id ? 'Add' : 'Edit'} vehicle</h1>
 <hr>
 <form method="post" action="/saveVehicle" modelAttribute = "editableVehicle">
-    <table align="center"id="table" class="table table-bordered table-striped ">
+    <table align="center"id="table-width" class="table table-bordered table-striped ">
         <tr>
             <td>
                 <input type="hidden" name="id" value="${editableVehicle.id}"/>
@@ -30,13 +30,13 @@
         <tr>
             <th align="left">Registration number</th>
             <td>
-                <input name="registrationNumber" value="${editableVehicle.registrationNumber}" maxlength="7" required/>
+                <input name="registrationNumber" value="${editableVehicle.registrationNumber}" placeholder="Enter the registration number" maxlength="7" required/>
             </td>
         </tr>
         <tr>
             <th align="left">Capacity</th>
             <td>
-                <input type="number" name="capacity" value="${editableVehicle.capacity}" required/>
+                <input type="number" name="capacity" value="${editableVehicle.capacity}" placeholder="Enter the capacity" required/>
             </td>
         </tr>
 

@@ -21,7 +21,7 @@
 <h1 align="center">${empty editableDriver.id ? 'Add' : 'Edit'} driver</h1>
 <hr>
     <form method="post" action="/saveDriver" modelAttribute = "editableDriver">
-        <table align="center"id="table" class="table table-striped table-bordered" >
+        <table align="center"id="table-width" class="table table-striped table-bordered" >
             <tr>
                 <td>
                     <input type="hidden" name="id" value="${editableDriver.id}"/>
@@ -31,32 +31,32 @@
                 </td>
             </tr>
             <tr>
-                <th align="left">First name</th>
+                <th>First name</th>
                 <td>
-                    <input name="firstName" maxlength="50" value="${editableDriver.firstName}" required/>
+                    <input name="firstName" maxlength="50" value="${editableDriver.firstName}" placeholder="Enter the first name" required/>
                 </td>
             </tr>
             <tr>
-                <th align="left">Second name</th>
+                <th>Last name</th>
                 <td>
-                    <input name="lastName" maxlength="50" value="${editableDriver.lastName}" required/>
+                    <input name="lastName" maxlength="50" value="${editableDriver.lastName}" placeholder="Enter the second name" required/>
                 </td>
             </tr>
             <tr>
-                <th align="left">Driver's license number</th>
+                <th>Driver's license number</th>
                 <td>
-                    <input name="drivingLicenseNum" value="${editableDriver.drivingLicenseNum}" required/>
+                    <input name="drivingLicenseNum" value="${editableDriver.drivingLicenseNum}" placeholder="Enter the driving license number" required/>
                 </td>
             </tr>
             <tr>
-                <th align="left">License end date</th>
+                <th>License end date</th>
                 <td>
-                    <input name="licenseEndDate" id = "dayOfDelivery" value="${editableDriver.licenseEndDate}" required readonly = "true"/>
+                    <input name="licenseEndDate" id = "dayOfDelivery" value="${editableDriver.licenseEndDate}" placeholder="Choose the licence end date" required readonly = "true"/>
                 </td>
             </tr>
             <c:if test="${!empty editableDriver.status}">
                 <tr>
-                    <th align="left">Status</th>
+                    <th>Status</th>
                     <td>
                         <select class="soflow" name="status" required>
                             <option value="" selected disabled hidden>${editableDriver.status}</option>
