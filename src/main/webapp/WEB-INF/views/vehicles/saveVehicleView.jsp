@@ -11,13 +11,14 @@
     <title>${empty editableVehicle.id ? 'Add' : 'Edit'} vehicle</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="resources/css/selectForStatus.css"/>
+    <link rel="stylesheet" type="text/css" href="resources/css/styles.css"/>
     <%@include file="/WEB-INF/views/navbar.html"%>
 </head>
 <body>
 <h1 align="center">${empty editableVehicle.id ? 'Add' : 'Edit'} vehicle</h1>
 <hr>
 <form method="post" action="/saveVehicle" modelAttribute = "editableVehicle">
-    <table align="center" class="table table-bordered table-striped" style="width: 400px">
+    <table align="center"id="table" class="table table-bordered table-striped ">
         <tr>
             <td>
                 <input type="hidden" name="id" value="${editableVehicle.id}"/>

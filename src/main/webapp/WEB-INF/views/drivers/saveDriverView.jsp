@@ -9,7 +9,7 @@
 <html>
 <head>
     <title>${empty editableDriver.id ? 'Add' : 'Edit'} driver</title>
-
+    <link rel="stylesheet" type="text/css" href="resources/css/styles.css"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
@@ -21,7 +21,7 @@
 <h1 align="center">${empty editableDriver.id ? 'Add' : 'Edit'} driver</h1>
 <hr>
     <form method="post" action="/saveDriver" modelAttribute = "editableDriver">
-        <table align="center" class="table table-striped table-bordered" style="width: 400px">
+        <table align="center"id="table" class="table table-striped table-bordered" >
             <tr>
                 <td>
                     <input type="hidden" name="id" value="${editableDriver.id}"/>

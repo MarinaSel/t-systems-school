@@ -6,20 +6,20 @@
 
 <html>
 <head>
-
+    <link rel="stylesheet" type="text/css" href="resources/css/styles.css"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <%@include file="/WEB-INF/views/navbar.html" %>
 
-    <title style="">${empty editableLoad.id ? 'Add' : 'Edit'} load</title>
+    <title>${empty editableLoad.id ? 'Add' : 'Edit'} load</title>
 </head>
 
 <body>
 <h1 align="center">${empty editableLoad.id ? 'Add' : 'Edit'} load</h1>
 <hr>
 <form method="post" action="/saveLoad" modelAttribute="editableLoad">
-    <table align="center" class="table table-striped table-bordered" style="width: 400px">
+    <table align="center" id="table" class="table table-striped table-bordered table-width">
         <tr>
             <td>
                 <input type="hidden" name="id" value="${editableLoad.id}"/>
@@ -64,7 +64,7 @@
         <tr>
             <th align="left">Vehicles registration numbers</th>
             <td>
-                <select class="select" id="vehicles" name="regNum" style="width:100%" onchange="showDrivers();">
+                <select class="select" id="vehicles" name="regNum" onchange="showDrivers();">
                     <option value="${editableLoad.vehicle.registrationNumber}"
                             selected>${editableLoad.vehicle.registrationNumber}</option>
                     <c:if test="${!empty editableLoad.id}">
@@ -79,8 +79,7 @@
         <tr>
             <th align="left">Primary driver</th>
             <td>
-                <select id="primaryDriver" class="select" name="drivingLicenseNumPrimary" style="width:100%"
-                        disabled="disabled" required>
+                <select id="primaryDriver" class="select" name="drivingLicenseNumPrimary" disabled="disabled" required>
                     <option value="" selected disabled hidden></option>
                     <c:if test="${!empty editableLoad.vehicle}">
                         <c:forEach items="${freeDrivers}" var="driver">
@@ -94,8 +93,7 @@
         <tr>
             <th align="left">Second driver</th>
             <td>
-                <select class="select" id="secondDriver" name="drivingLicenseNumSecond" style="width:100%"
-                        disabled="disabled" required>
+                <select class="select" id="secondDriver" name="drivingLicenseNumSecond" disabled="disabled" required>
                     <option value="" selected disabled hidden></option>
                     <option></option>
                     <c:forEach items="${freeDrivers}" var="driver">
