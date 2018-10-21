@@ -9,6 +9,8 @@
 <head>
     <title>Drivers</title>
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" type="text/css" href="resources/css/tableFixed.css"/>
+    <link rel="stylesheet" type="text/css" href="resources/css/tableFixedDrivers.css"/>
     <%@include file="/WEB-INF/views/navbar.html"%>
 </head>
 

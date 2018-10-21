@@ -1,0 +1,7 @@
+table th:nth-child(1), td:nth-child(1) { min-width: 230px;  max-width: 230px; }
+table th:nth-child(2), td:nth-child(2) { min-width: 230px; max-width: 230px; }
+table th:nth-child(3), td:nth-child(3) { min-width: 250px; max-width: 250px; }
+table th:nth-child(4), td:nth-child(4) { min-width: 150px; max-width: 150px; }
+table th:nth-child(5), td:nth-child(5) { min-width: 260px; max-width: 260px; }
+table th:nth-child(6), td:nth-child(6) { min-width: 262px; max-width: 262px; }
+table th:nth-child(7), td:nth-child(7) { min-width: 150px; max-width: 150px; }

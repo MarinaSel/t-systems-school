@@ -1,0 +1,6 @@
+table th:nth-child(1), td:nth-child(1) { min-width: 255px;  max-width: 255px; }
+table th:nth-child(2), td:nth-child(2) { min-width: 250px; max-width: 250px; }
+table th:nth-child(3), td:nth-child(3) { min-width: 250px; max-width: 250px; }
+table th:nth-child(4), td:nth-child(4) { min-width: 250px; max-width: 250px; }
+table th:nth-child(5), td:nth-child(5) { min-width: 265px; max-width: 265px; }
+table th:nth-child(6), td:nth-child(6) { min-width: 262px; max-width: 262px; }

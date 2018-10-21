@@ -1,20 +1,18 @@
-
-.header {
-    padding: 10px 16px;
-    background: #555;
-    color: #f1f1f1;
+table tbody
+{
+    display: block;
+    overflow: auto;
+    height: 500px;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
-.content {
-    padding: 16px;
+thead tr{
+    display: block;
+    position: relative;
 }
+thead th{
+    text-align: center;
 
-.sticky {
-    position: fixed;
-    top: 0;
-    width: 100%
-}
-
-.sticky + .content {
-    padding-top: 102px;
 }

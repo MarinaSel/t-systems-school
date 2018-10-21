@@ -6,12 +6,15 @@
 
 <head>
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" type="text/css" href="resources/css/tableFixed.css"/>
+    <link rel="stylesheet" type="text/css" href="resources/css/tableFixedLoads.css"/>
+
     <%@include file="/WEB-INF/views/navbar.html"%>
     <title>Loads</title>
 </head>
 
 <body>
-    <table class="table table-striped table-bordered table-fixed">
+    <table class="table table-striped table-bordered">
         <thead>
         <tr>
             <th>Title</th>
