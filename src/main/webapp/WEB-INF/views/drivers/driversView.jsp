@@ -9,13 +9,12 @@
 <head>
     <title>Drivers</title>
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <link rel="stylesheet" type="text/css" href="resources/css/tableFixed.css"/>
-    <link rel="stylesheet" type="text/css" href="resources/css/tableFixedDrivers.css"/>
+    <link rel="stylesheet" type="text/css" href="resources/css/styles.css"/>
     <%@include file="/WEB-INF/views/navbar.html"%>
 </head>
 
 <body>
-   <table class="table table-striped table-bordered">
+   <table class="table table-striped table-bordered tableView drivers">
        <thead>
        <tr>
            <th>First name</th>
@@ -29,8 +28,8 @@
        </thead>
 
         <tbody><c:forEach items="${drivers}" var="driver">
-            <tr>
-                <td>${driver.firstName}</td>
+            <tr class="trThead">
+                <td >${driver.firstName}</td>
                 <td>${driver.lastName}</td>
                 <td>${driver.drivingLicenseNum}</td>
                 <td>${driver.licenseEndDate}</td>

@@ -9,13 +9,12 @@
 <head>
     <title>Vehicles</title>
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <link rel="stylesheet" type="text/css" href="resources/css/tableFixed.css"/>
-    <link rel="stylesheet" type="text/css" href="resources/css/tableFixedVehicles.css"/>
+    <link rel="stylesheet" type="text/css" href="resources/css/styles.css"/>
 
     <%@include file="/WEB-INF/views/navbar.html"%>
 </head>
 <body>
-<table class="table table-striped table-bordered" >
+<table class="table table-striped table-bordered tableView vehicles" >
     <thead>
     <tr>
         <th>Registration number</th>

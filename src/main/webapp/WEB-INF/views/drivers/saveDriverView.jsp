@@ -13,6 +13,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="resources/js/datepicker.js"></script>
     <%@include file="/WEB-INF/views/navbar.html"%>
 </head>
 
@@ -21,7 +24,7 @@
 <h1 align="center">${empty editableDriver.id ? 'Add' : 'Edit'} driver</h1>
 <hr>
     <form method="post" action="/saveDriver" modelAttribute = "editableDriver">
-        <table align="center"id="table-width" class="table table-striped table-bordered" >
+        <table align="center" id="saveVehicleAndDriverTable" class="table table-striped table-bordered" >
             <tr>
                 <td>
                     <input type="hidden" name="id" value="${editableDriver.id}"/>

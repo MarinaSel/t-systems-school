@@ -19,7 +19,7 @@
 <h1 align="center">${empty editableLoad.id ? 'Add' : 'Edit'} load</h1>
 <hr>
 <form method="post" action="/saveLoad" modelAttribute="editableLoad">
-    <table align="center" id="table" class="table table-striped table-bordered table-width">
+    <table align="center" id="saveLoadTable" class="table table-striped table-bordered table-width">
         <tr>
             <td>
                 <input type="hidden" name="id" value="${editableLoad.id}"/>

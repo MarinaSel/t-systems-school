@@ -1,4 +1,4 @@
-package unitTests;
+package java.com.training.unitTests;
 
 import com.training.entities.VehicleEntity;
 import com.training.entities.enums.VehicleStatus;
