@@ -9,8 +9,7 @@
 <html>
 <head>
     <title>${empty editableVehicle.id ? 'Add' : 'Edit'} vehicle</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="resources/css/styles.css"/>
+    <%@include file="/WEB-INF/views/includeStyles.jsp"%>
     <%@include file="/WEB-INF/views/navbar.html"%>
 </head>
 <body>
@@ -43,7 +42,7 @@
             <tr>
                 <th align="left">Status</th>
                 <td>
-                    <select name="status" class="soflow" onchange="showDrivers();" required>
+                    <select name="status" class="soflow" onchange="getDriversAndVehicles();" required>
                         <option value="" selected disabled hidden>${editableVehicle.status}</option>
                         <option>BROKEN</option>
                         <option>WORKING</option>
@@ -60,6 +59,4 @@
 </form>
 </body>
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 </html>

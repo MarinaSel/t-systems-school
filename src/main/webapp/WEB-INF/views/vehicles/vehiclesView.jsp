@@ -8,9 +8,8 @@
 <html>
 <head>
     <title>Vehicles</title>
-    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <link rel="stylesheet" type="text/css" href="resources/css/styles.css"/>
 
+    <%@include file="/WEB-INF/views/includeStyles.jsp"%>
     <%@include file="/WEB-INF/views/navbar.html"%>
 </head>
 <body>
