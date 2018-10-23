@@ -12,7 +12,7 @@ import javax.persistence.Column;
 @Table(name = "locations")
 public class LocationEntity {
     @Id
-    @SequenceGenerator(name = "locations_id_seq", sequenceName = "locations_id_seq")
+    @SequenceGenerator(name = "locations_id_seq", sequenceName = "locations_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "locations_id_seq")
     private Long id;
 

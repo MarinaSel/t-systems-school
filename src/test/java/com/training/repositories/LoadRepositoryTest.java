@@ -1,8 +1,8 @@
 package com.training.repositories;
 
-import com.training.config.WebConfig;
 import com.training.entities.LoadEntity;
 import com.training.entities.enums.LoadStatus;
+import com.training.test_config.TestWebConfig;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +24,7 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @WebAppConfiguration
 @Transactional
-@ContextConfiguration(classes = {WebConfig.class})
+@ContextConfiguration(classes = TestWebConfig.class)
 public class LoadRepositoryTest {
 
     @Autowired

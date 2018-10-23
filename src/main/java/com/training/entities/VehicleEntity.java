@@ -167,8 +167,6 @@ public class VehicleEntity extends BaseEntity {
                 ", capacity=" + capacity +
                 ", status=" + status +
                 ", currentCity='" + currentCity + '\'' +
-                ", drivers=" + drivers +
-                ", loads=" + loads +
                 '}';
     }
 }

@@ -1,11 +1,13 @@
 package com.training.repositories;
 
-import com.training.config.WebConfig;
 import com.training.entities.DriverEntity;
 import com.training.entities.enums.DriverStatus;
+import com.training.test_config.TestWebConfig;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -22,7 +24,7 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @WebAppConfiguration
 @Transactional
-@ContextConfiguration(classes = {WebConfig.class})
+@ContextConfiguration(classes = TestWebConfig.class)
 public class DriverRepositoryTest {
 
     @Autowired

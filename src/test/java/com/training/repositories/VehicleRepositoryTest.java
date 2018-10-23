@@ -1,8 +1,9 @@
 package com.training.repositories;
 
-import com.training.config.WebConfig;
 import com.training.entities.VehicleEntity;
 import com.training.entities.enums.VehicleStatus;
+import com.training.test_config.TestWebConfig;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @WebAppConfiguration
 @Transactional
-@ContextConfiguration(classes = {WebConfig.class})
+@ContextConfiguration(classes = TestWebConfig.class)
 public class VehicleRepositoryTest {
 
     @Autowired
