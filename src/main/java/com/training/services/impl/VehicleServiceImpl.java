@@ -1,8 +1,10 @@
 package com.training.services.impl;
 
 import com.training.entities.DriverEntity;
+import com.training.entities.LoadEntity;
 import com.training.entities.VehicleEntity;
 import com.training.entities.enums.DriverStatus;
+import com.training.entities.enums.LoadStatus;
 import com.training.entities.enums.VehicleStatus;
 import com.training.models.Load;
 import com.training.models.Vehicle;
@@ -119,6 +121,10 @@ public class VehicleServiceImpl implements VehicleService {
         VehicleEntity vehicleEntity = vehicleRepository.getOne(id);
         if (vehicleEntity.getLoads() != null && !vehicleEntity.getLoads().isEmpty()) {
             vehicleEntity.setStatus(VehicleStatus.WORKING);
+            Set<LoadEntity> loads = vehicleEntity.getLoads();
+            for (LoadEntity load : loads) {
+                load.setStatus(LoadStatus.IN_PROGRESS);
+            }
             vehicleRepository.saveAndFlush(vehicleEntity);
         }
         return getModelFromEntity(vehicleEntity);

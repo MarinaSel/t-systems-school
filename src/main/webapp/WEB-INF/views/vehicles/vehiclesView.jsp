@@ -35,7 +35,7 @@
 
             <td>
                 <a href="/editVehicle/${vehicle.id}" class="btn btn-info btn-sm">Edit</a>
-                <c:if test="${vehicle.status != 'BROKEN' && vehicle.status != 'WORKING'}">
+                <c:if test="${vehicle.status != 'BROKEN' && vehicle.status != 'WORKING' && !empty vehicle.drivers && !empty vehicle.loads}">
                     <a href="/sent/${vehicle.id}" class="btn btn-success btn-sm">Begin delivery</a>
                 </c:if>
             </td>
