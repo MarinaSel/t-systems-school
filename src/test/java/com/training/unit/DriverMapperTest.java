@@ -1,4 +1,4 @@
-package java.com.training.unitTests;
+package com.training.unit;
 
 import com.training.entities.DriverEntity;
 import com.training.entities.enums.DriverStatus;

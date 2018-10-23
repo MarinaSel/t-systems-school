@@ -1,7 +1,8 @@
+package com.training.repositories;
+
 import com.training.config.WebConfig;
 import com.training.entities.DriverEntity;
 import com.training.entities.enums.DriverStatus;
-import com.training.repositories.DriverRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,28 +36,34 @@ public class DriverRepositoryTest {
     }
 
     @Test
-    public void createAndUpdateAndDeleteAndFind(){
+    public void createAndFind(){
         DriverEntity newDriver = new DriverEntity(
                 "licNaum", "Jane", "Doe", date, DriverStatus.FREE, null);
         DriverEntity expectedDriver = new DriverEntity(
                 "licNaum", "Jane", "Doe", date, DriverStatus.FREE, null);
-        expectedDriver.setId(1L);
+
+        driverRepository.saveAndFlush(newDriver);
+        expectedDriver.setId(newDriver.getId());
+        assertEquals(expectedDriver, driverRepository.findByDrivingLicenseNum("licNaum"));
+    }
+
+    @Test
+    public void updateAndDelete(){
+        DriverEntity newDriver = new DriverEntity(
+                "licNaum", "Jane", "Doe", date, DriverStatus.FREE, null);
+        DriverEntity expectedDriver = new DriverEntity(
+                "licNaum", "Kate", "Doe", date, DriverStatus.FREE, null);
+        driverRepository.saveAndFlush(newDriver);
+        Long id = newDriver.getId();
+
+        expectedDriver.setId(id);
+        newDriver.setFirstName("Kate");
         driverRepository.saveAndFlush(newDriver);
         assertEquals(expectedDriver, newDriver);
 
-        DriverEntity expectedUpdatingDriver = new DriverEntity(
-                "licNaum", "Kate", "Doe", date, DriverStatus.FREE, null);
-        expectedUpdatingDriver.setId(1L);
-        newDriver.setFirstName("Kate");
-        assertEquals(expectedUpdatingDriver, newDriver);
-
-
-        assertEquals(newDriver, driverRepository.findByDrivingLicenseNum("licNaum"));
-
-        driverRepository.deleteById(newDriver.getId());
-        assertEquals(Optional.empty(),driverRepository.findById(newDriver.getId()));
+        driverRepository.deleteById(id);
+        assertEquals(Optional.empty(), driverRepository.findById(id));
     }
-
     @Test
     public void findAllByStatus(){
         DriverEntity driverEntity1 = new DriverEntity(
@@ -71,8 +78,8 @@ public class DriverRepositoryTest {
         DriverEntity expectedDriver1 = new DriverEntity( "licNaum", "Kate", "Doe", date, DriverStatus.FREE, null);
         DriverEntity expectedDriver2 = new DriverEntity("licNaum1", "Jane", "Doe", date, DriverStatus.FREE, null);
 
-        expectedDriver1.setId(1L);
-        expectedDriver2.setId(2L);
+        expectedDriver1.setId(driverEntity1.getId());
+        expectedDriver2.setId(driverEntity2.getId());
 
         List<DriverEntity> expectedList = Arrays.asList(expectedDriver1, expectedDriver2);
         assertEquals(expectedList, driverEntities);

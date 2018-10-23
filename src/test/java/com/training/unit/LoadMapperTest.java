@@ -1,4 +1,4 @@
-package java.com.training.unitTests;
+package com.training.unit;
 
 import com.training.entities.LoadEntity;
 import com.training.entities.enums.LoadStatus;
