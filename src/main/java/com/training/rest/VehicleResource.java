@@ -1,7 +1,7 @@
 package com.training.rest;
 
 import com.training.models.Vehicle;
-import com.training.services.interfaces.VehicleService;
+import com.training.services.VehicleService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

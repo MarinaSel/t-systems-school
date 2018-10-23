@@ -32,28 +32,31 @@
         <tr>
             <th align="left">Title</th>
             <td>
-                <input name="title" value="${editableLoad.title}" placeholder="Enter the title"/>
+                <input name="title" value="${editableLoad.title}" placeholder="Enter the title"
+                       maxlength="255" required/>
             </td>
         </tr>
 
         <tr>
             <th align="left">Description</th>
             <td>
-                <input name="description" value="${editableLoad.description}" placeholder="Enter the description"/>
+                <input name="description" value="${editableLoad.description}" placeholder="Enter the description"
+                       maxlength="255" required/>
             </td>
         </tr>
 
         <tr>
             <th align="left">Day of delivery</th>
             <td>
-                <input name="dayOfDelivery" id="dayOfDelivery" value="${editableLoad.dayOfDelivery}" placeholder="Choose the day of delivery"/>
+                <input name="dayOfDelivery" id="dayOfDelivery" value="${editableLoad.dayOfDelivery}"
+                       placeholder="Choose the day of delivery" required readonly/>
             </td>
         </tr>
         <tr>
-            <th align="left">Weight</th>
+            <th align="left">Weight (kg)</th>
             <td>
-                <input id="vehicleWeight" type="number" name="weight" value="${editableLoad.weight}" placeholder="Enter the weight"
-                       oninput="getVehicle()" required/>
+                <input id="vehicleWeight" type="number" name="weight" value="${editableLoad.weight}"
+                       placeholder="Enter the weight" min="1" oninput="getVehicle()" required/>
             </td>
         </tr>
 
@@ -76,7 +79,7 @@
         <tr>
             <th align="left">Primary driver</th>
             <td>
-                <select id="primaryDriver" class="select" name="drivingLicenseNumPrimary" disabled="disabled" required>
+                <select id="primaryDriver" class="select" name="drivingLicenseNumPrimary" disabled="disabled">
                     <option value="" selected disabled hidden></option>
                     <c:if test="${!empty editableLoad.vehicle}">
                         <c:forEach items="${freeDrivers}" var="driver">
@@ -90,7 +93,7 @@
         <tr>
             <th align="left">Second driver</th>
             <td>
-                <select class="select" id="secondDriver" name="drivingLicenseNumSecond" disabled="disabled" required>
+                <select class="select" id="secondDriver" name="drivingLicenseNumSecond" disabled="disabled">
                     <option value="" selected disabled hidden></option>
                     <option></option>
                     <c:forEach items="${freeDrivers}" var="driver">

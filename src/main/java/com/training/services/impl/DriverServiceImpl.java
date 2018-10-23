@@ -4,7 +4,7 @@ import com.training.entities.DriverEntity;
 import com.training.entities.enums.DriverStatus;
 import com.training.models.Driver;
 import com.training.repositories.DriverRepository;
-import com.training.services.interfaces.DriverService;
+import com.training.services.DriverService;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

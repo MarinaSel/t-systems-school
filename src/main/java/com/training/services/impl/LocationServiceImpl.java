@@ -2,7 +2,7 @@ package com.training.services.impl;
 
 import com.training.entities.LocationEntity;
 import com.training.repositories.LocationRepository;
-import com.training.services.interfaces.LocationService;
+import com.training.services.LocationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

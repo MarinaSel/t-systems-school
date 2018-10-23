@@ -5,8 +5,8 @@ import com.training.entities.VehicleEntity;
 import com.training.entities.enums.LoadStatus;
 import com.training.models.Load;
 import com.training.repositories.LoadRepository;
-import com.training.services.interfaces.LoadService;
-import com.training.services.interfaces.VehicleService;
+import com.training.services.LoadService;
+import com.training.services.VehicleService;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -68,6 +68,8 @@ public class LoadServiceImpl implements LoadService {
 
     @Override
     public Load deleteVehicleFromLoad(Long id) {
+
+        // TODO change to repository method
         LoadEntity loadEntity = loadRepository.getOne(id);
         VehicleEntity vehicleEntity = loadEntity.getVehicle();
         if(vehicleEntity != null){

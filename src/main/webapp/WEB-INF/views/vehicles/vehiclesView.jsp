@@ -13,11 +13,13 @@
     <%@include file="/WEB-INF/views/navbar.html"%>
 </head>
 <body>
+<a href="/getSaveVehiclePage" class="btn btn-success">Add new vehicle</a>
+<hr>
 <table class="table table-striped table-bordered tableView vehicles" >
     <thead>
     <tr>
         <th>Registration number</th>
-        <th>Capacity</th>
+        <th>Capacity (kg)</th>
         <th>Status</th>
         <th>Actions</th>
         <th>Drivers names</th>

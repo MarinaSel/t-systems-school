@@ -13,6 +13,8 @@
 </head>
 
 <body>
+<a href="/getSaveDriverView" class="btn btn-success">Add new driver</a>
+<hr>
    <table class="table table-striped table-bordered tableView drivers">
        <thead>
        <tr>

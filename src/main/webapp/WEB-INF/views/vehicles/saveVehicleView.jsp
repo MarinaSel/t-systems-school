@@ -28,13 +28,15 @@
         <tr>
             <th align="left">Registration number</th>
             <td>
-                <input name="registrationNumber" value="${editableVehicle.registrationNumber}" placeholder="Enter the registration number" maxlength="7" required/>
+                <input name="registrationNumber" value="${editableVehicle.registrationNumber}"
+                       placeholder="Enter the registration number" maxlength="7" minlength="7" required/>
             </td>
         </tr>
         <tr>
-            <th align="left">Capacity</th>
+            <th align="left">Capacity (kg)</th>
             <td>
-                <input type="number" name="capacity" value="${editableVehicle.capacity}" placeholder="Enter the capacity" required/>
+                <input type="number" name="capacity" value="${editableVehicle.capacity}"
+                       placeholder="Enter the capacity"  min="1" required/>
             </td>
         </tr>
 

@@ -11,13 +11,16 @@
 </head>
 
 <body>
+<a href="/getSaveLoadPage" class="btn btn-success">Add new load</a>
+<hr>
+</body>
     <table class="table table-striped table-bordered tableView loads">
         <thead>
         <tr>
             <th>Title</th>
             <th>Description</th>
             <th>Day of delivery</th>
-            <th>Weight</th>
+            <th>Weight (kg)</th>
             <th>Load status</th>
             <th>Actions</th>
             <th>Vehicle registration number</th>
@@ -65,9 +68,7 @@
             </tr>
         </c:forEach>
 
-        <td colspan="11">
-            <a href="/getSaveLoadPage" class="btn btn-success">Add new load</a>
-        </td>
+
         </tbody>
 
     </table>

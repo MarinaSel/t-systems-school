@@ -1,4 +1,4 @@
-package com.training.services.interfaces;
+package com.training.services;
 
 import com.training.entities.VehicleEntity;
 import com.training.models.Vehicle;

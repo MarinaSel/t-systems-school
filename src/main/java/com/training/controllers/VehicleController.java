@@ -1,9 +1,8 @@
 package com.training.controllers;
 
-import com.training.models.Load;
 import com.training.models.Vehicle;
-import com.training.services.interfaces.DriverService;
-import com.training.services.interfaces.VehicleService;
+import com.training.services.DriverService;
+import com.training.services.VehicleService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -8,7 +8,7 @@ import com.training.models.Load;
 import com.training.models.Vehicle;
 import com.training.repositories.DriverRepository;
 import com.training.repositories.VehicleRepository;
-import com.training.services.interfaces.VehicleService;
+import com.training.services.VehicleService;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

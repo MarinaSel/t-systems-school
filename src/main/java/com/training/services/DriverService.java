@@ -1,4 +1,4 @@
-package com.training.services.interfaces;
+package com.training.services;
 
 import com.training.models.Driver;
 import com.training.services.BaseService;
