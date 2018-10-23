@@ -55,7 +55,6 @@ public class DriverEntity extends BaseEntity {
     @Column(name = "license_end_date", nullable = false)
     private Date licenseEndDate;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private DriverStatus status;

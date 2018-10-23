@@ -6,12 +6,14 @@ import com.training.test_config.TestWebConfig;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.ValidationException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -70,7 +72,10 @@ public class VehicleRepositoryTest {
         List<VehicleEntity> expectedVehicles = Arrays.asList(expectedVehicle1, expectedVehicle2);
 
         assertEquals(expectedVehicles, vehicles);
+    }
 
-
+    @Test(expected = ValidationException.class)
+    public void createVehicleWithIllegalRegistrationNumber(){
+        vehicleRepository.saveAndFlush(new VehicleEntity("22sdsssdsd", 10, null));
     }
 }

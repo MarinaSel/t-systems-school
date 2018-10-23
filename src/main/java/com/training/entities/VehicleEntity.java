@@ -39,7 +39,6 @@ public class VehicleEntity extends BaseEntity {
     @Column(name = "capacity", nullable = false)
     private Integer capacity;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private VehicleStatus status;

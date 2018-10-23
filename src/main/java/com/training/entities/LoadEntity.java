@@ -47,7 +47,6 @@ public class LoadEntity extends BaseEntity {
     @Column(name = "date_of_delivery", nullable = false)
     private Date dayOfDelivery;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private LoadStatus status;
