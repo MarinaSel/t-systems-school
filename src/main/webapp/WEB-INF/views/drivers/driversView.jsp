@@ -10,6 +10,8 @@
     <title>Drivers</title>
     <%@include file="/WEB-INF/views/includeStyles.jsp"%>
     <%@include file="/WEB-INF/views/navbar.html"%>
+    <link rel="stylesheet" type="text/css" href="resources/css/drivers.css"/>
+
 </head>
 
 <body>

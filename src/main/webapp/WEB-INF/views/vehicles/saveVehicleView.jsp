@@ -12,7 +12,9 @@
     <%@include file="/WEB-INF/views/includeStyles.jsp"%>
     <%@include file="/WEB-INF/views/navbar.html"%>
     <%@include file="/WEB-INF/views/includeDatepicker.jsp"%>
+<script type="text/javascript">
 
+</script>
 </head>
 <body>
 <h1 align="center">${empty editableVehicle.id ? 'Add' : 'Edit'} vehicle</h1>
@@ -30,27 +32,31 @@
         <tr>
             <th align="left">Model</th>
             <td>
-                <input name="model" value="${editableVehicle.model}" placeholder="Enter the vehicles model" maxlength="10" required>
+                <input name="model" value="${editableVehicle.model}" placeholder="Enter the vehicles model" maxlength="10" autocomplete="off" required>
             </td>
         </tr>
         <tr>
             <th align="left">Date of issue</th>
             <td>
-                <input name="dateOfIssue" id="date" value="${editableVehicle.dateOfIssue}" readonly required>
+                <input name="dateOfIssue" id="vehicledte" value="${editableVehicle.dateOfIssue}"
+                       placeholder="Choose the date of issue" required readonly = "true">
             </td>
         </tr>
         <tr>
             <th align="left">Registration number</th>
             <td>
                 <input name="registrationNumber" value="${editableVehicle.registrationNumber}"
-                       placeholder="Enter the registration number" maxlength="7" minlength="7" required/>
+                       placeholder="Enter the registration number"
+                       title="Example: AA12345" pattern="[A-Za-z]{2}[0-9]{5}"
+                       maxlength="7" minlength="7" autocomplete="off" required/>
             </td>
         </tr>
         <tr>
             <th align="left">Capacity (kg)</th>
             <td>
-                <input type="number" name="capacity" value="${editableVehicle.capacity}"
-                       placeholder="Enter the capacity"  min="1" required/>
+                <input name="capacity" type="number" value="${editableVehicle.capacity}" placeholder="Enter the capacity"
+                       min="1" max="22000"
+                       title="Must contains only digits and can't be null" autocomplete="off" required/>
             </td>
         </tr>
 

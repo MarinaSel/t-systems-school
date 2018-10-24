@@ -35,25 +35,30 @@
             <tr>
                 <th>First name</th>
                 <td>
-                    <input name="firstName" maxlength="50" value="${editableDriver.firstName}" placeholder="Enter the first name" required/>
+                    <input name="firstName" maxlength="50" value="${editableDriver.firstName}" placeholder="Enter the first name"
+                           autocomplete="off" required/>
                 </td>
             </tr>
             <tr>
                 <th>Last name</th>
                 <td>
-                    <input name="lastName" maxlength="50" value="${editableDriver.lastName}" placeholder="Enter the second name" required/>
+                    <input name="lastName" maxlength="50" value="${editableDriver.lastName}" placeholder="Enter the second name"
+                           autocomplete="off" required/>
                 </td>
             </tr>
             <tr>
                 <th>Driver's license number</th>
                 <td>
-                    <input name="drivingLicenseNum" value="${editableDriver.drivingLicenseNum}" placeholder="Enter the driving license number" required/>
+                    <input name="drivingLicenseNum" value="${editableDriver.drivingLicenseNum}" placeholder="Enter the driving license number with"
+                           title="Example: 12Ab345678" pattern="[0-9]{2}[A-Za-z]{2}[0-9]{6}"
+                           maxlength="10" minlength="10" autocomplete="off" required/>
                 </td>
             </tr>
             <tr>
                 <th>License end date</th>
                 <td>
-                    <input name="licenseEndDate" id = "date" value="${editableDriver.licenseEndDate}" placeholder="Choose the licence end date" required readonly = "true"/>
+                    <input name="licenseEndDate" id = "date" value="${editableDriver.licenseEndDate}"
+                           placeholder="Choose the licence end date" required readonly = "true"/>
                 </td>
             </tr>
             <c:if test="${!empty editableDriver.status}">

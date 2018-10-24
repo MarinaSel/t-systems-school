@@ -33,7 +33,7 @@
             <th align="left">Title</th>
             <td>
                 <input name="title" value="${editableLoad.title}" placeholder="Enter the title"
-                       maxlength="255" required/>
+                       maxlength="255" autocomplete="off" required/>
             </td>
         </tr>
 
@@ -41,14 +41,14 @@
             <th align="left">Description</th>
             <td>
                 <input name="description" value="${editableLoad.description}" placeholder="Enter the description"
-                       maxlength="255" required/>
+                       maxlength="255" autocomplete="off" required/>
             </td>
         </tr>
 
         <tr>
             <th align="left">Day of delivery</th>
             <td>
-                <input name="dayOfDelivery" id="date" value="${editableLoad.dayOfDelivery}"
+                <input name="dayOfDelivery" id="vehicledte" value="${editableLoad.dayOfDelivery}"
                        placeholder="Choose the day of delivery" required readonly/>
             </td>
         </tr>
@@ -56,7 +56,8 @@
             <th align="left">Weight (kg)</th>
             <td>
                 <input id="vehicleWeight" type="number" name="weight" value="${editableLoad.weight}"
-                       placeholder="Enter the weight" min="1" oninput="getVehicle()" required/>
+                       min="1" max="22000" placeholder="Enter the weight"
+                       oninput="getVehicle()" autocomplete="off" required/>
             </td>
         </tr>
 
@@ -67,11 +68,9 @@
                 <select class="select" id="vehicles" name="regNum" onchange="getDrivers();">
                     <option value="${editableLoad.vehicle.registrationNumber}"
                             selected>${editableLoad.vehicle.registrationNumber}</option>
-                    <c:if test="${!empty editableLoad.id}">
                         <c:forEach items="${freeVehicles}" var="vehicle">
                             <option>${vehicle.registrationNumber}</option>
                         </c:forEach>
-                    </c:if>
                 </select>
             </td>
         </tr>
@@ -81,12 +80,9 @@
             <td>
                 <select id="primaryDriver" class="select" name="drivingLicenseNumPrimary" disabled="disabled">
                     <option value="" selected disabled hidden></option>
-                    <c:if test="${!empty editableLoad.vehicle}">
                         <c:forEach items="${freeDrivers}" var="driver">
-                            <option>${driver.drivingLicenseNum}</option>
+                            <option> ${driver.drivingLicenseNum}</option>
                         </c:forEach>
-                    </c:if>
-
                 </select>
             </td>
         </tr>
@@ -97,7 +93,7 @@
                     <option value="" selected disabled hidden></option>
                     <option></option>
                     <c:forEach items="${freeDrivers}" var="driver">
-                        <option>${driver.drivingLicenseNum}</option>
+                        <option>${driver.firstName} ${driver.lastName} ${driver.drivingLicenseNum}</option>
                     </c:forEach>
                 </select>
             </td>
