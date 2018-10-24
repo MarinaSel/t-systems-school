@@ -2,7 +2,6 @@ package com.training.entities;
 
 import com.training.listeners.DateSettingListener;
 
-import com.training.listeners.ValidatingListener;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
@@ -15,8 +14,8 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @MappedSuperclass
-@EntityListeners({DateSettingListener.class, ValidatingListener.class})
-public abstract class BaseEntity implements Validatable{
+@EntityListeners(DateSettingListener.class)
+public abstract class BaseEntity {
 
     @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")

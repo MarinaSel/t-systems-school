@@ -36,7 +36,7 @@ public class DriverEntity extends BaseEntity {
 
     @NotNull(message = "Driving license number cannot be null")
     @Size(max = 50, message = "Driving license number is invalid")
-    @Column(name = "driving_license_num", nullable = false, unique = true, length = 50)
+    @Column(name = "driving_license_num", nullable = false, unique = true, length = 10)
     private String drivingLicenseNum;
 
     @NotNull(message = "First name cannot be null")

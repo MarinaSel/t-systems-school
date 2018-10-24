@@ -10,7 +10,7 @@ import javax.persistence.Column;
 
 @Entity
 @Table(name = "locations")
-public class LocationEntity implements Validatable{
+public class LocationEntity {
     @Id
     @SequenceGenerator(name = "locations_id_seq", sequenceName = "locations_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "locations_id_seq")

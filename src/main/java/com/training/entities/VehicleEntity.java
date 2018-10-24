@@ -1,6 +1,7 @@
 package com.training.entities;
 
 import com.training.entities.enums.VehicleStatus;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,9 +17,12 @@ import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,6 +33,14 @@ public class VehicleEntity extends BaseEntity {
     @SequenceGenerator(name = "vehicles_id_seq", sequenceName = "vehicles_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "vehicles_id_seq")
     private Long id;
+
+    @Column(name="model", nullable = false, length = 20)
+    private String model;
+
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "date_of_issue", nullable = false)
+    private Date dateOfIssue;
 
     @Size(max = 7, message = "Registration number is invalid")
     @NotNull(message = "Registration number cannot be null")
@@ -58,7 +70,9 @@ public class VehicleEntity extends BaseEntity {
 
     public VehicleEntity(){}
 
-    public VehicleEntity(@Size(max = 7, message = "Registration number is invalid") @NotNull(message = "Registration number cannot be null") String registrationNumber, @NotNull(message = "Capacity cannot be null") Integer capacity, @NotNull VehicleStatus status) {
+    public VehicleEntity(String model, Date dateOfIssue, @Size(max = 7, message = "Registration number is invalid") @NotNull(message = "Registration number cannot be null") String registrationNumber, @NotNull(message = "Capacity cannot be null") Integer capacity, VehicleStatus status) {
+        this.model = model;
+        this.dateOfIssue = dateOfIssue;
         this.registrationNumber = registrationNumber;
         this.capacity = capacity;
         this.status = status;
@@ -76,6 +90,24 @@ public class VehicleEntity extends BaseEntity {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public VehicleEntity setModel(String model) {
+        this.model = model;
+        return this;
+    }
+
+    public Date getDateOfIssue() {
+        return dateOfIssue;
+    }
+
+    public VehicleEntity setDateOfIssue(Date dateOfIssue) {
+        this.dateOfIssue = dateOfIssue;
+        return this;
     }
 
     public String getRegistrationNumber() {

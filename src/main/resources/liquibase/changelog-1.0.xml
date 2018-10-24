@@ -15,7 +15,7 @@
             </column>
             <column name="vehicle_id" type="BIGINT">
             </column>
-            <column name="driving_license_num" type="VARCHAR(50)">
+            <column name="driving_license_num" type="VARCHAR(10)">
                 <constraints nullable="false" unique="true"/>
             </column>
             <column name="first_name" type="VARCHAR(50)">
@@ -41,10 +41,10 @@
             <column autoIncrement="true" name="id" type="BIGSERIAL">
                 <constraints primaryKey="true" primaryKeyName="loads_pk"/>
             </column>
-            <column name="title" type="VARCHAR">
+            <column name="title" type="VARCHAR(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="description" type="VARCHAR">
+            <column name="description" type="VARCHAR(50)">
                 <constraints nullable="false"/>
             </column>
             <column name="date_of_delivery" type="DATE">
@@ -84,6 +84,12 @@
         <createTable tableName="vehicles">
             <column autoIncrement="true" name="id" type="BIGSERIAL">
                 <constraints primaryKey="true" primaryKeyName="vehicles_pk"/>
+            </column>
+            <column name="model" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_of_issue" type="DATE">
+                <constraints nullable="false"/>
             </column>
             <column name="location_id" type="BIGINT"/>
             <column name="registration_number" type="VARCHAR(7)" >

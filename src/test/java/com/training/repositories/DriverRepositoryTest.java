@@ -14,7 +14,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.validation.ValidationException;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -88,9 +87,4 @@ public class DriverRepositoryTest {
         assertEquals(expectedList, driverEntities);
     }
 
-    @Test(expected = ValidationException.class)
-    public void createDriverWithNullProperties(){
-        driverRepository.saveAndFlush(new DriverEntity(null, null, null,
-                null, null, null));
-    }
 }

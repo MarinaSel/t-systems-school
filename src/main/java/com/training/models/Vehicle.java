@@ -1,10 +1,12 @@
 package com.training.models;
 
 import com.training.entities.enums.VehicleStatus;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,14 +23,21 @@ public class Vehicle extends BaseModel{
     @NotNull(message = "Capacity cannot be null")
     private VehicleStatus status;
 
+    private String model;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date dateOfIssue;
+
     private Set<Driver> drivers = new HashSet<>();
     private Set<Load> loads = new HashSet<>();
 
-    public Vehicle(Long id, @Size(min = 7, max = 7, message = "Registration number is invalid") @NotNull(message = "Registration number cannot be null") String registrationNumber, Integer capacity, @NotNull(message = "Capacity cannot be null") VehicleStatus status) {
+    public Vehicle(Long id, @Size(min = 7, max = 7, message = "Registration number is invalid") @NotNull(message = "Registration number cannot be null") String registrationNumber, Integer capacity, @NotNull(message = "Capacity cannot be null") VehicleStatus status, String model, Date date) {
         this.id = id;
         this.registrationNumber = registrationNumber;
         this.capacity = capacity;
         this.status = status;
+        this.model = model;
+        this.dateOfIssue = date;
     }
 
     public Vehicle(){}
@@ -78,6 +87,24 @@ public class Vehicle extends BaseModel{
 
     public void setStatus(VehicleStatus loadStatus) {
         this.status = loadStatus;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public Vehicle setModel(String model) {
+        this.model = model;
+        return this;
+    }
+
+    public Date getDateOfIssue() {
+        return dateOfIssue;
+    }
+
+    public Vehicle setDateOfIssue(Date dateOfIssue) {
+        this.dateOfIssue = dateOfIssue;
+        return this;
     }
 
     @Override
