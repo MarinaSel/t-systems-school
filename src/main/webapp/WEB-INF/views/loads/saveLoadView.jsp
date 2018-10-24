@@ -48,7 +48,7 @@
         <tr>
             <th align="left">Day of delivery</th>
             <td>
-                <input name="dayOfDelivery" id="dayOfDelivery" value="${editableLoad.dayOfDelivery}"
+                <input name="dayOfDelivery" id="date" value="${editableLoad.dayOfDelivery}"
                        placeholder="Choose the day of delivery" required readonly/>
             </td>
         </tr>

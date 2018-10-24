@@ -7,6 +7,8 @@
 <head>
     <%@include file="/WEB-INF/views/includeStyles.jsp"%>
     <%@include file="/WEB-INF/views/navbar.html"%>
+    <link rel="stylesheet" type="text/css" href="resources/css/loads.css"/>
+
     <title>Loads</title>
 </head>
 

@@ -9,8 +9,10 @@
 <head>
     <title>Vehicles</title>
 
-    <%@include file="/WEB-INF/views/includeStyles.jsp"%>
     <%@include file="/WEB-INF/views/navbar.html"%>
+    <%@include file="/WEB-INF/views/includeStyles.jsp"%>
+    <link rel="stylesheet" type="text/css" href="resources/css/vehicles.css"/>
+
 </head>
 <body>
 <a href="/getSaveVehiclePage" class="btn btn-success">Add new vehicle</a>
@@ -18,6 +20,8 @@
 <table class="table table-striped table-bordered tableView vehicles" >
     <thead>
     <tr>
+        <th>Model</th>
+        <th>Date of issue</th>
         <th>Registration number</th>
         <th>Capacity (kg)</th>
         <th>Status</th>
@@ -29,6 +33,8 @@
     <tbody>
     <c:forEach items="${vehicles}" var="vehicle">
         <tr>
+            <td>${vehicle.model}</td>
+            <td>${vehicle.dateOfIssue}</td>
             <td>${vehicle.registrationNumber}</td>
             <td>${vehicle.capacity}</td>
             <td>${vehicle.status}</td>

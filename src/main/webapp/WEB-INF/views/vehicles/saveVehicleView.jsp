@@ -11,6 +11,8 @@
     <title>${empty editableVehicle.id ? 'Add' : 'Edit'} vehicle</title>
     <%@include file="/WEB-INF/views/includeStyles.jsp"%>
     <%@include file="/WEB-INF/views/navbar.html"%>
+    <%@include file="/WEB-INF/views/includeDatepicker.jsp"%>
+
 </head>
 <body>
 <h1 align="center">${empty editableVehicle.id ? 'Add' : 'Edit'} vehicle</h1>
@@ -23,6 +25,18 @@
             </td>
             <td>
                 <input type="hidden" name="creationDate" value="${editableVehicle.creationDate}">
+            </td>
+        </tr>
+        <tr>
+            <th align="left">Model</th>
+            <td>
+                <input name="model" value="${editableVehicle.model}" placeholder="Enter the vehicles model" maxlength="10" required>
+            </td>
+        </tr>
+        <tr>
+            <th align="left">Date of issue</th>
+            <td>
+                <input name="dateOfIssue" id="date" value="${editableVehicle.dateOfIssue}" readonly required>
             </td>
         </tr>
         <tr>
