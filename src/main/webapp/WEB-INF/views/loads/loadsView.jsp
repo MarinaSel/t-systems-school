@@ -44,7 +44,9 @@
 
                 <td>
                     <c:if test="${load.status != 'DONE'}">
-                        <a href="/editLoad/${load.id}" class="btn btn-info btn-sm">Edit</a>
+                        <c:if test="${load.status != 'IN_PROGRESS'}">
+                            <a href="/editLoad/${load.id}" class="btn btn-info btn-sm">Edit</a>
+                        </c:if>
                         <c:if test="${load.status == 'IN_PROGRESS'}">
                             <a href="/delivered/${load.id}" class="btn btn-success btn-sm">Delivered</a>
                         </c:if>

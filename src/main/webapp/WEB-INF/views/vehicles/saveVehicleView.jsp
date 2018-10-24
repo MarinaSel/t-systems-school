@@ -64,8 +64,8 @@
             <tr>
                 <th align="left">Status</th>
                 <td>
-                    <select name="status" class="soflow" required>
-                        <option value="" selected disabled hidden>${editableVehicle.status}</option>
+                    <select name="status" class="soflow">
+                        <option value="" selected>${editableVehicle.status}</option>
                         <c:forEach items="${statuses}" var="status">
                             <option>${status}</option>
                         </c:forEach>

@@ -16,7 +16,7 @@ input{
 {
     display: block;
     overflow: auto;
-    height: 500px;
+    height: 400px;
     width: 100%;
     overflow-x: hidden;
     overflow-y: auto;

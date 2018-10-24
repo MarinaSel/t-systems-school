@@ -1,7 +1,7 @@
-.drivers th:nth-child(1), .drivers td:nth-child(1) { min-width: 230px;  max-width: 230px; }
+.drivers th:nth-child(1), .drivers td:nth-child(1) { min-width: 225px;  max-width: 225px; }
 .drivers th:nth-child(2), .drivers td:nth-child(2) { min-width: 230px; max-width: 230px; }
 .drivers th:nth-child(3), .drivers td:nth-child(3) { min-width: 250px; max-width: 250px; }
 .drivers th:nth-child(4), .drivers td:nth-child(4) { min-width: 150px; max-width: 150px; }
 .drivers th:nth-child(5), .drivers td:nth-child(5) { min-width: 260px; max-width: 260px; }
-.drivers th:nth-child(6), .drivers td:nth-child(6) { min-width: 262px; max-width: 262px; }
+.drivers th:nth-child(6), .drivers td:nth-child(6) { min-width: 260px; max-width: 260px; }
 .drivers th:nth-child(7), .drivers td:nth-child(7) { min-width: 150px; max-width: 150px; }
