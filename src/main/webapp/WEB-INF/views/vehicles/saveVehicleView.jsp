@@ -64,11 +64,11 @@
             <tr>
                 <th align="left">Status</th>
                 <td>
-                    <select name="status" class="soflow" onchange="getDriversAndVehicles();" required>
+                    <select name="status" class="soflow" required>
                         <option value="" selected disabled hidden>${editableVehicle.status}</option>
-                        <option>BROKEN</option>
-                        <option>WORKING</option>
-                        <option>FREE</option>
+                        <c:forEach items="${statuses}" var="status">
+                            <option>${status}</option>
+                        </c:forEach>
                     </select>
                 </td>
             </tr>

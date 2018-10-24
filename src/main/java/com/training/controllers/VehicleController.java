@@ -1,5 +1,6 @@
 package com.training.controllers;
 
+import com.training.entities.enums.VehicleStatus;
 import com.training.models.Vehicle;
 import com.training.services.DriverService;
 import com.training.services.VehicleService;
@@ -34,6 +35,8 @@ public class VehicleController {
     @GetMapping("/editVehicle/{id}")
     public ModelAndView getVehicleById(@PathVariable("id") Long id, RedirectAttributes redirectAttributes){
         Vehicle vehicleToEdit = vehicleService.get(id);
+        VehicleStatus[] statuses = VehicleStatus.values();
+        redirectAttributes.addFlashAttribute("statuses", statuses);
         redirectAttributes.addFlashAttribute("editableVehicle", vehicleToEdit);
         return new ModelAndView("redirect:/getSaveVehiclePage");
     }

@@ -67,10 +67,9 @@
                     <td>
                         <select class="soflow" name="status" required>
                             <option value="" selected disabled hidden>${editableDriver.status}</option>
-                            <option>FREE</option>
-                            <option>WORK</option>
-                            <option>REST</option>
-                            <option>DRIVING</option>
+                            <c:forEach items="${statuses}" var="status">
+                                <option>${status}</option>
+                            </c:forEach>
                         </select>
                     </td>
                 </tr>

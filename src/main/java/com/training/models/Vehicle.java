@@ -85,26 +85,24 @@ public class Vehicle extends BaseModel{
         return status;
     }
 
-    public void setStatus(VehicleStatus loadStatus) {
-        this.status = loadStatus;
+    public void setStatus(VehicleStatus status) {
+        this.status = status;
     }
 
     public String getModel() {
         return model;
     }
 
-    public Vehicle setModel(String model) {
+    public void setModel(String model) {
         this.model = model;
-        return this;
     }
 
     public Date getDateOfIssue() {
         return dateOfIssue;
     }
 
-    public Vehicle setDateOfIssue(Date dateOfIssue) {
+    public void setDateOfIssue(Date dateOfIssue) {
         this.dateOfIssue = dateOfIssue;
-        return this;
     }
 
     @Override

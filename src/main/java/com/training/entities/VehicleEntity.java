@@ -96,18 +96,16 @@ public class VehicleEntity extends BaseEntity {
         return model;
     }
 
-    public VehicleEntity setModel(String model) {
+    public void setModel(String model) {
         this.model = model;
-        return this;
     }
 
     public Date getDateOfIssue() {
         return dateOfIssue;
     }
 
-    public VehicleEntity setDateOfIssue(Date dateOfIssue) {
+    public void setDateOfIssue(Date dateOfIssue) {
         this.dateOfIssue = dateOfIssue;
-        return this;
     }
 
     public String getRegistrationNumber() {

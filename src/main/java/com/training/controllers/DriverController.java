@@ -1,5 +1,6 @@
 package com.training.controllers;
 
+import com.training.entities.enums.DriverStatus;
 import com.training.models.Driver;
 import com.training.services.DriverService;
 
@@ -22,12 +23,20 @@ public class DriverController {
     @GetMapping("/editDriver/{id}")
     public ModelAndView getDriverById(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
         Driver driverToEdit = driverService.get(id);
+        DriverStatus[] statuses = DriverStatus.values();
+        redirectAttributes.addFlashAttribute("statuses", statuses);
         redirectAttributes.addFlashAttribute("editableDriver", driverToEdit);
         return new ModelAndView("redirect:/getSaveDriverView");
     }
 
-    @GetMapping("/getSaveDriverView")
-    public ModelAndView getAddDriverPage(Model model) {
+    @GetMapping("/addDriver")
+    public ModelAndView getAddDriverPage(RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("editableDriver", new Driver());
+        return new ModelAndView("redirect:/getSaveDriverView");
+    }
+
+    @GetMapping(value = "/getSaveDriverView")
+    public ModelAndView getSaveLoadView(Model model) {
         return new ModelAndView("saveDriverView").addAllObjects(model.asMap());
     }
 
