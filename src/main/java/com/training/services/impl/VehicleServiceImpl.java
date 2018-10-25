@@ -23,9 +23,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import static com.training.mappers.VehicleMapper.getEntityFromModel;
-import static com.training.mappers.VehicleMapper.getModelFromEntity;
-import static com.training.mappers.VehicleMapper.getModelListFromEntityList;
+import static com.training.mappers.VehicleMapper.mapModelToEntity;
+import static com.training.mappers.VehicleMapper.mapEntityToModel;
+import static com.training.mappers.VehicleMapper.mapEntityListToModelList;
 
 @Service
 @Transactional
@@ -41,14 +41,14 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     public Vehicle get(Long id){
-        Vehicle vehicle = getModelFromEntity(vehicleRepository.getOne(id));
+        Vehicle vehicle = mapEntityToModel(vehicleRepository.getOne(id));
         logger.info("Found vehicle with id = {}", vehicle.getId());
         return vehicle;
     }
 
     @Override
     public Vehicle save(Vehicle vehicle){
-        VehicleEntity vehicleEntity = getEntityFromModel(vehicle);
+        VehicleEntity vehicleEntity = mapModelToEntity(vehicle);
         vehicleRepository.saveAndFlush(vehicleEntity);
 
         if(vehicle.getId() == null){
@@ -57,7 +57,7 @@ public class VehicleServiceImpl implements VehicleService {
         else{
             logger.info("Updated vehicle with id = {}", vehicle.getId());
         }
-        return getModelFromEntity(vehicleEntity);
+        return mapEntityToModel(vehicleEntity);
     }
 
     @Override
@@ -68,14 +68,14 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     public List<Vehicle> getAll() {
-        List<Vehicle> vehicles = getModelListFromEntityList(vehicleRepository.findAll());
+        List<Vehicle> vehicles = mapEntityListToModelList(vehicleRepository.findAll());
         logger.info("Found all vehicles");
         return vehicles;
     }
 
     @Override
     public List<Vehicle> getAllFreeWithNecessaryCapacityAndDrivers(Integer necessaryCapacity) {
-        List<Vehicle> vehicles = getModelListFromEntityList(vehicleRepository.findAllByStatus(VehicleStatus.FREE));
+        List<Vehicle> vehicles = mapEntityListToModelList(vehicleRepository.findAllByStatus(VehicleStatus.FREE));
         Iterator<Vehicle> iterator = vehicles.iterator();
 
         while (iterator.hasNext()){
@@ -96,7 +96,7 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     public Vehicle findByRegistrationNumber(String registrationNumber) {
-        Vehicle vehicle = getModelFromEntity(vehicleRepository.findVehicleEntityByRegistrationNumber(registrationNumber));
+        Vehicle vehicle = mapEntityToModel(vehicleRepository.findVehicleEntityByRegistrationNumber(registrationNumber));
         logger.info("Found vehicle by registration number = {}", registrationNumber);
         return vehicle;
     }
@@ -127,7 +127,7 @@ public class VehicleServiceImpl implements VehicleService {
             }
             vehicleRepository.saveAndFlush(vehicleEntity);
         }
-        return getModelFromEntity(vehicleEntity);
+        return mapEntityToModel(vehicleEntity);
     }
 
 }

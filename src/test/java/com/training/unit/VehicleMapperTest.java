@@ -28,7 +28,7 @@ public class VehicleMapperTest {
         Vehicle vehicle = new Vehicle(1L,  "564791j", 7, VehicleStatus.FREE, "model", date);
         VehicleEntity vehicleEntity = new VehicleEntity("model", date, "564791j", 7, VehicleStatus.FREE);
         vehicleEntity.setId(1L);
-        assertEquals(vehicle, VehicleMapper.getModelFromEntity(vehicleEntity));
+        assertEquals(vehicle, VehicleMapper.mapEntityToModel(vehicleEntity));
 
     }
 
@@ -37,7 +37,7 @@ public class VehicleMapperTest {
         Vehicle vehicle = new Vehicle(1L, "564791j", 7, VehicleStatus.FREE, "model", date);
         VehicleEntity vehicleEntity = new VehicleEntity("model", date, "1258977", 7, VehicleStatus.FREE);
         vehicleEntity.setId(1L);
-        assertNotEquals(vehicle, VehicleMapper.getModelFromEntity(vehicleEntity));
+        assertNotEquals(vehicle, VehicleMapper.mapEntityToModel(vehicleEntity));
     }
 
     @Test
@@ -45,7 +45,7 @@ public class VehicleMapperTest {
         Vehicle vehicle = new Vehicle(1L, "564791j", 7, VehicleStatus.FREE, "model", date);
         VehicleEntity vehicleEntity = new VehicleEntity("model", date,"564791j", 7, VehicleStatus.FREE);
         vehicleEntity.setId(1L);
-        assertEquals(vehicleEntity, VehicleMapper.getEntityFromModel(vehicle));
+        assertEquals(vehicleEntity, VehicleMapper.mapModelToEntity(vehicle));
     }
 
     @Test
@@ -53,16 +53,16 @@ public class VehicleMapperTest {
         Vehicle vehicle = new Vehicle(1L, "564791j", 7, VehicleStatus.FREE, "model", date);
         VehicleEntity vehicleEntity = new VehicleEntity("model", date,"1111111", 7, VehicleStatus.FREE);
         vehicleEntity.setId(1L);
-        assertNotEquals(vehicleEntity, VehicleMapper.getEntityFromModel(vehicle));
+        assertNotEquals(vehicleEntity, VehicleMapper.mapModelToEntity(vehicle));
     }
 
     @Test
     public void getEntityFromNullModel(){
-        assertNull(VehicleMapper.getEntityFromModel(null));
+        assertNull(VehicleMapper.mapModelToEntity(null));
     }
 
     @Test
     public void getModelFromNullEntity(){
-        assertNull(VehicleMapper.getModelFromEntity(null));
+        assertNull(VehicleMapper.mapEntityToModel(null));
     }
 }

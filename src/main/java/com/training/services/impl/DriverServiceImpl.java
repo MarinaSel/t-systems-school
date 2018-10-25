@@ -15,9 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static com.training.mappers.DriverMapper.getModelFromEntity;
-import static com.training.mappers.DriverMapper.getEntityFromModel;
-import static com.training.mappers.DriverMapper.getModelListFromEntityList;
+import static com.training.mappers.DriverMapper.mapEntityToModel;
+import static com.training.mappers.DriverMapper.mapModelToEntity;
+import static com.training.mappers.DriverMapper.mapEntityListToModelList;
 
 
 @Service
@@ -31,14 +31,14 @@ public class DriverServiceImpl implements DriverService{
 
     @Override
     public Driver get(Long id){
-        Driver driver = getModelFromEntity(driverRepository.getOne(id));
+        Driver driver = mapEntityToModel(driverRepository.getOne(id));
         logger.info("Got driver with id = {}", driver.getId());
         return driver;
     }
 
     @Override
     public Driver save(Driver driver){
-        DriverEntity driverEntity = getEntityFromModel(driver);
+        DriverEntity driverEntity = mapModelToEntity(driver);
         driverRepository.saveAndFlush(driverEntity);
 
         if(driver.getId() == null){
@@ -47,7 +47,7 @@ public class DriverServiceImpl implements DriverService{
         else{
             logger.info("Updated driver with id = {}", driver.getId());
         }
-        return getModelFromEntity(driverEntity);
+        return mapEntityToModel(driverEntity);
     }
 
     @Override
@@ -58,21 +58,21 @@ public class DriverServiceImpl implements DriverService{
 
     @Override
     public List<Driver> getAll(){
-        List<Driver> drivers = getModelListFromEntityList(driverRepository.findAll());
+        List<Driver> drivers = mapEntityListToModelList(driverRepository.findAll());
         logger.info("Found all drivers");
         return drivers;
     }
 
     @Override
     public List<Driver> getAllFree() {
-        List<Driver> drivers = getModelListFromEntityList(driverRepository.findAllByStatus(DriverStatus.FREE));
+        List<Driver> drivers = mapEntityListToModelList(driverRepository.findAllByStatus(DriverStatus.FREE));
         logger.info("Found all drivers with status FREE");
         return drivers;
     }
 
     @Override
     public Driver findByDrivingLicenseNum(String drivingLicenseNum) {
-        Driver driver = getModelFromEntity(driverRepository.findByDrivingLicenseNum(drivingLicenseNum));
+        Driver driver = mapEntityToModel(driverRepository.findByDrivingLicenseNum(drivingLicenseNum));
         logger.info("Found driver with driving license number = {}", drivingLicenseNum);
         return driver;
     }

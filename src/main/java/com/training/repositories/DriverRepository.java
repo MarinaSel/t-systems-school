@@ -9,6 +9,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Interface for driver repository extends base JpaRepository with CRUD operations.
+ */
 @Repository
 public interface DriverRepository extends JpaRepository<DriverEntity, Long> {
 

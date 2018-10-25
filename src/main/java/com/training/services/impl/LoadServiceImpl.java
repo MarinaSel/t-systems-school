@@ -17,9 +17,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static com.training.mappers.LoadMapper.getModelFromEntity;
-import static com.training.mappers.LoadMapper.getEntityFromModel;
-import static com.training.mappers.LoadMapper.getModelListFromEntityList;
+import static com.training.mappers.LoadMapper.mapEntityToModel;
+import static com.training.mappers.LoadMapper.mapModelToEntity;
+import static com.training.mappers.LoadMapper.mapEntityListToModelList;
 
 @Service
 @Transactional
@@ -35,14 +35,14 @@ public class LoadServiceImpl implements LoadService {
 
     @Override
     public Load get(Long id){
-        Load load = getModelFromEntity(loadRepository.getOne(id));
+        Load load = mapEntityToModel(loadRepository.getOne(id));
         logger.info("Got load with id = {}", load.getId());
         return load;
     }
 
     @Override
     public Load save(Load load){
-        LoadEntity loadEntity = getEntityFromModel(load);
+        LoadEntity loadEntity = mapModelToEntity(load);
         loadRepository.saveAndFlush(loadEntity);
         if(load.getId() == null){
             logger.info("Created load with id = {}", loadEntity.getId());
@@ -50,7 +50,7 @@ public class LoadServiceImpl implements LoadService {
         else{
             logger.info("Updated load with id = {}", load.getId());
         }
-        return getModelFromEntity(loadEntity);
+        return mapEntityToModel(loadEntity);
     }
 
     @Override
@@ -61,7 +61,7 @@ public class LoadServiceImpl implements LoadService {
 
     @Override
     public List<Load> getAll(){
-        List<Load> loads = getModelListFromEntityList(loadRepository.findAll());
+        List<Load> loads = mapEntityListToModelList(loadRepository.findAll());
         logger.info("Found all loads");
         return loads;
     }
@@ -79,6 +79,6 @@ public class LoadServiceImpl implements LoadService {
             loadEntity.setStatus(LoadStatus.DONE);
             loadRepository.saveAndFlush(loadEntity);
         }
-        return getModelFromEntity(loadEntity);
+        return mapEntityToModel(loadEntity);
     }
 }

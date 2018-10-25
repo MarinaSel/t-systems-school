@@ -13,6 +13,12 @@ import javax.validation.constraints.NotNull;
 
 import java.util.Date;
 
+/**
+ * This class describes the general field for DriverEntity, VehicleEntity and LoadEntity.
+ * @see DriverEntity
+ * @see VehicleEntity
+ * @see LoadEntity
+ */
 @MappedSuperclass
 @EntityListeners(DateSettingListener.class)
 public abstract class BaseEntity {

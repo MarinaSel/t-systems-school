@@ -64,10 +64,9 @@
             <tr>
                 <th align="left">Status</th>
                 <td>
-                    <select name="status" class="soflow">
-                        <option value="" selected>${editableVehicle.status}</option>
+                    <select class="soflow" name="status">
                         <c:forEach items="${statuses}" var="status">
-                            <option>${status}</option>
+                            <option value="${status}" ${status == editableVehicel.status ? 'selected="selected"' : ''}>${status}</option>
                         </c:forEach>
                     </select>
                 </td>

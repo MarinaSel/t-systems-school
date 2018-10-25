@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class LoadController {
@@ -32,7 +33,7 @@ public class LoadController {
     private DriverService driverService;
 
     @GetMapping("/editLoad/{id}")
-    public ModelAndView getLoadById(@PathVariable("id") Long id, RedirectAttributes redirectAttributes){
+    public ModelAndView getLoadById(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
         Load loadToEdit = loadService.get(id);
         String registrationNumber = "";
         List<Vehicle> vehicles = vehicleService.getAllFreeWithNecessaryCapacityAndDrivers(loadToEdit.getWeight());
@@ -58,7 +59,7 @@ public class LoadController {
     }
 
     @GetMapping("/addLoad")
-    public ModelAndView addLoad(RedirectAttributes redirectAttributes){
+    public ModelAndView addLoad(RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("editableLoad", new Load());
         return new ModelAndView("redirect:/getSaveLoadPage");
     }
@@ -68,24 +69,24 @@ public class LoadController {
         return new ModelAndView("saveLoadView").addAllObjects(model.asMap());
     }
 
-    @PostMapping(value="/saveLoad")
+    @PostMapping(value = "/saveLoad")
     public ModelAndView saveLoad(@ModelAttribute("editableLoad") Load load,
                                  @ModelAttribute("regNum") String registrationNumber,
                                  @ModelAttribute("namePrimary") String namePrimary,
                                  @ModelAttribute("nameSecond") String nameSecond,
                                  @ModelAttribute("drivingLicenseNumPrimary") String drivingLicenseNumPrimary,
-                                 @ModelAttribute("drivingLicenseNumSecond") String drivingLicenseNumSecond){
+                                 @ModelAttribute("drivingLicenseNumSecond") String drivingLicenseNumSecond) {
 
-        if (registrationNumber != null && registrationNumber.length() != 0){
+        if (registrationNumber != null && registrationNumber.length() != 0) {
             Vehicle vehicle = vehicleService.findByRegistrationNumber(registrationNumber);
             load.setVehicle(vehicle);
 
-            if(drivingLicenseNumPrimary != null && drivingLicenseNumPrimary.length() > 0){
+            if (drivingLicenseNumPrimary != null && drivingLicenseNumPrimary.length() > 0) {
                 Driver primaryDriver = driverService.findByDrivingLicenseNum(drivingLicenseNumPrimary);
                 primaryDriver.setVehicle(vehicle);
                 driverService.save(primaryDriver);
             }
-            if (drivingLicenseNumSecond != null && drivingLicenseNumSecond.length() > 0){
+            if (drivingLicenseNumSecond != null && drivingLicenseNumSecond.length() > 0) {
                 Driver secondDriver = driverService.findByDrivingLicenseNum(drivingLicenseNumSecond);
                 secondDriver.setVehicle(vehicle);
                 driverService.save(secondDriver);
@@ -102,7 +103,7 @@ public class LoadController {
     }
 
     @GetMapping("/delivered/{id}")
-    public ModelAndView deliveredLoad(@PathVariable("id") Long id){
+    public ModelAndView deliveredLoad(@PathVariable("id") Long id) {
         Load load = loadService.deleteVehicleFromLoad(id);
         loadService.save(load);
         return new ModelAndView("redirect:/loads");

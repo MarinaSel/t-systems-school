@@ -48,16 +48,16 @@
         <tr>
             <th align="left">Day of delivery</th>
             <td>
-                <input name="dayOfDelivery" id="vehicledte" value="${editableLoad.dayOfDelivery}"
+                <input name="dayOfDelivery" id="date" value="${editableLoad.dayOfDelivery}"
                        placeholder="Choose the day of delivery" required readonly/>
             </td>
         </tr>
         <tr>
             <th align="left">Weight (kg)</th>
             <td>
-                <input id="vehicleWeight" type="number" name="weight" value="${editableLoad.weight}"
+                <input id="vehicleWeight" type="number" name="weight" value="${editableLoad.weight}" oninput="getVehicle()"
                        min="1" max="22000" placeholder="Enter the weight"
-                       oninput="getVehicle()" autocomplete="off" required/>
+                       autocomplete="off" required/>
             </td>
         </tr>
 
@@ -66,10 +66,8 @@
             <th align="left">Vehicles registration numbers</th>
             <td>
                 <select class="select" id="vehicles" name="regNum" onchange="getDrivers();">
-                    <option value="${editableLoad.vehicle.registrationNumber}"
-                            selected>${editableLoad.vehicle.registrationNumber}</option>
                         <c:forEach items="${freeVehicles}" var="vehicle">
-                            <option>${vehicle.registrationNumber}</option>
+                            <option value="${vehicle == editableVehicle.registrationNumber ? 'selected="selected"' : ''}">${vehicle.registrationNumber}</option>
                         </c:forEach>
                 </select>
             </td>
@@ -79,9 +77,9 @@
             <th align="left">Primary driver</th>
             <td>
                 <select id="primaryDriver" class="select" name="drivingLicenseNumPrimary" disabled="disabled">
-                    <option value="" selected disabled hidden></option>
+
                         <c:forEach items="${freeDrivers}" var="driver">
-                            <option> ${driver.drivingLicenseNum}</option>
+                            <option value=" ${driver.drivingLicenseNum}">${driver.firstName} ${driver.lastName}</option>
                         </c:forEach>
                 </select>
             </td>
@@ -90,10 +88,8 @@
             <th align="left">Second driver</th>
             <td>
                 <select class="select" id="secondDriver" name="drivingLicenseNumSecond" disabled="disabled">
-                    <option value="" selected disabled hidden></option>
-                    <option></option>
                     <c:forEach items="${freeDrivers}" var="driver">
-                        <option>${driver.firstName} ${driver.lastName} ${driver.drivingLicenseNum}</option>
+                        <option value="${driver.drivingLicenseNum}">${driver.firstName} ${driver.lastName} </option>
                     </c:forEach>
                 </select>
             </td>

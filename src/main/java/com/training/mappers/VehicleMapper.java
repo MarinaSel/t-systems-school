@@ -1,38 +1,59 @@
 package com.training.mappers;
 
-import com.training.entities.DriverEntity;
 import com.training.entities.VehicleEntity;
 import com.training.models.Vehicle;
 
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Utility class that describes static methods for mapping VehicleEntity object from Vehicle object
+ * and Vehicle object from VehicleEntity object.
+ * @see VehicleEntity
+ * @see Vehicle
+ */
 public final class VehicleMapper {
 
     private VehicleMapper(){};
 
-    public static Vehicle getModelFromEntity(VehicleEntity vehicleEntity){
+    /**
+     * Method maps VehicleEntity object to Vehicle object.
+     * @param vehicleEntity VehicleEntity to be mapped
+     * @return vehicle
+     */
+    public static Vehicle mapEntityToModel(VehicleEntity vehicleEntity){
         if (vehicleEntity == null){
             return null;
         }
         Vehicle vehicle = commonFields(vehicleEntity);
-        vehicle.setLoads(LoadMapper.getModelSetFromEntitySet(vehicleEntity.getLoads()));
-        vehicle.setDrivers(DriverMapper.getModelSetFromEntitySet(vehicleEntity.getDrivers()));
+        vehicle.setLoads(LoadMapper.mapEntitySetToModelSet(vehicleEntity.getLoads()));
+        vehicle.setDrivers(DriverMapper.mapEntitySetToModelSet(vehicleEntity.getDrivers()));
 
         return vehicle;
     }
 
-    public static Vehicle getSimpleModelFromEntity(VehicleEntity vehicleEntity){
+
+    /**
+     * Method maps VehicleEntity object to simple Vehicle model without set of loads.
+     * @param vehicleEntity VehicleEntity to be mapped
+     * @return vehicle
+     */
+    public static Vehicle mapEntityToSimpleModel(VehicleEntity vehicleEntity){
 
         if(vehicleEntity == null){
             return null;
         }
         Vehicle vehicle = commonFields(vehicleEntity);
-        vehicle.setDrivers(DriverMapper.getModelSetFromEntitySet(vehicleEntity.getDrivers()));
+        vehicle.setDrivers(DriverMapper.mapEntitySetToModelSet(vehicleEntity.getDrivers()));
 
         return vehicle;
     }
 
+    /**
+     * Method maps common fields for simple Vehicle model and Vehicle model with set of loads.
+     * @param vehicleEntity VehicleEntity to be mapped
+     * @return vehicle
+     */
     private static Vehicle commonFields(VehicleEntity vehicleEntity){
 
         if (vehicleEntity == null){
@@ -51,7 +72,12 @@ public final class VehicleMapper {
         return vehicle;
     }
 
-    public static VehicleEntity getEntityFromModel(Vehicle vehicle){
+    /**
+     * Method maps Vehicle object to VehicleEntity object.
+     * @param vehicle Vehicle to be mapped
+     * @return vehicleEntity
+     */
+    public static VehicleEntity mapModelToEntity(Vehicle vehicle){
         if (vehicle == null){
             return null;
         }
@@ -68,11 +94,16 @@ public final class VehicleMapper {
         return vehicleEntity;
     }
 
-    public static List<Vehicle> getModelListFromEntityList(List<VehicleEntity> vehicleEntities){
+    /**
+     * Method maps list of VehicleEntity objects to list of Vehicle objects.
+     * @param vehicleEntities list of VehicleEntity objects
+     * @return vehicles list of Vehicle objects
+     */
+    public static List<Vehicle> mapEntityListToModelList(List<VehicleEntity> vehicleEntities){
         List<Vehicle> vehicles = new LinkedList<>();
 
         for (VehicleEntity vehicleEntity : vehicleEntities) {
-            vehicles.add(getModelFromEntity(vehicleEntity));
+            vehicles.add(mapEntityToModel(vehicleEntity));
         }
         return vehicles;
     }

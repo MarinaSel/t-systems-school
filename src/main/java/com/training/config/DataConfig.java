@@ -52,6 +52,7 @@ public class DataConfig {
     @Bean
     public SpringLiquibase liquibase(DataSource dataSource) {
         SpringLiquibase liquibase = new SpringLiquibase();
+        liquibase.setDropFirst(true);
         liquibase.setChangeLog(env.getProperty("changeLogFile"));
         liquibase.setDataSource(dataSource);
         return liquibase;

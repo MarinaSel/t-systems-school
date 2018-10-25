@@ -28,7 +28,7 @@ public class DriverMapperTest {
         Driver driver = new Driver(1L, "Jane", "Doe", "863jhg", DriverStatus.FREE, null, date);
         DriverEntity driverEntity = new DriverEntity("863jhg", "Jane", "Doe", date, DriverStatus.FREE, null);
         driverEntity.setId(1L);
-        assertEquals(driver, DriverMapper.getModelFromEntity(driverEntity));
+        assertEquals(driver, DriverMapper.mapEntityToModel(driverEntity));
     }
 
     @Test
@@ -36,7 +36,7 @@ public class DriverMapperTest {
         Driver driver = new Driver(1L, "Jane", "Doe", "863jhg", DriverStatus.FREE, null, date);
         DriverEntity driverEntity = new DriverEntity("863jhg", "Jane", "Boe", date, DriverStatus.FREE, null);
         driverEntity.setId(1L);
-        assertNotEquals(driver, DriverMapper.getModelFromEntity(driverEntity));
+        assertNotEquals(driver, DriverMapper.mapEntityToModel(driverEntity));
     }
 
     @Test
@@ -44,7 +44,7 @@ public class DriverMapperTest {
         Driver driver = new Driver(1L, "Jane", "Doe", "863jhg", DriverStatus.FREE, null, date);
         DriverEntity driverEntity = new DriverEntity("863jhg", "Jane", "Doe", date, DriverStatus.FREE, null);
         driverEntity.setId(1L);
-        assertEquals(driverEntity, DriverMapper.getEntityFromModel(driver));
+        assertEquals(driverEntity, DriverMapper.mapModelToEntity(driver));
     }
 
     @Test
@@ -52,17 +52,17 @@ public class DriverMapperTest {
         Driver driver = new Driver(1L, "Jane", "Doe", "863jhg", DriverStatus.FREE, null, date);
         DriverEntity driverEntity = new DriverEntity("863jhg", "Jane", "Doe", date, DriverStatus.REST, null);
         driverEntity.setId(1L);
-        assertNotEquals(driverEntity, DriverMapper.getEntityFromModel(driver));
+        assertNotEquals(driverEntity, DriverMapper.mapModelToEntity(driver));
     }
 
     @Test
     public void getEntityFromNullModel(){
-        assertNull(DriverMapper.getEntityFromModel(null));
+        assertNull(DriverMapper.mapModelToEntity(null));
     }
 
     @Test
     public void getModelFromNullEntity(){
-        assertNull(DriverMapper.getModelFromEntity(null));
+        assertNull(DriverMapper.mapEntityToModel(null));
     }
 
 

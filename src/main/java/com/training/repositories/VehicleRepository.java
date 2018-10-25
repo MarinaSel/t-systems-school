@@ -7,6 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * Interface for vehicle repository extends JpaRepository with CRUD operations.
+ */
 @Repository
 public interface VehicleRepository extends JpaRepository<VehicleEntity, Long> {
 

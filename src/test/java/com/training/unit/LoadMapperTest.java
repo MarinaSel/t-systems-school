@@ -28,7 +28,7 @@ public class LoadMapperTest {
         Load load = new Load(1L, "Title","Description", date, 7, LoadStatus.NOT_ASSIGNED, null);
         LoadEntity loadEntity = new LoadEntity("Title", "Description", date, LoadStatus.NOT_ASSIGNED, 7, null);
         loadEntity.setId(1L);
-        assertEquals(load, LoadMapper.getModelFromEntity(loadEntity));
+        assertEquals(load, LoadMapper.mapEntityToModel(loadEntity));
     }
 
     @Test
@@ -36,7 +36,7 @@ public class LoadMapperTest {
         Load load = new Load(1L, "Title","Description", date, 7, LoadStatus.NOT_ASSIGNED, null);
         LoadEntity loadEntity = new LoadEntity("Title1", "Description", date, LoadStatus.NOT_ASSIGNED, 7, null);
         loadEntity.setId(1L);
-        assertNotEquals(load, LoadMapper.getModelFromEntity(loadEntity));
+        assertNotEquals(load, LoadMapper.mapEntityToModel(loadEntity));
     }
 
     @Test
@@ -44,7 +44,7 @@ public class LoadMapperTest {
         Load load = new Load(1L, "Title","Description", date, 7, LoadStatus.NOT_ASSIGNED, null);
         LoadEntity loadEntity = new LoadEntity("Title", "Description", date, LoadStatus.NOT_ASSIGNED, 7, null);
         loadEntity.setId(1L);
-        assertEquals(loadEntity, LoadMapper.getEntityFromModel(load));
+        assertEquals(loadEntity, LoadMapper.mapModelToEntity(load));
     }
 
     @Test
@@ -52,16 +52,16 @@ public class LoadMapperTest {
         Load load = new Load(1L, "Title","Description", date, 7, LoadStatus.NOT_ASSIGNED, null);
         LoadEntity loadEntity = new LoadEntity("Title1", "Description", date, LoadStatus.NOT_ASSIGNED, 7, null);
         loadEntity.setId(1L);
-        assertNotEquals(loadEntity, LoadMapper.getEntityFromModel(load));
+        assertNotEquals(loadEntity, LoadMapper.mapModelToEntity(load));
     }
 
     @Test
     public void getEntityFromNullModel(){
-        assertNull(LoadMapper.getEntityFromModel(null));
+        assertNull(LoadMapper.mapModelToEntity(null));
     }
 
     @Test
     public void getModelFromNullEntity(){
-        assertNull(LoadMapper.getModelFromEntity(null));
+        assertNull(LoadMapper.mapEntityToModel(null));
     }
 }
