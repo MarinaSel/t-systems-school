@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.ValidationException;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -81,4 +82,8 @@ public class VehicleRepositoryTest {
         assertEquals(expectedVehicles, vehicles);
     }
 
+    @Test(expected = ValidationException.class)
+    public void createVehicleWithIllegalRegistrationNumber(){
+        vehicleRepository.saveAndFlush(new VehicleEntity("hahhh", date, "22sdsssdsd", 10, null));
+    }
 }

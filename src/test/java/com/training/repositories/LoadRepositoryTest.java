@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.ValidationException;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -91,5 +92,9 @@ public class LoadRepositoryTest {
         assertEquals(expectedList, loads);
     }
 
-
+    @Test(expected = ValidationException.class)
+    public void create(){
+        loadRepository.saveAndFlush(new LoadEntity(null, "Description", new Date(), LoadStatus.NOT_ASSIGNED,
+                1000, null));
+    }
 }

@@ -65,9 +65,11 @@
         <tr>
             <th align="left">Vehicles registration numbers</th>
             <td>
+                <option value="${editableLoad.vehicle.registrationNumber}"
+                        selected>${editableLoad.vehicle.registrationNumber}</option>
                 <select class="select" id="vehicles" name="regNum" onchange="getDrivers();">
                         <c:forEach items="${freeVehicles}" var="vehicle">
-                            <option value="${vehicle == editableVehicle.registrationNumber ? 'selected="selected"' : ''}">${vehicle.registrationNumber}</option>
+                            <option>${vehicle.registrationNumber}</option>
                         </c:forEach>
                 </select>
             </td>
@@ -77,10 +79,10 @@
             <th align="left">Primary driver</th>
             <td>
                 <select id="primaryDriver" class="select" name="drivingLicenseNumPrimary" disabled="disabled">
-
-                        <c:forEach items="${freeDrivers}" var="driver">
-                            <option value=" ${driver.drivingLicenseNum}">${driver.firstName} ${driver.lastName}</option>
-                        </c:forEach>
+                    <option value="" selected disabled hidden></option>
+                    <c:forEach items="${freeDrivers}" var="driver">
+                        <option value="${driver.drivingLicenseNum}">${driver.firstName}${driver.lastName} </option>
+                    </c:forEach>
                 </select>
             </td>
         </tr>
@@ -88,8 +90,10 @@
             <th align="left">Second driver</th>
             <td>
                 <select class="select" id="secondDriver" name="drivingLicenseNumSecond" disabled="disabled">
+                    <option value="" selected disabled hidden></option>
+                    <option></option>
                     <c:forEach items="${freeDrivers}" var="driver">
-                        <option value="${driver.drivingLicenseNum}">${driver.firstName} ${driver.lastName} </option>
+                        <option value="${driver.drivingLicenseNum}">${driver.firstName}${driver.lastName}</option>
                     </c:forEach>
                 </select>
             </td>

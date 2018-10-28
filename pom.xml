@@ -19,6 +19,7 @@
         <postgresql.version>42.2.5</postgresql.version>
 
         <validation-api.version>2.0.1.Final</validation-api.version>
+        <hibernate.validator.version>6.0.13.Final</hibernate.validator.version>
 
         <tomcat.version>9.0.12</tomcat.version>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -33,6 +34,8 @@
 
         <junit.version>4.12</junit.version>
         <h2db.version>1.4.197</h2db.version>
+        <el-api.version>3.0.1-b06</el-api.version>
+        <glassfish.el.version>2.2.6</glassfish.el.version>
     </properties>
 
     <build>
@@ -160,6 +163,12 @@
         </dependency>
 
         <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${hibernate.validator.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
             <version>${log4j.version}</version>
@@ -170,6 +179,17 @@
             <artifactId>h2</artifactId>
             <version>${h2db.version}</version>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.el</groupId>
+            <artifactId>javax.el-api</artifactId>
+            <version>${el-api.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.web</groupId>
+            <artifactId>javax.el</artifactId>
+            <version>${glassfish.el.version}</version>
         </dependency>
 
     </dependencies>
