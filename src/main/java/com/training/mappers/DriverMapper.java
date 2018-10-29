@@ -31,8 +31,6 @@ public final class DriverMapper {
         DriverEntity driverEntity = new DriverEntity();
 
         driverEntity.setId(driver.getId());
-        driverEntity.setFirstName(driver.getFirstName());
-        driverEntity.setLastName(driver.getLastName());
         driverEntity.setDrivingLicenseNum(driver.getDrivingLicenseNum());
         driverEntity.setLicenseEndDate(driver.getLicenseEndDate());
         driverEntity.setStatus(driver.getStatus());
@@ -76,8 +74,6 @@ public final class DriverMapper {
         Driver driver = new Driver();
 
         driver.setId(driverEntity.getId());
-        driver.setFirstName(driverEntity.getFirstName());
-        driver.setLastName(driverEntity.getLastName());
         driver.setDrivingLicenseNum(driverEntity.getDrivingLicenseNum());
         driver.setLicenseEndDate(driverEntity.getLicenseEndDate());
         driver.setStatus(driverEntity.getStatus());

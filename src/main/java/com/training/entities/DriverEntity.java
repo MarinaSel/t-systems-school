@@ -1,7 +1,6 @@
 package com.training.entities;
 
 import com.training.entities.enums.DriverStatus;
-
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
@@ -13,16 +12,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
 import java.util.Date;
 
 @Entity
@@ -38,16 +36,6 @@ public class DriverEntity extends BaseEntity {
     @Size(max = 50, message = "Driving license number is invalid")
     @Column(name = "driving_license_num", nullable = false, unique = true, length = 10)
     private String drivingLicenseNum;
-
-    @NotNull(message = "First name cannot be null")
-    @Size(max = 50, message = "First name is invalid")
-    @Column(name = "first_name", nullable = false, length = 50)
-    private String firstName;
-
-    @NotNull(message = "Last name cannot be null")
-    @Size(max = 50, message = "Last name is invalid")
-    @Column(name = "last_name", nullable = false, length = 50)
-    private String lastName;
 
     @NotNull(message = "License end date cannot be null")
     @Temporal(TemporalType.DATE)
@@ -66,15 +54,19 @@ public class DriverEntity extends BaseEntity {
     @JoinColumn(name = "vehicle_id")
     private VehicleEntity vehicle;
 
+    @NotNull(message = "User cannot be null")
+    @OneToOne
+    private UserEntity user;
+
     public DriverEntity(){}
 
-    public DriverEntity(@NotNull(message = "Driving license number cannot be null") @Size(max = 50, message = "Driving license number is invalid") String drivingLicenseNum, @NotNull(message = "First name cannot be null") @Size(max = 50, message = "First name is invalid") String firstName, @NotNull(message = "Last name cannot be null") @Size(max = 50, message = "Last name is invalid") String lastName, @NotNull(message = "License end date cannot be null") Date licenseEndDate, @NotNull DriverStatus status, VehicleEntity vehicle) {
+    public DriverEntity(String drivingLicenseNum, Date licenseEndDate, DriverStatus status, VehicleEntity vehicle,
+                        UserEntity user) {
         this.drivingLicenseNum = drivingLicenseNum;
-        this.firstName = firstName;
-        this.lastName = lastName;
         this.licenseEndDate = licenseEndDate;
         this.status = status;
         this.vehicle = vehicle;
+        this.user = user;
     }
 
     @PrePersist
@@ -103,22 +95,6 @@ public class DriverEntity extends BaseEntity {
 
     public void setDrivingLicenseNum(String drivingLicenseNum) {
         this.drivingLicenseNum = drivingLicenseNum;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public Date getLicenseEndDate() {
@@ -153,6 +129,14 @@ public class DriverEntity extends BaseEntity {
         this.vehicle = vehicle;
     }
 
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -163,8 +147,6 @@ public class DriverEntity extends BaseEntity {
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (drivingLicenseNum != null ? !drivingLicenseNum.equals(that.drivingLicenseNum) : that.drivingLicenseNum != null)
             return false;
-        if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
-        if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
         if (licenseEndDate != null ? !licenseEndDate.equals(that.licenseEndDate) : that.licenseEndDate != null)
             return false;
         if (status != that.status) return false;
@@ -175,8 +157,6 @@ public class DriverEntity extends BaseEntity {
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (drivingLicenseNum != null ? drivingLicenseNum.hashCode() : 0);
-        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
-        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + (licenseEndDate != null ? licenseEndDate.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
         result = 31 * result + (currentCity != null ? currentCity.hashCode() : 0);
@@ -189,8 +169,6 @@ public class DriverEntity extends BaseEntity {
         return "DriverEntity{" +
                 "id=" + id +
                 ", drivingLicenseNum='" + drivingLicenseNum + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
                 ", licenseEndDate=" + licenseEndDate +
                 ", status=" + status +
                 ", currentCity='" + currentCity + '\'' +
