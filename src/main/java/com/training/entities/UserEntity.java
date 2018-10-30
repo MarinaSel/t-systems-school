@@ -27,7 +27,7 @@ public class UserEntity implements Validatable {
     private String lastName;
 
     @NotNull(message = "Login cannot be null")
-    @Column(name = "login", nullable = false)
+    @Column(name = "login", nullable = false, unique = true)
     private String login;
 
     @NotNull(message = "Password cannot be null")

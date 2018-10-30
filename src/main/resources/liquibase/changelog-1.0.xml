@@ -155,7 +155,7 @@
                 <constraints primaryKey="true" primaryKeyName="users_pk"/>
             </column>
             <column name="login" type="VARCHAR">
-                <constraints nullable="false"/>
+                <constraints nullable="false" unique="true"/>
             </column>
             <column name="password" type="VARCHAR">
                 <constraints nullable="false"/>
@@ -208,4 +208,5 @@
         <dropColumn tableName="drivers" columnName="first_name"/>
         <dropColumn tableName="drivers" columnName="last_name"/>
     </changeSet>
+
 </databaseChangeLog>
