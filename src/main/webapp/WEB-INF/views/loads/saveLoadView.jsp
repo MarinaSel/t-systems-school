@@ -26,6 +26,9 @@
             </td>
             <td class="hidden">
                 <input type="hidden" name="status" value="${editableLoad.status}">
+                <input type="hidden"
+                       name="${_csrf.parameterName}"
+                       value="${_csrf.token}"/>
             </td>
         </tr>
 
@@ -99,14 +102,13 @@
             </td>
         </tr>
 
-        <td colspan="2">
-            <input class="btn btn-success" type="submit" value="Save"/>
-        </td>
-        <td>
-            <input type="hidden"
-                   name="${_csrf.parameterName}"
-                   value="${_csrf.token}"/>
-        </td>
+        <tr>
+            <td colspan="2">
+                <input class="btn btn-success" type="submit" value="Save"/>
+            </td>
+        </tr>
+
+
     </table>
 </form>
 </body>

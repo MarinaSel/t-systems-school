@@ -30,6 +30,9 @@
                 </td>
                 <td>
                     <input type="hidden" name="creationDate" value="${editableDriver.creationDate}">
+                    <input type="hidden"
+                           name="${_csrf.parameterName}"
+                           value="${_csrf.token}"/>
                 </td>
             </tr>
             <tr>
@@ -50,7 +53,7 @@
                 <th>Driver's license number</th>
                 <td>
                     <input name="drivingLicenseNum" value="${editableDriver.drivingLicenseNum}"
-                           placeholder="Enter the driving license number with"
+                           placeholder="Enter the driving license number"
                            title="Example: 12Ab345678" pattern="[0-9]{2}[A-Za-z]{2}[0-9]{6}"
                            maxlength="10" minlength="10" autocomplete="off" required/>
                 </td>
@@ -77,13 +80,7 @@
             <td colspan="2">
                 <input class="btn btn-success" type="submit" value="Save"/>
             </td>
-            <td>
-                <input type="hidden"
-                       name="${_csrf.parameterName}"
-                       value="${_csrf.token}"/>
-            </td>
         </table>
-
     </form>
 </body>
 </html>

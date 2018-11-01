@@ -28,7 +28,7 @@ public class HomeController {
         return "home";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @RequestMapping(value = "/loginPage", method = RequestMethod.GET)
     public ModelAndView loginForm(@RequestParam(value = "error", required = false) String error) {
         ModelAndView model = new ModelAndView();
         if (error != null) {

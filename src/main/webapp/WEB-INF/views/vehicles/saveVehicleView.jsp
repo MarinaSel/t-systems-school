@@ -27,6 +27,10 @@
             </td>
             <td>
                 <input type="hidden" name="creationDate" value="${editableVehicle.creationDate}">
+
+                <input type="hidden"
+                       name="${_csrf.parameterName}"
+                       value="${_csrf.token}"/>
             </td>
         </tr>
         <tr>
@@ -76,11 +80,6 @@
 
         <td colspan="2">
             <input class="btn btn-success" type="submit" value="Save"/>
-        </td>
-        <td>
-            <input type="hidden"
-                   name="${_csrf.parameterName}"
-                   value="${_csrf.token}"/>
         </td>
     </table>
 </form>

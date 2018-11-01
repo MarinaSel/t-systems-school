@@ -5,7 +5,11 @@ select{
     width: 600px;
 }
 #saveVehicleAndDriverTable{
-    width:450px;
+    width: 500px;
+}
+
+#loginTable {
+    width: 450px;
 }
 
 input{
