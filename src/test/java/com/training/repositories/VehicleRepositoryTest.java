@@ -32,11 +32,12 @@ public class VehicleRepositoryTest {
     private Date date;
 
     @Before
-    public void init(){
+    public void init() {
         date = new Date();
     }
+
     @Test
-    public void createAndFind(){
+    public void createAndFind() {
         VehicleEntity newVehicle = new VehicleEntity("model", date, "RegNumb", 8, VehicleStatus.FREE);
         VehicleEntity expectedVehicle = new VehicleEntity("model", date, "RegNumb", 8, VehicleStatus.FREE);
 
@@ -47,7 +48,7 @@ public class VehicleRepositoryTest {
     }
 
     @Test
-    public void updateAndDelete(){
+    public void updateAndDelete() {
         VehicleEntity newVehicle = new VehicleEntity("model", date, "RegNumb", 8, VehicleStatus.FREE);
         VehicleEntity expectedVehicle = new VehicleEntity("model", date, "RegNum1", 8, VehicleStatus.FREE);
 
@@ -62,7 +63,7 @@ public class VehicleRepositoryTest {
     }
 
     @Test
-    public void findAllByStatus(){
+    public void findAllByStatus() {
         VehicleEntity vehicleEntity1 = new VehicleEntity("model", date, "RegNum1", 8, VehicleStatus.FREE);
         VehicleEntity vehicleEntity2 = new VehicleEntity("model", date, "RegNum2", 8, VehicleStatus.FREE);
         vehicleRepository.saveAndFlush(vehicleEntity1);
@@ -81,7 +82,7 @@ public class VehicleRepositoryTest {
     }
 
     @Test(expected = ValidationException.class)
-    public void createVehicleWithIllegalRegistrationNumber(){
+    public void createVehicleWithIllegalRegistrationNumber() {
         vehicleRepository.saveAndFlush(new VehicleEntity("model", date, "hh77777", 10, null));
     }
 }

@@ -1,23 +1,23 @@
 <%@ page
         contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+        pageEncoding="UTF-8" %>
 <%@ taglib prefix="c"
-           uri="http://java.sun.com/jsp/jstl/core"%>
+           uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Vehicles</title>
 
-    <%@include file="/WEB-INF/views/navbar.html"%>
-    <%@include file="/WEB-INF/views/includeStyles.jsp"%>
+    <%@include file="/WEB-INF/views/navbar.html" %>
+    <%@include file="/WEB-INF/views/includeStyles.jsp" %>
     <link rel="stylesheet" type="text/css" href="resources/css/vehicles.css"/>
 
 </head>
 <body>
 <a href="/getSaveVehiclePage" class="btn btn-success">Add new vehicle</a>
 <hr>
-<table class="table table-striped table-bordered tableView vehicles" >
+<table class="table table-striped table-bordered tableView vehicles">
     <thead>
     <tr>
         <th>Model</th>

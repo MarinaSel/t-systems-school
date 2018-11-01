@@ -53,7 +53,7 @@ public class TestDataConfig {
 
     @Bean
     @DependsOn("liquibase")
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource){
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
         LocalContainerEntityManagerFactoryBean lemfb = new LocalContainerEntityManagerFactoryBean();
         lemfb.setDataSource(dataSource);
         lemfb.setPackagesToScan(env.getProperty("packages_to_scan"));

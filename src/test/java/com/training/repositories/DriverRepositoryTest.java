@@ -43,7 +43,7 @@ public class DriverRepositoryTest {
     }
 
     @Test
-    public void createAndFind(){
+    public void createAndFind() {
         userRepository.saveAndFlush(userEntity);
         DriverEntity newDriver = new DriverEntity(
                 "licNumber", date, DriverStatus.FREE, null, userEntity);
@@ -56,7 +56,7 @@ public class DriverRepositoryTest {
     }
 
     @Test
-    public void updateAndDelete(){
+    public void updateAndDelete() {
         userRepository.saveAndFlush(userEntity);
         DriverEntity newDriver = new DriverEntity(
                 "licNum", date, DriverStatus.FREE, null, userEntity);
@@ -73,8 +73,9 @@ public class DriverRepositoryTest {
         driverRepository.deleteById(id);
         assertEquals(Optional.empty(), driverRepository.findById(id));
     }
+
     @Test
-    public void findAllByStatus(){
+    public void findAllByStatus() {
         userRepository.saveAndFlush(userEntity);
         DriverEntity driverEntity1 = new DriverEntity(
                 "licNumber", date, DriverStatus.FREE, null, userEntity);
@@ -96,7 +97,7 @@ public class DriverRepositoryTest {
     }
 
     @Test(expected = ValidationException.class)
-    public void createDriverWithNullProperties(){
+    public void createDriverWithNullProperties() {
         driverRepository.saveAndFlush(new DriverEntity(null, null, null, null, null));
     }
 

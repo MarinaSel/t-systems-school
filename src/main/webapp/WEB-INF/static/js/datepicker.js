@@ -1,7 +1,7 @@
 $(function () {
     $("#vehicledte").datepicker({
         dateFormat: "yy-mm-dd",
-        maxDate:-7
+        maxDate: -7
     });
 
     $("#date").datepicker({

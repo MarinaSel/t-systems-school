@@ -1,25 +1,25 @@
 <%@ page
         contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+        pageEncoding="UTF-8" %>
 
 <%@ taglib prefix="c"
-           uri="http://java.sun.com/jsp/jstl/core"%>
+           uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html>
 <head>
     <title>${empty editableVehicle.id ? 'Add' : 'Edit'} vehicle</title>
-    <%@include file="/WEB-INF/views/includeStyles.jsp"%>
-    <%@include file="/WEB-INF/views/navbar.html"%>
-    <%@include file="/WEB-INF/views/includeDatepicker.jsp"%>
-<script type="text/javascript">
+    <%@include file="/WEB-INF/views/includeStyles.jsp" %>
+    <%@include file="/WEB-INF/views/navbar.html" %>
+    <%@include file="/WEB-INF/views/includeDatepicker.jsp" %>
+    <script type="text/javascript">
 
-</script>
+    </script>
 </head>
 <body>
 <h1 align="center">${empty editableVehicle.id ? 'Add' : 'Edit'} vehicle</h1>
 <hr>
-<form method="post" action="/saveVehicle" modelAttribute = "editableVehicle">
+<form method="post" action="/saveVehicle" modelAttribute="editableVehicle">
     <table align="center" id="saveVehicleAndDriverTable" class="table table-bordered table-striped ">
         <tr>
             <td>
@@ -44,7 +44,7 @@
             <th align="left">Date of issue</th>
             <td>
                 <input name="dateOfIssue" id="vehicledte" value="${editableVehicle.dateOfIssue}"
-                       placeholder="Choose the date of issue" required readonly = "true">
+                       placeholder="Choose the date of issue" required readonly="true">
             </td>
         </tr>
         <tr>
@@ -59,7 +59,8 @@
         <tr>
             <th align="left">Capacity (kg)</th>
             <td>
-                <input name="capacity" type="number" value="${editableVehicle.capacity}" placeholder="Enter the capacity"
+                <input name="capacity" type="number" value="${editableVehicle.capacity}"
+                       placeholder="Enter the capacity"
                        min="1" max="22000"
                        title="Must contains only digits and can't be null" autocomplete="off" required/>
             </td>

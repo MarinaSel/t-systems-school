@@ -58,7 +58,8 @@
         <tr>
             <th align="left">Weight (kg)</th>
             <td>
-                <input id="vehicleWeight" type="number" name="weight" value="${editableLoad.weight}" oninput="getVehicle()"
+                <input id="vehicleWeight" type="number" name="weight" value="${editableLoad.weight}"
+                       oninput="getVehicle()"
                        min="1" max="22000" placeholder="Enter the weight"
                        autocomplete="off" required/>
             </td>
@@ -69,9 +70,9 @@
             <th align="left">Vehicles registration numbers</th>
             <td>
                 <select class="select" id="vehicles" name="regNum" onchange="getDrivers();">
-                        <c:forEach items="${freeVehicles}" var="vehicle">
-                            <option>${vehicle.registrationNumber}</option>
-                        </c:forEach>
+                    <c:forEach items="${freeVehicles}" var="vehicle">
+                        <option>${vehicle.registrationNumber}</option>
+                    </c:forEach>
                 </select>
             </td>
         </tr>

@@ -18,12 +18,12 @@ public class DriverMapperTest {
     private Date date;
 
     @Before
-    public void initDate(){
+    public void initDate() {
         date = new Date();
     }
 
     @Test
-    public void getModelFromEntity(){
+    public void getModelFromEntity() {
         Driver driver = new Driver(1L, "863jhg", DriverStatus.FREE, null, date);
         DriverEntity driverEntity = new DriverEntity("863jhg", date, DriverStatus.FREE, null, null);
         driverEntity.setId(1L);
@@ -31,7 +31,7 @@ public class DriverMapperTest {
     }
 
     @Test
-    public void getModelFromEntityWithNotMatchingProperties(){
+    public void getModelFromEntityWithNotMatchingProperties() {
         Driver driver = new Driver(1L, "863jhg", DriverStatus.FREE, null, date);
         DriverEntity driverEntity = new DriverEntity("8634jhg", date, DriverStatus.FREE, null, null);
         driverEntity.setId(1L);
@@ -39,7 +39,7 @@ public class DriverMapperTest {
     }
 
     @Test
-    public void getEntityFromModel(){
+    public void getEntityFromModel() {
         Driver driver = new Driver(1L, "863jhg", DriverStatus.FREE, null, date);
         DriverEntity driverEntity = new DriverEntity("863jhg", date, DriverStatus.FREE, null, null);
         driverEntity.setId(1L);
@@ -47,7 +47,7 @@ public class DriverMapperTest {
     }
 
     @Test
-    public void getEntityFromModelWithNotMatchingProperties(){
+    public void getEntityFromModelWithNotMatchingProperties() {
         Driver driver = new Driver(1L, "863jhg", DriverStatus.FREE, null, date);
         DriverEntity driverEntity = new DriverEntity("863jhg", date, DriverStatus.REST, null, null);
         driverEntity.setId(1L);
@@ -55,15 +55,14 @@ public class DriverMapperTest {
     }
 
     @Test
-    public void getEntityFromNullModel(){
+    public void getEntityFromNullModel() {
         assertNull(DriverMapper.mapModelToEntity(null));
     }
 
     @Test
-    public void getModelFromNullEntity(){
+    public void getModelFromNullEntity() {
         assertNull(DriverMapper.mapEntityToModel(null));
     }
-
 
 
 }

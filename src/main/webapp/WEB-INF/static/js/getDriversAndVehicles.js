@@ -10,7 +10,7 @@ function getDrivers() {
                 var insert = '';
                 $('#primaryDriver').empty();
                 $('#secondDriver').empty();
-                insert+= '<option></option>';
+                insert += '<option></option>';
 
                 $.each(result, function (index, value) {
                     insert += '<option>' + value.drivingLicenseNum + '</option>';
@@ -26,6 +26,7 @@ function getDrivers() {
         $('#secondDriver').prop('disabled', 'disabled');
     }
 }
+
 function getVehicle() {
     var weight = $('#vehicleWeight').val();
     $.ajax({

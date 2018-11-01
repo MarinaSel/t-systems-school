@@ -3,11 +3,9 @@ package com.training.repositories;
 import com.training.entities.LoadEntity;
 import com.training.entities.enums.LoadStatus;
 import com.training.test_config.TestWebConfig;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -20,7 +18,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @WebAppConfiguration
@@ -34,16 +32,16 @@ public class LoadRepositoryTest {
     private Date date;
 
     @Before
-    public void initDate(){
+    public void initDate() {
         date = new Date();
     }
 
     @Test
-    public void createAndFind(){
+    public void createAndFind() {
         LoadEntity newLoad = new LoadEntity(
-                "Title", "Description", date,LoadStatus.NOT_ASSIGNED, 7, null);
+                "Title", "Description", date, LoadStatus.NOT_ASSIGNED, 7, null);
         LoadEntity expectedLoad = new LoadEntity(
-                "Title", "Description", date,LoadStatus.NOT_ASSIGNED, 7, null);
+                "Title", "Description", date, LoadStatus.NOT_ASSIGNED, 7, null);
         loadRepository.saveAndFlush(newLoad);
         expectedLoad.setId(newLoad.getId());
 
@@ -52,11 +50,11 @@ public class LoadRepositoryTest {
     }
 
     @Test
-    public void updateAndDelete(){
+    public void updateAndDelete() {
         LoadEntity newLoad = new LoadEntity(
-                "Title", "Description", date,LoadStatus.NOT_ASSIGNED, 7, null);
+                "Title", "Description", date, LoadStatus.NOT_ASSIGNED, 7, null);
         LoadEntity expectedLoad = new LoadEntity(
-                "Title", "Description", date,LoadStatus.NOT_ASSIGNED, 22, null);
+                "Title", "Description", date, LoadStatus.NOT_ASSIGNED, 22, null);
         loadRepository.saveAndFlush(newLoad);
         Long id = newLoad.getId();
 
@@ -70,20 +68,20 @@ public class LoadRepositoryTest {
     }
 
     @Test
-    public void findAll(){
+    public void findAll() {
         LoadEntity loadEntity1 = new LoadEntity(
-                "Title", "Description", date,LoadStatus.NOT_ASSIGNED, 7, null);
+                "Title", "Description", date, LoadStatus.NOT_ASSIGNED, 7, null);
         LoadEntity loadEntity2 = new LoadEntity(
-                "Title1", "Description", date,LoadStatus.NOT_ASSIGNED, 7, null);
+                "Title1", "Description", date, LoadStatus.NOT_ASSIGNED, 7, null);
 
         loadRepository.saveAndFlush(loadEntity1);
         loadRepository.saveAndFlush(loadEntity2);
 
         List<LoadEntity> loads = loadRepository.findAll();
         LoadEntity expectedLoad1 = new LoadEntity(
-                "Title", "Description", date,LoadStatus.NOT_ASSIGNED, 7, null);
+                "Title", "Description", date, LoadStatus.NOT_ASSIGNED, 7, null);
         LoadEntity expectedLoad2 = new LoadEntity(
-                "Title1", "Description", date,LoadStatus.NOT_ASSIGNED, 7, null);
+                "Title1", "Description", date, LoadStatus.NOT_ASSIGNED, 7, null);
 
         expectedLoad1.setId(loadEntity1.getId());
         expectedLoad2.setId(loadEntity2.getId());
@@ -93,7 +91,7 @@ public class LoadRepositoryTest {
     }
 
     @Test(expected = ValidationException.class)
-    public void create(){
+    public void create() {
         loadRepository.saveAndFlush(new LoadEntity(null, "Description", new Date(), LoadStatus.NOT_ASSIGNED,
                 1000, null));
     }
