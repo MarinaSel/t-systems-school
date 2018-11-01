@@ -2,6 +2,7 @@ package com.training.controllers;
 
 import com.training.entities.enums.DriverStatus;
 import com.training.models.Driver;
+import com.training.models.User;
 import com.training.services.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,7 @@ public class DriverController {
         Driver driverToEdit = driverService.get(id);
         DriverStatus[] statuses = DriverStatus.values();
 
+        redirectAttributes.addFlashAttribute("editableUser", driverToEdit.getUser());
         redirectAttributes.addFlashAttribute("statuses", statuses);
         redirectAttributes.addFlashAttribute("editableDriver", driverToEdit);
         return new ModelAndView("redirect:/getSaveDriverView");
@@ -34,6 +36,7 @@ public class DriverController {
 
     @GetMapping("/addDriver")
     public ModelAndView getAddDriverPage(RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("editableUser", new User());
         redirectAttributes.addFlashAttribute("editableDriver", new Driver());
         return new ModelAndView("redirect:/getSaveDriverView");
     }
@@ -44,7 +47,9 @@ public class DriverController {
     }
 
     @PostMapping("/saveDriver")
-    public ModelAndView addDriver(@ModelAttribute("editableDriver") Driver driver) {
+    public ModelAndView addDriver(@ModelAttribute("editableDriver") Driver driver,
+                                  @ModelAttribute("editableUser") User user) {
+        driver.setUser(user);
         driverService.save(driver);
         return new ModelAndView("redirect:/drivers");
     }

@@ -68,8 +68,6 @@
         <tr>
             <th align="left">Vehicles registration numbers</th>
             <td>
-                <option value="${editableLoad.vehicle.registrationNumber}"
-                        selected>${editableLoad.vehicle.registrationNumber}</option>
                 <select class="select" id="vehicles" name="regNum" onchange="getDrivers();">
                         <c:forEach items="${freeVehicles}" var="vehicle">
                             <option>${vehicle.registrationNumber}</option>
@@ -84,7 +82,7 @@
                 <select id="primaryDriver" class="select" name="drivingLicenseNumPrimary" disabled="disabled">
                     <option value="" selected disabled hidden></option>
                     <c:forEach items="${freeDrivers}" var="driver">
-                        <option value="${driver.drivingLicenseNum}">${driver.firstName}${driver.lastName} </option>
+                        <option value="${driver.drivingLicenseNum}">${driver.user.firstName} ${driver.user.lastName}</option>
                     </c:forEach>
                 </select>
             </td>
@@ -96,7 +94,7 @@
                     <option value="" selected disabled hidden></option>
                     <option></option>
                     <c:forEach items="${freeDrivers}" var="driver">
-                        <option value="${driver.drivingLicenseNum}">${driver.firstName}${driver.lastName}</option>
+                        <option value="${driver.drivingLicenseNum}">${driver.user.firstName} ${driver.user.lastName}</option>
                     </c:forEach>
                 </select>
             </td>

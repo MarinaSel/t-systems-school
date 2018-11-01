@@ -32,8 +32,8 @@
 
         <tbody><c:forEach items="${drivers}" var="driver">
             <tr class="trThead">
-                <td >${driver.firstName}</td>
-                <td>${driver.lastName}</td>
+                <td>${driver.user.firstName}</td>
+                <td>${driver.user.lastName}</td>
                 <td>${driver.drivingLicenseNum}</td>
                 <td>${driver.licenseEndDate}</td>
                 <td>${driver.status}</td>

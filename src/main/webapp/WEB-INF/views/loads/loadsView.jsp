@@ -57,7 +57,7 @@
 
                 <td>
                     <c:forEach items="${load.vehicle.drivers}" var="driver">
-                        <p>${driver.firstName} ${driver.lastName}</p>
+                        <p>${driver.user.firstName} ${driver.user.lastName}</p>
                     </c:forEach>
                 </td>
                 <td>

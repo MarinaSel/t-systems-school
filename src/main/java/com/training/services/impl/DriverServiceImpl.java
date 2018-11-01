@@ -1,9 +1,12 @@
 package com.training.services.impl;
 
 import com.training.entities.DriverEntity;
+import com.training.entities.UserEntity;
 import com.training.entities.enums.DriverStatus;
+import com.training.mappers.UserMapper;
 import com.training.models.Driver;
 import com.training.repositories.DriverRepository;
+import com.training.repositories.UserRepository;
 import com.training.services.DriverService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,6 +29,9 @@ public class DriverServiceImpl implements DriverService {
     @Autowired
     private DriverRepository driverRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
     public Driver get(Long id) {
         Driver driver = mapEntityToModel(driverRepository.getOne(id));
@@ -36,6 +42,10 @@ public class DriverServiceImpl implements DriverService {
     @Override
     public void save(Driver driver) {
         DriverEntity driverEntity = mapModelToEntity(driver);
+        UserEntity userEntity = UserMapper.mapModelToEntity(driver.getUser());
+
+        userRepository.saveAndFlush(userEntity);
+        driverEntity.setUser(userEntity);
         driverRepository.saveAndFlush(driverEntity);
 
         if (driver.getId() == null) {

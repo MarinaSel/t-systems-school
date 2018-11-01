@@ -38,14 +38,31 @@
             <tr>
                 <th>First name</th>
                 <td>
-                    <input name="firstName" maxlength="50" value="${editableDriver.firstName}" placeholder="Enter the first name"
+                    <input name="firstName" maxlength="50" value="${editableDriver.user.firstName}"
+                           placeholder="First name"
                            autocomplete="off" required/>
                 </td>
             </tr>
             <tr>
                 <th>Last name</th>
                 <td>
-                    <input name="lastName" maxlength="50" value="${editableDriver.lastName}" placeholder="Enter the second name"
+                    <input name="lastName" maxlength="50" value="${editableDriver.user.lastName}"
+                           placeholder="Second name"
+                           autocomplete="off" required/>
+                </td>
+            </tr>
+            <tr>
+                <th>Login</th>
+                <td>
+                    <input name="login" maxlength="50" value="${editableUser.login}" placeholder="Login"
+                           autocomplete="off" required/>
+                </td>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <td>
+                    <input type="password" name="password" maxlength="50" value="${editableUser.password}"
+                           placeholder="Password"
                            autocomplete="off" required/>
                 </td>
             </tr>
@@ -53,7 +70,7 @@
                 <th>Driver's license number</th>
                 <td>
                     <input name="drivingLicenseNum" value="${editableDriver.drivingLicenseNum}"
-                           placeholder="Enter the driving license number"
+                           placeholder="Driving license number"
                            title="Example: 12Ab345678" pattern="[0-9]{2}[A-Za-z]{2}[0-9]{6}"
                            maxlength="10" minlength="10" autocomplete="off" required/>
                 </td>
@@ -62,7 +79,7 @@
                 <th>License end date</th>
                 <td>
                     <input name="licenseEndDate" id = "date" value="${editableDriver.licenseEndDate}"
-                           placeholder="Choose the licence end date" required readonly = "true"/>
+                           placeholder="Licence end date" required readonly="true"/>
                 </td>
             </tr>
             <c:if test="${!empty editableDriver.status}">

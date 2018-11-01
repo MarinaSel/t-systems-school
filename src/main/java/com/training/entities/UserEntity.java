@@ -34,7 +34,7 @@ public class UserEntity implements Validatable {
     @Column(name = "password", nullable = false)
     private String password;
 
-    protected UserEntity() {
+    public UserEntity() {
     }
 
     public UserEntity(String firstName, String lastName, String login, String password) {

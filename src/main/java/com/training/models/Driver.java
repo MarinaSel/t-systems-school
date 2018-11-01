@@ -20,6 +20,7 @@ public class Driver extends BaseModel {
     @NotNull(message = "License end date cannot be null")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date licenseEndDate;
+    private User user;
 
     public Driver() {
     }
@@ -72,6 +73,14 @@ public class Driver extends BaseModel {
         this.status = status;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public String toString() {
         return "Driver{" +
@@ -80,6 +89,7 @@ public class Driver extends BaseModel {
                 ", status=" + status +
                 ", vehicle=" + vehicle +
                 ", licenseEndDate=" + licenseEndDate +
+                ", user=" + user +
                 '}';
     }
 
@@ -95,7 +105,9 @@ public class Driver extends BaseModel {
             return false;
         if (status != driver.status) return false;
         if (vehicle != null ? !vehicle.equals(driver.vehicle) : driver.vehicle != null) return false;
-        return licenseEndDate != null ? licenseEndDate.equals(driver.licenseEndDate) : driver.licenseEndDate == null;
+        if (licenseEndDate != null ? !licenseEndDate.equals(driver.licenseEndDate) : driver.licenseEndDate != null)
+            return false;
+        return user != null ? user.equals(driver.user) : driver.user == null;
     }
 
     @Override
@@ -105,6 +117,7 @@ public class Driver extends BaseModel {
         result = 31 * result + (status != null ? status.hashCode() : 0);
         result = 31 * result + (vehicle != null ? vehicle.hashCode() : 0);
         result = 31 * result + (licenseEndDate != null ? licenseEndDate.hashCode() : 0);
+        result = 31 * result + (user != null ? user.hashCode() : 0);
         return result;
     }
 }

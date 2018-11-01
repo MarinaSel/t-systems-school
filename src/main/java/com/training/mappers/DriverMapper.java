@@ -39,6 +39,7 @@ public final class DriverMapper {
         driverEntity.setStatus(driver.getStatus());
         driverEntity.setCreationDate(driver.getCreationDate());
         driverEntity.setVehicle(VehicleMapper.mapModelToEntity(driver.getVehicle()));
+        driverEntity.setUser(UserMapper.mapModelToEntity(driver.getUser()));
 
         return driverEntity;
     }
@@ -84,7 +85,7 @@ public final class DriverMapper {
         driver.setLicenseEndDate(driverEntity.getLicenseEndDate());
         driver.setStatus(driverEntity.getStatus());
         driver.setCreationDate(driverEntity.getCreationDate());
-
+        driver.setUser(UserMapper.mapEntityToModel(driverEntity.getUser()));
         return driver;
     }
 
