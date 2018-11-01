@@ -22,6 +22,9 @@ public final class UserMapper {
      * @return userEntity
      */
     public static UserEntity mapModelToEntity(User user) {
+        if (user == null) {
+            return null;
+        }
         UserEntity userEntity = new UserEntity();
 
         userEntity.setId(user.getId());
@@ -40,6 +43,9 @@ public final class UserMapper {
      * @return user
      */
     public static User mapEntityToModel(UserEntity userEntity) {
+        if (userEntity == null) {
+            return null;
+        }
         User user = new User();
 
         user.setId(userEntity.getId());
