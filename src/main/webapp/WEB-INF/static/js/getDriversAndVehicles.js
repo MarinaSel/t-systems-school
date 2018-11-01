@@ -1,7 +1,7 @@
 function getDrivers() {
     if ($('#vehicles').prop('selectedIndex') > -1) {
         $('#primaryDriver').prop('disabled', false);
-        $('#secondDriver').prop('disabled', false)
+        $('#secondDriver').prop('disabled', false);
         $.ajax({
             type: 'GET',
             datatype: "json",
@@ -25,8 +25,7 @@ function getDrivers() {
         $('#primaryDriver').prop('disabled', 'disabled');
         $('#secondDriver').prop('disabled', 'disabled');
     }
-};
-
+}
 function getVehicle() {
     var weight = $('#vehicleWeight').val();
     $.ajax({

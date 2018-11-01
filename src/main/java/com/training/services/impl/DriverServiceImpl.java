@@ -5,24 +5,21 @@ import com.training.entities.enums.DriverStatus;
 import com.training.models.Driver;
 import com.training.repositories.DriverRepository;
 import com.training.services.DriverService;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static com.training.mappers.DriverMapper.mapEntityListToModelList;
 import static com.training.mappers.DriverMapper.mapEntityToModel;
 import static com.training.mappers.DriverMapper.mapModelToEntity;
-import static com.training.mappers.DriverMapper.mapEntityListToModelList;
-
 
 @Service
 @Transactional
-public class DriverServiceImpl implements DriverService{
+public class DriverServiceImpl implements DriverService {
 
     private final static Logger logger = LogManager.getLogger(DriverServiceImpl.class);
 
@@ -30,34 +27,33 @@ public class DriverServiceImpl implements DriverService{
     private DriverRepository driverRepository;
 
     @Override
-    public Driver get(Long id){
+    public Driver get(Long id) {
         Driver driver = mapEntityToModel(driverRepository.getOne(id));
         logger.info("Got driver with id = {}", driver.getId());
         return driver;
     }
 
     @Override
-    public Driver save(Driver driver){
+    public void save(Driver driver) {
         DriverEntity driverEntity = mapModelToEntity(driver);
         driverRepository.saveAndFlush(driverEntity);
 
-        if(driver.getId() == null){
+        if (driver.getId() == null) {
             logger.info("Created driver with id = {}", driverEntity.getId());
-        }
-        else{
+        } else {
             logger.info("Updated driver with id = {}", driver.getId());
         }
-        return mapEntityToModel(driverEntity);
+        mapEntityToModel(driverEntity);
     }
 
     @Override
-    public void remove(Long id){
+    public void remove(Long id) {
         driverRepository.deleteById(id);
         logger.info("Deleted driver with id = {}", id);
     }
 
     @Override
-    public List<Driver> getAll(){
+    public List<Driver> getAll() {
         List<Driver> drivers = mapEntityListToModelList(driverRepository.findAll());
         logger.info("Found all drivers");
         return drivers;

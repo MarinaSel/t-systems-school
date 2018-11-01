@@ -53,7 +53,7 @@ public class DataConfig {
 
     @Bean
     @DependsOn("liquibase")
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory(){
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 
         LocalContainerEntityManagerFactoryBean lemfb = new LocalContainerEntityManagerFactoryBean();
         lemfb.setDataSource(dataSource());

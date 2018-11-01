@@ -2,6 +2,7 @@ package com.training.entities.enums;
 
 /**
  * Enumeration with driver statuses.
+ *
  * @see com.training.entities.DriverEntity
  */
 public enum DriverStatus {

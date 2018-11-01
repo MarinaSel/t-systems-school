@@ -1,10 +1,12 @@
-select{
+select {
     width: 220px;
 }
-#saveLoadTable{
+
+#saveLoadTable {
     width: 600px;
 }
-#saveVehicleAndDriverTable{
+
+#saveVehicleAndDriverTable {
     width: 500px;
 }
 
@@ -12,12 +14,11 @@ select{
     width: 450px;
 }
 
-input{
+input {
     width: 220px;
 }
 
-.tableView tbody
-{
+.tableView tbody {
     display: block;
     overflow: auto;
     height: 400px;
@@ -26,24 +27,18 @@ input{
     overflow-y: auto;
 }
 
-.tableView thead tr{
+.tableView thead tr {
     display: block;
     position: relative;
 }
-.tableView thead th{
+
+.tableView thead th {
     text-align: center;
 }
 
-
-
-
-
-
-
-
-.soflow{
+.soflow {
     -webkit-border-radius: 2px;
-    -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 1px 3px rgba(0, 0, 0, 0.1);
     -webkit-padding-end: 20px;
     -webkit-padding-start: 2px;
     -webkit-user-select: none;

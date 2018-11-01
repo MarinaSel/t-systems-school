@@ -16,12 +16,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -34,7 +32,7 @@ public class VehicleEntity extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "vehicles_id_seq")
     private Long id;
 
-    @Column(name="model", nullable = false, length = 20)
+    @Column(name = "model", nullable = false, length = 20)
     private String model;
 
     @Temporal(TemporalType.DATE)
@@ -68,9 +66,10 @@ public class VehicleEntity extends BaseEntity {
     @JoinColumn(name = "location_id")
     private LocationEntity location;
 
-    public VehicleEntity(){}
+    public VehicleEntity() {
+    }
 
-    public VehicleEntity(String model, Date dateOfIssue, @Size(max = 7, message = "Registration number is invalid") @NotNull(message = "Registration number cannot be null") String registrationNumber, @NotNull(message = "Capacity cannot be null") Integer capacity, VehicleStatus status) {
+    public VehicleEntity(String model, Date dateOfIssue, String registrationNumber, Integer capacity, VehicleStatus status) {
         this.model = model;
         this.dateOfIssue = dateOfIssue;
         this.registrationNumber = registrationNumber;
@@ -82,7 +81,6 @@ public class VehicleEntity extends BaseEntity {
     public void prePersist() {
         status = VehicleStatus.FREE;
     }
-
 
     public Long getId() {
         return id;

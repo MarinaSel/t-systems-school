@@ -1,7 +1,6 @@
 package com.training.services;
 
 import com.training.models.Load;
-import com.training.services.BaseService;
 
 import java.util.List;
 
@@ -13,6 +12,7 @@ public interface LoadService extends BaseService<Load, Long> {
     /**
      * Method for deleting Vehicle object from load.
      * Used when we want to complete the order.
+     *
      * @param id load id
      * @return load
      */
@@ -20,6 +20,7 @@ public interface LoadService extends BaseService<Load, Long> {
 
     /**
      * Method for finding all Load objects
+     *
      * @return list
      */
     List<Load> getAll();

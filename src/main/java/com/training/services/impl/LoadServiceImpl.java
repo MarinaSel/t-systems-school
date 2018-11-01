@@ -7,19 +7,17 @@ import com.training.models.Load;
 import com.training.repositories.LoadRepository;
 import com.training.services.LoadService;
 import com.training.services.VehicleService;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static com.training.mappers.LoadMapper.mapEntityListToModelList;
 import static com.training.mappers.LoadMapper.mapEntityToModel;
 import static com.training.mappers.LoadMapper.mapModelToEntity;
-import static com.training.mappers.LoadMapper.mapEntityListToModelList;
 
 @Service
 @Transactional
@@ -34,33 +32,32 @@ public class LoadServiceImpl implements LoadService {
     private VehicleService vehicleService;
 
     @Override
-    public Load get(Long id){
+    public Load get(Long id) {
         Load load = mapEntityToModel(loadRepository.getOne(id));
         logger.info("Got load with id = {}", load.getId());
         return load;
     }
 
     @Override
-    public Load save(Load load){
+    public void save(Load load) {
         LoadEntity loadEntity = mapModelToEntity(load);
         loadRepository.saveAndFlush(loadEntity);
-        if(load.getId() == null){
+        if (load.getId() == null) {
             logger.info("Created load with id = {}", loadEntity.getId());
-        }
-        else{
+        } else {
             logger.info("Updated load with id = {}", load.getId());
         }
-        return mapEntityToModel(loadEntity);
+        mapEntityToModel(loadEntity);
     }
 
     @Override
-    public void remove(Long id){
+    public void remove(Long id) {
         loadRepository.deleteById(id);
         logger.info("Deleted load with id = {}", id);
     }
 
     @Override
-    public List<Load> getAll(){
+    public List<Load> getAll() {
         List<Load> loads = mapEntityListToModelList(loadRepository.findAll());
         logger.info("Found all loads");
         return loads;
@@ -72,7 +69,7 @@ public class LoadServiceImpl implements LoadService {
         // TODO change to repository method
         LoadEntity loadEntity = loadRepository.getOne(id);
         VehicleEntity vehicleEntity = loadEntity.getVehicle();
-        if(vehicleEntity != null){
+        if (vehicleEntity != null) {
             vehicleEntity.getLoads().remove(loadEntity);
             vehicleService.checkVehicleIfEndedDelivery(vehicleEntity);
             loadEntity.setVehicle(null);

@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
-public class Driver extends BaseModel{
+public class Driver extends BaseModel {
 
     private Long id;
 
@@ -21,12 +21,10 @@ public class Driver extends BaseModel{
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date licenseEndDate;
 
-    public Driver(){}
+    public Driver() {
+    }
 
-    public Driver(Long id,
-                  @NotNull(message = "Driving license number cannot be null")
-                  @Size(max = 50, message = "Driving license number is invalid") String drivingLicenseNum,
-                  DriverStatus status, Vehicle vehicle, @NotNull(message = "License end date cannot be null") Date licenseEndDate) {
+    public Driver(Long id, String drivingLicenseNum, DriverStatus status, Vehicle vehicle, Date licenseEndDate) {
         this.id = id;
         this.drivingLicenseNum = drivingLicenseNum;
         this.status = status;

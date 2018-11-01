@@ -1,10 +1,8 @@
 package com.training.services;
 
 import com.training.models.Driver;
-import com.training.services.BaseService;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * Interface for driver service which describes operations for Driver objects extends BaseService with CRUD operations.
@@ -23,7 +21,8 @@ public interface DriverService extends BaseService<Driver, Long> {
 
     /**
      * Method for finding driver by driving license number.
-     * @param drivingLicenseNum
+     *
+     * @param drivingLicenseNum driving license number for search
      */
     Driver findByDrivingLicenseNum(String drivingLicenseNum);
 

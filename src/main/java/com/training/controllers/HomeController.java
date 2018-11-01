@@ -31,6 +31,7 @@ public class HomeController {
     @RequestMapping(value = "/loginPage", method = RequestMethod.GET)
     public ModelAndView loginForm(@RequestParam(value = "error", required = false) String error) {
         ModelAndView model = new ModelAndView();
+
         if (error != null) {
             model.addObject("error", "Неверное имя пользователя и пароль!");
         }

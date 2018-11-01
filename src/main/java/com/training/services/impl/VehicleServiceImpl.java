@@ -11,10 +11,8 @@ import com.training.models.Vehicle;
 import com.training.repositories.DriverRepository;
 import com.training.repositories.VehicleRepository;
 import com.training.services.VehicleService;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,9 +21,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import static com.training.mappers.VehicleMapper.mapModelToEntity;
-import static com.training.mappers.VehicleMapper.mapEntityToModel;
 import static com.training.mappers.VehicleMapper.mapEntityListToModelList;
+import static com.training.mappers.VehicleMapper.mapEntityToModel;
+import static com.training.mappers.VehicleMapper.mapModelToEntity;
 
 @Service
 @Transactional
@@ -40,28 +38,27 @@ public class VehicleServiceImpl implements VehicleService {
     private DriverRepository driverRepository;
 
     @Override
-    public Vehicle get(Long id){
+    public Vehicle get(Long id) {
         Vehicle vehicle = mapEntityToModel(vehicleRepository.getOne(id));
         logger.info("Found vehicle with id = {}", vehicle.getId());
         return vehicle;
     }
 
     @Override
-    public Vehicle save(Vehicle vehicle){
+    public void save(Vehicle vehicle) {
         VehicleEntity vehicleEntity = mapModelToEntity(vehicle);
         vehicleRepository.saveAndFlush(vehicleEntity);
 
-        if(vehicle.getId() == null){
+        if (vehicle.getId() == null) {
             logger.info("Created vehicle with id = {}", vehicleEntity.getId());
-        }
-        else{
+        } else {
             logger.info("Updated vehicle with id = {}", vehicle.getId());
         }
-        return mapEntityToModel(vehicleEntity);
+        mapEntityToModel(vehicleEntity);
     }
 
     @Override
-    public void remove(Long id){
+    public void remove(Long id) {
         vehicleRepository.deleteById(id);
         logger.info("Deleted vehicle with id = {}", id);
     }
@@ -78,7 +75,7 @@ public class VehicleServiceImpl implements VehicleService {
         List<Vehicle> vehicles = mapEntityListToModelList(vehicleRepository.findAllByStatus(VehicleStatus.FREE));
         Iterator<Vehicle> iterator = vehicles.iterator();
 
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             Vehicle vehicle = iterator.next();
 
             int sumWeight = 0;
@@ -86,7 +83,7 @@ public class VehicleServiceImpl implements VehicleService {
                 sumWeight += load.getWeight();
             }
 
-            if ((vehicle.getCapacity() - sumWeight < necessaryCapacity)){
+            if ((vehicle.getCapacity() - sumWeight < necessaryCapacity)) {
                 iterator.remove();
             }
         }
@@ -102,8 +99,8 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public void checkVehicleIfEndedDelivery(VehicleEntity vehicleEntity){
-        if(vehicleEntity.getLoads() == null || vehicleEntity.getLoads().isEmpty()){
+    public void checkVehicleIfEndedDelivery(VehicleEntity vehicleEntity) {
+        if (vehicleEntity.getLoads() == null || vehicleEntity.getLoads().isEmpty()) {
             Set<DriverEntity> drivers = vehicleEntity.getDrivers();
             for (DriverEntity driverEntity : drivers) {
                 driverEntity.setStatus(DriverStatus.FREE);
@@ -129,5 +126,4 @@ public class VehicleServiceImpl implements VehicleService {
         }
         return mapEntityToModel(vehicleEntity);
     }
-
 }

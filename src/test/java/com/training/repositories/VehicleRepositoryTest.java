@@ -3,11 +3,9 @@ package com.training.repositories;
 import com.training.entities.VehicleEntity;
 import com.training.entities.enums.VehicleStatus;
 import com.training.test_config.TestWebConfig;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -20,7 +18,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @WebAppConfiguration
@@ -84,6 +82,6 @@ public class VehicleRepositoryTest {
 
     @Test(expected = ValidationException.class)
     public void createVehicleWithIllegalRegistrationNumber(){
-        vehicleRepository.saveAndFlush(new VehicleEntity("hahhh", date, "22sdsssdsd", 10, null));
+        vehicleRepository.saveAndFlush(new VehicleEntity("model", date, "hh77777", 10, null));
     }
 }

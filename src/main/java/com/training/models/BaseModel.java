@@ -6,6 +6,7 @@ import java.util.Date;
 
 /**
  * This class describes the general field for Driver, Vehicle and Load.
+ *
  * @see Driver
  * @see Vehicle
  * @see Load

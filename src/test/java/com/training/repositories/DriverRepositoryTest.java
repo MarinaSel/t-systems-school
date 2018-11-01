@@ -46,13 +46,13 @@ public class DriverRepositoryTest {
     public void createAndFind(){
         userRepository.saveAndFlush(userEntity);
         DriverEntity newDriver = new DriverEntity(
-                "licNaum", date, DriverStatus.FREE, null, userEntity);
+                "licNumber", date, DriverStatus.FREE, null, userEntity);
         DriverEntity expectedDriver = new DriverEntity(
-                "licNaum", date, DriverStatus.FREE, null, userEntity);
+                "licNumber", date, DriverStatus.FREE, null, userEntity);
 
         driverRepository.saveAndFlush(newDriver);
         expectedDriver.setId(newDriver.getId());
-        assertEquals(expectedDriver, driverRepository.findByDrivingLicenseNum("licNaum"));
+        assertEquals(expectedDriver, driverRepository.findByDrivingLicenseNum("licNumber"));
     }
 
     @Test
@@ -77,16 +77,16 @@ public class DriverRepositoryTest {
     public void findAllByStatus(){
         userRepository.saveAndFlush(userEntity);
         DriverEntity driverEntity1 = new DriverEntity(
-                "licNaum", date, DriverStatus.FREE, null, userEntity);
+                "licNumber", date, DriverStatus.FREE, null, userEntity);
         DriverEntity driverEntity2 = new DriverEntity(
-                "licNaum1", date, DriverStatus.FREE, null, userEntity);
+                "licNumber1", date, DriverStatus.FREE, null, userEntity);
 
         driverRepository.saveAndFlush(driverEntity1);
         driverRepository.saveAndFlush(driverEntity2);
         List<DriverEntity> driverEntities = driverRepository.findAllByStatus(DriverStatus.FREE);
 
-        DriverEntity expectedDriver1 = new DriverEntity("licNaum", date, DriverStatus.FREE, null, userEntity);
-        DriverEntity expectedDriver2 = new DriverEntity("licNaum1", date, DriverStatus.FREE, null, userEntity);
+        DriverEntity expectedDriver1 = new DriverEntity("licNumber", date, DriverStatus.FREE, null, userEntity);
+        DriverEntity expectedDriver2 = new DriverEntity("licNumber1", date, DriverStatus.FREE, null, userEntity);
 
         expectedDriver1.setId(driverEntity1.getId());
         expectedDriver2.setId(driverEntity2.getId());

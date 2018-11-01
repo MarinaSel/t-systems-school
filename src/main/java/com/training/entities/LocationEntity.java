@@ -1,12 +1,12 @@
 package com.training.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Column;
 
 @Entity
 @Table(name = "locations")
@@ -25,7 +25,8 @@ public class LocationEntity {
     @Column(name = "longitude", nullable = false)
     private Double longitude;
 
-    protected LocationEntity(){}
+    protected LocationEntity() {
+    }
 
     public Long getId() {
         return id;

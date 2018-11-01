@@ -6,7 +6,6 @@ import com.training.models.Vehicle;
 import com.training.services.DriverService;
 import com.training.services.LoadService;
 import com.training.services.VehicleService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
-import java.util.Set;
 
 @Controller
 public class LoadController {
@@ -39,17 +37,12 @@ public class LoadController {
         List<Vehicle> vehicles = vehicleService.getAllFreeWithNecessaryCapacityAndDrivers(loadToEdit.getWeight());
         List<Driver> drivers = driverService.getAllFree();
 
-        String namePrimary = "";
-        String nameSecond = "";
-
         String drivingLicenseNumPrimary = "";
         String drivingLicenseNumSecond = "";
 
         redirectAttributes.addFlashAttribute("editableLoad", loadToEdit);
         redirectAttributes.addFlashAttribute("freeVehicles", vehicles);
         redirectAttributes.addFlashAttribute("freeDrivers", drivers);
-        redirectAttributes.addFlashAttribute("namePrimary", namePrimary);
-        redirectAttributes.addFlashAttribute("nameSecond", nameSecond);
         redirectAttributes.addFlashAttribute("drivingLicenseNumPrimary", drivingLicenseNumPrimary);
         redirectAttributes.addFlashAttribute("drivingLicenseNumSecond", drivingLicenseNumSecond);
 
@@ -72,8 +65,6 @@ public class LoadController {
     @PostMapping(value = "/saveLoad")
     public ModelAndView saveLoad(@ModelAttribute("editableLoad") Load load,
                                  @ModelAttribute("regNum") String registrationNumber,
-                                 @ModelAttribute("namePrimary") String namePrimary,
-                                 @ModelAttribute("nameSecond") String nameSecond,
                                  @ModelAttribute("drivingLicenseNumPrimary") String drivingLicenseNumPrimary,
                                  @ModelAttribute("drivingLicenseNumSecond") String drivingLicenseNumSecond) {
 

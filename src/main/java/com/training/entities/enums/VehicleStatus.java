@@ -2,6 +2,7 @@ package com.training.entities.enums;
 
 /**
  * Enum with vehicle statuses.
+ *
  * @see com.training.entities.VehicleEntity
  */
 public enum VehicleStatus {

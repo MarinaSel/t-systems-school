@@ -4,7 +4,6 @@ import com.training.entities.enums.VehicleStatus;
 import com.training.models.Vehicle;
 import com.training.services.DriverService;
 import com.training.services.VehicleService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,7 +32,7 @@ public class VehicleController {
     }
 
     @GetMapping("/editVehicle/{id}")
-    public ModelAndView getVehicleById(@PathVariable("id") Long id, RedirectAttributes redirectAttributes){
+    public ModelAndView getVehicleById(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
         Vehicle vehicleToEdit = vehicleService.get(id);
         VehicleStatus[] statuses = VehicleStatus.values();
         redirectAttributes.addFlashAttribute("statuses", statuses);
@@ -42,7 +41,7 @@ public class VehicleController {
     }
 
     @GetMapping("/addVehicle")
-    public ModelAndView addVehicle(RedirectAttributes redirectAttributes){
+    public ModelAndView addVehicle(RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("editableVehicle", new Vehicle());
         return new ModelAndView("redirect:/getSaveVehiclePage");
     }
@@ -53,19 +52,19 @@ public class VehicleController {
     }
 
     @PostMapping("/saveVehicle")
-    public ModelAndView saveVehicle(@ModelAttribute("editableVehicle") Vehicle vehicle){
+    public ModelAndView saveVehicle(@ModelAttribute("editableVehicle") Vehicle vehicle) {
         vehicleService.save(vehicle);
         return new ModelAndView("redirect:/vehicles");
     }
 
     @GetMapping("/removeVehicle/{id}")
-    public ModelAndView deleteVehicle(@PathVariable("id") Long id){
+    public ModelAndView deleteVehicle(@PathVariable("id") Long id) {
         vehicleService.remove(id);
         return new ModelAndView("redirect:/vehicles");
     }
 
     @GetMapping("/sent/{id}")
-    public ModelAndView beginDelivery(@PathVariable("id") Long id){
+    public ModelAndView beginDelivery(@PathVariable("id") Long id) {
         Vehicle vehicle = vehicleService.changeVehicleStatusForBeginDelivery(id);
         vehicleService.save(vehicle);
         return new ModelAndView("redirect:/loads");

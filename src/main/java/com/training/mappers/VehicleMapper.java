@@ -9,20 +9,23 @@ import java.util.List;
 /**
  * Utility class that describes static methods for mapping VehicleEntity object from Vehicle object
  * and Vehicle object from VehicleEntity object.
+ *
  * @see VehicleEntity
  * @see Vehicle
  */
 public final class VehicleMapper {
 
-    private VehicleMapper(){};
+    private VehicleMapper() {
+    }
 
     /**
      * Method maps VehicleEntity object to Vehicle object.
+     *
      * @param vehicleEntity VehicleEntity to be mapped
      * @return vehicle
      */
-    public static Vehicle mapEntityToModel(VehicleEntity vehicleEntity){
-        if (vehicleEntity == null){
+    public static Vehicle mapEntityToModel(VehicleEntity vehicleEntity) {
+        if (vehicleEntity == null) {
             return null;
         }
         Vehicle vehicle = commonFields(vehicleEntity);
@@ -32,15 +35,15 @@ public final class VehicleMapper {
         return vehicle;
     }
 
-
     /**
      * Method maps VehicleEntity object to simple Vehicle model without set of loads.
+     *
      * @param vehicleEntity VehicleEntity to be mapped
      * @return vehicle
      */
-    public static Vehicle mapEntityToSimpleModel(VehicleEntity vehicleEntity){
+    public static Vehicle mapEntityToSimpleModel(VehicleEntity vehicleEntity) {
 
-        if(vehicleEntity == null){
+        if (vehicleEntity == null) {
             return null;
         }
         Vehicle vehicle = commonFields(vehicleEntity);
@@ -51,12 +54,13 @@ public final class VehicleMapper {
 
     /**
      * Method maps common fields for simple Vehicle model and Vehicle model with set of loads.
+     *
      * @param vehicleEntity VehicleEntity to be mapped
      * @return vehicle
      */
-    private static Vehicle commonFields(VehicleEntity vehicleEntity){
+    private static Vehicle commonFields(VehicleEntity vehicleEntity) {
 
-        if (vehicleEntity == null){
+        if (vehicleEntity == null) {
             return null;
         }
         Vehicle vehicle = new Vehicle();
@@ -74,11 +78,12 @@ public final class VehicleMapper {
 
     /**
      * Method maps Vehicle object to VehicleEntity object.
+     *
      * @param vehicle Vehicle to be mapped
      * @return vehicleEntity
      */
-    public static VehicleEntity mapModelToEntity(Vehicle vehicle){
-        if (vehicle == null){
+    public static VehicleEntity mapModelToEntity(Vehicle vehicle) {
+        if (vehicle == null) {
             return null;
         }
         VehicleEntity vehicleEntity = new VehicleEntity();
@@ -96,15 +101,17 @@ public final class VehicleMapper {
 
     /**
      * Method maps list of VehicleEntity objects to list of Vehicle objects.
+     *
      * @param vehicleEntities list of VehicleEntity objects
      * @return vehicles list of Vehicle objects
      */
-    public static List<Vehicle> mapEntityListToModelList(List<VehicleEntity> vehicleEntities){
+    public static List<Vehicle> mapEntityListToModelList(List<VehicleEntity> vehicleEntities) {
         List<Vehicle> vehicles = new LinkedList<>();
 
         for (VehicleEntity vehicleEntity : vehicleEntities) {
             vehicles.add(mapEntityToModel(vehicleEntity));
         }
+
         return vehicles;
     }
 

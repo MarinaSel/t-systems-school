@@ -2,6 +2,7 @@ package com.training.entities.enums;
 
 /**
  * Enum with load statuses.
+ *
  * @see com.training.entities.LoadEntity
  */
 public enum LoadStatus {
@@ -22,5 +23,5 @@ public enum LoadStatus {
     /**
      * Means that load delivered.
      */
-    DONE;
+    DONE
 }

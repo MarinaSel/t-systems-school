@@ -58,7 +58,8 @@ public class DriverEntity extends BaseEntity {
     @OneToOne
     private UserEntity user;
 
-    public DriverEntity(){}
+    public DriverEntity() {
+    }
 
     public DriverEntity(String drivingLicenseNum, Date licenseEndDate, DriverStatus status, VehicleEntity vehicle,
                         UserEntity user) {

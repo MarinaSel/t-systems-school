@@ -1,14 +1,12 @@
 package com.training.models;
 
 import com.training.entities.enums.LoadStatus;
-
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
-
 import java.util.Date;
 
-public class Load extends BaseModel{
+public class Load extends BaseModel {
 
     private Long id;
 
@@ -27,9 +25,10 @@ public class Load extends BaseModel{
     private LoadStatus status;
     private Vehicle vehicle;
 
-    public Load(){}
+    public Load() {
+    }
 
-    public Load(Long id, @NotNull(message = "Title cannot be null") String title, @NotNull(message = "Description cannot be null") String description, @NotNull(message = "Day od delivery cannot be null") Date dayOfDelivery, @NotNull(message = "Weight cannot be null") Integer weight, LoadStatus status, Vehicle vehicle) {
+    public Load(Long id, String title, String description, Date dayOfDelivery, Integer weight, LoadStatus status, Vehicle vehicle) {
         this.id = id;
         this.title = title;
         this.description = description;

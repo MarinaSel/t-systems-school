@@ -1,7 +1,6 @@
 package com.training.entities;
 
 import com.training.listeners.DateSettingListener;
-
 import com.training.listeners.ValidatingListener;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -11,18 +10,18 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-
 import java.util.Date;
 
 /**
  * This class describes the general field for DriverEntity, VehicleEntity and LoadEntity.
+ *
  * @see DriverEntity
  * @see VehicleEntity
  * @see LoadEntity
  */
 @MappedSuperclass
 @EntityListeners({DateSettingListener.class, ValidatingListener.class})
-public abstract class BaseEntity implements Validatable{
+public abstract class BaseEntity implements Validatable {
 
     @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")

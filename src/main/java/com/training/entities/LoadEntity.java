@@ -1,7 +1,6 @@
 package com.training.entities;
 
 import com.training.entities.enums.LoadStatus;
-
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
@@ -19,9 +18,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
 import javax.validation.constraints.NotNull;
-
 import java.util.Date;
 
 @Entity
@@ -52,16 +49,17 @@ public class LoadEntity extends BaseEntity {
     private LoadStatus status;
 
     @NotNull(message = "Weight cannot be null")
-    @Column(name = "weight",nullable = false)
+    @Column(name = "weight", nullable = false)
     private Integer weight;
 
     @ManyToOne
     @JoinColumn(name = "vehicle_id")
     private VehicleEntity vehicle;
 
-    public LoadEntity(){}
+    public LoadEntity() {
+    }
 
-    public LoadEntity(@NotNull(message = "Title cannot be null") String title, @NotNull(message = "Description cannot be null") String description, @NotNull(message = "Day od delivery cannot be null") Date dayOfDelivery, @NotNull LoadStatus status, @NotNull(message = "Weight cannot be null") Integer weight, VehicleEntity vehicle) {
+    public LoadEntity(String title, String description, Date dayOfDelivery, LoadStatus status, Integer weight, VehicleEntity vehicle) {
         this.title = title;
         this.description = description;
         this.dayOfDelivery = dayOfDelivery;
@@ -71,20 +69,19 @@ public class LoadEntity extends BaseEntity {
     }
 
     @PrePersist
-    public void prePersist(){
-        if(status == null){
-            if (vehicle == null){
+    public void prePersist() {
+        if (status == null) {
+            if (vehicle == null) {
                 status = LoadStatus.NOT_ASSIGNED;
-            }
-            else{
+            } else {
                 status = LoadStatus.ASSIGNED;
             }
         }
     }
 
     @PreUpdate
-    public void preUpdate(){
-        if(vehicle != null && status != LoadStatus.IN_PROGRESS){
+    public void preUpdate() {
+        if (vehicle != null && status != LoadStatus.IN_PROGRESS) {
             status = LoadStatus.ASSIGNED;
         }
     }

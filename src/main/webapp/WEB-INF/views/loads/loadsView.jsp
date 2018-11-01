@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c"
            uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -15,7 +15,6 @@
 <body>
 <a href="/getSaveLoadPage" class="btn btn-success">Add new load</a>
 <hr>
-</body>
     <table class="table table-striped table-bordered tableView loads">
         <thead>
         <tr>

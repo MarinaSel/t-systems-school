@@ -5,12 +5,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Vehicle extends BaseModel{
+public class Vehicle extends BaseModel {
 
     private Long id;
 
@@ -31,7 +30,7 @@ public class Vehicle extends BaseModel{
     private Set<Driver> drivers = new HashSet<>();
     private Set<Load> loads = new HashSet<>();
 
-    public Vehicle(Long id, @Size(min = 7, max = 7, message = "Registration number is invalid") @NotNull(message = "Registration number cannot be null") String registrationNumber, Integer capacity, @NotNull(message = "Capacity cannot be null") VehicleStatus status, String model, Date date) {
+    public Vehicle(Long id, String registrationNumber, Integer capacity, VehicleStatus status, String model, Date date) {
         this.id = id;
         this.registrationNumber = registrationNumber;
         this.capacity = capacity;
@@ -40,7 +39,9 @@ public class Vehicle extends BaseModel{
         this.dateOfIssue = date;
     }
 
-    public Vehicle(){}
+    public Vehicle() {
+    }
+
     public Long getId() {
         return id;
     }

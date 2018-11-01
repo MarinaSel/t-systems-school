@@ -9,24 +9,25 @@ import java.util.List;
 import java.util.Set;
 
 /**
- *
  * Utility class that describes static methods for mapping LoadEntity objects from Load objects
  * and Load objects from LoadEntity objects.
+ *
  * @see LoadEntity
  * @see Load
- *
  */
 public final class LoadMapper {
 
-    private LoadMapper(){};
+    private LoadMapper() {
+    }
 
     /**
      * Method maps Load object to LoadEntity object.
+     *
      * @param load Load object to be mapped
      * @return loadEntity
      */
-    public static LoadEntity mapModelToEntity(Load load){
-        if(load == null)
+    public static LoadEntity mapModelToEntity(Load load) {
+        if (load == null)
             return null;
         LoadEntity loadEntity = new LoadEntity();
 
@@ -44,12 +45,13 @@ public final class LoadMapper {
 
     /**
      * Method maps LoadEntity object to Load object.
+     *
      * @param loadEntity LoadEntity to be mapped
      * @return load
      */
-    public static Load mapEntityToModel(LoadEntity loadEntity){
+    public static Load mapEntityToModel(LoadEntity loadEntity) {
 
-        if(loadEntity == null){
+        if (loadEntity == null) {
             return null;
         }
         Load load = commonFields(loadEntity);
@@ -61,12 +63,13 @@ public final class LoadMapper {
 
     /**
      * Method maps LoadEntity object to simple Load model without set of loads.
+     *
      * @param loadEntity LoadEntity to be mapped
      * @return load
      */
-    public static Load mapEntityToSimpleModel(LoadEntity loadEntity){
+    private static Load mapEntityToSimpleModel(LoadEntity loadEntity) {
 
-        if(loadEntity == null){
+        if (loadEntity == null) {
             return null;
         }
 
@@ -75,10 +78,11 @@ public final class LoadMapper {
 
     /**
      * Method maps common fields for simple Load model and Load model with set of loads.
+     *
      * @param loadEntity LoadEntity to be mapped
      * @return load
      */
-    private static Load commonFields(LoadEntity loadEntity){
+    private static Load commonFields(LoadEntity loadEntity) {
         Load load = new Load();
 
         load.setId(loadEntity.getId());
@@ -96,10 +100,11 @@ public final class LoadMapper {
 
     /**
      * Method maps list of LoadEntity objects to list of Load objects.
+     *
      * @param loadEntities list of LoadEntity objects
      * @return loads list of Load objects
-      */
-    public static List<Load> mapEntityListToModelList(List<LoadEntity> loadEntities){
+     */
+    public static List<Load> mapEntityListToModelList(List<LoadEntity> loadEntities) {
         List<Load> loads = new LinkedList<>();
 
         for (LoadEntity loadEntity :
@@ -112,11 +117,12 @@ public final class LoadMapper {
 
     /**
      * Methods maps set of LoadEntity objects to set of Load objects
+     *
      * @param loadEntities set of LoadEntity objects
      * @return loads set of Load objects
      */
-    public static Set<Load> mapEntitySetToModelSet(Set<LoadEntity> loadEntities){
-        if(loadEntities == null){
+    public static Set<Load> mapEntitySetToModelSet(Set<LoadEntity> loadEntities) {
+        if (loadEntities == null) {
             return null;
         }
         Set<Load> loads = new HashSet<>();

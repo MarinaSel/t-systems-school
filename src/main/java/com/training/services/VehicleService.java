@@ -2,7 +2,6 @@ package com.training.services;
 
 import com.training.entities.VehicleEntity;
 import com.training.models.Vehicle;
-import com.training.services.BaseService;
 
 import java.util.List;
 
@@ -13,12 +12,14 @@ public interface VehicleService extends BaseService<Vehicle, Long> {
 
     /**
      * Method returns all vehicles.
+     *
      * @return list of Vehicle objects
      */
     List<Vehicle> getAll();
 
     /**
      * Method returns list of Vehicle objects (with status 'FREE') available for load.
+     *
      * @param necessaryCapacity load weight
      * @return list of Vehicle objects
      */
@@ -26,6 +27,7 @@ public interface VehicleService extends BaseService<Vehicle, Long> {
 
     /**
      * Method returns Vehicle object with necessary registration number.
+     *
      * @param registrationNumber vehicle registration number
      * @return vehicle
      */
@@ -37,6 +39,7 @@ public interface VehicleService extends BaseService<Vehicle, Long> {
      * removes this drivers from set of drivers,
      * sets vehicle status 'FREE'.
      * Used when we complete the order.
+     *
      * @param vehicleEntity checking object
      */
     void checkVehicleIfEndedDelivery(VehicleEntity vehicleEntity);
@@ -44,6 +47,7 @@ public interface VehicleService extends BaseService<Vehicle, Long> {
     /**
      * Method sets vehicle status "WORKING" and sets loads status 'IN_PROGRESS'.
      * Used when we begin delivery
+     *
      * @param id vehicle id
      * @return vehicle
      */

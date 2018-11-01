@@ -11,21 +11,24 @@ import java.util.Set;
 /**
  * Utility class that describes static methods for mapping DriverEntity objects from Driver objects
  * and Driver objects from DriverEntity objects.
+ *
  * @see DriverEntity
  * @see Driver
  */
 public final class DriverMapper {
 
-    private DriverMapper(){};
+    private DriverMapper() {
+    }
 
     /**
      * Method maps driver to driverEntity.
+     *
      * @param driver Driver object to be mapped
      * @return driverEntity
      */
-    public static DriverEntity mapModelToEntity(Driver driver){
+    public static DriverEntity mapModelToEntity(Driver driver) {
 
-        if(driver == null){
+        if (driver == null) {
             return null;
         }
         DriverEntity driverEntity = new DriverEntity();
@@ -42,11 +45,12 @@ public final class DriverMapper {
 
     /**
      * Method maps driverEntity to driver.
+     *
      * @param driverEntity DriverEntity to be mapped
      * @return driver
      */
-    public static Driver mapEntityToModel(DriverEntity driverEntity){
-        if(driverEntity == null){
+    public static Driver mapEntityToModel(DriverEntity driverEntity) {
+        if (driverEntity == null) {
             return null;
         }
         Driver driver = commonFields(driverEntity);
@@ -57,19 +61,21 @@ public final class DriverMapper {
 
     /**
      * Method maps driverEntity to simple driver model without vehicle.
+     *
      * @param driverEntity DriverEntity to be mapped
      * @return driver
      */
-    public static Driver mapEntityToSimpleModel(DriverEntity driverEntity){
+    private static Driver mapEntityToSimpleModel(DriverEntity driverEntity) {
         return commonFields(driverEntity);
     }
 
     /**
      * Method maps common fields for simple driver model and driver model with vehicle.
+     *
      * @param driverEntity DriverEntity to be mapped
      * @return driver
      */
-    private static Driver commonFields(DriverEntity driverEntity){
+    private static Driver commonFields(DriverEntity driverEntity) {
 
         Driver driver = new Driver();
 
@@ -84,16 +90,17 @@ public final class DriverMapper {
 
     /**
      * Method maps list of DriverEntity objects to list of Driver objects.
+     *
      * @param driverEntities - list of DriverEntity objects
      * @return drivers - list of Drivers object
      */
-    public static List<Driver> mapEntityListToModelList(List<DriverEntity> driverEntities){
-        if(driverEntities == null){
+    public static List<Driver> mapEntityListToModelList(List<DriverEntity> driverEntities) {
+        if (driverEntities == null) {
             return null;
         }
         List<Driver> drivers = new LinkedList<>();
 
-        for (DriverEntity driverEntity: driverEntities) {
+        for (DriverEntity driverEntity : driverEntities) {
             drivers.add(mapEntityToModel(driverEntity));
         }
         return drivers;
@@ -101,12 +108,13 @@ public final class DriverMapper {
 
     /**
      * Methods maps set of DriverEntity objects to set of Driver objects
+     *
      * @param driverEntities - set of DriverEntity objects
      * @return drivers - set of Drivers objects
      */
-    public static Set<Driver> mapEntitySetToModelSet(Set<DriverEntity> driverEntities){
+    public static Set<Driver> mapEntitySetToModelSet(Set<DriverEntity> driverEntities) {
 
-        if(driverEntities == null){
+        if (driverEntities == null) {
             return null;
         }
         Set<Driver> drivers = new HashSet<>();
@@ -119,22 +127,4 @@ public final class DriverMapper {
         return drivers;
     }
 
-    /**
-     * Methods maps set of Driver objects to set of DriverEntity objects
-     * @param drivers - set of Drivers objects
-     * @return driverEntities - set of DriverEntity objects
-     */
-    public static Set<DriverEntity> mapModelSetToEntitySet(Set<Driver> drivers){
-
-        if(drivers == null){
-            return null;
-        }
-        Set<DriverEntity> driverEntities = new HashSet<>();
-
-        for (Driver driver : drivers) {
-            driverEntities.add(mapModelToEntity(driver));
-        }
-
-        return driverEntities;
-    }
 }
