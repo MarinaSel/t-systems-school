@@ -27,7 +27,8 @@ public class Vehicle extends BaseModel {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateOfIssue;
 
-    private Set<Driver> drivers = new HashSet<>();
+    private Driver primaryDriver;
+    private Driver coDriver;
     private Set<Load> loads = new HashSet<>();
 
     public Vehicle(Long id, String registrationNumber, Integer capacity, VehicleStatus status, String model, Date date) {
@@ -50,12 +51,20 @@ public class Vehicle extends BaseModel {
         this.id = id;
     }
 
-    public Set<Driver> getDrivers() {
-        return drivers;
+    public Driver getPrimaryDriver() {
+        return primaryDriver;
     }
 
-    public void setDrivers(Set<Driver> drivers) {
-        this.drivers = drivers;
+    public void setPrimaryDriver(Driver primaryDriver) {
+        this.primaryDriver = primaryDriver;
+    }
+
+    public Driver getCoDriver() {
+        return coDriver;
+    }
+
+    public void setCoDriver(Driver coDriver) {
+        this.coDriver = coDriver;
     }
 
     public Set<Load> getLoads() {
@@ -118,7 +127,11 @@ public class Vehicle extends BaseModel {
             return false;
         if (capacity != null ? !capacity.equals(vehicle.capacity) : vehicle.capacity != null) return false;
         if (status != vehicle.status) return false;
-        if (drivers != null ? !drivers.equals(vehicle.drivers) : vehicle.drivers != null) return false;
+        if (model != null ? !model.equals(vehicle.model) : vehicle.model != null) return false;
+        if (dateOfIssue != null ? !dateOfIssue.equals(vehicle.dateOfIssue) : vehicle.dateOfIssue != null) return false;
+        if (primaryDriver != null ? !primaryDriver.equals(vehicle.primaryDriver) : vehicle.primaryDriver != null)
+            return false;
+        if (coDriver != null ? !coDriver.equals(vehicle.coDriver) : vehicle.coDriver != null) return false;
         return loads != null ? loads.equals(vehicle.loads) : vehicle.loads == null;
     }
 
@@ -128,7 +141,10 @@ public class Vehicle extends BaseModel {
         result = 31 * result + (registrationNumber != null ? registrationNumber.hashCode() : 0);
         result = 31 * result + (capacity != null ? capacity.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
-        result = 31 * result + (drivers != null ? drivers.hashCode() : 0);
+        result = 31 * result + (model != null ? model.hashCode() : 0);
+        result = 31 * result + (dateOfIssue != null ? dateOfIssue.hashCode() : 0);
+        result = 31 * result + (primaryDriver != null ? primaryDriver.hashCode() : 0);
+        result = 31 * result + (coDriver != null ? coDriver.hashCode() : 0);
         result = 31 * result + (loads != null ? loads.hashCode() : 0);
         return result;
     }
@@ -140,7 +156,10 @@ public class Vehicle extends BaseModel {
                 ", registrationNumber='" + registrationNumber + '\'' +
                 ", capacity=" + capacity +
                 ", status=" + status +
-                ", drivers=" + drivers +
+                ", model='" + model + '\'' +
+                ", dateOfIssue=" + dateOfIssue +
+                ", primaryDriver=" + primaryDriver +
+                ", coDriver=" + coDriver +
                 ", loads=" + loads +
                 '}';
     }

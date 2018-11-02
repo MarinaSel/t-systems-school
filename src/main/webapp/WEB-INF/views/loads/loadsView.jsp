@@ -56,19 +56,16 @@
             <td>${load.vehicle.status}</td>
 
             <td>
-                <c:forEach items="${load.vehicle.drivers}" var="driver">
-                    <p>${driver.user.firstName} ${driver.user.lastName}</p>
-                </c:forEach>
+                    ${load.vehicle.primaryDriver.user.firstName} ${load.vehicle.primaryDriver.user.lastName}
+                <p>${load.vehicle.coDriver.user.firstName} ${load.vehicle.coDriver.user.lastName}</p>
             </td>
             <td>
-                <c:forEach items="${load.vehicle.drivers}" var="driver">
-                    <p>${driver.drivingLicenseNum}</p>
-                </c:forEach>
+                    ${load.vehicle.primaryDriver.drivingLicenseNum}
+                <p>${load.vehicle.coDriver.drivingLicenseNum}</p>
             </td>
             <td>
-                <c:forEach items="${load.vehicle.drivers}" var="driver">
-                    <p>${driver.status}</p>
-                </c:forEach>
+                    ${load.vehicle.primaryDriver.status}
+                <p>${load.vehicle.coDriver.status}</p>
             </td>
         </tr>
     </c:forEach>

@@ -41,18 +41,18 @@
 
             <td>
                 <a href="/editVehicle/${vehicle.id}" class="btn btn-info btn-sm">Edit</a>
-                <c:if test="${vehicle.status != 'BROKEN' && vehicle.status != 'WORKING' && !empty vehicle.drivers && !empty vehicle.loads}">
+                <c:if test="${vehicle.status != 'BROKEN' && vehicle.status != 'WORKING'
+                && (vehicle.primaryDriver != null || vehicle.coDriver != null) && !empty vehicle.loads}">
                     <a href="/sent/${vehicle.id}" class="btn btn-success btn-sm">Begin delivery</a>
                 </c:if>
             </td>
-            <td><c:forEach items="${vehicle.drivers}" var="driver">
-                <p>${driver.firstName} ${driver.lastName}</p>
-            </c:forEach>
+            <td>
+                    ${vehicle.primaryDriver.user.firstName} ${vehicle.primaryDriver.user.lastName}
+                <p>${vehicle.coDriver.user.firstName} ${vehicle.coDriver.user.lastName}</p>
             </td>
             <td>
-                <c:forEach items="${vehicle.drivers}" var="driver">
-                    <p>${driver.drivingLicenseNum}</p>
-                </c:forEach>
+                    ${vehicle.primaryDriver.drivingLicenseNum}
+                <p>${vehicle.coDriver.drivingLicenseNum}</p>
             </td>
         </tr>
     </c:forEach>

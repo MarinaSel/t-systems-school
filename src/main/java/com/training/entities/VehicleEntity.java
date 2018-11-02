@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -56,8 +57,13 @@ public class VehicleEntity extends BaseEntity {
     @Column(name = "current_city")
     private String currentCity;
 
-    @OneToMany(mappedBy = "vehicle")
-    private Set<DriverEntity> drivers = new HashSet<>();
+    @OneToOne
+    @JoinColumn(name = "primary_driver_id")
+    private DriverEntity primaryDriver;
+
+    @OneToOne
+    @JoinColumn(name = "co_driver_id")
+    private DriverEntity coDriver;
 
     @OneToMany(mappedBy = "vehicle")
     private Set<LoadEntity> loads = new HashSet<>();
@@ -138,12 +144,20 @@ public class VehicleEntity extends BaseEntity {
         this.currentCity = currentCity;
     }
 
-    public Set<DriverEntity> getDrivers() {
-        return drivers;
+    public DriverEntity getPrimaryDriver() {
+        return primaryDriver;
     }
 
-    public void setDrivers(Set<DriverEntity> drivers) {
-        this.drivers = drivers;
+    public void setPrimaryDriver(DriverEntity primaryDriver) {
+        this.primaryDriver = primaryDriver;
+    }
+
+    public DriverEntity getCoDriver() {
+        return coDriver;
+    }
+
+    public void setCoDriver(DriverEntity coDriver) {
+        this.coDriver = coDriver;
     }
 
     public Set<LoadEntity> getLoads() {
@@ -170,30 +184,48 @@ public class VehicleEntity extends BaseEntity {
         VehicleEntity that = (VehicleEntity) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (model != null ? !model.equals(that.model) : that.model != null) return false;
+        if (dateOfIssue != null ? !dateOfIssue.equals(that.dateOfIssue) : that.dateOfIssue != null) return false;
         if (registrationNumber != null ? !registrationNumber.equals(that.registrationNumber) : that.registrationNumber != null)
             return false;
         if (capacity != null ? !capacity.equals(that.capacity) : that.capacity != null) return false;
         if (status != that.status) return false;
+        if (currentCity != null ? !currentCity.equals(that.currentCity) : that.currentCity != null) return false;
+        if (primaryDriver != null ? !primaryDriver.equals(that.primaryDriver) : that.primaryDriver != null)
+            return false;
+        if (coDriver != null ? !coDriver.equals(that.coDriver) : that.coDriver != null) return false;
         return location != null ? location.equals(that.location) : that.location == null;
     }
 
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (model != null ? model.hashCode() : 0);
+        result = 31 * result + (dateOfIssue != null ? dateOfIssue.hashCode() : 0);
         result = 31 * result + (registrationNumber != null ? registrationNumber.hashCode() : 0);
         result = 31 * result + (capacity != null ? capacity.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
+        result = 31 * result + (currentCity != null ? currentCity.hashCode() : 0);
+        result = 31 * result + (primaryDriver != null ? primaryDriver.hashCode() : 0);
+        result = 31 * result + (coDriver != null ? coDriver.hashCode() : 0);
         result = 31 * result + (location != null ? location.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
-        return "Vehicle{" +
-                "registrationNumber='" + registrationNumber + '\'' +
+        return "VehicleEntity{" +
+                "id=" + id +
+                ", model='" + model + '\'' +
+                ", dateOfIssue=" + dateOfIssue +
+                ", registrationNumber='" + registrationNumber + '\'' +
                 ", capacity=" + capacity +
                 ", status=" + status +
                 ", currentCity='" + currentCity + '\'' +
+                ", primaryDriver=" + primaryDriver +
+                ", coDriver=" + coDriver +
+                ", loads=" + loads +
+                ", location=" + location +
                 '}';
     }
 }

@@ -127,7 +127,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="location_id" type="BIGINT"/>
-            <column name="registration_number" type="VARCHAR(7)" >
+            <column name="registration_number" type="VARCHAR(7)">
                 <constraints nullable="false" unique="true"/>
             </column>
             <column name="status" type="VARCHAR">
@@ -164,10 +164,20 @@
     </changeSet>
 
     <changeSet author="Marina" id="41">
-        <addForeignKeyConstraint baseColumnNames="location_id" baseTableName="loads" constraintName="locations_loads_fk" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="locations"/>
-        <addForeignKeyConstraint baseColumnNames="location_id" baseTableName="vehicles" constraintName="locations_vehicles_fk" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="locations"/>
-        <addForeignKeyConstraint baseColumnNames="vehicle_id" baseTableName="drivers" constraintName="vehicles_drivers_fk" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="vehicles"/>
-        <addForeignKeyConstraint baseColumnNames="vehicle_id" baseTableName="loads" constraintName="vehicles_loads_fk" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="vehicles"/>
+        <addForeignKeyConstraint baseColumnNames="location_id" baseTableName="loads" constraintName="locations_loads_fk"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="locations"/>
+        <addForeignKeyConstraint baseColumnNames="location_id" baseTableName="vehicles"
+                                 constraintName="locations_vehicles_fk" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id"
+                                 referencedTableName="locations"/>
+        <addForeignKeyConstraint baseColumnNames="vehicle_id" baseTableName="drivers"
+                                 constraintName="vehicles_drivers_fk" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id"
+                                 referencedTableName="vehicles"/>
+        <addForeignKeyConstraint baseColumnNames="vehicle_id" baseTableName="loads" constraintName="vehicles_loads_fk"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="vehicles"/>
     </changeSet>
 
     <changeSet id="90" author="Marina">
@@ -209,4 +219,25 @@
         <dropColumn tableName="drivers" columnName="last_name"/>
     </changeSet>
 
+    <changeSet id="93" author="Marina">
+        <preConditions>
+            <not>
+                <columnExists tableName="vehicles" columnName="primary_driver_id"/>
+                <columnExists tableName="vehicles" columnName="co_driver_id"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="vehicles">
+            <column name="primary_driver_id" type="BIGINT">
+            </column>
+            <column name="co_driver_id" type="BIGINT">
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="94" author="Marina">
+        <preConditions>
+            <columnExists tableName="drivers" columnName="vehicle_id"/>
+        </preConditions>
+        <dropColumn tableName="drivers" columnName="vehicle_id"/>
+    </changeSet>
 </databaseChangeLog>

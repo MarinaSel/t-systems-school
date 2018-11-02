@@ -74,13 +74,15 @@ public class LoadController {
 
             if (drivingLicenseNumPrimary != null && drivingLicenseNumPrimary.length() > 0) {
                 Driver primaryDriver = driverService.findByDrivingLicenseNum(drivingLicenseNumPrimary);
-                primaryDriver.setVehicle(vehicle);
+                vehicle.setPrimaryDriver(primaryDriver);
+                vehicleService.save(vehicle);
                 driverService.save(primaryDriver);
             }
             if (drivingLicenseNumSecond != null && drivingLicenseNumSecond.length() > 0) {
-                Driver secondDriver = driverService.findByDrivingLicenseNum(drivingLicenseNumSecond);
-                secondDriver.setVehicle(vehicle);
-                driverService.save(secondDriver);
+                Driver coDriver = driverService.findByDrivingLicenseNum(drivingLicenseNumSecond);
+                vehicle.setCoDriver(coDriver);
+                vehicleService.save(vehicle);
+                driverService.save(coDriver);
             }
         }
         loadService.save(load);

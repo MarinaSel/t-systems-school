@@ -30,8 +30,6 @@ public final class VehicleMapper {
         }
         Vehicle vehicle = commonFields(vehicleEntity);
         vehicle.setLoads(LoadMapper.mapEntitySetToModelSet(vehicleEntity.getLoads()));
-        vehicle.setDrivers(DriverMapper.mapEntitySetToModelSet(vehicleEntity.getDrivers()));
-
         return vehicle;
     }
 
@@ -47,7 +45,6 @@ public final class VehicleMapper {
             return null;
         }
         Vehicle vehicle = commonFields(vehicleEntity);
-        vehicle.setDrivers(DriverMapper.mapEntitySetToModelSet(vehicleEntity.getDrivers()));
 
         return vehicle;
     }
@@ -72,6 +69,8 @@ public final class VehicleMapper {
         vehicle.setCreationDate(vehicleEntity.getCreationDate());
         vehicle.setModel(vehicleEntity.getModel());
         vehicle.setDateOfIssue(vehicleEntity.getDateOfIssue());
+        vehicle.setPrimaryDriver(DriverMapper.mapEntityToModel(vehicleEntity.getPrimaryDriver()));
+        vehicle.setCoDriver(DriverMapper.mapEntityToModel(vehicleEntity.getCoDriver()));
 
         return vehicle;
     }
@@ -95,6 +94,9 @@ public final class VehicleMapper {
         vehicleEntity.setCreationDate(vehicle.getCreationDate());
         vehicleEntity.setModel(vehicle.getModel());
         vehicleEntity.setDateOfIssue(vehicle.getDateOfIssue());
+        vehicleEntity.setPrimaryDriver(DriverMapper.mapModelToEntity(vehicle.getPrimaryDriver()));
+        vehicleEntity.setCoDriver(DriverMapper.mapModelToEntity(vehicle.getCoDriver()));
+
 
         return vehicleEntity;
     }

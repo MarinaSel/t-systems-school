@@ -15,7 +15,6 @@ public class Driver extends BaseModel {
     @Size(max = 50, message = "Driving license number is invalid")
     private String drivingLicenseNum;
     private DriverStatus status;
-    private Vehicle vehicle;
 
     @NotNull(message = "License end date cannot be null")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -25,12 +24,12 @@ public class Driver extends BaseModel {
     public Driver() {
     }
 
-    public Driver(Long id, String drivingLicenseNum, DriverStatus status, Vehicle vehicle, Date licenseEndDate) {
+    public Driver(Long id, String drivingLicenseNum, DriverStatus status, Date licenseEndDate, User user) {
         this.id = id;
         this.drivingLicenseNum = drivingLicenseNum;
         this.status = status;
-        this.vehicle = vehicle;
         this.licenseEndDate = licenseEndDate;
+        this.user = user;
     }
 
     public Long getId() {
@@ -39,14 +38,6 @@ public class Driver extends BaseModel {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Vehicle getVehicle() {
-        return vehicle;
-    }
-
-    public void setVehicle(Vehicle vehicle) {
-        this.vehicle = vehicle;
     }
 
     public String getDrivingLicenseNum() {
@@ -87,7 +78,6 @@ public class Driver extends BaseModel {
                 "id=" + id +
                 ", drivingLicenseNum='" + drivingLicenseNum + '\'' +
                 ", status=" + status +
-                ", vehicle=" + vehicle +
                 ", licenseEndDate=" + licenseEndDate +
                 ", user=" + user +
                 '}';
@@ -104,7 +94,6 @@ public class Driver extends BaseModel {
         if (drivingLicenseNum != null ? !drivingLicenseNum.equals(driver.drivingLicenseNum) : driver.drivingLicenseNum != null)
             return false;
         if (status != driver.status) return false;
-        if (vehicle != null ? !vehicle.equals(driver.vehicle) : driver.vehicle != null) return false;
         if (licenseEndDate != null ? !licenseEndDate.equals(driver.licenseEndDate) : driver.licenseEndDate != null)
             return false;
         return user != null ? user.equals(driver.user) : driver.user == null;
@@ -115,7 +104,6 @@ public class Driver extends BaseModel {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (drivingLicenseNum != null ? drivingLicenseNum.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
-        result = 31 * result + (vehicle != null ? vehicle.hashCode() : 0);
         result = 31 * result + (licenseEndDate != null ? licenseEndDate.hashCode() : 0);
         result = 31 * result + (user != null ? user.hashCode() : 0);
         return result;

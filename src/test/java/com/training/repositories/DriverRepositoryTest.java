@@ -46,9 +46,9 @@ public class DriverRepositoryTest {
     public void createAndFind() {
         userRepository.saveAndFlush(userEntity);
         DriverEntity newDriver = new DriverEntity(
-                "licNumber", date, DriverStatus.FREE, null, userEntity);
+                "licNumber", date, DriverStatus.FREE, userEntity);
         DriverEntity expectedDriver = new DriverEntity(
-                "licNumber", date, DriverStatus.FREE, null, userEntity);
+                "licNumber", date, DriverStatus.FREE, userEntity);
 
         driverRepository.saveAndFlush(newDriver);
         expectedDriver.setId(newDriver.getId());
@@ -59,9 +59,9 @@ public class DriverRepositoryTest {
     public void updateAndDelete() {
         userRepository.saveAndFlush(userEntity);
         DriverEntity newDriver = new DriverEntity(
-                "licNum", date, DriverStatus.FREE, null, userEntity);
+                "licNum", date, DriverStatus.FREE, userEntity);
         DriverEntity expectedDriver = new DriverEntity(
-                "licNum1", date, DriverStatus.FREE, null, userEntity);
+                "licNum1", date, DriverStatus.FREE, userEntity);
         driverRepository.saveAndFlush(newDriver);
         Long id = newDriver.getId();
 
@@ -78,16 +78,16 @@ public class DriverRepositoryTest {
     public void findAllByStatus() {
         userRepository.saveAndFlush(userEntity);
         DriverEntity driverEntity1 = new DriverEntity(
-                "licNumber", date, DriverStatus.FREE, null, userEntity);
+                "licNumber", date, DriverStatus.FREE, userEntity);
         DriverEntity driverEntity2 = new DriverEntity(
-                "licNumber1", date, DriverStatus.FREE, null, userEntity);
+                "licNumber1", date, DriverStatus.FREE, userEntity);
 
         driverRepository.saveAndFlush(driverEntity1);
         driverRepository.saveAndFlush(driverEntity2);
         List<DriverEntity> driverEntities = driverRepository.findAllByStatus(DriverStatus.FREE);
 
-        DriverEntity expectedDriver1 = new DriverEntity("licNumber", date, DriverStatus.FREE, null, userEntity);
-        DriverEntity expectedDriver2 = new DriverEntity("licNumber1", date, DriverStatus.FREE, null, userEntity);
+        DriverEntity expectedDriver1 = new DriverEntity("licNumber", date, DriverStatus.FREE, userEntity);
+        DriverEntity expectedDriver2 = new DriverEntity("licNumber1", date, DriverStatus.FREE, userEntity);
 
         expectedDriver1.setId(driverEntity1.getId());
         expectedDriver2.setId(driverEntity2.getId());
@@ -98,7 +98,7 @@ public class DriverRepositoryTest {
 
     @Test(expected = ValidationException.class)
     public void createDriverWithNullProperties() {
-        driverRepository.saveAndFlush(new DriverEntity(null, null, null, null, null));
+        driverRepository.saveAndFlush(new DriverEntity(null, null, null, null));
     }
 
 }

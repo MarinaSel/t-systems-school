@@ -10,11 +10,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -50,10 +47,6 @@ public class DriverEntity extends BaseEntity {
     @Column(name = "current_city")
     private String currentCity;
 
-    @ManyToOne
-    @JoinColumn(name = "vehicle_id")
-    private VehicleEntity vehicle;
-
     @NotNull(message = "User cannot be null")
     @OneToOne
     private UserEntity user;
@@ -61,25 +54,17 @@ public class DriverEntity extends BaseEntity {
     public DriverEntity() {
     }
 
-    public DriverEntity(String drivingLicenseNum, Date licenseEndDate, DriverStatus status, VehicleEntity vehicle,
+    public DriverEntity(String drivingLicenseNum, Date licenseEndDate, DriverStatus status,
                         UserEntity user) {
         this.drivingLicenseNum = drivingLicenseNum;
         this.licenseEndDate = licenseEndDate;
         this.status = status;
-        this.vehicle = vehicle;
         this.user = user;
     }
 
     @PrePersist
     public void prePersist() {
         status = DriverStatus.FREE;
-    }
-
-    @PreUpdate
-    public void preUpdate() {
-        if (vehicle != null) {
-            status = DriverStatus.WORK;
-        }
     }
 
     public Long getId() {
@@ -122,14 +107,6 @@ public class DriverEntity extends BaseEntity {
         this.currentCity = currentCity;
     }
 
-    public VehicleEntity getVehicle() {
-        return vehicle;
-    }
-
-    public void setVehicle(VehicleEntity vehicle) {
-        this.vehicle = vehicle;
-    }
-
     public UserEntity getUser() {
         return user;
     }
@@ -151,7 +128,8 @@ public class DriverEntity extends BaseEntity {
         if (licenseEndDate != null ? !licenseEndDate.equals(that.licenseEndDate) : that.licenseEndDate != null)
             return false;
         if (status != that.status) return false;
-        return vehicle != null ? vehicle.equals(that.vehicle) : that.vehicle == null;
+        if (currentCity != null ? !currentCity.equals(that.currentCity) : that.currentCity != null) return false;
+        return user != null ? user.equals(that.user) : that.user == null;
     }
 
     @Override
@@ -161,7 +139,6 @@ public class DriverEntity extends BaseEntity {
         result = 31 * result + (licenseEndDate != null ? licenseEndDate.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
         result = 31 * result + (currentCity != null ? currentCity.hashCode() : 0);
-        result = 31 * result + (vehicle != null ? vehicle.hashCode() : 0);
         return result;
     }
 
@@ -173,7 +150,6 @@ public class DriverEntity extends BaseEntity {
                 ", licenseEndDate=" + licenseEndDate +
                 ", status=" + status +
                 ", currentCity='" + currentCity + '\'' +
-                ", vehicle=" + vehicle +
                 '}';
     }
 }

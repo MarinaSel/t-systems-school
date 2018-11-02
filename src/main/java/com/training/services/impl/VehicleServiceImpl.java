@@ -101,14 +101,19 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     public void checkVehicleIfEndedDelivery(VehicleEntity vehicleEntity) {
         if (vehicleEntity.getLoads() == null || vehicleEntity.getLoads().isEmpty()) {
-            Set<DriverEntity> drivers = vehicleEntity.getDrivers();
-            for (DriverEntity driverEntity : drivers) {
-                driverEntity.setStatus(DriverStatus.FREE);
-                driverEntity.setVehicle(null);
-                driverRepository.saveAndFlush(driverEntity);
-            }
-            vehicleEntity.getDrivers().clear();
+            DriverEntity primaryDriver = vehicleEntity.getPrimaryDriver();
+            DriverEntity coDriver = vehicleEntity.getCoDriver();
+
+            primaryDriver.setStatus(DriverStatus.FREE);
+            coDriver.setStatus(DriverStatus.FREE);
+
+            driverRepository.saveAndFlush(primaryDriver);
+            driverRepository.saveAndFlush(coDriver);
+
+            vehicleEntity.setPrimaryDriver(null);
+            vehicleEntity.setCoDriver(null);
             vehicleEntity.setStatus(VehicleStatus.FREE);
+
             vehicleRepository.saveAndFlush(vehicleEntity);
         }
     }
