@@ -27,6 +27,7 @@
         <tr>
             <td>
                 <input type="hidden" name="id" value="${editableDriver.id}"/>
+                <input type="hidden" name="id" value="${editableUser.id}"/>
             </td>
             <td>
                 <input type="hidden" name="creationDate" value="${editableDriver.creationDate}">
