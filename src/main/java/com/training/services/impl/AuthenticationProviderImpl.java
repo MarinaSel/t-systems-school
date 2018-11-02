@@ -12,6 +12,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -26,6 +27,9 @@ public class AuthenticationProviderImpl implements AuthenticationProvider {
     @Autowired
     private DriverRepository driverRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String login = authentication.getName();
@@ -35,7 +39,7 @@ public class AuthenticationProviderImpl implements AuthenticationProvider {
         if (userEntity == null) {
             throw new UsernameNotFoundException("Wrong login");
         }
-        if (!password.equals(userEntity.getPassword())) {
+        if (!passwordEncoder.matches(password, userEntity.getPassword())) {
             throw new BadCredentialsException("Wrong password");
         }
         List<GrantedAuthority> authorities = new ArrayList<>();

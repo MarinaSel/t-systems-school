@@ -11,6 +11,7 @@ import com.training.services.DriverService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +33,9 @@ public class DriverServiceImpl implements DriverService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public Driver get(Long id) {
         Driver driver = mapEntityToModel(driverRepository.getOne(id));
@@ -44,7 +48,7 @@ public class DriverServiceImpl implements DriverService {
         DriverEntity driverEntity = mapModelToEntity(driver);
         UserEntity userEntity = UserMapper.mapModelToEntity(driver.getUser());
 
-        userRepository.saveAndFlush(userEntity);
+        encodeAndSaveUser(userEntity);
         driverEntity.setUser(userEntity);
         driverRepository.saveAndFlush(driverEntity);
 
@@ -81,5 +85,10 @@ public class DriverServiceImpl implements DriverService {
         Driver driver = mapEntityToModel(driverRepository.findByDrivingLicenseNum(drivingLicenseNum));
         logger.info("Found driver with driving license number = {}", drivingLicenseNum);
         return driver;
+    }
+
+    private void encodeAndSaveUser(UserEntity userEntity) {
+        userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
+        userRepository.saveAndFlush(userEntity);
     }
 }
