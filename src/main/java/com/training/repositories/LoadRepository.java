@@ -6,7 +6,10 @@ import org.springframework.stereotype.Repository;
 
 
 /**
- * Interface for load extends base JpaRepository with CRUD operations.
+ * Interface that extends JpaRepository and defines methods for operations with loads.
+ *
+ * @see JpaRepository
+ * @see LoadEntity
  */
 @Repository
 public interface LoadRepository extends JpaRepository<LoadEntity, Long> {

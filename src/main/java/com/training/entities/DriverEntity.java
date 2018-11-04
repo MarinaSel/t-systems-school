@@ -5,20 +5,21 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
+
+import static javax.persistence.EnumType.STRING;
+import static javax.persistence.GenerationType.SEQUENCE;
+import static javax.persistence.TemporalType.DATE;
 
 @Entity
 @Table(name = "drivers")
@@ -26,7 +27,7 @@ public class DriverEntity extends BaseEntity {
 
     @Id
     @SequenceGenerator(name = "drivers_id_seq", sequenceName = "drivers_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "drivers_id_seq")
+    @GeneratedValue(strategy = SEQUENCE, generator = "drivers_id_seq")
     private Long id;
 
     @NotNull(message = "Driving license number cannot be null")
@@ -35,12 +36,12 @@ public class DriverEntity extends BaseEntity {
     private String drivingLicenseNum;
 
     @NotNull(message = "License end date cannot be null")
-    @Temporal(TemporalType.DATE)
+    @Temporal(DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "license_end_date", nullable = false)
     private Date licenseEndDate;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(STRING)
     @Column(name = "status", nullable = false)
     private DriverStatus status;
 
@@ -54,8 +55,7 @@ public class DriverEntity extends BaseEntity {
     public DriverEntity() {
     }
 
-    public DriverEntity(String drivingLicenseNum, Date licenseEndDate, DriverStatus status,
-                        UserEntity user) {
+    public DriverEntity(String drivingLicenseNum, Date licenseEndDate, DriverStatus status, UserEntity user) {
         this.drivingLicenseNum = drivingLicenseNum;
         this.licenseEndDate = licenseEndDate;
         this.status = status;

@@ -7,8 +7,9 @@ import java.util.Date;
 
 
 public class DateSettingListener {
+
     /**
-     * This method is used for automatically setting creation date before other actions.
+     * Sets creation date before persisting entities.
      *
      * @param entity to set creation date
      * @see BaseEntity

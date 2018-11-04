@@ -6,50 +6,50 @@ import com.training.models.Vehicle;
 import java.util.List;
 
 /**
- * Interface for vehicle service which describes operations for Vehicle objects extends BaseService with CRUD operations.
+ * Interface that extends BaseService and defines methods for operations with vehicles.
+ *
+ * @see BaseService
+ * @see Vehicle
  */
 public interface VehicleService extends BaseService<Vehicle, Long> {
 
     /**
-     * Method returns all vehicles.
+     * Finds all vehicles.
      *
-     * @return list of Vehicle objects
+     * @return List of Vehicle objects
      */
     List<Vehicle> getAll();
 
     /**
-     * Method returns list of Vehicle objects (with status 'FREE') available for load.
+     * Finds vehicles with status 'FREE'.
      *
-     * @param necessaryCapacity load weight
+     * @param necessaryCapacity Integer object with capacity for search
      * @return list of Vehicle objects
      */
-    List<Vehicle> getAllFreeWithNecessaryCapacityAndDrivers(Integer necessaryCapacity);
+    List<Vehicle> getAllFreeWithNecessaryCapacity(Integer necessaryCapacity);
 
     /**
-     * Method returns Vehicle object with necessary registration number.
+     * Finds vehicle by registration number.
      *
-     * @param registrationNumber vehicle registration number
-     * @return vehicle
+     * @param registrationNumber String object with registration number for search
+     * @return Vehicle object with specified registration number
      */
     Vehicle findByRegistrationNumber(String registrationNumber);
 
     /**
-     * Method checks set of loads and if was delivered last load,
-     * sets drivers status 'FREE',
-     * removes this drivers from set of drivers,
-     * sets vehicle status 'FREE'.
-     * Used when we complete the order.
+     * Checks loads of vehicle and if all loads have been delivered
+     * then sets drivers statuses to 'FREE' abd removes them from vehicle,
+     * sets vehicle status 'FREE'. Used when completing an order.
      *
-     * @param vehicleEntity checking object
+     * @param vehicleEntity VehicleEntity object to be checked
      */
-    void checkVehicleIfEndedDelivery(VehicleEntity vehicleEntity);
+    void checkIfCompletedDelivery(VehicleEntity vehicleEntity);
 
     /**
-     * Method sets vehicle status "WORKING" and sets loads status 'IN_PROGRESS'.
-     * Used when we begin delivery
+     * Sets vehicle status to "WORKING" and sets all its loads statuses
+     * to 'IN_PROGRESS'. Used when starting delivery.
      *
-     * @param id vehicle id
-     * @return vehicle
+     * @param id Long object - id of vehicle to be updated
      */
-    Vehicle changeVehicleStatusForBeginDelivery(Long id);
+    void changeStatusWhenStartingDelivery(Long id);
 }

@@ -19,6 +19,6 @@ public class VehicleResource {
 
     @GetMapping
     public List<Vehicle> getVehicles(@RequestParam(value = "weight") Integer weight) {
-        return vehicleService.getAllFreeWithNecessaryCapacityAndDrivers(weight);
+        return vehicleService.getAllFreeWithNecessaryCapacity(weight);
     }
 }

@@ -3,11 +3,12 @@ package com.training.entities;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
 @Table(name = "users")
@@ -15,7 +16,7 @@ public class UserEntity implements Validatable {
 
     @Id
     @SequenceGenerator(name = "users_id_seq", sequenceName = "users_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_id_seq")
+    @GeneratedValue(strategy = SEQUENCE, generator = "users_id_seq")
     private Long id;
 
     @NotNull(message = "First name cannot be null")

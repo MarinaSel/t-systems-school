@@ -41,10 +41,10 @@
             </td>
         </tr>
         <tr>
-            <th align="left">Date of issue</th>
+            <th align="left">Issue date</th>
             <td>
-                <input name="dateOfIssue" id="vehicledte" value="${editableVehicle.dateOfIssue}"
-                       placeholder="Choose the date of issue" required readonly="true">
+                <input name="issueDate" id="vehicledte" value="${editableVehicle.issueDate}"
+                       placeholder="Choose the issue date" required readonly="true">
             </td>
         </tr>
         <tr>

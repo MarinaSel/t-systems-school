@@ -11,6 +11,11 @@ import java.util.Set;
 
 public class ValidatingListener {
 
+    /**
+     * Validates entities before persisting or updating them.
+     *
+     * @param validatable entity to be validated
+     */
     @PrePersist
     @PreUpdate
     public void validate(Validatable validatable) {

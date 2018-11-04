@@ -7,8 +7,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Utility class that describes static methods for mapping VehicleEntity object from Vehicle object
- * and Vehicle object from VehicleEntity object.
+ * Utility class that provides static methods for mapping VehicleEntity objects to Vehicle objects
+ * and Vehicle objects to VehicleEntity objects.
  *
  * @see VehicleEntity
  * @see Vehicle
@@ -19,10 +19,10 @@ public final class VehicleMapper {
     }
 
     /**
-     * Method maps VehicleEntity object to Vehicle object.
+     * Maps VehicleEntity object to Vehicle object.
      *
-     * @param vehicleEntity VehicleEntity to be mapped
-     * @return vehicle
+     * @param vehicleEntity VehicleEntity object to be mapped
+     * @return Vehicle object - result of mapping
      */
     public static Vehicle mapEntityToModel(VehicleEntity vehicleEntity) {
         if (vehicleEntity == null) {
@@ -34,87 +34,75 @@ public final class VehicleMapper {
     }
 
     /**
-     * Method maps VehicleEntity object to simple Vehicle model without set of loads.
+     * Maps VehicleEntity object to simple Vehicle object without set of loads.
      *
-     * @param vehicleEntity VehicleEntity to be mapped
-     * @return vehicle
+     * @param vehicleEntity VehicleEntity object to be mapped
+     * @return Vehicle object - result of mapping
      */
-    public static Vehicle mapEntityToSimpleModel(VehicleEntity vehicleEntity) {
-
+    static Vehicle mapEntityToSimpleModel(VehicleEntity vehicleEntity) {
         if (vehicleEntity == null) {
             return null;
         }
-        Vehicle vehicle = commonFields(vehicleEntity);
-
-        return vehicle;
+        return commonFields(vehicleEntity);
     }
 
     /**
-     * Method maps common fields for simple Vehicle model and Vehicle model with set of loads.
+     * Maps common fields for Vehicle object and sinple Vehicle object.
      *
-     * @param vehicleEntity VehicleEntity to be mapped
-     * @return vehicle
+     * @param vehicleEntity VehicleEntity object to be mapped
+     * @return Vehicle object - result of mapping
      */
     private static Vehicle commonFields(VehicleEntity vehicleEntity) {
-
         if (vehicleEntity == null) {
             return null;
         }
         Vehicle vehicle = new Vehicle();
-
         vehicle.setId(vehicleEntity.getId());
         vehicle.setRegistrationNumber(vehicleEntity.getRegistrationNumber());
         vehicle.setCapacity(vehicleEntity.getCapacity());
         vehicle.setStatus(vehicleEntity.getStatus());
         vehicle.setCreationDate(vehicleEntity.getCreationDate());
         vehicle.setModel(vehicleEntity.getModel());
-        vehicle.setDateOfIssue(vehicleEntity.getDateOfIssue());
+        vehicle.setIssueDate(vehicleEntity.getIssueDate());
         vehicle.setPrimaryDriver(DriverMapper.mapEntityToModel(vehicleEntity.getPrimaryDriver()));
         vehicle.setCoDriver(DriverMapper.mapEntityToModel(vehicleEntity.getCoDriver()));
-
         return vehicle;
     }
 
     /**
-     * Method maps Vehicle object to VehicleEntity object.
+     * Maps Vehicle object to VehicleEntity object.
      *
-     * @param vehicle Vehicle to be mapped
-     * @return vehicleEntity
+     * @param vehicle Vehicle object to be mapped
+     * @return VehicleEntity object - result of mapping
      */
     public static VehicleEntity mapModelToEntity(Vehicle vehicle) {
         if (vehicle == null) {
             return null;
         }
         VehicleEntity vehicleEntity = new VehicleEntity();
-
         vehicleEntity.setId(vehicle.getId());
         vehicleEntity.setRegistrationNumber(vehicle.getRegistrationNumber());
         vehicleEntity.setCapacity(vehicle.getCapacity());
         vehicleEntity.setStatus(vehicle.getStatus());
         vehicleEntity.setCreationDate(vehicle.getCreationDate());
         vehicleEntity.setModel(vehicle.getModel());
-        vehicleEntity.setDateOfIssue(vehicle.getDateOfIssue());
+        vehicleEntity.setIssueDate(vehicle.getIssueDate());
         vehicleEntity.setPrimaryDriver(DriverMapper.mapModelToEntity(vehicle.getPrimaryDriver()));
         vehicleEntity.setCoDriver(DriverMapper.mapModelToEntity(vehicle.getCoDriver()));
-
-
         return vehicleEntity;
     }
 
     /**
-     * Method maps list of VehicleEntity objects to list of Vehicle objects.
+     * Maps List of VehicleEntity objects to List of Vehicle objects.
      *
-     * @param vehicleEntities list of VehicleEntity objects
-     * @return vehicles list of Vehicle objects
+     * @param vehicleEntities List of VehicleEntity objects to be mapped
+     * @return List of Vehicle objects - result of mapping
      */
     public static List<Vehicle> mapEntityListToModelList(List<VehicleEntity> vehicleEntities) {
         List<Vehicle> vehicles = new LinkedList<>();
-
         for (VehicleEntity vehicleEntity : vehicleEntities) {
             vehicles.add(mapEntityToModel(vehicleEntity));
         }
-
         return vehicles;
     }
-
 }

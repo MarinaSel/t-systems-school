@@ -5,23 +5,24 @@ import com.training.models.Load;
 import java.util.List;
 
 /**
- * Interface for load service which describes operations for Load objects extends BaseService with CRUD operations.
+ * Interface that extends BaseService and defines methods for operations with loads.
+ *
+ * @see BaseService
+ * @see Load
  */
 public interface LoadService extends BaseService<Load, Long> {
 
     /**
-     * Method for deleting Vehicle object from load.
-     * Used when we want to complete the order.
+     * Deletes vehicle from load. Used when completing an order.
      *
-     * @param id load id
-     * @return load
+     * @param id Long object - id of load to be updated
      */
-    Load deleteVehicleFromLoad(Long id);
+    void deleteVehicleFromLoad(Long id);
 
     /**
-     * Method for finding all Load objects
+     * Finds all loads.
      *
-     * @return list
+     * @return List of Load objects
      */
     List<Load> getAll();
 }

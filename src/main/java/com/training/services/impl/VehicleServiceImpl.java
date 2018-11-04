@@ -29,7 +29,7 @@ import static com.training.mappers.VehicleMapper.mapModelToEntity;
 @Transactional
 public class VehicleServiceImpl implements VehicleService {
 
-    private final static Logger logger = LogManager.getLogger(VehicleServiceImpl.class);
+    private final static Logger LOGGER = LogManager.getLogger(VehicleServiceImpl.class);
 
     @Autowired
     private VehicleRepository vehicleRepository;
@@ -40,7 +40,7 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     public Vehicle get(Long id) {
         Vehicle vehicle = mapEntityToModel(vehicleRepository.getOne(id));
-        logger.info("Found vehicle with id = {}", vehicle.getId());
+        LOGGER.info("Found vehicle with id = {}", vehicle.getId());
         return vehicle;
     }
 
@@ -50,9 +50,9 @@ public class VehicleServiceImpl implements VehicleService {
         vehicleRepository.saveAndFlush(vehicleEntity);
 
         if (vehicle.getId() == null) {
-            logger.info("Created vehicle with id = {}", vehicleEntity.getId());
+            LOGGER.info("Created vehicle with id = {}", vehicleEntity.getId());
         } else {
-            logger.info("Updated vehicle with id = {}", vehicle.getId());
+            LOGGER.info("Updated vehicle with id = {}", vehicleEntity.getId());
         }
         mapEntityToModel(vehicleEntity);
     }
@@ -60,46 +60,44 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     public void remove(Long id) {
         vehicleRepository.deleteById(id);
-        logger.info("Deleted vehicle with id = {}", id);
+        LOGGER.info("Deleted vehicle with id = {}", id);
     }
 
     @Override
     public List<Vehicle> getAll() {
         List<Vehicle> vehicles = mapEntityListToModelList(vehicleRepository.findAll());
-        logger.info("Found all vehicles");
+        LOGGER.info("Found all vehicles");
         return vehicles;
     }
 
     @Override
-    public List<Vehicle> getAllFreeWithNecessaryCapacityAndDrivers(Integer necessaryCapacity) {
+    public List<Vehicle> getAllFreeWithNecessaryCapacity(Integer necessaryCapacity) {
         List<Vehicle> vehicles = mapEntityListToModelList(vehicleRepository.findAllByStatus(VehicleStatus.FREE));
         Iterator<Vehicle> iterator = vehicles.iterator();
 
         while (iterator.hasNext()) {
             Vehicle vehicle = iterator.next();
-
             int sumWeight = 0;
             for (Load load : vehicle.getLoads()) {
                 sumWeight += load.getWeight();
             }
-
             if ((vehicle.getCapacity() - sumWeight < necessaryCapacity)) {
                 iterator.remove();
             }
         }
-        logger.info("Found all vehicles with capacity = {} and status FREE", necessaryCapacity);
+        LOGGER.info("Found all vehicles with capacity = {} and status FREE", necessaryCapacity);
         return vehicles;
     }
 
     @Override
     public Vehicle findByRegistrationNumber(String registrationNumber) {
         Vehicle vehicle = mapEntityToModel(vehicleRepository.findVehicleEntityByRegistrationNumber(registrationNumber));
-        logger.info("Found vehicle by registration number = {}", registrationNumber);
+        LOGGER.info("Found vehicle by registration number = {}", registrationNumber);
         return vehicle;
     }
 
     @Override
-    public void checkVehicleIfEndedDelivery(VehicleEntity vehicleEntity) {
+    public void checkIfCompletedDelivery(VehicleEntity vehicleEntity) {
         if (vehicleEntity.getLoads() == null || vehicleEntity.getLoads().isEmpty()) {
             DriverEntity primaryDriver = vehicleEntity.getPrimaryDriver();
             DriverEntity coDriver = vehicleEntity.getCoDriver();
@@ -119,7 +117,7 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public Vehicle changeVehicleStatusForBeginDelivery(Long id) {
+    public void changeStatusWhenStartingDelivery(Long id) {
         VehicleEntity vehicleEntity = vehicleRepository.getOne(id);
         if (vehicleEntity.getLoads() != null && !vehicleEntity.getLoads().isEmpty()) {
             vehicleEntity.setStatus(VehicleStatus.WORKING);
@@ -129,6 +127,5 @@ public class VehicleServiceImpl implements VehicleService {
             }
             vehicleRepository.saveAndFlush(vehicleEntity);
         }
-        return mapEntityToModel(vehicleEntity);
     }
 }

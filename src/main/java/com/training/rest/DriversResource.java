@@ -12,6 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/driver")
 public class DriversResource {
+
     @Autowired
     private DriverService driverService;
 

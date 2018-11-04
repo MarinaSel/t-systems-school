@@ -5,11 +5,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
 
 /**
- * This class describes the general field for Driver, Vehicle and Load.
+ * Class that provides a common creation date field for model classes.
  *
- * @see Driver
- * @see Vehicle
- * @see Load
  */
 public abstract class BaseModel {
 

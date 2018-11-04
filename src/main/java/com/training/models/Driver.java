@@ -9,16 +9,16 @@ import java.util.Date;
 
 public class Driver extends BaseModel {
 
-    private Long id;
-
     @NotNull(message = "Driving license number cannot be null")
     @Size(max = 50, message = "Driving license number is invalid")
     private String drivingLicenseNum;
-    private DriverStatus status;
 
     @NotNull(message = "License end date cannot be null")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date licenseEndDate;
+
+    private Long id;
+    private DriverStatus status;
     private User user;
 
     public Driver() {
@@ -91,7 +91,8 @@ public class Driver extends BaseModel {
         Driver driver = (Driver) o;
 
         if (id != null ? !id.equals(driver.id) : driver.id != null) return false;
-        if (drivingLicenseNum != null ? !drivingLicenseNum.equals(driver.drivingLicenseNum) : driver.drivingLicenseNum != null)
+        if (drivingLicenseNum != null ? !drivingLicenseNum.equals(driver.drivingLicenseNum) :
+                driver.drivingLicenseNum != null)
             return false;
         if (status != driver.status) return false;
         if (licenseEndDate != null ? !licenseEndDate.equals(driver.licenseEndDate) : driver.licenseEndDate != null)

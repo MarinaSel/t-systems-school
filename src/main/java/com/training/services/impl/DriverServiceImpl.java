@@ -3,6 +3,7 @@ package com.training.services.impl;
 import com.training.entities.DriverEntity;
 import com.training.entities.UserEntity;
 import com.training.entities.enums.DriverStatus;
+import com.training.mappers.DriverMapper;
 import com.training.mappers.UserMapper;
 import com.training.models.Driver;
 import com.training.repositories.DriverRepository;
@@ -19,13 +20,12 @@ import java.util.List;
 
 import static com.training.mappers.DriverMapper.mapEntityListToModelList;
 import static com.training.mappers.DriverMapper.mapEntityToModel;
-import static com.training.mappers.DriverMapper.mapModelToEntity;
 
 @Service
 @Transactional
 public class DriverServiceImpl implements DriverService {
 
-    private final static Logger logger = LogManager.getLogger(DriverServiceImpl.class);
+    private final static Logger LOGGER = LogManager.getLogger(DriverServiceImpl.class);
 
     @Autowired
     private DriverRepository driverRepository;
@@ -39,13 +39,13 @@ public class DriverServiceImpl implements DriverService {
     @Override
     public Driver get(Long id) {
         Driver driver = mapEntityToModel(driverRepository.getOne(id));
-        logger.info("Got driver with id = {}", driver.getId());
+        LOGGER.info("Got driver with id = {}", driver.getId());
         return driver;
     }
 
     @Override
     public void save(Driver driver) {
-        DriverEntity driverEntity = mapModelToEntity(driver);
+        DriverEntity driverEntity = DriverMapper.mapModelToEntity(driver);
         UserEntity userEntity = UserMapper.mapModelToEntity(driver.getUser());
 
         encodeAndSaveUser(userEntity);
@@ -53,37 +53,36 @@ public class DriverServiceImpl implements DriverService {
         driverRepository.saveAndFlush(driverEntity);
 
         if (driver.getId() == null) {
-            logger.info("Created driver with id = {}", driverEntity.getId());
+            LOGGER.info("Created driver with id = {}", driverEntity.getId());
         } else {
-            logger.info("Updated driver with id = {}", driver.getId());
+            LOGGER.info("Updated driver with id = {}", driverEntity.getId());
         }
-        mapEntityToModel(driverEntity);
     }
 
     @Override
     public void remove(Long id) {
         driverRepository.deleteById(id);
-        logger.info("Deleted driver with id = {}", id);
+        LOGGER.info("Deleted driver with id = {}", id);
     }
 
     @Override
     public List<Driver> getAll() {
         List<Driver> drivers = mapEntityListToModelList(driverRepository.findAll());
-        logger.info("Found all drivers");
+        LOGGER.info("Found all drivers");
         return drivers;
     }
 
     @Override
     public List<Driver> getAllFree() {
         List<Driver> drivers = mapEntityListToModelList(driverRepository.findAllByStatus(DriverStatus.FREE));
-        logger.info("Found all drivers with status FREE");
+        LOGGER.info("Found all drivers with status FREE");
         return drivers;
     }
 
     @Override
     public Driver findByDrivingLicenseNum(String drivingLicenseNum) {
         Driver driver = mapEntityToModel(driverRepository.findByDrivingLicenseNum(drivingLicenseNum));
-        logger.info("Found driver with driving license number = {}", drivingLicenseNum);
+        LOGGER.info("Found driver with driving license number = {}", drivingLicenseNum);
         return driver;
     }
 

@@ -1,27 +1,31 @@
 package com.training.entities.enums;
 
+import com.training.entities.LoadEntity;
+
 /**
  * Enum with load statuses.
  *
- * @see com.training.entities.LoadEntity
+ * @see LoadEntity
  */
 public enum LoadStatus {
+
     /**
-     * Means that the vehicle is not assigned to load.
+     * Means that the load is not assigned to any vehicle.
      */
     NOT_ASSIGNED,
 
     /**
-     * Means that the vehicle is assigned to load, but delivery hasn't started.
+     * Means that the load is assigned to a vehicle, but delivery hasn't started yet.
      */
     ASSIGNED,
+
     /**
-     * Means that delivery has started.
+     * Means that delivery of the load has started.
      */
     IN_PROGRESS,
 
     /**
-     * Means that load delivered.
+     * Means that the load has been delivered.
      */
     DONE
 }

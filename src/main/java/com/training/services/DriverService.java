@@ -5,24 +5,32 @@ import com.training.models.Driver;
 import java.util.List;
 
 /**
- * Interface for driver service which describes operations for Driver objects extends BaseService with CRUD operations.
+ * Interface that extends BaseService and defines methods for operations with drivers.
+ *
+ * @see BaseService
+ * @see Driver
  */
 public interface DriverService extends BaseService<Driver, Long> {
 
     /**
-     * Method for finding all drivers.
+     * Finds all drivers.
+     *
+     * @return List of all found Driver objects
      */
     List<Driver> getAll();
 
     /**
-     * Method for finding all drivers wiith status 'FREE'.
+     * Finds all drivers with status 'FREE'.
+     *
+     * @return List of found Driver objects with status 'FREE'
      */
     List<Driver> getAllFree();
 
     /**
-     * Method for finding driver by driving license number.
+     * Finds driver by driving license number.
      *
-     * @param drivingLicenseNum driving license number for search
+     * @param drivingLicenseNum String object with driving license number for search
+     * @return Driver object with specified id
      */
     Driver findByDrivingLicenseNum(String drivingLicenseNum);
 

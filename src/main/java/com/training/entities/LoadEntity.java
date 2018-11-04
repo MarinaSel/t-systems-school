@@ -5,10 +5,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -17,9 +15,12 @@ import javax.persistence.PreUpdate;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+
+import static javax.persistence.EnumType.STRING;
+import static javax.persistence.GenerationType.SEQUENCE;
+import static javax.persistence.TemporalType.DATE;
 
 @Entity
 @Table(name = "loads")
@@ -27,7 +28,7 @@ public class LoadEntity extends BaseEntity {
 
     @Id
     @SequenceGenerator(name = "loads_id_seq", sequenceName = "loads_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "loads_id_seq")
+    @GeneratedValue(strategy = SEQUENCE, generator = "loads_id_seq")
     private Long id;
 
     @NotNull(message = "Title cannot be null")
@@ -39,12 +40,12 @@ public class LoadEntity extends BaseEntity {
     private String description;
 
     @NotNull(message = "Day od delivery cannot be null")
-    @Temporal(TemporalType.DATE)
+    @Temporal(DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "date_of_delivery", nullable = false)
     private Date dayOfDelivery;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(STRING)
     @Column(name = "status", nullable = false)
     private LoadStatus status;
 
@@ -59,7 +60,8 @@ public class LoadEntity extends BaseEntity {
     public LoadEntity() {
     }
 
-    public LoadEntity(String title, String description, Date dayOfDelivery, LoadStatus status, Integer weight, VehicleEntity vehicle) {
+    public LoadEntity(String title, String description, Date dayOfDelivery, LoadStatus status, Integer weight,
+                      VehicleEntity vehicle) {
         this.title = title;
         this.description = description;
         this.dayOfDelivery = dayOfDelivery;

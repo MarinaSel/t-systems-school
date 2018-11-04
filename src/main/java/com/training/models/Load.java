@@ -8,8 +8,6 @@ import java.util.Date;
 
 public class Load extends BaseModel {
 
-    private Long id;
-
     @NotNull(message = "Title cannot be null")
     private String title;
 
@@ -22,13 +20,16 @@ public class Load extends BaseModel {
 
     @NotNull(message = "Weight cannot be null")
     private Integer weight;
+
+    private Long id;
     private LoadStatus status;
     private Vehicle vehicle;
 
     public Load() {
     }
 
-    public Load(Long id, String title, String description, Date dayOfDelivery, Integer weight, LoadStatus status, Vehicle vehicle) {
+    public Load(Long id, String title, String description, Date dayOfDelivery, Integer weight, LoadStatus status,
+                Vehicle vehicle) {
         this.id = id;
         this.title = title;
         this.description = description;

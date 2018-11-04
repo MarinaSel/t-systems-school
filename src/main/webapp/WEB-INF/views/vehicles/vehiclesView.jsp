@@ -21,7 +21,7 @@
     <thead>
     <tr>
         <th>Model</th>
-        <th>Date of issue</th>
+        <th>Issue date</th>
         <th>Registration number</th>
         <th>Capacity (kg)</th>
         <th>Status</th>
@@ -34,7 +34,7 @@
     <c:forEach items="${vehicles}" var="vehicle">
         <tr>
             <td>${vehicle.model}</td>
-            <td>${vehicle.dateOfIssue}</td>
+            <td>${vehicle.issueDate}</td>
             <td>${vehicle.registrationNumber}</td>
             <td>${vehicle.capacity}</td>
             <td>${vehicle.status}</td>

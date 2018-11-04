@@ -23,7 +23,7 @@ import static com.training.mappers.LoadMapper.mapModelToEntity;
 @Transactional
 public class LoadServiceImpl implements LoadService {
 
-    private final static Logger logger = LogManager.getLogger(LoadServiceImpl.class);
+    private final static Logger LOGGER = LogManager.getLogger(LoadServiceImpl.class);
 
     @Autowired
     private LoadRepository loadRepository;
@@ -34,7 +34,7 @@ public class LoadServiceImpl implements LoadService {
     @Override
     public Load get(Long id) {
         Load load = mapEntityToModel(loadRepository.getOne(id));
-        logger.info("Got load with id = {}", load.getId());
+        LOGGER.info("Got load with id = {}", load.getId());
         return load;
     }
 
@@ -43,9 +43,9 @@ public class LoadServiceImpl implements LoadService {
         LoadEntity loadEntity = mapModelToEntity(load);
         loadRepository.saveAndFlush(loadEntity);
         if (load.getId() == null) {
-            logger.info("Created load with id = {}", loadEntity.getId());
+            LOGGER.info("Created load with id = {}", loadEntity.getId());
         } else {
-            logger.info("Updated load with id = {}", load.getId());
+            LOGGER.info("Updated load with id = {}", loadEntity.getId());
         }
         mapEntityToModel(loadEntity);
     }
@@ -53,29 +53,28 @@ public class LoadServiceImpl implements LoadService {
     @Override
     public void remove(Long id) {
         loadRepository.deleteById(id);
-        logger.info("Deleted load with id = {}", id);
+        LOGGER.info("Deleted load with id = {}", id);
     }
 
     @Override
     public List<Load> getAll() {
         List<Load> loads = mapEntityListToModelList(loadRepository.findAll());
-        logger.info("Found all loads");
+        LOGGER.info("Found all loads");
         return loads;
     }
 
     @Override
-    public Load deleteVehicleFromLoad(Long id) {
+    public void deleteVehicleFromLoad(Long id) {
 
         // TODO change to repository method
         LoadEntity loadEntity = loadRepository.getOne(id);
         VehicleEntity vehicleEntity = loadEntity.getVehicle();
         if (vehicleEntity != null) {
             vehicleEntity.getLoads().remove(loadEntity);
-            vehicleService.checkVehicleIfEndedDelivery(vehicleEntity);
+            vehicleService.checkIfCompletedDelivery(vehicleEntity);
             loadEntity.setVehicle(null);
             loadEntity.setStatus(LoadStatus.DONE);
             loadRepository.saveAndFlush(loadEntity);
         }
-        return mapEntityToModel(loadEntity);
     }
 }

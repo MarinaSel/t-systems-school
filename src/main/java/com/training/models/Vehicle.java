@@ -12,24 +12,24 @@ import java.util.Set;
 public class Vehicle extends BaseModel {
 
     private Long id;
-
-    @Size(min = 7, max = 7, message = "Registration number is invalid")
-    @NotNull(message = "Registration number cannot be null")
-    private String registrationNumber;
-
-    private Integer capacity;
-
-    @NotNull(message = "Capacity cannot be null")
-    private VehicleStatus status;
-
     private String model;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date dateOfIssue;
-
     private Driver primaryDriver;
     private Driver coDriver;
     private Set<Load> loads = new HashSet<>();
+
+    @NotNull(message = "Capacity cannot be null")
+    private Integer capacity;
+
+    @NotNull(message = "Registration number cannot be null")
+    @Size(min = 7, max = 7, message = "Registration number is invalid")
+    private String registrationNumber;
+
+    @NotNull(message = "Status cannot be null")
+    private VehicleStatus status;
+
+    @NotNull(message = "Issue date cannot be null")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date issueDate;
 
     public Vehicle(Long id, String registrationNumber, Integer capacity, VehicleStatus status, String model, Date date) {
         this.id = id;
@@ -37,7 +37,7 @@ public class Vehicle extends BaseModel {
         this.capacity = capacity;
         this.status = status;
         this.model = model;
-        this.dateOfIssue = date;
+        this.issueDate = date;
     }
 
     public Vehicle() {
@@ -107,12 +107,12 @@ public class Vehicle extends BaseModel {
         this.model = model;
     }
 
-    public Date getDateOfIssue() {
-        return dateOfIssue;
+    public Date getIssueDate() {
+        return issueDate;
     }
 
-    public void setDateOfIssue(Date dateOfIssue) {
-        this.dateOfIssue = dateOfIssue;
+    public void setIssueDate(Date issueDate) {
+        this.issueDate = issueDate;
     }
 
     @Override
@@ -123,12 +123,13 @@ public class Vehicle extends BaseModel {
         Vehicle vehicle = (Vehicle) o;
 
         if (id != null ? !id.equals(vehicle.id) : vehicle.id != null) return false;
-        if (registrationNumber != null ? !registrationNumber.equals(vehicle.registrationNumber) : vehicle.registrationNumber != null)
+        if (registrationNumber != null ? !registrationNumber.equals(vehicle.registrationNumber) :
+                vehicle.registrationNumber != null)
             return false;
         if (capacity != null ? !capacity.equals(vehicle.capacity) : vehicle.capacity != null) return false;
         if (status != vehicle.status) return false;
         if (model != null ? !model.equals(vehicle.model) : vehicle.model != null) return false;
-        if (dateOfIssue != null ? !dateOfIssue.equals(vehicle.dateOfIssue) : vehicle.dateOfIssue != null) return false;
+        if (issueDate != null ? !issueDate.equals(vehicle.issueDate) : vehicle.issueDate != null) return false;
         if (primaryDriver != null ? !primaryDriver.equals(vehicle.primaryDriver) : vehicle.primaryDriver != null)
             return false;
         if (coDriver != null ? !coDriver.equals(vehicle.coDriver) : vehicle.coDriver != null) return false;
@@ -142,7 +143,7 @@ public class Vehicle extends BaseModel {
         result = 31 * result + (capacity != null ? capacity.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
         result = 31 * result + (model != null ? model.hashCode() : 0);
-        result = 31 * result + (dateOfIssue != null ? dateOfIssue.hashCode() : 0);
+        result = 31 * result + (issueDate != null ? issueDate.hashCode() : 0);
         result = 31 * result + (primaryDriver != null ? primaryDriver.hashCode() : 0);
         result = 31 * result + (coDriver != null ? coDriver.hashCode() : 0);
         result = 31 * result + (loads != null ? loads.hashCode() : 0);
@@ -157,7 +158,7 @@ public class Vehicle extends BaseModel {
                 ", capacity=" + capacity +
                 ", status=" + status +
                 ", model='" + model + '\'' +
-                ", dateOfIssue=" + dateOfIssue +
+                ", issueDate=" + issueDate +
                 ", primaryDriver=" + primaryDriver +
                 ", coDriver=" + coDriver +
                 ", loads=" + loads +

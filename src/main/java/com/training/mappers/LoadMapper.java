@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Utility class that describes static methods for mapping LoadEntity objects from Load objects
- * and Load objects from LoadEntity objects.
+ * Utility class that provides static methods for mapping LoadEntity objects to Load objects
+ * and Load objects to LoadEntity objects.
  *
  * @see LoadEntity
  * @see Load
@@ -21,16 +21,15 @@ public final class LoadMapper {
     }
 
     /**
-     * Method maps Load object to LoadEntity object.
+     * Maps Load object to LoadEntity object.
      *
      * @param load Load object to be mapped
-     * @return loadEntity
+     * @return LoadEntity object - result of mapping
      */
     public static LoadEntity mapModelToEntity(Load load) {
         if (load == null)
             return null;
         LoadEntity loadEntity = new LoadEntity();
-
         loadEntity.setId(load.getId());
         loadEntity.setTitle(load.getTitle());
         loadEntity.setDescription(load.getDescription());
@@ -39,52 +38,45 @@ public final class LoadMapper {
         loadEntity.setStatus(load.getStatus());
         loadEntity.setCreationDate(load.getCreationDate());
         loadEntity.setVehicle(VehicleMapper.mapModelToEntity(load.getVehicle()));
-
         return loadEntity;
     }
 
     /**
-     * Method maps LoadEntity object to Load object.
+     * Maps LoadEntity object to Load object.
      *
-     * @param loadEntity LoadEntity to be mapped
-     * @return load
+     * @param loadEntity LoadEntity object to be mapped
+     * @return Load object - result of mapping
      */
     public static Load mapEntityToModel(LoadEntity loadEntity) {
-
         if (loadEntity == null) {
             return null;
         }
         Load load = commonFields(loadEntity);
-
         load.setVehicle(VehicleMapper.mapEntityToSimpleModel(loadEntity.getVehicle()));
-
         return load;
     }
 
     /**
-     * Method maps LoadEntity object to simple Load model without set of loads.
+     * Maps LoadEntity object to simple Load object.
      *
-     * @param loadEntity LoadEntity to be mapped
-     * @return load
+     * @param loadEntity LoadEntity object to be mapped
+     * @return Load object - result of mapping
      */
     private static Load mapEntityToSimpleModel(LoadEntity loadEntity) {
-
         if (loadEntity == null) {
             return null;
         }
-
         return commonFields(loadEntity);
     }
 
     /**
-     * Method maps common fields for simple Load model and Load model with set of loads.
+     * Maps common fields for simple Load object and Load object.
      *
-     * @param loadEntity LoadEntity to be mapped
-     * @return load
+     * @param loadEntity LoadEntity object to be mapped
+     * @return Load object - result of mapping
      */
     private static Load commonFields(LoadEntity loadEntity) {
         Load load = new Load();
-
         load.setId(loadEntity.getId());
         load.setTitle(loadEntity.getTitle());
         load.setDescription(loadEntity.getDescription());
@@ -93,45 +85,38 @@ public final class LoadMapper {
         load.setStatus(loadEntity.getStatus());
         load.setCreationDate(loadEntity.getCreationDate());
         load.setVehicle(VehicleMapper.mapEntityToSimpleModel(loadEntity.getVehicle()));
-
         return load;
 
     }
 
     /**
-     * Method maps list of LoadEntity objects to list of Load objects.
+     * Maps List of LoadEntity objects to List of Load objects.
      *
-     * @param loadEntities list of LoadEntity objects
-     * @return loads list of Load objects
+     * @param loadEntities List of LoadEntity objects to be mapped
+     * @return List of Load objects - result of mapping
      */
     public static List<Load> mapEntityListToModelList(List<LoadEntity> loadEntities) {
         List<Load> loads = new LinkedList<>();
-
-        for (LoadEntity loadEntity :
-                loadEntities) {
+        for (LoadEntity loadEntity : loadEntities) {
             loads.add(mapEntityToModel(loadEntity));
         }
-
         return loads;
     }
 
     /**
-     * Methods maps set of LoadEntity objects to set of Load objects
+     * Maps Set of LoadEntity objects to Set of Load objects.
      *
-     * @param loadEntities set of LoadEntity objects
-     * @return loads set of Load objects
+     * @param loadEntities Set of LoadEntity objects to be mapped
+     * @return Set of Load objects - result of mapping
      */
-    public static Set<Load> mapEntitySetToModelSet(Set<LoadEntity> loadEntities) {
+    static Set<Load> mapEntitySetToModelSet(Set<LoadEntity> loadEntities) {
         if (loadEntities == null) {
             return null;
         }
         Set<Load> loads = new HashSet<>();
-
-        for (LoadEntity loadEntity :
-                loadEntities) {
+        for (LoadEntity loadEntity : loadEntities) {
             loads.add(mapEntityToSimpleModel(loadEntity));
         }
-
         return loads;
     }
 }

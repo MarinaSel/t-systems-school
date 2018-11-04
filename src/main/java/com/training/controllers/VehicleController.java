@@ -2,7 +2,6 @@ package com.training.controllers;
 
 import com.training.entities.enums.VehicleStatus;
 import com.training.models.Vehicle;
-import com.training.services.DriverService;
 import com.training.services.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,29 +13,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.List;
-
 @Controller
 public class VehicleController {
 
     @Autowired
     private VehicleService vehicleService;
 
-    @Autowired
-    private DriverService driverService;
-
     @GetMapping("/vehicles")
-    public ModelAndView allVehiclesView() {
-        List<Vehicle> vehicles = vehicleService.getAll();
-        return new ModelAndView("vehiclesView").addObject("vehicles", vehicles);
+    public ModelAndView getAllVehiclesView() {
+        return new ModelAndView("vehiclesView").addObject("vehicles", vehicleService.getAll());
     }
 
     @GetMapping("/editVehicle/{id}")
     public ModelAndView getVehicleById(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
-        Vehicle vehicleToEdit = vehicleService.get(id);
-        VehicleStatus[] statuses = VehicleStatus.values();
-        redirectAttributes.addFlashAttribute("statuses", statuses);
-        redirectAttributes.addFlashAttribute("editableVehicle", vehicleToEdit);
+        redirectAttributes.addFlashAttribute("statuses", VehicleStatus.values());
+        redirectAttributes.addFlashAttribute("editableVehicle", vehicleService.get(id));
         return new ModelAndView("redirect:/getSaveVehiclePage");
     }
 
@@ -58,15 +49,14 @@ public class VehicleController {
     }
 
     @GetMapping("/removeVehicle/{id}")
-    public ModelAndView deleteVehicle(@PathVariable("id") Long id) {
+    public ModelAndView removeVehicle(@PathVariable("id") Long id) {
         vehicleService.remove(id);
         return new ModelAndView("redirect:/vehicles");
     }
 
     @GetMapping("/sent/{id}")
     public ModelAndView beginDelivery(@PathVariable("id") Long id) {
-        Vehicle vehicle = vehicleService.changeVehicleStatusForBeginDelivery(id);
-        vehicleService.save(vehicle);
+        vehicleService.changeStatusWhenStartingDelivery(id);
         return new ModelAndView("redirect:/loads");
     }
 }

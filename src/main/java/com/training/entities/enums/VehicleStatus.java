@@ -1,23 +1,26 @@
 package com.training.entities.enums;
 
+import com.training.entities.VehicleEntity;
+
 /**
  * Enum with vehicle statuses.
  *
- * @see com.training.entities.VehicleEntity
+ * @see VehicleEntity
  */
 public enum VehicleStatus {
+
     /**
-     * Means that vehicle is ready to load.
+     * Means that the vehicle is available.
      */
     FREE("FREE"),
 
     /**
-     * Means that vehicle is delivering the load.
+     * Means that the vehicle is delivering load(s).
      */
     WORKING("WORKING"),
 
     /**
-     * Means that vehicle is broken and can't be loaded.
+     * Means that the vehicle is broken and not available.
      */
     BROKEN("BROKEN");
 

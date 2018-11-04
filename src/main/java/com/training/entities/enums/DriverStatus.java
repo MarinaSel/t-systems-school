@@ -1,27 +1,31 @@
 package com.training.entities.enums;
 
+import com.training.entities.DriverEntity;
+
 /**
  * Enumeration with driver statuses.
  *
- * @see com.training.entities.DriverEntity
+ * @see DriverEntity
  */
 public enum DriverStatus {
+
     /**
-     * Means that driver works but not driving now.
+     * Means that the driver is not available.
      */
     REST("REST"),
 
     /**
-     * Means that driver fulfills order(s).
+     * Means that the driver is fulfilling order(s).
      */
     WORK("WORK"),
 
     /**
-     * Means that driver is driving now.
+     * Means that the driver is driving now.
      */
     DRIVING("DRIVING"),
+
     /**
-     * Means that driver hasn't got order(s).
+     * Means that the driver is available.
      */
     FREE("FREE");
 
@@ -34,5 +38,4 @@ public enum DriverStatus {
     public String getStatus() {
         return status;
     }
-
 }

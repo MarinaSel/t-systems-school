@@ -198,11 +198,11 @@
             <artifactId>javax.el-api</artifactId>
             <version>${el-api.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.glassfish.web</groupId>
             <artifactId>javax.el</artifactId>
             <version>${glassfish.el.version}</version>
         </dependency>
-
     </dependencies>
 </project>

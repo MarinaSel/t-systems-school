@@ -21,7 +21,6 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-
         registry.addResourceHandler("/resources/**").addResourceLocations("/WEB-INF/static/");
     }
 
@@ -30,7 +29,6 @@ public class WebConfig implements WebMvcConfigurer {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
         viewResolver.setPrefix("/WEB-INF/views/");
         viewResolver.setSuffix(".jsp");
-
         registry.viewResolver(viewResolver);
     }
 

@@ -8,16 +8,13 @@ import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+import static javax.persistence.TemporalType.DATE;
+
 /**
- * This class describes the general field for DriverEntity, VehicleEntity and LoadEntity.
- *
- * @see DriverEntity
- * @see VehicleEntity
- * @see LoadEntity
+ * Class that provides a common creation date field for entities.
  */
 @MappedSuperclass
 @EntityListeners({DateSettingListener.class, ValidatingListener.class})
@@ -25,7 +22,7 @@ public abstract class BaseEntity implements Validatable {
 
     @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Temporal(TemporalType.DATE)
+    @Temporal(DATE)
     @Column(name = "creation_date", nullable = false)
     private Date creationDate;
 

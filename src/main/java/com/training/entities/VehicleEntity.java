@@ -5,10 +5,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -18,28 +16,33 @@ import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import static javax.persistence.EnumType.STRING;
+import static javax.persistence.GenerationType.SEQUENCE;
+import static javax.persistence.TemporalType.DATE;
+
 @Entity
 @Table(name = "vehicles")
 public class VehicleEntity extends BaseEntity {
+
     @Id
     @SequenceGenerator(name = "vehicles_id_seq", sequenceName = "vehicles_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "vehicles_id_seq")
+    @GeneratedValue(strategy = SEQUENCE, generator = "vehicles_id_seq")
     private Long id;
 
     @Column(name = "model", nullable = false, length = 20)
     private String model;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "Issue date cannot be null")
     @Column(name = "date_of_issue", nullable = false)
-    private Date dateOfIssue;
+    private Date issueDate;
 
     @Size(max = 7, message = "Registration number is invalid")
     @NotNull(message = "Registration number cannot be null")
@@ -50,7 +53,7 @@ public class VehicleEntity extends BaseEntity {
     @Column(name = "capacity", nullable = false)
     private Integer capacity;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(STRING)
     @Column(name = "status", nullable = false)
     private VehicleStatus status;
 
@@ -75,9 +78,9 @@ public class VehicleEntity extends BaseEntity {
     public VehicleEntity() {
     }
 
-    public VehicleEntity(String model, Date dateOfIssue, String registrationNumber, Integer capacity, VehicleStatus status) {
+    public VehicleEntity(String model, Date issueDate, String registrationNumber, Integer capacity, VehicleStatus status) {
         this.model = model;
-        this.dateOfIssue = dateOfIssue;
+        this.issueDate = issueDate;
         this.registrationNumber = registrationNumber;
         this.capacity = capacity;
         this.status = status;
@@ -104,12 +107,12 @@ public class VehicleEntity extends BaseEntity {
         this.model = model;
     }
 
-    public Date getDateOfIssue() {
-        return dateOfIssue;
+    public Date getIssueDate() {
+        return issueDate;
     }
 
-    public void setDateOfIssue(Date dateOfIssue) {
-        this.dateOfIssue = dateOfIssue;
+    public void setIssueDate(Date issueDate) {
+        this.issueDate = issueDate;
     }
 
     public String getRegistrationNumber() {
@@ -185,7 +188,7 @@ public class VehicleEntity extends BaseEntity {
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (model != null ? !model.equals(that.model) : that.model != null) return false;
-        if (dateOfIssue != null ? !dateOfIssue.equals(that.dateOfIssue) : that.dateOfIssue != null) return false;
+        if (issueDate != null ? !issueDate.equals(that.issueDate) : that.issueDate != null) return false;
         if (registrationNumber != null ? !registrationNumber.equals(that.registrationNumber) : that.registrationNumber != null)
             return false;
         if (capacity != null ? !capacity.equals(that.capacity) : that.capacity != null) return false;
@@ -201,7 +204,7 @@ public class VehicleEntity extends BaseEntity {
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (model != null ? model.hashCode() : 0);
-        result = 31 * result + (dateOfIssue != null ? dateOfIssue.hashCode() : 0);
+        result = 31 * result + (issueDate != null ? issueDate.hashCode() : 0);
         result = 31 * result + (registrationNumber != null ? registrationNumber.hashCode() : 0);
         result = 31 * result + (capacity != null ? capacity.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
@@ -217,7 +220,7 @@ public class VehicleEntity extends BaseEntity {
         return "VehicleEntity{" +
                 "id=" + id +
                 ", model='" + model + '\'' +
-                ", dateOfIssue=" + dateOfIssue +
+                ", issueDate=" + issueDate +
                 ", registrationNumber='" + registrationNumber + '\'' +
                 ", capacity=" + capacity +
                 ", status=" + status +

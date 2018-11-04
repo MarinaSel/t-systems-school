@@ -18,6 +18,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
+import static org.springframework.util.StringUtils.isEmpty;
+
 @Controller
 public class LoadController {
 
@@ -31,23 +33,17 @@ public class LoadController {
     private DriverService driverService;
 
     @GetMapping("/editLoad/{id}")
-    public ModelAndView getLoadById(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+    public ModelAndView editLoad(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
         Load loadToEdit = loadService.get(id);
-        String registrationNumber = "";
-        List<Vehicle> vehicles = vehicleService.getAllFreeWithNecessaryCapacityAndDrivers(loadToEdit.getWeight());
+        List<Vehicle> vehicles = vehicleService.getAllFreeWithNecessaryCapacity(loadToEdit.getWeight());
         List<Driver> drivers = driverService.getAllFree();
-
-        String drivingLicenseNumPrimary = "";
-        String drivingLicenseNumSecond = "";
 
         redirectAttributes.addFlashAttribute("editableLoad", loadToEdit);
         redirectAttributes.addFlashAttribute("freeVehicles", vehicles);
         redirectAttributes.addFlashAttribute("freeDrivers", drivers);
-        redirectAttributes.addFlashAttribute("drivingLicenseNumPrimary", drivingLicenseNumPrimary);
-        redirectAttributes.addFlashAttribute("drivingLicenseNumSecond", drivingLicenseNumSecond);
-
-        redirectAttributes.addFlashAttribute("regNum", registrationNumber);
-
+        redirectAttributes.addFlashAttribute("drivingLicenseNumPrimary", "");
+        redirectAttributes.addFlashAttribute("drivingLicenseNumSecond", "");
+        redirectAttributes.addFlashAttribute("regNum", "");
         return new ModelAndView("redirect:/getSaveLoadPage");
     }
 
@@ -62,23 +58,24 @@ public class LoadController {
         return new ModelAndView("saveLoadView").addAllObjects(model.asMap());
     }
 
+    //TODO move business logic to service
     @PostMapping(value = "/saveLoad")
     public ModelAndView saveLoad(@ModelAttribute("editableLoad") Load load,
                                  @ModelAttribute("regNum") String registrationNumber,
                                  @ModelAttribute("drivingLicenseNumPrimary") String drivingLicenseNumPrimary,
                                  @ModelAttribute("drivingLicenseNumSecond") String drivingLicenseNumSecond) {
 
-        if (registrationNumber != null && registrationNumber.length() != 0) {
+        if (isEmpty(registrationNumber)) {
             Vehicle vehicle = vehicleService.findByRegistrationNumber(registrationNumber);
             load.setVehicle(vehicle);
 
-            if (drivingLicenseNumPrimary != null && drivingLicenseNumPrimary.length() > 0) {
+            if (isEmpty(drivingLicenseNumPrimary)) {
                 Driver primaryDriver = driverService.findByDrivingLicenseNum(drivingLicenseNumPrimary);
                 vehicle.setPrimaryDriver(primaryDriver);
                 vehicleService.save(vehicle);
                 driverService.save(primaryDriver);
             }
-            if (drivingLicenseNumSecond != null && drivingLicenseNumSecond.length() > 0) {
+            if (isEmpty(drivingLicenseNumSecond)) {
                 Driver coDriver = driverService.findByDrivingLicenseNum(drivingLicenseNumSecond);
                 vehicle.setCoDriver(coDriver);
                 vehicleService.save(vehicle);
@@ -90,15 +87,13 @@ public class LoadController {
     }
 
     @GetMapping("/loads")
-    public ModelAndView viewAllLoads() {
-        List<Load> loads = loadService.getAll();
-        return new ModelAndView("loadsView").addObject("loads", loads);
+    public ModelAndView getAllLoadsPage() {
+        return new ModelAndView("loadsView").addObject("loads", loadService.getAll());
     }
 
     @GetMapping("/delivered/{id}")
     public ModelAndView deliveredLoad(@PathVariable("id") Long id) {
-        Load load = loadService.deleteVehicleFromLoad(id);
-        loadService.save(load);
+        loadService.deleteVehicleFromLoad(id);
         return new ModelAndView("redirect:/loads");
     }
 

@@ -1,10 +1,21 @@
 package com.training.models;
 
+import javax.validation.constraints.NotNull;
+
 public class User {
+
     private Long id;
+
+    @NotNull(message = "First name cannot be null")
     private String firstName;
+
+    @NotNull(message = "Last name cannot be null")
     private String lastName;
+
+    @NotNull(message = "Login cannot be null")
     private String login;
+
+    @NotNull(message = "Password cannot be null")
     private String password;
 
     public User() {

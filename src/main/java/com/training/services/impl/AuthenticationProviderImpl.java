@@ -18,6 +18,9 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class that implements AuthenticationProvider and is used for users authentication.
+ */
 @Service("customAuthenticationProvider")
 public class AuthenticationProviderImpl implements AuthenticationProvider {
 
@@ -33,12 +36,13 @@ public class AuthenticationProviderImpl implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String login = authentication.getName();
-        String password = authentication.getCredentials().toString();
         UserEntity userEntity = userRepository.findByLogin(login);
 
         if (userEntity == null) {
             throw new UsernameNotFoundException("Wrong login");
         }
+        String password = authentication.getCredentials().toString();
+
         if (!passwordEncoder.matches(password, userEntity.getPassword())) {
             throw new BadCredentialsException("Wrong password");
         }
@@ -49,7 +53,6 @@ public class AuthenticationProviderImpl implements AuthenticationProvider {
             authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         }
         return new UsernamePasswordAuthenticationToken(login, password, authorities);
-
     }
 
     @Override

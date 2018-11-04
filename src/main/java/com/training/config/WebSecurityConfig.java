@@ -11,7 +11,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 @EnableWebSecurity
-@ComponentScan(basePackages = {"com.training.services", "com.training.repositories"}, basePackageClasses = DataConfig.class)
+@ComponentScan(basePackages = {"com.training.services", "com.training.repositories"},
+        basePackageClasses = DataConfig.class)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
