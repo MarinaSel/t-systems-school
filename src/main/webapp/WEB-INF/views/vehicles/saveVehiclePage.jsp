@@ -30,7 +30,7 @@
         <tr>
             <th align="left">Model</th>
             <td>
-                <input name="model" value="${editableVehicle.model}" placeholder="Enter the vehicles model"
+                <input name="model" value="${editableVehicle.model}" placeholder="Vehicles model"
                        maxlength="10" autocomplete="off" required>
             </td>
         </tr>
@@ -38,15 +38,15 @@
             <th align="left">Issue date</th>
             <td>
                 <input name="issueDate" id="issueDate" value="${editableVehicle.issueDate}"
-                       placeholder="Choose the issue date" required readonly="true">
+                       placeholder="Issue date" required readonly="true">
             </td>
         </tr>
         <tr>
             <th align="left">Registration number</th>
             <td>
                 <input name="registrationNumber" value="${editableVehicle.registrationNumber}"
-                       placeholder="Enter the registration number"
-                       title="Example: AA12345" pattern="[A-Za-z]{2}[0-9]{5}"
+                       placeholder="AA12345"
+                       title="Example:AA12345 " pattern="[A-Za-z]{2}[0-9]{5}"
                        maxlength="7" minlength="7" autocomplete="off" required/>
             </td>
         </tr>
@@ -54,7 +54,7 @@
             <th align="left">Capacity (kg)</th>
             <td>
                 <input name="capacity" type="number" value="${editableVehicle.capacity}"
-                       placeholder="Enter the capacity"
+                       placeholder="Capacity"
                        min="1" max="22000"
                        title="Must contains only digits and can't be null" autocomplete="off" required/>
             </td>

@@ -33,7 +33,7 @@
         <tr>
             <th align="left">Title</th>
             <td>
-                <input name="title" value="${editableLoad.title}" placeholder="Enter the title"
+                <input name="title" value="${editableLoad.title}" placeholder="Title"
                        maxlength="255" autocomplete="off" required/>
             </td>
         </tr>
@@ -41,7 +41,7 @@
         <tr>
             <th align="left">Description</th>
             <td>
-                <input name="description" value="${editableLoad.description}" placeholder="Enter the description"
+                <input name="description" value="${editableLoad.description}" placeholder="Description"
                        maxlength="255" autocomplete="off" required/>
             </td>
         </tr>
@@ -50,7 +50,7 @@
             <th align="left">Day of delivery</th>
             <td>
                 <input name="dayOfDelivery" id="date" value="${editableLoad.dayOfDelivery}"
-                       placeholder="Choose the day of delivery" required readonly/>
+                       placeholder="Day of delivery" required readonly/>
             </td>
         </tr>
         <tr>
@@ -58,7 +58,7 @@
             <td>
                 <input id="vehicleWeight" type="number" name="weight" value="${editableLoad.weight}"
                        oninput="getVehicle()"
-                       min="1" max="22000" placeholder="Enter the weight"
+                       min="1" max="22000" placeholder="Weight"
                        autocomplete="off" required/>
             </td>
         </tr>
