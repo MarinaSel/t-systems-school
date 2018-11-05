@@ -36,6 +36,8 @@
         <h2db.version>1.4.197</h2db.version>
         <el-api.version>3.0.1-b06</el-api.version>
         <glassfish.el.version>2.2.6</glassfish.el.version>
+
+        <apache.commons.verion>4.2</apache.commons.verion>
     </properties>
 
     <build>
@@ -203,6 +205,12 @@
             <groupId>org.glassfish.web</groupId>
             <artifactId>javax.el</artifactId>
             <version>${glassfish.el.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>${apache.commons.verion}</version>
         </dependency>
     </dependencies>
 </project>

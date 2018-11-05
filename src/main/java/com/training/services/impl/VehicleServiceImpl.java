@@ -24,6 +24,7 @@ import java.util.Set;
 import static com.training.mappers.VehicleMapper.mapEntityListToModelList;
 import static com.training.mappers.VehicleMapper.mapEntityToModel;
 import static com.training.mappers.VehicleMapper.mapModelToEntity;
+import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 
 @Service
 @Transactional
@@ -98,7 +99,7 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     public void checkIfCompletedDelivery(VehicleEntity vehicleEntity) {
-        if (vehicleEntity.getLoads() == null || vehicleEntity.getLoads().isEmpty()) {
+        if (isEmpty(vehicleEntity.getLoads())) {
             DriverEntity primaryDriver = vehicleEntity.getPrimaryDriver();
             DriverEntity coDriver = vehicleEntity.getCoDriver();
 
@@ -119,7 +120,7 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     public void changeStatusWhenStartingDelivery(Long id) {
         VehicleEntity vehicleEntity = vehicleRepository.getOne(id);
-        if (vehicleEntity.getLoads() != null && !vehicleEntity.getLoads().isEmpty()) {
+        if (!isEmpty(vehicleEntity.getLoads())) {
             vehicleEntity.setStatus(VehicleStatus.WORKING);
             Set<LoadEntity> loads = vehicleEntity.getLoads();
             for (LoadEntity load : loads) {
