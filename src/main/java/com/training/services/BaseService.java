@@ -14,7 +14,7 @@ public interface BaseService<T, Long> {
      * @param id id for search
      * @return found object
      */
-    T get(Long id);
+    T find(Long id);
 
     /**
      * Creates new object or updates existing one.

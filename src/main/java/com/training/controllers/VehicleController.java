@@ -21,13 +21,13 @@ public class VehicleController {
 
     @GetMapping("/vehicles")
     public ModelAndView getAllVehiclesPage() {
-        return new ModelAndView("vehiclesPage").addObject("vehicles", vehicleService.getAll());
+        return new ModelAndView("vehiclesPage").addObject("vehicles", vehicleService.findAll());
     }
 
     @GetMapping("/editVehicle/{id}")
     public ModelAndView editVehicle(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("statuses", VehicleStatus.values());
-        redirectAttributes.addFlashAttribute("editableVehicle", vehicleService.get(id));
+        redirectAttributes.addFlashAttribute("editableVehicle", vehicleService.find(id));
         return new ModelAndView("redirect:/getSaveVehiclePage");
     }
 

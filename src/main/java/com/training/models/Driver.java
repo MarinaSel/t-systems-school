@@ -22,6 +22,7 @@ public class Driver extends BaseModel {
     private User user;
 
     public Driver() {
+        this.user = new User();
     }
 
     public Driver(Long id, String drivingLicenseNum, DriverStatus status, Date licenseEndDate, User user) {

@@ -22,7 +22,7 @@
         <tr>
             <td>
                 <input type="hidden" name="id" value="${editableDriver.id}"/>
-                <input type="hidden" name="id" value="${editableUser.id}"/>
+                <input type="hidden" name="user.id" value="${editableDriver.user.id}"/>
             </td>
             <td>
                 <input type="hidden" name="creationDate" value="${editableDriver.creationDate}">
@@ -34,7 +34,7 @@
         <tr>
             <th>First name</th>
             <td>
-                <input name="firstName" maxlength="50" value="${editableDriver.user.firstName}"
+                <input name="user.firstName" maxlength="50" value="${editableDriver.user.firstName}"
                        placeholder="First name"
                        autocomplete="off" required/>
             </td>
@@ -42,7 +42,7 @@
         <tr>
             <th>Last name</th>
             <td>
-                <input name="lastName" maxlength="50" value="${editableDriver.user.lastName}"
+                <input name="user.lastName" maxlength="50" value="${editableDriver.user.lastName}"
                        placeholder="Second name"
                        autocomplete="off" required/>
             </td>
@@ -50,14 +50,14 @@
         <tr>
             <th>Login</th>
             <td>
-                <input name="login" maxlength="50" value="${editableUser.login}" placeholder="Login"
+                <input name="user.login" maxlength="50" value="${editableDriver.user.login}" placeholder="Login"
                        autocomplete="off" required/>
             </td>
         </tr>
         <tr>
             <th>Password</th>
             <td>
-                <input type="password" name="password" maxlength="50" value="${editableUser.password}"
+                <input type="password" name="user.password" maxlength="50" value="${editableDriver.user.password}"
                        placeholder="Password"
                        autocomplete="off" required/>
             </td>

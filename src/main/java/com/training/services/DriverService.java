@@ -18,14 +18,14 @@ public interface DriverService extends BaseService<Driver, Long> {
      *
      * @return List of all found Driver objects
      */
-    List<Driver> getAll();
+    List<Driver> findAll();
 
     /**
      * Finds all drivers with status 'FREE'.
      *
      * @return List of found Driver objects with status 'FREE'
      */
-    List<Driver> getAllFree();
+    List<Driver> findAllFree();
 
     /**
      * Finds driver by driving license number.

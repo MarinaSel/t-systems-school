@@ -24,5 +24,5 @@ public interface LoadService extends BaseService<Load, Long> {
      *
      * @return List of Load objects
      */
-    List<Load> getAll();
+    List<Load> findAll();
 }

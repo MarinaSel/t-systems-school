@@ -53,7 +53,7 @@ public class DriverServiceImpl implements DriverService {
 
     @Override
     @Transactional(readOnly = true)
-    public Driver get(Long id) {
+    public Driver find(Long id) {
         Driver driver = DriverMapper.mapEntityToModel(driverRepository.getOne(id));
         LOGGER.info("Got driver with id = {}", driver.getId());
         return driver;
@@ -61,7 +61,7 @@ public class DriverServiceImpl implements DriverService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Driver> getAll() {
+    public List<Driver> findAll() {
         List<Driver> drivers = DriverMapper.mapEntityListToModelList(driverRepository.findAll());
         LOGGER.info("Found all drivers");
         return drivers;
@@ -69,7 +69,7 @@ public class DriverServiceImpl implements DriverService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Driver> getAllFree() {
+    public List<Driver> findAllFree() {
         List<Driver> drivers = DriverMapper.mapEntityListToModelList(driverRepository.findAllByStatus(FREE));
         LOGGER.info("Found all drivers with status FREE");
         return drivers;

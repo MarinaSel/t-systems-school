@@ -2,7 +2,6 @@ package com.training.controllers;
 
 import com.training.entities.enums.DriverStatus;
 import com.training.models.Driver;
-import com.training.models.User;
 import com.training.services.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,8 +23,7 @@ public class DriverController {
 
     @GetMapping("/editDriver/{id}")
     public ModelAndView editDriver(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
-        Driver driverToEdit = driverService.get(id);
-        redirectAttributes.addFlashAttribute("editableUser", driverToEdit.getUser());
+        Driver driverToEdit = driverService.find(id);
         redirectAttributes.addFlashAttribute("statuses", DriverStatus.values());
         redirectAttributes.addFlashAttribute("editableDriver", driverToEdit);
         return new ModelAndView("redirect:/getSaveDriverPage");
@@ -33,7 +31,6 @@ public class DriverController {
 
     @GetMapping("/addDriver")
     public ModelAndView getAddDriverPage(RedirectAttributes redirectAttributes) {
-        redirectAttributes.addFlashAttribute("editableUser", new User());
         redirectAttributes.addFlashAttribute("editableDriver", new Driver());
         return new ModelAndView("redirect:/getSaveDriverPage");
     }
@@ -44,16 +41,14 @@ public class DriverController {
     }
 
     @PostMapping("/saveDriver")
-    public ModelAndView saveDriver(@ModelAttribute("editableDriver") Driver driver,
-                                   @ModelAttribute("editableUser") User user) {
-        driver.setUser(user);
+    public ModelAndView saveDriver(@ModelAttribute("editableDriver") Driver driver) {
         driverService.save(driver);
         return new ModelAndView("redirect:/drivers");
     }
 
     @GetMapping("/drivers")
     public ModelAndView getAllDriversPage() {
-        List<Driver> drivers = driverService.getAll();
+        List<Driver> drivers = driverService.findAll();
         return new ModelAndView("driversPage").addObject("drivers", drivers);
     }
 

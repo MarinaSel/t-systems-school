@@ -18,7 +18,7 @@ public interface VehicleService extends BaseService<Vehicle, Long> {
      *
      * @return List of Vehicle objects
      */
-    List<Vehicle> getAll();
+    List<Vehicle> findAll();
 
     /**
      * Finds vehicles with status 'FREE'.
@@ -26,7 +26,7 @@ public interface VehicleService extends BaseService<Vehicle, Long> {
      * @param necessaryCapacity Integer object with capacity for search
      * @return list of Vehicle objects
      */
-    List<Vehicle> getAllFreeWithNecessaryCapacity(Integer necessaryCapacity);
+    List<Vehicle> findAllFreeWithNecessaryCapacity(Integer necessaryCapacity);
 
     /**
      * Finds vehicle by registration number.

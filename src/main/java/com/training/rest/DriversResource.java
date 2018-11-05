@@ -18,6 +18,6 @@ public class DriversResource {
 
     @GetMapping
     public List<Driver> getDrivers() {
-        return driverService.getAllFree();
+        return driverService.findAllFree();
     }
 }

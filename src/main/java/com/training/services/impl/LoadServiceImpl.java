@@ -32,7 +32,7 @@ public class LoadServiceImpl implements LoadService {
 
     @Override
     @Transactional(readOnly = true)
-    public Load get(Long id) {
+    public Load find(Long id) {
         Load load = mapEntityToModel(loadRepository.getOne(id));
         LOGGER.info("Got load with id = {}", load.getId());
         return load;
@@ -60,7 +60,7 @@ public class LoadServiceImpl implements LoadService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Load> getAll() {
+    public List<Load> findAll() {
         List<Load> loads = mapEntityListToModelList(loadRepository.findAll());
         LOGGER.info("Found all loads");
         return loads;

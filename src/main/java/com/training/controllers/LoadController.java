@@ -34,9 +34,9 @@ public class LoadController {
 
     @GetMapping("/editLoad/{id}")
     public ModelAndView editLoad(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
-        Load loadToEdit = loadService.get(id);
-        List<Vehicle> vehicles = vehicleService.getAllFreeWithNecessaryCapacity(loadToEdit.getWeight());
-        List<Driver> drivers = driverService.getAllFree();
+        Load loadToEdit = loadService.find(id);
+        List<Vehicle> vehicles = vehicleService.findAllFreeWithNecessaryCapacity(loadToEdit.getWeight());
+        List<Driver> drivers = driverService.findAllFree();
 
         redirectAttributes.addFlashAttribute("editableLoad", loadToEdit);
         redirectAttributes.addFlashAttribute("freeVehicles", vehicles);
@@ -88,7 +88,7 @@ public class LoadController {
 
     @GetMapping("/loads")
     public ModelAndView getAllLoadsPage() {
-        return new ModelAndView("loadsPage").addObject("loads", loadService.getAll());
+        return new ModelAndView("loadsPage").addObject("loads", loadService.findAll());
     }
 
     @GetMapping("/delivered/{id}")

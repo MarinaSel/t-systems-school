@@ -39,7 +39,7 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     @Transactional(readOnly = true)
-    public Vehicle get(Long id) {
+    public Vehicle find(Long id) {
         Vehicle vehicle = mapEntityToModel(vehicleRepository.getOne(id));
         LOGGER.info("Found vehicle with id = {}", vehicle.getId());
         return vehicle;
@@ -68,7 +68,7 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Vehicle> getAll() {
+    public List<Vehicle> findAll() {
         List<Vehicle> vehicles = mapEntityListToModelList(vehicleRepository.findAll());
         LOGGER.info("Found all vehicles");
         return vehicles;
@@ -76,7 +76,7 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Vehicle> getAllFreeWithNecessaryCapacity(Integer necessaryCapacity) {
+    public List<Vehicle> findAllFreeWithNecessaryCapacity(Integer necessaryCapacity) {
         List<Vehicle> vehicles = mapEntityListToModelList(vehicleRepository.findAllByStatus(VehicleStatus.FREE));
         Iterator<Vehicle> iterator = vehicles.iterator();
 

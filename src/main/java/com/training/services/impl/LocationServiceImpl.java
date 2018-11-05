@@ -13,7 +13,7 @@ public class LocationServiceImpl implements LocationService {
     @Autowired
     private LocationRepository locationRepository;
 
-    public LocationEntity get(Long id) {
+    public LocationEntity find(Long id) {
         return locationRepository.getOne(id);
     }
 
