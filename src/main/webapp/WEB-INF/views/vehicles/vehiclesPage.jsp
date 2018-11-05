@@ -36,7 +36,9 @@
             <td>${vehicle.status}</td>
 
             <td>
-                <a href="/editVehicle/${vehicle.id}" class="btn btn-info btn-sm">Edit</a>
+                <c:if test="${vehicle.primaryDriver == null || vehicle.coDriver == null}">
+                    <a href="/editVehicle/${vehicle.id}" class="btn btn-info btn-sm">Edit</a>
+                </c:if>
                 <c:if test="${vehicle.status != 'BROKEN' && vehicle.status != 'WORKING'
                 && (vehicle.primaryDriver != null || vehicle.coDriver != null) && !empty vehicle.loads}">
                     <a href="/sent/${vehicle.id}" class="btn btn-success btn-sm">Begin delivery</a>

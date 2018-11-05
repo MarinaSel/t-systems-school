@@ -66,7 +66,7 @@
                 <td>
                     <select class="soflow" name="status">
                         <c:forEach items="${statuses}" var="status">
-                            <option value="${status}" ${status == editableVehicel.status ? 'selected="selected"' : ''}>${status}</option>
+                            <option value="${status}" ${status == editableVehicle.status ? 'selected="selected"' : ''}>${status}</option>
                         </c:forEach>
                     </select>
                 </td>
