@@ -20,12 +20,12 @@ public class VehicleController {
     private VehicleService vehicleService;
 
     @GetMapping("/vehicles")
-    public ModelAndView getAllVehiclesView() {
-        return new ModelAndView("vehiclesView").addObject("vehicles", vehicleService.getAll());
+    public ModelAndView getAllVehiclesPage() {
+        return new ModelAndView("vehiclesPage").addObject("vehicles", vehicleService.getAll());
     }
 
     @GetMapping("/editVehicle/{id}")
-    public ModelAndView getVehicleById(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+    public ModelAndView editVehicle(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("statuses", VehicleStatus.values());
         redirectAttributes.addFlashAttribute("editableVehicle", vehicleService.get(id));
         return new ModelAndView("redirect:/getSaveVehiclePage");
@@ -39,7 +39,7 @@ public class VehicleController {
 
     @GetMapping("/getSaveVehiclePage")
     public ModelAndView getSaveVehiclePage(Model model) {
-        return new ModelAndView("saveVehicleView").addAllObjects(model.asMap());
+        return new ModelAndView("saveVehiclePage").addAllObjects(model.asMap());
     }
 
     @PostMapping("/saveVehicle")

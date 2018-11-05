@@ -54,8 +54,8 @@ public class LoadController {
     }
 
     @GetMapping(value = "/getSaveLoadPage")
-    public ModelAndView getSaveLoadView(Model model) {
-        return new ModelAndView("saveLoadView").addAllObjects(model.asMap());
+    public ModelAndView getSaveLoadPage(Model model) {
+        return new ModelAndView("saveLoadPage").addAllObjects(model.asMap());
     }
 
     //TODO move business logic to service
@@ -88,7 +88,7 @@ public class LoadController {
 
     @GetMapping("/loads")
     public ModelAndView getAllLoadsPage() {
-        return new ModelAndView("loadsView").addObject("loads", loadService.getAll());
+        return new ModelAndView("loadsPage").addObject("loads", loadService.getAll());
     }
 
     @GetMapping("/delivered/{id}")

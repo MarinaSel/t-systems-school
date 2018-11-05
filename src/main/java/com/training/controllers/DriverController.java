@@ -28,19 +28,19 @@ public class DriverController {
         redirectAttributes.addFlashAttribute("editableUser", driverToEdit.getUser());
         redirectAttributes.addFlashAttribute("statuses", DriverStatus.values());
         redirectAttributes.addFlashAttribute("editableDriver", driverToEdit);
-        return new ModelAndView("redirect:/getSaveDriverView");
+        return new ModelAndView("redirect:/getSaveDriverPage");
     }
 
     @GetMapping("/addDriver")
     public ModelAndView getAddDriverPage(RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("editableUser", new User());
         redirectAttributes.addFlashAttribute("editableDriver", new Driver());
-        return new ModelAndView("redirect:/getSaveDriverView");
+        return new ModelAndView("redirect:/getSaveDriverPage");
     }
 
-    @GetMapping(value = "/getSaveDriverView")
-    public ModelAndView getSaveDriverView(Model model) {
-        return new ModelAndView("saveDriverView").addAllObjects(model.asMap());
+    @GetMapping(value = "/getSaveDriverPage")
+    public ModelAndView getSaveDriverPage(Model model) {
+        return new ModelAndView("saveDriverPage").addAllObjects(model.asMap());
     }
 
     @PostMapping("/saveDriver")
@@ -54,7 +54,7 @@ public class DriverController {
     @GetMapping("/drivers")
     public ModelAndView getAllDriversPage() {
         List<Driver> drivers = driverService.getAll();
-        return new ModelAndView("driversView").addObject("drivers", drivers);
+        return new ModelAndView("driversPage").addObject("drivers", drivers);
     }
 
     @GetMapping("/removeDriver/{id}")
