@@ -1,8 +1,7 @@
 package com.training.services.impl;
 
-import com.training.entities.UserEntity;
-import com.training.repositories.DriverRepository;
-import com.training.repositories.UserRepository;
+import com.training.models.User;
+import com.training.services.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -20,15 +19,19 @@ import java.util.List;
 
 /**
  * Class that implements AuthenticationProvider and is used for users authentication.
+ *
+ * @see UserService
+ * @see DriverService
+ * @see PasswordEncoder
  */
 @Service("customAuthenticationProvider")
 public class AuthenticationProviderImpl implements AuthenticationProvider {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Autowired
-    private DriverRepository driverRepository;
+    private DriverService driverService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -36,20 +39,20 @@ public class AuthenticationProviderImpl implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String login = authentication.getName();
-        UserEntity userEntity = userRepository.findByLogin(login);
+        User user = userService.findByLogin(login);
 
-        if (userEntity == null) {
+        if (user == null) {
             throw new UsernameNotFoundException("Wrong login");
         }
         String password = authentication.getCredentials().toString();
 
-        if (!passwordEncoder.matches(password, userEntity.getPassword())) {
+        if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new BadCredentialsException("Wrong password");
         }
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 
-        if (driverRepository.findByUser(userEntity) == null) {
+        if (driverService.findByUser(user) == null) {
             authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         }
         return new UsernamePasswordAuthenticationToken(login, password, authorities);

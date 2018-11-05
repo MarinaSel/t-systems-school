@@ -1,25 +1,21 @@
 package com.training.services.impl;
 
 import com.training.entities.DriverEntity;
-import com.training.entities.UserEntity;
-import com.training.entities.enums.DriverStatus;
 import com.training.mappers.DriverMapper;
 import com.training.mappers.UserMapper;
 import com.training.models.Driver;
+import com.training.models.User;
 import com.training.repositories.DriverRepository;
-import com.training.repositories.UserRepository;
 import com.training.services.DriverService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static com.training.mappers.DriverMapper.mapEntityListToModelList;
-import static com.training.mappers.DriverMapper.mapEntityToModel;
+import static com.training.entities.enums.DriverStatus.FREE;
 
 @Service
 @Transactional
@@ -31,27 +27,23 @@ public class DriverServiceImpl implements DriverService {
     private DriverRepository driverRepository;
 
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private UserService userService;
 
     @Override
     public Driver get(Long id) {
-        Driver driver = mapEntityToModel(driverRepository.getOne(id));
+        Driver driver = DriverMapper.mapEntityToModel(driverRepository.getOne(id));
         LOGGER.info("Got driver with id = {}", driver.getId());
         return driver;
     }
 
     @Override
     public void save(Driver driver) {
+        if (driver.getId() == null) {
+            User user = userService.save(driver.getUser());
+            driver.setUser(user);
+        }
         DriverEntity driverEntity = DriverMapper.mapModelToEntity(driver);
-        UserEntity userEntity = UserMapper.mapModelToEntity(driver.getUser());
-
-        encodeAndSaveUser(userEntity);
-        driverEntity.setUser(userEntity);
         driverRepository.saveAndFlush(driverEntity);
-
         if (driver.getId() == null) {
             LOGGER.info("Created driver with id = {}", driverEntity.getId());
         } else {
@@ -67,27 +59,29 @@ public class DriverServiceImpl implements DriverService {
 
     @Override
     public List<Driver> getAll() {
-        List<Driver> drivers = mapEntityListToModelList(driverRepository.findAll());
+        List<Driver> drivers = DriverMapper.mapEntityListToModelList(driverRepository.findAll());
         LOGGER.info("Found all drivers");
         return drivers;
     }
 
     @Override
     public List<Driver> getAllFree() {
-        List<Driver> drivers = mapEntityListToModelList(driverRepository.findAllByStatus(DriverStatus.FREE));
+        List<Driver> drivers = DriverMapper.mapEntityListToModelList(driverRepository.findAllByStatus(FREE));
         LOGGER.info("Found all drivers with status FREE");
         return drivers;
     }
 
     @Override
     public Driver findByDrivingLicenseNum(String drivingLicenseNum) {
-        Driver driver = mapEntityToModel(driverRepository.findByDrivingLicenseNum(drivingLicenseNum));
+        Driver driver = DriverMapper.mapEntityToModel(driverRepository.findByDrivingLicenseNum(drivingLicenseNum));
         LOGGER.info("Found driver with driving license number = {}", drivingLicenseNum);
         return driver;
     }
 
-    private void encodeAndSaveUser(UserEntity userEntity) {
-        userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
-        userRepository.saveAndFlush(userEntity);
+    @Override
+    public Driver findByUser(User user) {
+        DriverEntity driverEntity = driverRepository.findByUser(UserMapper.mapModelToEntity(user));
+        LOGGER.info("Found driver by user with login = {}", user.getLogin());
+        return DriverMapper.mapEntityToModel(driverEntity);
     }
 }

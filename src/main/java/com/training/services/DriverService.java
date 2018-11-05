@@ -1,6 +1,7 @@
 package com.training.services;
 
 import com.training.models.Driver;
+import com.training.models.User;
 
 import java.util.List;
 
@@ -34,4 +35,11 @@ public interface DriverService extends BaseService<Driver, Long> {
      */
     Driver findByDrivingLicenseNum(String drivingLicenseNum);
 
+    /**
+     * Finds driver by user.
+     *
+     * @param user User object for search
+     * @return found Driver object assigned to specified user
+     */
+    Driver findByUser(User user);
 }
