@@ -65,17 +65,17 @@ public class LoadController {
                                  @ModelAttribute("drivingLicenseNumPrimary") String drivingLicenseNumPrimary,
                                  @ModelAttribute("drivingLicenseNumSecond") String drivingLicenseNumSecond) {
 
-        if (isEmpty(registrationNumber)) {
+        if (!isEmpty(registrationNumber)) {
             Vehicle vehicle = vehicleService.findByRegistrationNumber(registrationNumber);
             load.setVehicle(vehicle);
 
-            if (isEmpty(drivingLicenseNumPrimary)) {
+            if (!isEmpty(drivingLicenseNumPrimary)) {
                 Driver primaryDriver = driverService.findByDrivingLicenseNum(drivingLicenseNumPrimary);
                 vehicle.setPrimaryDriver(primaryDriver);
                 vehicleService.save(vehicle);
                 driverService.save(primaryDriver);
             }
-            if (isEmpty(drivingLicenseNumSecond)) {
+            if (!isEmpty(drivingLicenseNumSecond)) {
                 Driver coDriver = driverService.findByDrivingLicenseNum(drivingLicenseNumSecond);
                 vehicle.setCoDriver(coDriver);
                 vehicleService.save(vehicle);
