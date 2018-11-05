@@ -37,7 +37,7 @@
         <tr>
             <th align="left">Issue date</th>
             <td>
-                <input name="issueDate" id="vehicledte" value="${editableVehicle.issueDate}"
+                <input name="issueDate" id="issueDate" value="${editableVehicle.issueDate}"
                        placeholder="Choose the issue date" required readonly="true">
             </td>
         </tr>
