@@ -19,7 +19,6 @@ import static com.training.mappers.UserMapper.mapModelToEntity;
  * @see User
  */
 @Service
-@Transactional
 public class UserService {
 
     private final static Logger LOGGER = LogManager.getLogger(UserService.class);
@@ -36,6 +35,7 @@ public class UserService {
      * @param user User object to be saved
      * @return User object - result of saving
      */
+    @Transactional
     User save(User user) {
         UserEntity userEntity = mapModelToEntity(user);
         userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
@@ -50,6 +50,7 @@ public class UserService {
      * @param login String object with login for search
      * @return found User object with specified login
      */
+    @Transactional(readOnly = true)
     User findByLogin(String login) {
         UserEntity userEntity = userRepository.findByLogin(login);
         LOGGER.info("Found user by login = {}", userEntity.getLogin());

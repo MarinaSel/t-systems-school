@@ -27,7 +27,6 @@ import static com.training.mappers.VehicleMapper.mapModelToEntity;
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 
 @Service
-@Transactional
 public class VehicleServiceImpl implements VehicleService {
 
     private final static Logger LOGGER = LogManager.getLogger(VehicleServiceImpl.class);
@@ -39,6 +38,7 @@ public class VehicleServiceImpl implements VehicleService {
     private DriverRepository driverRepository;
 
     @Override
+    @Transactional(readOnly = true)
     public Vehicle get(Long id) {
         Vehicle vehicle = mapEntityToModel(vehicleRepository.getOne(id));
         LOGGER.info("Found vehicle with id = {}", vehicle.getId());
@@ -46,6 +46,7 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
+    @Transactional
     public void save(Vehicle vehicle) {
         VehicleEntity vehicleEntity = mapModelToEntity(vehicle);
         vehicleRepository.saveAndFlush(vehicleEntity);
@@ -59,12 +60,14 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
+    @Transactional
     public void remove(Long id) {
         vehicleRepository.deleteById(id);
         LOGGER.info("Deleted vehicle with id = {}", id);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Vehicle> getAll() {
         List<Vehicle> vehicles = mapEntityListToModelList(vehicleRepository.findAll());
         LOGGER.info("Found all vehicles");
@@ -72,6 +75,7 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Vehicle> getAllFreeWithNecessaryCapacity(Integer necessaryCapacity) {
         List<Vehicle> vehicles = mapEntityListToModelList(vehicleRepository.findAllByStatus(VehicleStatus.FREE));
         Iterator<Vehicle> iterator = vehicles.iterator();
@@ -91,6 +95,7 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Vehicle findByRegistrationNumber(String registrationNumber) {
         Vehicle vehicle = mapEntityToModel(vehicleRepository.findVehicleEntityByRegistrationNumber(registrationNumber));
         LOGGER.info("Found vehicle by registration number = {}", registrationNumber);
@@ -98,6 +103,7 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
+    @Transactional
     public void checkIfCompletedDelivery(VehicleEntity vehicleEntity) {
         if (isEmpty(vehicleEntity.getLoads())) {
             DriverEntity primaryDriver = vehicleEntity.getPrimaryDriver();
@@ -118,6 +124,7 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
+    @Transactional
     public void changeStatusWhenStartingDelivery(Long id) {
         VehicleEntity vehicleEntity = vehicleRepository.getOne(id);
         if (!isEmpty(vehicleEntity.getLoads())) {

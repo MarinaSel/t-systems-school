@@ -20,7 +20,6 @@ import static com.training.mappers.LoadMapper.mapEntityToModel;
 import static com.training.mappers.LoadMapper.mapModelToEntity;
 
 @Service
-@Transactional
 public class LoadServiceImpl implements LoadService {
 
     private final static Logger LOGGER = LogManager.getLogger(LoadServiceImpl.class);
@@ -32,6 +31,7 @@ public class LoadServiceImpl implements LoadService {
     private VehicleService vehicleService;
 
     @Override
+    @Transactional(readOnly = true)
     public Load get(Long id) {
         Load load = mapEntityToModel(loadRepository.getOne(id));
         LOGGER.info("Got load with id = {}", load.getId());
@@ -39,6 +39,7 @@ public class LoadServiceImpl implements LoadService {
     }
 
     @Override
+    @Transactional
     public void save(Load load) {
         LoadEntity loadEntity = mapModelToEntity(load);
         loadRepository.saveAndFlush(loadEntity);
@@ -51,12 +52,14 @@ public class LoadServiceImpl implements LoadService {
     }
 
     @Override
+    @Transactional
     public void remove(Long id) {
         loadRepository.deleteById(id);
         LOGGER.info("Deleted load with id = {}", id);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Load> getAll() {
         List<Load> loads = mapEntityListToModelList(loadRepository.findAll());
         LOGGER.info("Found all loads");
@@ -64,6 +67,7 @@ public class LoadServiceImpl implements LoadService {
     }
 
     @Override
+    @Transactional
     public void deleteVehicleFromLoad(Long id) {
 
         // TODO change to repository method

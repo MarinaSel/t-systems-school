@@ -18,7 +18,6 @@ import java.util.List;
 import static com.training.entities.enums.DriverStatus.FREE;
 
 @Service
-@Transactional
 public class DriverServiceImpl implements DriverService {
 
     private final static Logger LOGGER = LogManager.getLogger(DriverServiceImpl.class);
@@ -30,13 +29,7 @@ public class DriverServiceImpl implements DriverService {
     private UserService userService;
 
     @Override
-    public Driver get(Long id) {
-        Driver driver = DriverMapper.mapEntityToModel(driverRepository.getOne(id));
-        LOGGER.info("Got driver with id = {}", driver.getId());
-        return driver;
-    }
-
-    @Override
+    @Transactional
     public void save(Driver driver) {
         if (driver.getId() == null) {
             User user = userService.save(driver.getUser());
@@ -52,12 +45,22 @@ public class DriverServiceImpl implements DriverService {
     }
 
     @Override
+    @Transactional
     public void remove(Long id) {
         driverRepository.deleteById(id);
         LOGGER.info("Deleted driver with id = {}", id);
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public Driver get(Long id) {
+        Driver driver = DriverMapper.mapEntityToModel(driverRepository.getOne(id));
+        LOGGER.info("Got driver with id = {}", driver.getId());
+        return driver;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public List<Driver> getAll() {
         List<Driver> drivers = DriverMapper.mapEntityListToModelList(driverRepository.findAll());
         LOGGER.info("Found all drivers");
@@ -65,6 +68,7 @@ public class DriverServiceImpl implements DriverService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Driver> getAllFree() {
         List<Driver> drivers = DriverMapper.mapEntityListToModelList(driverRepository.findAllByStatus(FREE));
         LOGGER.info("Found all drivers with status FREE");
@@ -72,6 +76,7 @@ public class DriverServiceImpl implements DriverService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Driver findByDrivingLicenseNum(String drivingLicenseNum) {
         Driver driver = DriverMapper.mapEntityToModel(driverRepository.findByDrivingLicenseNum(drivingLicenseNum));
         LOGGER.info("Found driver with driving license number = {}", drivingLicenseNum);
@@ -79,6 +84,7 @@ public class DriverServiceImpl implements DriverService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Driver findByUser(User user) {
         DriverEntity driverEntity = driverRepository.findByUser(UserMapper.mapModelToEntity(user));
         LOGGER.info("Found driver by user with login = {}", user.getLogin());
