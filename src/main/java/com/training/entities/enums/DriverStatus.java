@@ -15,14 +15,14 @@ public enum DriverStatus {
     REST("REST"),
 
     /**
-     * Means that the driver is fulfilling order(s).
+     * Means that the driver is assigned to vehicle.
      */
-    WORK("WORK"),
+    ASSIGNED("ASSIGNED"),
 
     /**
-     * Means that the driver is driving now.
+     * Means that the driver is fulfilling order(s).
      */
-    DRIVING("DRIVING"),
+    WORKING("WORKING"),
 
     /**
      * Means that the driver is available.

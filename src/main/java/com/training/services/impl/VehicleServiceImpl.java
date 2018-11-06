@@ -1,30 +1,28 @@
 package com.training.services.impl;
 
 import com.training.entities.DriverEntity;
-import com.training.entities.LoadEntity;
 import com.training.entities.VehicleEntity;
-import com.training.entities.enums.DriverStatus;
-import com.training.entities.enums.LoadStatus;
 import com.training.entities.enums.VehicleStatus;
 import com.training.models.Load;
 import com.training.models.Vehicle;
 import com.training.repositories.DriverRepository;
+import com.training.repositories.LoadRepository;
 import com.training.repositories.VehicleRepository;
 import com.training.services.VehicleService;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import static com.training.mappers.VehicleMapper.mapEntityListToModelList;
 import static com.training.mappers.VehicleMapper.mapEntityToModel;
 import static com.training.mappers.VehicleMapper.mapModelToEntity;
-import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 
 @Service
 public class VehicleServiceImpl implements VehicleService {
@@ -36,6 +34,9 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Autowired
     private DriverRepository driverRepository;
+
+    @Autowired
+    private LoadRepository loadRepository;
 
     @Override
     @Transactional(readOnly = true)
@@ -105,35 +106,53 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     @Transactional
     public void checkIfCompletedDelivery(VehicleEntity vehicleEntity) {
-        if (isEmpty(vehicleEntity.getLoads())) {
-            DriverEntity primaryDriver = vehicleEntity.getPrimaryDriver();
-            DriverEntity coDriver = vehicleEntity.getCoDriver();
+        if (CollectionUtils.isEmpty(vehicleEntity.getLoads())) {
+            Long primaryDriverId = (vehicleEntity.getPrimaryDriver() == null) ? null
+                    : vehicleEntity.getPrimaryDriver().getId();
+            Long coDriverId = (vehicleEntity.getCoDriver() == null) ? null : vehicleEntity.getCoDriver().getId();
 
-            primaryDriver.setStatus(DriverStatus.FREE);
-            coDriver.setStatus(DriverStatus.FREE);
-
-            driverRepository.saveAndFlush(primaryDriver);
-            driverRepository.saveAndFlush(coDriver);
-
-            vehicleEntity.setPrimaryDriver(null);
-            vehicleEntity.setCoDriver(null);
-            vehicleEntity.setStatus(VehicleStatus.FREE);
-
-            vehicleRepository.saveAndFlush(vehicleEntity);
+            driverRepository.setFree(primaryDriverId, coDriverId);
+            vehicleRepository.setFree(vehicleEntity.getId());
+            LOGGER.info("Vehicle with id {} completed delivery", vehicleEntity.getId());
         }
     }
 
     @Override
     @Transactional
-    public void changeStatusWhenStartingDelivery(Long id) {
+    public void startDelivery(Long id) {
         VehicleEntity vehicleEntity = vehicleRepository.getOne(id);
-        if (!isEmpty(vehicleEntity.getLoads())) {
-            vehicleEntity.setStatus(VehicleStatus.WORKING);
-            Set<LoadEntity> loads = vehicleEntity.getLoads();
-            for (LoadEntity load : loads) {
-                load.setStatus(LoadStatus.IN_PROGRESS);
-            }
-            vehicleRepository.saveAndFlush(vehicleEntity);
+        if (!CollectionUtils.isEmpty(vehicleEntity.getLoads())) {
+            Long primaryDriverId = (vehicleEntity.getPrimaryDriver() == null)
+                    ? null : vehicleEntity.getPrimaryDriver().getId();
+            Long coDriverId = (vehicleEntity.getCoDriver() == null) ? null : vehicleEntity.getCoDriver().getId();
+
+            driverRepository.setWorking(primaryDriverId, coDriverId);
+            vehicleRepository.setWorking(id);
+            loadRepository.setInProgress(vehicleEntity);
+            LOGGER.info("Vehicle with id {} started delivery", id);
         }
+    }
+
+    @Override
+    @Transactional
+    public void assignToDrivers(Vehicle vehicle, String primaryDriverLicense, String coDriverLicense) {
+        VehicleEntity vehicleEntity = mapModelToEntity(vehicle);
+        if (!StringUtils.isEmpty(primaryDriverLicense)) {
+            DriverEntity driverEntity = driverRepository.findByDrivingLicenseNum(primaryDriverLicense);
+            vehicleEntity.setPrimaryDriver(driverEntity);
+            assignDriver(driverEntity.getId());
+        }
+        if (!StringUtils.isEmpty(coDriverLicense)) {
+            DriverEntity driverEntity = driverRepository.findByDrivingLicenseNum(coDriverLicense);
+            vehicleEntity.setCoDriver(driverEntity);
+            assignDriver(driverEntity.getId());
+        }
+        vehicleRepository.saveAndFlush(vehicleEntity);
+    }
+
+    @Transactional
+    void assignDriver(Long driverId) {
+        driverRepository.setAssigned(driverId);
+        LOGGER.info("Driver with id {} was assigned to vehicle", driverId);
     }
 }

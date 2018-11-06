@@ -25,7 +25,7 @@
         <th>Vehicle status</th>
         <th>Drivers names</th>
         <th>Driving licenses numbers</th>
-        <th>Drivers status</th>
+        <th>Drivers statuses</th>
     </tr>
     </thead>
 

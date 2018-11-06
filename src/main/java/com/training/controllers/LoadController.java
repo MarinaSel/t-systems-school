@@ -41,9 +41,9 @@ public class LoadController {
         redirectAttributes.addFlashAttribute("editableLoad", loadToEdit);
         redirectAttributes.addFlashAttribute("freeVehicles", vehicles);
         redirectAttributes.addFlashAttribute("freeDrivers", drivers);
-        redirectAttributes.addFlashAttribute("drivingLicenseNumPrimary", "");
-        redirectAttributes.addFlashAttribute("drivingLicenseNumSecond", "");
-        redirectAttributes.addFlashAttribute("regNum", "");
+        redirectAttributes.addFlashAttribute("primaryDriverLicense");
+        redirectAttributes.addFlashAttribute("coDriverLicense");
+        redirectAttributes.addFlashAttribute("regNum");
         return new ModelAndView("redirect:/getSaveLoadPage");
     }
 
@@ -58,31 +58,16 @@ public class LoadController {
         return new ModelAndView("saveLoadPage").addAllObjects(model.asMap());
     }
 
-    //TODO move business logic to service
     @PostMapping(value = "/saveLoad")
     public ModelAndView saveLoad(@ModelAttribute("editableLoad") Load load,
                                  @ModelAttribute("regNum") String registrationNumber,
-                                 @ModelAttribute("drivingLicenseNumPrimary") String drivingLicenseNumPrimary,
-                                 @ModelAttribute("drivingLicenseNumSecond") String drivingLicenseNumSecond) {
-
+                                 @ModelAttribute("primaryDriverLicense") String primaryDriverLicense,
+                                 @ModelAttribute("coDriverLicense") String coDriverLicense) {
         if (!isEmpty(registrationNumber)) {
-            Vehicle vehicle = vehicleService.findByRegistrationNumber(registrationNumber);
-            load.setVehicle(vehicle);
-
-            if (!isEmpty(drivingLicenseNumPrimary)) {
-                Driver primaryDriver = driverService.findByDrivingLicenseNum(drivingLicenseNumPrimary);
-                vehicle.setPrimaryDriver(primaryDriver);
-                vehicleService.save(vehicle);
-                driverService.save(primaryDriver);
-            }
-            if (!isEmpty(drivingLicenseNumSecond)) {
-                Driver coDriver = driverService.findByDrivingLicenseNum(drivingLicenseNumSecond);
-                vehicle.setCoDriver(coDriver);
-                vehicleService.save(vehicle);
-                driverService.save(coDriver);
-            }
+            loadService.saveAssignedLoad(load, registrationNumber, primaryDriverLicense, coDriverLicense);
+        } else {
+            loadService.save(load);
         }
-        loadService.save(load);
         return new ModelAndView("redirect:/loads");
     }
 

@@ -22,6 +22,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import static com.training.entities.enums.VehicleStatus.FREE;
 import static javax.persistence.EnumType.STRING;
 import static javax.persistence.GenerationType.SEQUENCE;
 import static javax.persistence.TemporalType.DATE;
@@ -88,7 +89,7 @@ public class VehicleEntity extends BaseEntity {
 
     @PrePersist
     public void prePersist() {
-        status = VehicleStatus.FREE;
+        status = FREE;
     }
 
     public Long getId() {

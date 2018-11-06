@@ -25,4 +25,15 @@ public interface LoadService extends BaseService<Load, Long> {
      * @return List of Load objects
      */
     List<Load> findAll();
+
+    /**
+     * Assigns load to vehicle, vehicle to drivers and marks them as assigned.
+     * Used when saving load assigned to vehicle.
+     *
+     * @param load                 Load object to be assigned
+     * @param registrationNumber   String object - registration number of vehicle
+     * @param primaryDriverLicense String object - primary driver license number
+     * @param coDriverLicense      String object - co-driver license number
+     */
+    void saveAssignedLoad(Load load, String registrationNumber, String primaryDriverLicense, String coDriverLicense);
 }

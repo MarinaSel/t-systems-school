@@ -17,6 +17,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
+import static com.training.entities.enums.DriverStatus.FREE;
 import static javax.persistence.EnumType.STRING;
 import static javax.persistence.GenerationType.SEQUENCE;
 import static javax.persistence.TemporalType.DATE;
@@ -64,7 +65,7 @@ public class DriverEntity extends BaseEntity {
 
     @PrePersist
     public void prePersist() {
-        status = DriverStatus.FREE;
+        status = FREE;
     }
 
     public Long getId() {

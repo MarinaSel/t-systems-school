@@ -2,8 +2,9 @@ package com.training.services.impl;
 
 import com.training.entities.LoadEntity;
 import com.training.entities.VehicleEntity;
-import com.training.entities.enums.LoadStatus;
+import com.training.mappers.LoadMapper;
 import com.training.models.Load;
+import com.training.models.Vehicle;
 import com.training.repositories.LoadRepository;
 import com.training.services.LoadService;
 import com.training.services.VehicleService;
@@ -15,9 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static com.training.mappers.LoadMapper.mapEntityListToModelList;
-import static com.training.mappers.LoadMapper.mapEntityToModel;
-import static com.training.mappers.LoadMapper.mapModelToEntity;
+import static com.training.entities.enums.LoadStatus.ASSIGNED;
 
 @Service
 public class LoadServiceImpl implements LoadService {
@@ -33,7 +32,7 @@ public class LoadServiceImpl implements LoadService {
     @Override
     @Transactional(readOnly = true)
     public Load find(Long id) {
-        Load load = mapEntityToModel(loadRepository.getOne(id));
+        Load load = LoadMapper.mapEntityToModel(loadRepository.getOne(id));
         LOGGER.info("Got load with id = {}", load.getId());
         return load;
     }
@@ -41,14 +40,14 @@ public class LoadServiceImpl implements LoadService {
     @Override
     @Transactional
     public void save(Load load) {
-        LoadEntity loadEntity = mapModelToEntity(load);
+        LoadEntity loadEntity = LoadMapper.mapModelToEntity(load);
         loadRepository.saveAndFlush(loadEntity);
         if (load.getId() == null) {
             LOGGER.info("Created load with id = {}", loadEntity.getId());
         } else {
             LOGGER.info("Updated load with id = {}", loadEntity.getId());
         }
-        mapEntityToModel(loadEntity);
+        LoadMapper.mapEntityToModel(loadEntity);
     }
 
     @Override
@@ -61,24 +60,36 @@ public class LoadServiceImpl implements LoadService {
     @Override
     @Transactional(readOnly = true)
     public List<Load> findAll() {
-        List<Load> loads = mapEntityListToModelList(loadRepository.findAll());
+        List<Load> loads = LoadMapper.mapEntityListToModelList(loadRepository.findAll());
         LOGGER.info("Found all loads");
         return loads;
     }
 
     @Override
     @Transactional
-    public void deleteVehicleFromLoad(Long id) {
+    public void saveAssignedLoad(Load load, String registrationNumber, String primaryDriverLicense,
+                                 String coDriverLicense) {
+        Vehicle vehicle = vehicleService.findByRegistrationNumber(registrationNumber);
+        load.setStatus(ASSIGNED);
+        load.setVehicle(vehicle);
 
-        // TODO change to repository method
+        LoadEntity loadEntity = LoadMapper.mapModelToEntity(load);
+        loadRepository.saveAndFlush(loadEntity);
+        LOGGER.info("Load with id {} was saved and assigned to vehicle with id {}", loadEntity.getId(),
+                vehicle.getId());
+
+        vehicleService.assignToDrivers(vehicle, primaryDriverLicense, coDriverLicense);
+    }
+
+    @Override
+    @Transactional
+    public void deleteVehicleFromLoad(Long id) {
         LoadEntity loadEntity = loadRepository.getOne(id);
         VehicleEntity vehicleEntity = loadEntity.getVehicle();
-        if (vehicleEntity != null) {
-            vehicleEntity.getLoads().remove(loadEntity);
-            vehicleService.checkIfCompletedDelivery(vehicleEntity);
-            loadEntity.setVehicle(null);
-            loadEntity.setStatus(LoadStatus.DONE);
-            loadRepository.saveAndFlush(loadEntity);
-        }
+
+        vehicleEntity.getLoads().remove(loadEntity);
+        vehicleService.checkIfCompletedDelivery(vehicleEntity);
+        loadRepository.setDone(id);
+        LOGGER.info("Load with id {} delivered", id);
     }
 }

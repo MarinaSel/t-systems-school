@@ -4,6 +4,8 @@ import com.training.entities.DriverEntity;
 import com.training.entities.UserEntity;
 import com.training.entities.enums.DriverStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -41,4 +43,33 @@ public interface DriverRepository extends JpaRepository<DriverEntity, Long> {
      */
     DriverEntity findByUser(UserEntity userEntity);
 
+    /**
+     * Marks driver as free and removes him from vehicle.
+     * Used when completing delivery and all the loads were delivered.
+     *
+     * @param primaryDriverId Long object - id of primary driver
+     * @param coDriverId      Long object - id of co-driver
+     */
+    @Modifying
+    @Query("update DriverEntity d set d.status = 'FREE' where d.id = ?1 or d.id = ?2")
+    void setFree(Long primaryDriverId, Long coDriverId);
+
+    /**
+     * Marks drivers as working. Used when starting delivery.
+     *
+     * @param primaryDriverId Long object - id of primary driver
+     * @param coDriverId      Long object - id of co-driver
+     */
+    @Modifying
+    @Query("update DriverEntity d set d.status = 'WORKING' where d.id = ?1 or d.id = ?2")
+    void setWorking(Long primaryDriverId, Long coDriverId);
+
+    /**
+     * Marks driver as assigned. Used when driver is assigned to vehicle.
+     *
+     * @param id String object - driving license number of driver
+     */
+    @Modifying
+    @Query("update DriverEntity d set d.status = 'ASSIGNED' where d.id = ?1")
+    void setAssigned(Long id);
 }

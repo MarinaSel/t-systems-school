@@ -78,7 +78,7 @@
         <tr>
             <th align="left">Primary driver</th>
             <td>
-                <select id="primaryDriver" class="select" name="drivingLicenseNumPrimary" disabled="disabled">
+                <select id="primaryDriver" class="select" name="primaryDriverLicense" disabled="disabled">
                     <option value="" selected disabled hidden></option>
                     <c:forEach items="${freeDrivers}" var="driver">
                         <option value="${driver.drivingLicenseNum}">${driver.user.firstName} ${driver.user.lastName}</option>
@@ -89,7 +89,7 @@
         <tr>
             <th align="left">Second driver</th>
             <td>
-                <select class="select" id="secondDriver" name="drivingLicenseNumSecond" disabled="disabled">
+                <select class="select" id="secondDriver" name="coDriverLicense" disabled="disabled">
                     <option value="" selected disabled hidden></option>
                     <option></option>
                     <c:forEach items="${freeDrivers}" var="driver">

@@ -21,7 +21,7 @@ public interface DriverService extends BaseService<Driver, Long> {
     List<Driver> findAll();
 
     /**
-     * Finds all drivers with status 'FREE'.
+     * Finds all free drivers.
      *
      * @return List of found Driver objects with status 'FREE'
      */

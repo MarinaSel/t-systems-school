@@ -11,13 +11,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+import static com.training.entities.enums.LoadStatus.NOT_ASSIGNED;
 import static javax.persistence.EnumType.STRING;
 import static javax.persistence.GenerationType.SEQUENCE;
 import static javax.persistence.TemporalType.DATE;
@@ -72,19 +72,8 @@ public class LoadEntity extends BaseEntity {
 
     @PrePersist
     public void prePersist() {
-        if (status == null) {
-            if (vehicle == null) {
-                status = LoadStatus.NOT_ASSIGNED;
-            } else {
-                status = LoadStatus.ASSIGNED;
-            }
-        }
-    }
-
-    @PreUpdate
-    public void preUpdate() {
-        if (vehicle != null && status != LoadStatus.IN_PROGRESS) {
-            status = LoadStatus.ASSIGNED;
+        if (status == null && vehicle == null) {
+            status = NOT_ASSIGNED;
         }
     }
 

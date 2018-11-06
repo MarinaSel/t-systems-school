@@ -56,7 +56,7 @@ public class VehicleController {
 
     @GetMapping("/sent/{id}")
     public ModelAndView beginDelivery(@PathVariable("id") Long id) {
-        vehicleService.changeStatusWhenStartingDelivery(id);
+        vehicleService.startDelivery(id);
         return new ModelAndView("redirect:/loads");
     }
 }
