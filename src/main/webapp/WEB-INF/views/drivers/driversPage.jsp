@@ -35,7 +35,6 @@
 
             <td>
                 <a href="/editDriver/${driver.id}" class="btn btn-info btn-sm">Edit</a>
-                <a href="/removeDriver/${driver.id}" class="btn btn-danger btn-sm">Delete</a>
             </td>
         </tr>
     </c:forEach>

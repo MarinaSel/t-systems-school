@@ -51,11 +51,5 @@ public class DriverController {
         List<Driver> drivers = driverService.findAll();
         return new ModelAndView("driversPage").addObject("drivers", drivers);
     }
-
-    @GetMapping("/removeDriver/{id}")
-    public ModelAndView removeDriver(@PathVariable("id") Long id) {
-        driverService.remove(id);
-        return new ModelAndView("redirect:/drivers");
-    }
 }
 
