@@ -9,7 +9,7 @@ import javax.validation.Validation;
 import javax.validation.ValidationException;
 import java.util.Set;
 
-import static org.apache.commons.collections4.CollectionUtils.isEmpty;
+import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 
 public class ValidatingListener {
 
@@ -24,7 +24,7 @@ public class ValidatingListener {
         Set<ConstraintViolation<Validatable>> violations
                 = Validation.buildDefaultValidatorFactory().getValidator().validate(validatable);
 
-        if (!isEmpty(violations)) {
+        if (isNotEmpty(violations)) {
             ConstraintViolation<Validatable> violation = violations.iterator().next();
             String exceptionMessage = violation.getRootBeanClass().getSimpleName() + ": " + violation.getMessage();
             throw new ValidationException(exceptionMessage);

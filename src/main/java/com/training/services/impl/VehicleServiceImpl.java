@@ -121,7 +121,7 @@ public class VehicleServiceImpl implements VehicleService {
     @Transactional
     public void startDelivery(Long id) {
         VehicleEntity vehicleEntity = vehicleRepository.getOne(id);
-        if (!CollectionUtils.isEmpty(vehicleEntity.getLoads())) {
+        if (CollectionUtils.isNotEmpty(vehicleEntity.getLoads())) {
             Long primaryDriverId = (vehicleEntity.getPrimaryDriver() == null)
                     ? null : vehicleEntity.getPrimaryDriver().getId();
             Long coDriverId = (vehicleEntity.getCoDriver() == null) ? null : vehicleEntity.getCoDriver().getId();
