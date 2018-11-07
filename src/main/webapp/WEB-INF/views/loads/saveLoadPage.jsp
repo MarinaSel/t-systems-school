@@ -57,19 +57,21 @@
             <th align="left">Weight (kg)</th>
             <td>
                 <input id="vehicleWeight" type="number" name="weight" value="${editableLoad.weight}"
-                       oninput="getVehicle()"
-                       min="1" max="22000" placeholder="Weight"
-                       autocomplete="off" required/>
+                       oninput="getVehicles()" min="1" max="22000" placeholder="Weight" autocomplete="off" required/>
             </td>
         </tr>
 
-
         <tr>
-            <th align="left">Vehicles registration numbers</th>
+            <th align="left">Vehicle registration number</th>
             <td>
-                <select class="select" id="vehicles" name="regNum" onchange="getDrivers();">
+                <select class="select" id="vehicles" name="regNum" onchange="getDrivers()">
+                    <c:if test="${editableLoad.vehicle.registrationNumber != null}">
+                        <option>${editableLoad.vehicle.registrationNumber}</option>
+                    </c:if>
                     <c:forEach items="${freeVehicles}" var="vehicle">
-                        <option>${vehicle.registrationNumber}</option>
+                        <c:if test="${vehicle.registrationNumber != editableLoad.vehicle.registrationNumber}">
+                            <option>${vehicle.registrationNumber}</option>
+                        </c:if>
                     </c:forEach>
                 </select>
             </td>
@@ -78,22 +80,29 @@
         <tr>
             <th align="left">Primary driver</th>
             <td>
-                <select id="primaryDriver" class="select" name="primaryDriverLicense" disabled="disabled">
-                    <option value="" selected disabled hidden></option>
+                <select class="select" id="primaryDriver" name="primaryDriverLicense">
+                    <option>${editableLoad.vehicle.primaryDriver.drivingLicenseNum == null ? ""
+                            : editableLoad.vehicle.primaryDriver.drivingLicenseNum}</option>
                     <c:forEach items="${freeDrivers}" var="driver">
-                        <option value="${driver.drivingLicenseNum}">${driver.user.firstName} ${driver.user.lastName}</option>
+                        <c:if test="${driver.drivingLicenseNum != editableLoad.vehicle.primaryDriver.drivingLicenseNum
+                        && driver.drivingLicenseNum != editableLoad.vehicle.coDriver.drivingLicenseNum}">
+                            <option>${driver.drivingLicenseNum}</option>
+                        </c:if>
                     </c:forEach>
                 </select>
             </td>
         </tr>
         <tr>
-            <th align="left">Second driver</th>
+            <th align="left">Co-driver</th>
             <td>
-                <select class="select" id="secondDriver" name="coDriverLicense" disabled="disabled">
-                    <option value="" selected disabled hidden></option>
-                    <option></option>
+                <select class="select" id="secondDriver" name="coDriverLicense">
+                    <option>${editableLoad.vehicle.coDriver.drivingLicenseNum == null ? ""
+                            : editableLoad.vehicle.coDriver.drivingLicenseNum}</option>
                     <c:forEach items="${freeDrivers}" var="driver">
-                        <option value="${driver.drivingLicenseNum}">${driver.user.firstName} ${driver.user.lastName}</option>
+                        <c:if test="${driver.drivingLicenseNum != editableLoad.vehicle.primaryDriver.drivingLicenseNum
+                        && driver.drivingLicenseNum != editableLoad.vehicle.coDriver.drivingLicenseNum}">
+                            <option>${driver.drivingLicenseNum}</option>
+                        </c:if>
                     </c:forEach>
                 </select>
             </td>
@@ -104,8 +113,6 @@
                 <input class="btn btn-success" type="submit" value="Save"/>
             </td>
         </tr>
-
-
     </table>
 </form>
 </body>

@@ -1,7 +1,8 @@
+var previousVehicle;
+var emptyOption = "<option></option>";
+
 function getDrivers() {
     if ($('#vehicles').prop('selectedIndex') > -1) {
-        $('#primaryDriver').prop('disabled', false);
-        $('#secondDriver').prop('disabled', false);
         $.ajax({
             type: 'GET',
             datatype: "json",
@@ -10,10 +11,10 @@ function getDrivers() {
                 var insert = '';
                 $('#primaryDriver').empty();
                 $('#secondDriver').empty();
-                insert += '<option></option>';
+                insert += emptyOption;
 
                 $.each(result, function (index, value) {
-                    insert += '<option>' + value.drivingLicenseNum + '</option>';
+                    insert += wrapToOption(value.drivingLicenseNum);
                 });
                 $('#primaryDriver').append(insert);
                 $('#secondDriver').append(insert);
@@ -21,13 +22,9 @@ function getDrivers() {
         })
 
     }
-    else {
-        $('#primaryDriver').prop('disabled', 'disabled');
-        $('#secondDriver').prop('disabled', 'disabled');
-    }
 }
 
-function getVehicle() {
+function getVehicles() {
     var weight = $('#vehicleWeight').val();
     $.ajax({
         type: 'GET',
@@ -37,14 +34,43 @@ function getVehicle() {
             "weight": weight
         },
         success: function (result) {
+            var insertContainsPrevious = false;
+            var select = document.getElementById('vehicles');
+            var index = select.selectedIndex;
+            if (index !== -1) {
+                var selectedText = select.options[index].text;
+                if (selectedText !== '') {
+                    previousVehicle = selectedText;
+                }
+            }
             var insert = '';
             $('#vehicles').empty();
-            insert += '<option></option>';
-
             $.each(result, function (index, value) {
-                insert += '<option>' + value.registrationNumber + '</option>';
+                if (value.registrationNumber !== previousVehicle) {
+                    insert += wrapToOption(value.registrationNumber);
+                } else {
+                    insertContainsPrevious = true;
+                }
             });
-            $('#vehicles').append(insert);
+            $('#vehicles').append(addPreviousVehicleToInsert(insert, insertContainsPrevious));
         }
     });
+}
+
+function wrapToOption(value) {
+    return '<option>' + value + '</option>';
+}
+
+function addPreviousVehicleToInsert(insert, flag) {
+    var previous = wrapToOption(previousVehicle);
+    if (previous === emptyOption) {
+        insert = previous + insert;
+    } else {
+        if (flag) {
+            insert = previous + insert;
+        } else {
+            insert = emptyOption + insert;
+        }
+    }
+    return insert;
 }
