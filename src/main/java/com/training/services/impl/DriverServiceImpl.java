@@ -90,4 +90,11 @@ public class DriverServiceImpl implements DriverService {
         LOGGER.info("Found driver by user with login = {}", user.getLogin());
         return DriverMapper.mapEntityToModel(driverEntity);
     }
+
+    @Override
+    @Transactional
+    public void fireDriver(Long id) {
+        driverRepository.setFired(id);
+        LOGGER.info("Fired driver with id = {}", id);
+    }
 }

@@ -42,4 +42,11 @@ public interface DriverService extends BaseService<Driver, Long> {
      * @return found Driver object assigned to specified user
      */
     Driver findByUser(User user);
+
+    /**
+     * Marks driver as fired. Used when firing driver.
+     *
+     * @param id Long object - id of driver to be fired
+     */
+    void fireDriver(Long id);
 }

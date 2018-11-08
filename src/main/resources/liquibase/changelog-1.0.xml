@@ -240,4 +240,17 @@
         </preConditions>
         <dropColumn tableName="drivers" columnName="vehicle_id"/>
     </changeSet>
+
+    <changeSet id="96" author="Marina">
+        <preConditions>
+            <not>
+                <columnExists tableName="drivers" columnName="date_of_fire"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="drivers">
+            <column name="date_of_fire" type="DATE">
+            </column>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

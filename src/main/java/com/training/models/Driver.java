@@ -17,6 +17,9 @@ public class Driver extends BaseModel {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date licenseEndDate;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date dateOfFire;
+
     private Long id;
     private DriverStatus status;
     private User user;
@@ -73,6 +76,14 @@ public class Driver extends BaseModel {
         this.user = user;
     }
 
+    public Date getDateOfFire() {
+        return dateOfFire;
+    }
+
+    public void setDateOfFire(Date dateOfFire) {
+        this.dateOfFire = dateOfFire;
+    }
+
     @Override
     public String toString() {
         return "Driver{" +
@@ -91,22 +102,23 @@ public class Driver extends BaseModel {
 
         Driver driver = (Driver) o;
 
-        if (id != null ? !id.equals(driver.id) : driver.id != null) return false;
-        if (drivingLicenseNum != null ? !drivingLicenseNum.equals(driver.drivingLicenseNum) :
-                driver.drivingLicenseNum != null)
+        if (drivingLicenseNum != null ? !drivingLicenseNum.equals(driver.drivingLicenseNum) : driver.drivingLicenseNum != null)
             return false;
-        if (status != driver.status) return false;
         if (licenseEndDate != null ? !licenseEndDate.equals(driver.licenseEndDate) : driver.licenseEndDate != null)
             return false;
+        if (dateOfFire != null ? !dateOfFire.equals(driver.dateOfFire) : driver.dateOfFire != null) return false;
+        if (id != null ? !id.equals(driver.id) : driver.id != null) return false;
+        if (status != driver.status) return false;
         return user != null ? user.equals(driver.user) : driver.user == null;
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (drivingLicenseNum != null ? drivingLicenseNum.hashCode() : 0);
-        result = 31 * result + (status != null ? status.hashCode() : 0);
+        int result = drivingLicenseNum != null ? drivingLicenseNum.hashCode() : 0;
         result = 31 * result + (licenseEndDate != null ? licenseEndDate.hashCode() : 0);
+        result = 31 * result + (dateOfFire != null ? dateOfFire.hashCode() : 0);
+        result = 31 * result + (id != null ? id.hashCode() : 0);
+        result = 31 * result + (status != null ? status.hashCode() : 0);
         result = 31 * result + (user != null ? user.hashCode() : 0);
         return result;
     }

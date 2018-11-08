@@ -53,6 +53,11 @@ public class DriverEntity extends BaseEntity {
     @OneToOne
     private UserEntity user;
 
+    @Temporal(DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "date_of_fire")
+    private Date dateOfFire;
+
     public DriverEntity() {
     }
 
@@ -116,6 +121,14 @@ public class DriverEntity extends BaseEntity {
         this.user = user;
     }
 
+    public Date getDateOfFire() {
+        return dateOfFire;
+    }
+
+    public void setDateOfFire(Date dateOfFire) {
+        this.dateOfFire = dateOfFire;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -130,7 +143,8 @@ public class DriverEntity extends BaseEntity {
             return false;
         if (status != that.status) return false;
         if (currentCity != null ? !currentCity.equals(that.currentCity) : that.currentCity != null) return false;
-        return user != null ? user.equals(that.user) : that.user == null;
+        if (user != null ? !user.equals(that.user) : that.user != null) return false;
+        return dateOfFire != null ? dateOfFire.equals(that.dateOfFire) : that.dateOfFire == null;
     }
 
     @Override
@@ -140,6 +154,8 @@ public class DriverEntity extends BaseEntity {
         result = 31 * result + (licenseEndDate != null ? licenseEndDate.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
         result = 31 * result + (currentCity != null ? currentCity.hashCode() : 0);
+        result = 31 * result + (user != null ? user.hashCode() : 0);
+        result = 31 * result + (dateOfFire != null ? dateOfFire.hashCode() : 0);
         return result;
     }
 

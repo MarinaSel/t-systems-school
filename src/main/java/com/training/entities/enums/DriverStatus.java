@@ -27,7 +27,12 @@ public enum DriverStatus {
     /**
      * Means that the driver is available.
      */
-    FREE("FREE");
+    FREE("FREE"),
+
+    /**
+     * Means that the driver has been fired.
+     */
+    FIRED("FIRED");
 
     private final String status;
 

@@ -31,10 +31,18 @@
             <td>${driver.drivingLicenseNum}</td>
             <td>${driver.licenseEndDate}</td>
             <td>${driver.status}</td>
-            <td>${driver.creationDate}</td>
+            <td style="width: 200px;">${driver.creationDate}</td>
 
             <td>
-                <a href="/editDriver/${driver.id}" class="btn btn-info btn-sm">Edit</a>
+                <c:if test="${driver.status != 'FIRED'}">
+                    <a href="/editDriver/${driver.id}" class="btn btn-info btn-sm">Edit</a>
+                </c:if>
+                <c:if test="${driver.status == 'FREE' || driver.status == 'REST'}">
+                    <a href="/fireDriver/${driver.id}" class="btn btn-danger btn-sm">Fire</a>
+                </c:if>
+                <c:if test="${driver.status == 'FIRED'}">
+                    Fired on ${driver.dateOfFire}
+                </c:if>
             </td>
         </tr>
     </c:forEach>

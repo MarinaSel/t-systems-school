@@ -51,5 +51,11 @@ public class DriverController {
         List<Driver> drivers = driverService.findAll();
         return new ModelAndView("driversPage").addObject("drivers", drivers);
     }
+
+    @GetMapping("/fireDriver/{id}")
+    public ModelAndView fireDriver(@PathVariable("id") Long id) {
+        driverService.fireDriver(id);
+        return new ModelAndView("redirect:/drivers");
+    }
 }
 

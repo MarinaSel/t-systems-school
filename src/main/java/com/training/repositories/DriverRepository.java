@@ -72,4 +72,13 @@ public interface DriverRepository extends JpaRepository<DriverEntity, Long> {
     @Modifying
     @Query("update DriverEntity d set d.status = 'ASSIGNED' where d.id = ?1")
     void setAssigned(Long id);
+
+    /**
+     * Marks driver as fired. Used when firing driver.
+     *
+     * @param id Long object - id of driver to be fired
+     */
+    @Modifying
+    @Query("update DriverEntity d set d.status = 'FIRED', d.dateOfFire = current_date where d.id = ?1")
+    void setFired(Long id);
 }
