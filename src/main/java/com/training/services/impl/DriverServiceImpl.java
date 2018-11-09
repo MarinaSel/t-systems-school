@@ -1,11 +1,13 @@
 package com.training.services.impl;
 
 import com.training.entities.DriverEntity;
+import com.training.entities.UserEntity;
 import com.training.mappers.DriverMapper;
 import com.training.mappers.UserMapper;
 import com.training.models.Driver;
 import com.training.models.User;
 import com.training.repositories.DriverRepository;
+import com.training.repositories.UserRepository;
 import com.training.services.DriverService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -28,6 +30,9 @@ public class DriverServiceImpl implements DriverService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
     @Transactional
     public void save(Driver driver) {
@@ -36,6 +41,8 @@ public class DriverServiceImpl implements DriverService {
             driver.setUser(user);
         }
         DriverEntity driverEntity = DriverMapper.mapModelToEntity(driver);
+        UserEntity userEntity = userRepository.saveAndFlush(driverEntity.getUser());
+        driverEntity.setUser(userEntity);
         driverRepository.saveAndFlush(driverEntity);
         if (driver.getId() == null) {
             LOGGER.info("Created driver with id = {}", driverEntity.getId());
