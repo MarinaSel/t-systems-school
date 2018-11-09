@@ -28,11 +28,13 @@ public class Driver extends BaseModel {
         this.user = new User();
     }
 
-    public Driver(Long id, String drivingLicenseNum, DriverStatus status, Date licenseEndDate, User user) {
+    public Driver(Long id, String drivingLicenseNum, DriverStatus status, Date licenseEndDate,
+                  Date dateOfFire, User user) {
         this.id = id;
         this.drivingLicenseNum = drivingLicenseNum;
         this.status = status;
         this.licenseEndDate = licenseEndDate;
+        this.dateOfFire = dateOfFire;
         this.user = user;
     }
 

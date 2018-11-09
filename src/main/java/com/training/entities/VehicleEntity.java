@@ -79,7 +79,9 @@ public class VehicleEntity extends BaseEntity {
     public VehicleEntity() {
     }
 
-    public VehicleEntity(String model, Date issueDate, String registrationNumber, Integer capacity, VehicleStatus status) {
+    public VehicleEntity(Long id, String model, Date issueDate, String registrationNumber, Integer capacity,
+                         VehicleStatus status) {
+        this.id = id;
         this.model = model;
         this.issueDate = issueDate;
         this.registrationNumber = registrationNumber;

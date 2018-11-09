@@ -60,8 +60,9 @@ public class LoadEntity extends BaseEntity {
     public LoadEntity() {
     }
 
-    public LoadEntity(String title, String description, Date dayOfDelivery, LoadStatus status, Integer weight,
+    public LoadEntity(Long id, String title, String description, Date dayOfDelivery, LoadStatus status, Integer weight,
                       VehicleEntity vehicle) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.dayOfDelivery = dayOfDelivery;

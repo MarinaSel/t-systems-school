@@ -61,10 +61,13 @@ public class DriverEntity extends BaseEntity {
     public DriverEntity() {
     }
 
-    public DriverEntity(String drivingLicenseNum, Date licenseEndDate, DriverStatus status, UserEntity user) {
+    public DriverEntity(Long id, String drivingLicenseNum, Date licenseEndDate, DriverStatus status, Date dateOfFire,
+                        UserEntity user) {
+        this.id = id;
         this.drivingLicenseNum = drivingLicenseNum;
         this.licenseEndDate = licenseEndDate;
         this.status = status;
+        this.dateOfFire = dateOfFire;
         this.user = user;
     }
 

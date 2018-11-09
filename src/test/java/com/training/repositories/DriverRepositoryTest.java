@@ -2,9 +2,7 @@ package com.training.repositories;
 
 import com.training.entities.DriverEntity;
 import com.training.entities.UserEntity;
-import com.training.entities.enums.DriverStatus;
 import com.training.test_config.TestWebConfig;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +12,12 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.ValidationException;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import static com.training.entities.enums.DriverStatus.FREE;
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
@@ -33,42 +32,30 @@ public class DriverRepositoryTest {
     @Autowired
     private UserRepository userRepository;
 
-    private static Date date;
-    private static UserEntity userEntity;
-
-    @BeforeClass
-    public static void init() {
-        userEntity = new UserEntity("first", "last", "login", "password");
-        date = new Date();
-    }
+    private static final String LICENSE_NUMBER = "License";
+    private static final String ANOTHER_LICENSE_NUMBER = "Another";
 
     @Test
     public void createAndFind() {
+        UserEntity userEntity = getUser();
         userRepository.saveAndFlush(userEntity);
-        DriverEntity newDriver = new DriverEntity(
-                "licNumber", date, DriverStatus.FREE, userEntity);
-        DriverEntity expectedDriver = new DriverEntity(
-                "licNumber", date, DriverStatus.FREE, userEntity);
+        DriverEntity driverEntity = getDriver(LICENSE_NUMBER, userEntity);
+        driverRepository.saveAndFlush(driverEntity);
 
-        driverRepository.saveAndFlush(newDriver);
-        expectedDriver.setId(newDriver.getId());
-        assertEquals(expectedDriver, driverRepository.findByDrivingLicenseNum("licNumber"));
+        assertEquals(driverEntity, driverRepository.findByDrivingLicenseNum(LICENSE_NUMBER));
     }
 
     @Test
     public void updateAndDelete() {
+        UserEntity userEntity = getUser();
         userRepository.saveAndFlush(userEntity);
-        DriverEntity newDriver = new DriverEntity(
-                "licNum", date, DriverStatus.FREE, userEntity);
-        DriverEntity expectedDriver = new DriverEntity(
-                "licNum1", date, DriverStatus.FREE, userEntity);
-        driverRepository.saveAndFlush(newDriver);
-        Long id = newDriver.getId();
+        DriverEntity driverEntity = getDriver(LICENSE_NUMBER, userEntity);
+        driverRepository.saveAndFlush(driverEntity);
+        Long id = driverEntity.getId();
 
-        expectedDriver.setId(id);
-        newDriver.setDrivingLicenseNum("licNum1");
-        driverRepository.saveAndFlush(newDriver);
-        assertEquals(expectedDriver, newDriver);
+        driverEntity.setDrivingLicenseNum(ANOTHER_LICENSE_NUMBER);
+        driverRepository.saveAndFlush(driverEntity);
+        assertEquals(Optional.of(driverEntity), driverRepository.findById(id));
 
         driverRepository.deleteById(id);
         assertEquals(Optional.empty(), driverRepository.findById(id));
@@ -76,29 +63,29 @@ public class DriverRepositoryTest {
 
     @Test
     public void findAllByStatus() {
+        UserEntity userEntity = getUser();
         userRepository.saveAndFlush(userEntity);
-        DriverEntity driverEntity1 = new DriverEntity(
-                "licNumber", date, DriverStatus.FREE, userEntity);
-        DriverEntity driverEntity2 = new DriverEntity(
-                "licNumber1", date, DriverStatus.FREE, userEntity);
-
+        DriverEntity driverEntity1 = getDriver(LICENSE_NUMBER, userEntity);
+        DriverEntity driverEntity2 = getDriver(ANOTHER_LICENSE_NUMBER, userEntity);
         driverRepository.saveAndFlush(driverEntity1);
         driverRepository.saveAndFlush(driverEntity2);
-        List<DriverEntity> driverEntities = driverRepository.findAllByStatus(DriverStatus.FREE);
 
-        DriverEntity expectedDriver1 = new DriverEntity("licNumber", date, DriverStatus.FREE, userEntity);
-        DriverEntity expectedDriver2 = new DriverEntity("licNumber1", date, DriverStatus.FREE, userEntity);
-
-        expectedDriver1.setId(driverEntity1.getId());
-        expectedDriver2.setId(driverEntity2.getId());
-
-        List<DriverEntity> expectedList = Arrays.asList(expectedDriver1, expectedDriver2);
-        assertEquals(expectedList, driverEntities);
+        List<DriverEntity> expectedList = asList(driverEntity1, driverEntity2);
+        List<DriverEntity> actualList = driverRepository.findAllByStatus(FREE);
+        assertEquals(expectedList, actualList);
     }
 
     @Test(expected = ValidationException.class)
     public void createDriverWithNullProperties() {
-        driverRepository.saveAndFlush(new DriverEntity(null, null, null, null));
+        driverRepository.saveAndFlush(
+                new DriverEntity(null, null, null, null, null, null));
     }
 
+    private static UserEntity getUser() {
+        return new UserEntity(null, "first", "last", "login", "password");
+    }
+
+    private static DriverEntity getDriver(String licenseNum, UserEntity userEntity) {
+        return new DriverEntity(null, licenseNum, new Date(), FREE, new Date(), userEntity);
+    }
 }

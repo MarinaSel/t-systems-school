@@ -1,14 +1,14 @@
 package com.training.unit;
 
 import com.training.entities.VehicleEntity;
-import com.training.entities.enums.VehicleStatus;
-import com.training.mappers.VehicleMapper;
 import com.training.models.Vehicle;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Date;
 
+import static com.training.entities.enums.VehicleStatus.FREE;
+import static com.training.mappers.VehicleMapper.mapEntityToModel;
+import static com.training.mappers.VehicleMapper.mapModelToEntity;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
@@ -16,53 +16,44 @@ import static org.junit.Assert.assertNull;
 
 public class VehicleMapperTest {
 
-    private Date date;
-
-    @Before
-    public void init() {
-        date = new Date();
-    }
+    private static final Long ID = 1L;
+    private static final String REG_NUMBER = "555gggg";
+    private static final String ANOTHER_REG_NUMBER = "iiiii111";
+    private static final Integer CAPACITY = 7;
+    private static final String MODEL = "model";
+    private static final Date DATE = new Date();
+    private static final VehicleEntity vehicleEntity = new VehicleEntity(ID, MODEL, DATE, REG_NUMBER, CAPACITY, FREE);
+    private static final Vehicle vehicleModel = new Vehicle(ID, REG_NUMBER, CAPACITY, FREE, MODEL, DATE);
 
     @Test
     public void getModelFromEntity() {
-        Vehicle vehicle = new Vehicle(1L, "564791j", 7, VehicleStatus.FREE, "model", date);
-        VehicleEntity vehicleEntity = new VehicleEntity("model", date, "564791j", 7, VehicleStatus.FREE);
-        vehicleEntity.setId(1L);
-        assertEquals(vehicle, VehicleMapper.mapEntityToModel(vehicleEntity));
-
+        assertEquals(vehicleModel, mapEntityToModel(vehicleEntity));
     }
 
     @Test
     public void getModelFromEntityWithNotMatchingProperties() {
-        Vehicle vehicle = new Vehicle(1L, "564791j", 7, VehicleStatus.FREE, "model", date);
-        VehicleEntity vehicleEntity = new VehicleEntity("model", date, "1258977", 7, VehicleStatus.FREE);
-        vehicleEntity.setId(1L);
-        assertNotEquals(vehicle, VehicleMapper.mapEntityToModel(vehicleEntity));
+        VehicleEntity anotherVehicleEntity = new VehicleEntity(ID, MODEL, DATE, ANOTHER_REG_NUMBER, CAPACITY, FREE);
+        assertNotEquals(vehicleModel, mapEntityToModel(anotherVehicleEntity));
     }
 
     @Test
     public void getEntityFromModel() {
-        Vehicle vehicle = new Vehicle(1L, "564791j", 7, VehicleStatus.FREE, "model", date);
-        VehicleEntity vehicleEntity = new VehicleEntity("model", date, "564791j", 7, VehicleStatus.FREE);
-        vehicleEntity.setId(1L);
-        assertEquals(vehicleEntity, VehicleMapper.mapModelToEntity(vehicle));
+        assertEquals(vehicleEntity, mapModelToEntity(vehicleModel));
     }
 
     @Test
     public void getEntityFromModelWithNotMatchingProperties() {
-        Vehicle vehicle = new Vehicle(1L, "564791j", 7, VehicleStatus.FREE, "model", date);
-        VehicleEntity vehicleEntity = new VehicleEntity("model", date, "1111111", 7, VehicleStatus.FREE);
-        vehicleEntity.setId(1L);
-        assertNotEquals(vehicleEntity, VehicleMapper.mapModelToEntity(vehicle));
+        Vehicle anotherVehicleModel = new Vehicle(ID, ANOTHER_REG_NUMBER, CAPACITY, FREE, MODEL, DATE);
+        assertNotEquals(vehicleEntity, mapModelToEntity(anotherVehicleModel));
     }
 
     @Test
     public void getEntityFromNullModel() {
-        assertNull(VehicleMapper.mapModelToEntity(null));
+        assertNull(mapModelToEntity(null));
     }
 
     @Test
     public void getModelFromNullEntity() {
-        assertNull(VehicleMapper.mapEntityToModel(null));
+        assertNull(mapEntityToModel(null));
     }
 }

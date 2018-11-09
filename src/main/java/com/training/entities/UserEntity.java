@@ -38,7 +38,8 @@ public class UserEntity implements Validatable {
     public UserEntity() {
     }
 
-    public UserEntity(String firstName, String lastName, String login, String password) {
+    public UserEntity(Long id, String firstName, String lastName, String login, String password) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.login = login;

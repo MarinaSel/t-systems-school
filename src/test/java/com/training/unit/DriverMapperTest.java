@@ -1,76 +1,56 @@
 package com.training.unit;
 
 import com.training.entities.DriverEntity;
-import com.training.entities.UserEntity;
-import com.training.entities.enums.DriverStatus;
-import com.training.mappers.DriverMapper;
 import com.training.models.Driver;
-import com.training.models.User;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.Date;
 
+import static com.training.entities.enums.DriverStatus.FREE;
+import static com.training.mappers.DriverMapper.mapEntityToModel;
+import static com.training.mappers.DriverMapper.mapModelToEntity;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
 
 public class DriverMapperTest {
 
-    private static Date date;
-    private static UserEntity userEntity;
-    private static User user;
-
-    @BeforeClass
-    public static void init() {
-        userEntity = new UserEntity("first", "last", "login", "password");
-        user = new User(1L, "first", "last", "login", "password");
-        date = new Date();
-    }
-
+    private static final Long ID = 1L;
+    private static final String LICENCE_NUM = "87654kk";
+    private static final String ANOTHER_LICENSE_NUM = "1121212";
+    private static final Date DATE = new Date();
+    private static final DriverEntity DRIVER_ENTITY = new DriverEntity(ID, LICENCE_NUM, DATE, FREE, DATE, null);
+    private static final Driver DRIVER_MODEL = new Driver(ID, LICENCE_NUM, FREE, DATE, DATE, null);
 
     @Test
     public void getModelFromEntity() {
-        userEntity.setId(1L);
-        Driver driver = new Driver(1L, "863jhg", DriverStatus.FREE, date, user);
-        DriverEntity driverEntity = new DriverEntity("863jhg", date, DriverStatus.FREE, userEntity);
-        driverEntity.setId(1L);
-        assertEquals(driver, DriverMapper.mapEntityToModel(driverEntity));
+        assertEquals(DRIVER_MODEL, mapEntityToModel(DRIVER_ENTITY));
     }
 
     @Test
     public void getModelFromEntityWithNotMatchingProperties() {
-        Driver driver = new Driver(1L, "863jhg", DriverStatus.FREE, date, user);
-        DriverEntity driverEntity = new DriverEntity("8634jhg", date, DriverStatus.FREE, userEntity);
-        driverEntity.setId(1L);
-        assertNotEquals(driver, DriverMapper.mapEntityToModel(driverEntity));
+        DriverEntity anotherDriverEntity = new DriverEntity(ID, ANOTHER_LICENSE_NUM, DATE, FREE, DATE, null);
+        assertNotEquals(DRIVER_MODEL, mapEntityToModel(anotherDriverEntity));
     }
 
     @Test
     public void getEntityFromModel() {
-        Driver driver = new Driver(1L, "863jhg", DriverStatus.FREE, date, user);
-        DriverEntity driverEntity = new DriverEntity("863jhg", date, DriverStatus.FREE, userEntity);
-        driverEntity.setId(1L);
-        assertEquals(driverEntity, DriverMapper.mapModelToEntity(driver));
+        assertEquals(DRIVER_ENTITY, mapModelToEntity(DRIVER_MODEL));
     }
 
     @Test
     public void getEntityFromModelWithNotMatchingProperties() {
-        Driver driver = new Driver(1L, "863jhg", DriverStatus.FREE, date, user);
-        DriverEntity driverEntity = new DriverEntity("863jhg", date, DriverStatus.REST, userEntity);
-        driverEntity.setId(1L);
-        assertNotEquals(driverEntity, DriverMapper.mapModelToEntity(driver));
+        Driver anotherDriverModel = new Driver(ID, ANOTHER_LICENSE_NUM, FREE, DATE, DATE, null);
+        assertNotEquals(DRIVER_ENTITY, mapModelToEntity(anotherDriverModel));
     }
 
     @Test
     public void getEntityFromNullModel() {
-        assertNull(DriverMapper.mapModelToEntity(null));
+        assertNull(mapModelToEntity(null));
     }
 
     @Test
     public void getModelFromNullEntity() {
-        assertNull(DriverMapper.mapEntityToModel(null));
+        assertNull(mapEntityToModel(null));
     }
-
-
 }

@@ -1,14 +1,14 @@
 package com.training.unit;
 
 import com.training.entities.LoadEntity;
-import com.training.entities.enums.LoadStatus;
-import com.training.mappers.LoadMapper;
 import com.training.models.Load;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Date;
 
+import static com.training.entities.enums.LoadStatus.NOT_ASSIGNED;
+import static com.training.mappers.LoadMapper.mapEntityToModel;
+import static com.training.mappers.LoadMapper.mapModelToEntity;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
@@ -16,52 +16,47 @@ import static org.junit.Assert.assertNull;
 
 public class LoadMapperTest {
 
-    private Date date;
+    private static final Long ID = 1L;
+    private static final String TITLE = "Title";
+    private static final String ANOTHER_TITLE = "Another title";
+    private static final String DESCRIPTION = "Description";
+    private static final Integer WEIGHT = 7;
+    private static final Date DATE = new Date();
+    private static final LoadEntity LOAD_ENTITY =
+            new LoadEntity(ID, TITLE, DESCRIPTION, DATE, NOT_ASSIGNED, WEIGHT, null);
+    private static final Load LOAD_MODEL = new Load(ID, TITLE, DESCRIPTION, DATE, WEIGHT, NOT_ASSIGNED, null);
 
-    @Before
-    public void initDate() {
-        date = new Date();
-    }
 
     @Test
     public void getModelFromEntity() {
-        Load load = new Load(1L, "Title", "Description", date, 7, LoadStatus.NOT_ASSIGNED, null);
-        LoadEntity loadEntity = new LoadEntity("Title", "Description", date, LoadStatus.NOT_ASSIGNED, 7, null);
-        loadEntity.setId(1L);
-        assertEquals(load, LoadMapper.mapEntityToModel(loadEntity));
+        assertEquals(LOAD_MODEL, mapEntityToModel(LOAD_ENTITY));
     }
 
     @Test
     public void getModelFromEntityWithNotMatchingProperties() {
-        Load load = new Load(1L, "Title", "Description", date, 7, LoadStatus.NOT_ASSIGNED, null);
-        LoadEntity loadEntity = new LoadEntity("Title1", "Description", date, LoadStatus.NOT_ASSIGNED, 7, null);
-        loadEntity.setId(1L);
-        assertNotEquals(load, LoadMapper.mapEntityToModel(loadEntity));
+        LoadEntity anotherLoadEntity = new LoadEntity(ID, ANOTHER_TITLE, DESCRIPTION, DATE,
+                NOT_ASSIGNED, WEIGHT, null);
+        assertNotEquals(LOAD_MODEL, mapEntityToModel(anotherLoadEntity));
     }
 
     @Test
     public void getEntityFromModel() {
-        Load load = new Load(1L, "Title", "Description", date, 7, LoadStatus.NOT_ASSIGNED, null);
-        LoadEntity loadEntity = new LoadEntity("Title", "Description", date, LoadStatus.NOT_ASSIGNED, 7, null);
-        loadEntity.setId(1L);
-        assertEquals(loadEntity, LoadMapper.mapModelToEntity(load));
+        assertEquals(LOAD_ENTITY, mapModelToEntity(LOAD_MODEL));
     }
 
     @Test
     public void getEntityFromModelWithNotMatchingProperties() {
-        Load load = new Load(1L, "Title", "Description", date, 7, LoadStatus.NOT_ASSIGNED, null);
-        LoadEntity loadEntity = new LoadEntity("Title1", "Description", date, LoadStatus.NOT_ASSIGNED, 7, null);
-        loadEntity.setId(1L);
-        assertNotEquals(loadEntity, LoadMapper.mapModelToEntity(load));
+        Load anotherLoadModel = new Load(ID, ANOTHER_TITLE, DESCRIPTION, DATE, WEIGHT, NOT_ASSIGNED, null);
+        assertNotEquals(LOAD_ENTITY, mapModelToEntity(anotherLoadModel));
     }
 
     @Test
     public void getEntityFromNullModel() {
-        assertNull(LoadMapper.mapModelToEntity(null));
+        assertNull(mapModelToEntity(null));
     }
 
     @Test
     public void getModelFromNullEntity() {
-        assertNull(LoadMapper.mapEntityToModel(null));
+        assertNull(mapEntityToModel(null));
     }
 }
