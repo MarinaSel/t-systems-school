@@ -8,9 +8,8 @@
 
     <title>Loads</title>
 </head>
-
 <body>
-<a href="/getSaveLoadPage" class="btn btn-success">Add new load</a>
+<a href="/getSaveLoadPage" class="btn btn-outline-primary waves-effect">Add new load</a>
 <hr>
 <table class="table table-striped table-bordered tableView loads">
     <thead>
@@ -41,10 +40,11 @@
             <td>
                 <c:if test="${load.status != 'DONE'}">
                     <c:if test="${load.status != 'IN_PROGRESS'}">
-                        <a href="/editLoad/${load.id}" class="btn btn-info btn-sm">Edit</a>
+                        <a href="/editLoad/${load.id}" class="btn btn-sm btn-outline-info waves-effect">Edit</a>
                     </c:if>
                     <c:if test="${load.status == 'IN_PROGRESS'}">
-                        <a href="/delivered/${load.id}" class="btn btn-success btn-sm">Delivered</a>
+                        <a href="/delivered/${load.id}"
+                           class="btn btn-sm btn-outline-success waves-effect">Delivered</a>
                     </c:if>
                 </c:if>
             </td>
@@ -66,10 +66,7 @@
             </td>
         </tr>
     </c:forEach>
-
-
     </tbody>
-
 </table>
 </body>
 </html>

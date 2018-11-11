@@ -14,26 +14,19 @@
 <h1 align="center">${empty editableLoad.id ? 'Add' : 'Edit'} load</h1>
 <hr>
 <form method="post" action="/saveLoad" modelAttribute="editableLoad">
-    <table align="center" id="saveLoadTable" class="table table-striped table-bordered table-width">
-        <tr>
-            <td>
-                <input type="hidden" name="id" value="${editableLoad.id}"/>
-            </td>
-            <td>
-                <input type="hidden" name="creationDate" value="${editableLoad.creationDate}">
-            </td>
-            <td class="hidden">
-                <input type="hidden" name="status" value="${editableLoad.status}">
-                <input type="hidden"
-                       name="${_csrf.parameterName}"
-                       value="${_csrf.token}"/>
-            </td>
-        </tr>
+    <input type="hidden" name="id" value="${editableLoad.id}"/>
+    <input type="hidden" name="creationDate" value="${editableLoad.creationDate}">
+    <input type="hidden" name="status" value="${editableLoad.status}">
+    <input type="hidden"
+           name="${_csrf.parameterName}"
+           value="${_csrf.token}"/>
+    <table align="center" id="saveLoadTable" class="table table-bordered table-width">
+        <tbody>
 
         <tr>
             <th align="left">Title</th>
             <td>
-                <input name="title" value="${editableLoad.title}" placeholder="Title"
+                <input class="form-control" name="title" value="${editableLoad.title}" placeholder="Title"
                        maxlength="255" autocomplete="off" required/>
             </td>
         </tr>
@@ -41,7 +34,8 @@
         <tr>
             <th align="left">Description</th>
             <td>
-                <input name="description" value="${editableLoad.description}" placeholder="Description"
+                <input class="form-control" name="description" value="${editableLoad.description}"
+                       placeholder="Description"
                        maxlength="255" autocomplete="off" required/>
             </td>
         </tr>
@@ -49,14 +43,15 @@
         <tr>
             <th align="left">Day of delivery</th>
             <td>
-                <input name="dayOfDelivery" id="date" value="${editableLoad.dayOfDelivery}"
+                <input class="form-control" name="dayOfDelivery" id="date" value="${editableLoad.dayOfDelivery}"
                        placeholder="Day of delivery" required readonly/>
             </td>
         </tr>
         <tr>
             <th align="left">Weight (kg)</th>
             <td>
-                <input id="vehicleWeight" type="number" name="weight" value="${editableLoad.weight}"
+                <input class="form-control" id="vehicleWeight" type="number" name="weight"
+                       value="${editableLoad.weight}"
                        oninput="getVehicles()" min="1" max="22000" placeholder="Weight" autocomplete="off" required/>
             </td>
         </tr>
@@ -64,7 +59,7 @@
         <tr>
             <th align="left">Vehicle registration number</th>
             <td>
-                <select class="select" id="vehicles" name="regNum" onchange="getDrivers()">
+                <select class="select custom-select" id="vehicles" name="regNum" onchange="getDrivers()">
                     <c:if test="${editableLoad.vehicle.registrationNumber != null}">
                         <option>${editableLoad.vehicle.registrationNumber}</option>
                     </c:if>
@@ -80,7 +75,7 @@
         <tr>
             <th align="left">Primary driver</th>
             <td>
-                <select class="select" id="primaryDriver" name="primaryDriverLicense">
+                <select class="select custom-select" id="primaryDriver" name="primaryDriverLicense">
                     <option>${editableLoad.vehicle.primaryDriver.drivingLicenseNum == null ? ""
                             : editableLoad.vehicle.primaryDriver.drivingLicenseNum}</option>
                     <c:forEach items="${freeDrivers}" var="driver">
@@ -95,7 +90,7 @@
         <tr>
             <th align="left">Co-driver</th>
             <td>
-                <select class="select" id="secondDriver" name="coDriverLicense">
+                <select class="select custom-select" id="secondDriver" name="coDriverLicense">
                     <option>${editableLoad.vehicle.coDriver.drivingLicenseNum == null ? ""
                             : editableLoad.vehicle.coDriver.drivingLicenseNum}</option>
                     <c:forEach items="${freeDrivers}" var="driver">
@@ -110,9 +105,11 @@
 
         <tr>
             <td colspan="2">
-                <input class="btn btn-success" type="submit" value="Save"/>
+                <input class="btn btn-dark-green" type="submit" value="Save"/>
             </td>
         </tr>
+        </tbody>
+
     </table>
 </form>
 </body>

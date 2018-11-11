@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="resources/css/drivers.css"/>
 </head>
 <body>
-<a href="/getSaveDriverPage" class="btn btn-success">Add new driver</a>
+<a href="/getSaveDriverPage" class="btn btn-outline-primary waves-effect">Add new driver</a>
 <hr>
 <table class="table table-striped table-bordered tableView drivers">
     <thead>
@@ -31,14 +31,14 @@
             <td>${driver.drivingLicenseNum}</td>
             <td>${driver.licenseEndDate}</td>
             <td>${driver.status}</td>
-            <td style="width: 200px;">${driver.creationDate}</td>
+            <td>${driver.creationDate}</td>
 
             <td>
                 <c:if test="${driver.status != 'FIRED'}">
-                    <a href="/editDriver/${driver.id}" class="btn btn-info btn-sm">Edit</a>
+                    <a href="/editDriver/${driver.id}" class="btn btn-sm btn-outline-info waves-effect">Edit</a>
                 </c:if>
                 <c:if test="${driver.status == 'FREE' || driver.status == 'REST'}">
-                    <a href="/fireDriver/${driver.id}" class="btn btn-danger btn-sm">Fire</a>
+                    <a href="/fireDriver/${driver.id}" class="btn btn-sm btn-outline-danger waves-effect">Fire</a>
                 </c:if>
                 <c:if test="${driver.status == 'FIRED'}">
                     Fired on ${driver.dateOfFire}

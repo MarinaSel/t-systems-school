@@ -11,7 +11,7 @@
 
 </head>
 <body>
-<a href="/getSaveVehiclePage" class="btn btn-success">Add new vehicle</a>
+<a href="/getSaveVehiclePage" class="btn btn-outline-primary waves-effect">Add new vehicle</a>
 <hr>
 <table class="table table-striped table-bordered tableView vehicles">
     <thead>
@@ -37,11 +37,11 @@
 
             <td>
                 <c:if test="${vehicle.primaryDriver == null || vehicle.coDriver == null}">
-                    <a href="/editVehicle/${vehicle.id}" class="btn btn-info btn-sm">Edit</a>
+                    <a href="/editVehicle/${vehicle.id}" class="btn btn-sm btn-outline-info waves-effect">Edit</a>
                 </c:if>
                 <c:if test="${vehicle.status != 'BROKEN' && vehicle.status != 'WORKING'
                 && (vehicle.primaryDriver != null || vehicle.coDriver != null) && !empty vehicle.loads}">
-                    <a href="/sent/${vehicle.id}" class="btn btn-success btn-sm">Begin delivery</a>
+                    <a href="/sent/${vehicle.id}" class="btn btn-sm btn-outline-success waves-effect">Begin delivery</a>
                 </c:if>
             </td>
             <td>
