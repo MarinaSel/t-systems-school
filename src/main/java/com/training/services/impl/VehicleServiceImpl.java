@@ -109,7 +109,7 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     @Transactional
-    public void checkIfCompletedDelivery(VehicleEntity vehicleEntity) {
+    public void checkIfVehicleIsEmpty(VehicleEntity vehicleEntity) {
         if (CollectionUtils.isEmpty(vehicleEntity.getLoads())) {
             Long primaryDriverId = (vehicleEntity.getPrimaryDriver() == null) ? null
                     : vehicleEntity.getPrimaryDriver().getId();

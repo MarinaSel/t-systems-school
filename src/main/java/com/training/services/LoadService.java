@@ -13,11 +13,11 @@ import java.util.List;
 public interface LoadService extends BaseService<Load, Long> {
 
     /**
-     * Deletes vehicle from load. Used when completing an order.
+     * Deletes vehicle from load and marks load as done. Used when completing an order.
      *
-     * @param id Long object - id of load to be updated
+     * @param id Long object - id of load to be delivered
      */
-    void deleteVehicleFromLoad(Long id);
+    void deliverLoad(Long id);
 
     /**
      * Finds all loads.

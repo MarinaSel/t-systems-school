@@ -37,13 +37,14 @@ public interface VehicleService extends BaseService<Vehicle, Long> {
     Vehicle findByRegistrationNumber(String registrationNumber);
 
     /**
-     * Checks loads of vehicle and if all loads were delivered
+     * Checks loads of vehicle and if there is no loads
      * then marks drivers as free and removes them from vehicle,
-     * marks vehicle as free. Used when completing an order.
+     * marks vehicle as free. Used when completing delivery or
+     * assigning new vehicle to load.
      *
      * @param vehicleEntity VehicleEntity object to be checked
      */
-    void checkIfCompletedDelivery(VehicleEntity vehicleEntity);
+    void checkIfVehicleIsEmpty(VehicleEntity vehicleEntity);
 
     /**
      * Marks vehicle as working and marks all its loads as

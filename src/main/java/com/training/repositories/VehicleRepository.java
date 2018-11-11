@@ -36,7 +36,7 @@ public interface VehicleRepository extends JpaRepository<VehicleEntity, Long> {
 
     /**
      * Marks vehicle as free. Used when completing delivery
-     * and all the loads were delivered.
+     * or assigning new vehicle to load.
      *
      * @param id Long object - id of vehicle
      */

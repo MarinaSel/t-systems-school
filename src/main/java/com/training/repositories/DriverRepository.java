@@ -45,7 +45,7 @@ public interface DriverRepository extends JpaRepository<DriverEntity, Long> {
 
     /**
      * Marks driver as free and removes him from vehicle.
-     * Used when completing delivery and all the loads were delivered.
+     * Used when completing delivery or assigning new vehicle to load.
      *
      * @param primaryDriverId Long object - id of primary driver
      * @param coDriverId      Long object - id of co-driver

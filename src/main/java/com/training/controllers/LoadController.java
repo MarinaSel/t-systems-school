@@ -82,7 +82,7 @@ public class LoadController {
 
     @GetMapping("/delivered/{id}")
     public ModelAndView deliveredLoad(@PathVariable("id") Long id) {
-        loadService.deleteVehicleFromLoad(id);
+        loadService.deliverLoad(id);
         return new ModelAndView("redirect:/loads");
     }
 

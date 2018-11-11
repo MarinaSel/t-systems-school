@@ -73,27 +73,34 @@ public class LoadServiceImpl implements LoadService {
     @Transactional
     public void saveAssignedLoad(Load load, String registrationNumber, String primaryDriverLicense,
                                  String coDriverLicense) {
+        if (load.getStatus() == ASSIGNED) {
+            deleteVehicleFromLoad(load.getId());
+        } else {
+            load.setStatus(ASSIGNED);
+        }
         Vehicle vehicle = vehicleService.findByRegistrationNumber(registrationNumber);
-        load.setStatus(ASSIGNED);
         load.setVehicle(vehicle);
 
         LoadEntity loadEntity = LoadMapper.mapModelToEntity(load);
         loadRepository.saveAndFlush(loadEntity);
         LOGGER.info("Load with id {} was saved and assigned to vehicle with id {}", loadEntity.getId(),
                 vehicle.getId());
-
         vehicleService.assignToDrivers(vehicle, primaryDriverLicense, coDriverLicense);
     }
 
     @Override
     @Transactional
-    public void deleteVehicleFromLoad(Long id) {
-        LoadEntity loadEntity = loadRepository.getOne(id);
-        VehicleEntity vehicleEntity = loadEntity.getVehicle();
+    public void deliverLoad(Long loadId) {
+        deleteVehicleFromLoad(loadId);
+        loadRepository.setDone(loadId);
+        LOGGER.info("Load with id {} delivered", loadId);
+    }
 
+    @Transactional
+    void deleteVehicleFromLoad(Long loadId) {
+        LoadEntity loadEntity = loadRepository.getOne(loadId);
+        VehicleEntity vehicleEntity = loadEntity.getVehicle();
         vehicleEntity.getLoads().remove(loadEntity);
-        vehicleService.checkIfCompletedDelivery(vehicleEntity);
-        loadRepository.setDone(id);
-        LOGGER.info("Load with id {} delivered", id);
+        vehicleService.checkIfVehicleIsEmpty(vehicleEntity);
     }
 }
