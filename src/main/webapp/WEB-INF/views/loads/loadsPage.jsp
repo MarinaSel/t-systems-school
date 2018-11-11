@@ -9,7 +9,7 @@
     <title>Loads</title>
 </head>
 <body>
-<a href="/getSaveLoadPage" class="btn btn-outline-primary waves-effect">Add new load</a>
+<a href="/getSaveLoadPage" class="btn btn-outline-primary waves-effect"><strong>Add new load</strong></a>
 <hr>
 <table class="table table-striped table-bordered tableView loads">
     <thead>
@@ -36,22 +36,20 @@
             <td>${load.dayOfDelivery}</td>
             <td>${load.weight}</td>
             <td>${load.status}</td>
-
             <td>
                 <c:if test="${load.status != 'DONE'}">
                     <c:if test="${load.status != 'IN_PROGRESS'}">
-                        <a href="/editLoad/${load.id}" class="btn btn-sm btn-outline-info waves-effect">Edit</a>
+                        <a href="/editLoad/${load.id}" class="btn btn-sm btn-outline-info waves-effect"
+                           style="font-size: small">Edit</a>
                     </c:if>
                     <c:if test="${load.status == 'IN_PROGRESS'}">
                         <a href="/delivered/${load.id}"
-                           class="btn btn-sm btn-outline-success waves-effect">Delivered</a>
+                           class="btn btn-sm btn-outline-success waves-effect" style="font-size: small">Delivered</a>
                     </c:if>
                 </c:if>
             </td>
-
             <td>${load.vehicle.registrationNumber}</td>
             <td>${load.vehicle.status}</td>
-
             <td>
                     ${load.vehicle.primaryDriver.user.firstName} ${load.vehicle.primaryDriver.user.lastName}
                 <p>${load.vehicle.coDriver.user.firstName} ${load.vehicle.coDriver.user.lastName}</p>

@@ -9,7 +9,6 @@
     <%@include file="/WEB-INF/views/includeDatepicker.jsp" %>
 </head>
 <body>
-<h1 align="center">${empty editableDriver.id ? 'Add' : 'Edit'} driver</h1>
 <hr>
 <form method="post" action="/saveDriver" modelAttribute="editableDriver">
     <input type="hidden" name="id" value="${editableDriver.id}"/>
@@ -19,6 +18,9 @@
            name="${_csrf.parameterName}"
            value="${_csrf.token}"/>
     <table align="center" id="saveVehicleAndDriverTable" class="table table-bordered">
+        <td align="center" colspan="2" style="font-size: xx-large">
+            ${empty editableDriver.id ? 'Add' : 'Edit'} driver
+        </td>
         <tr>
             <th>First name</th>
             <td>
@@ -82,8 +84,8 @@
                 </td>
             </tr>
         </c:if>
-        <td colspan="2">
-            <input class="btn btn-dark-green" type="submit" value="Save"/>
+        <td colspan="2" align="center">
+            <input class="btn btn-outline-success waves-effect" style="font-size: medium" type="submit" value="Save"/>
         </td>
     </table>
 </form>

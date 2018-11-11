@@ -11,7 +11,6 @@
 </head>
 
 <body>
-<h1 align="center">${empty editableLoad.id ? 'Add' : 'Edit'} load</h1>
 <hr>
 <form method="post" action="/saveLoad" modelAttribute="editableLoad">
     <input type="hidden" name="id" value="${editableLoad.id}"/>
@@ -21,8 +20,9 @@
            name="${_csrf.parameterName}"
            value="${_csrf.token}"/>
     <table align="center" id="saveLoadTable" class="table table-bordered table-width">
-        <tbody>
-
+        <td align="center" colspan="2" style="font-size: xx-large">
+            ${empty editableLoad.id ? 'Add' : 'Edit'} load
+        </td>
         <tr>
             <th align="left">Title</th>
             <td>
@@ -30,7 +30,6 @@
                        maxlength="255" autocomplete="off" required/>
             </td>
         </tr>
-
         <tr>
             <th align="left">Description</th>
             <td>
@@ -39,7 +38,6 @@
                        maxlength="255" autocomplete="off" required/>
             </td>
         </tr>
-
         <tr>
             <th align="left">Day of delivery</th>
             <td>
@@ -55,7 +53,6 @@
                        oninput="getVehicles()" min="1" max="22000" placeholder="Weight" autocomplete="off" required/>
             </td>
         </tr>
-
         <tr>
             <th align="left">Vehicle registration number</th>
             <td>
@@ -71,7 +68,6 @@
                 </select>
             </td>
         </tr>
-
         <tr>
             <th align="left">Primary driver</th>
             <td>
@@ -102,14 +98,12 @@
                 </select>
             </td>
         </tr>
-
         <tr>
-            <td colspan="2">
-                <input class="btn btn-dark-green" type="submit" value="Save"/>
+            <td colspan="2" align="center">
+                <input class="btn btn-outline-success waves-effect" style="font-size: medium" type="submit"
+                       value="Save"/>
             </td>
         </tr>
-        </tbody>
-
     </table>
 </form>
 </body>

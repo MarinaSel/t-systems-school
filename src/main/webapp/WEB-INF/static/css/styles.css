@@ -31,10 +31,12 @@ input {
 .tableView thead tr {
     display: block;
     position: relative;
+    font-size: large;
 }
 
 .tableView thead th {
     text-align: center;
+    font-size: large;
 }
 
 .soflow {
