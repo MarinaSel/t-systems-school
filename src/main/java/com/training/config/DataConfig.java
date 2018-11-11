@@ -29,8 +29,12 @@ import java.util.Properties;
 @EnableJpaRepositories("com.training.repositories")
 public class DataConfig {
 
+    private final Environment env;
+
     @Autowired
-    private Environment env;
+    public DataConfig(Environment env) {
+        this.env = env;
+    }
 
     @Bean
     public DataSource dataSource() {

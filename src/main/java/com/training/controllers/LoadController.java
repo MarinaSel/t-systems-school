@@ -23,14 +23,18 @@ import static org.springframework.util.StringUtils.isEmpty;
 @Controller
 public class LoadController {
 
-    @Autowired
-    private LoadService loadService;
+    private final LoadService loadService;
+
+    private final VehicleService vehicleService;
+
+    private final DriverService driverService;
 
     @Autowired
-    private VehicleService vehicleService;
-
-    @Autowired
-    private DriverService driverService;
+    public LoadController(LoadService loadService, VehicleService vehicleService, DriverService driverService) {
+        this.loadService = loadService;
+        this.vehicleService = vehicleService;
+        this.driverService = driverService;
+    }
 
     @GetMapping("/editLoad/{id}")
     public ModelAndView editLoad(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {

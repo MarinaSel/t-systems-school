@@ -24,14 +24,18 @@ public class DriverServiceImpl implements DriverService {
 
     private final static Logger LOGGER = LogManager.getLogger(DriverServiceImpl.class);
 
-    @Autowired
-    private DriverRepository driverRepository;
+    private final DriverRepository driverRepository;
+
+    private final UserService userService;
+
+    private final UserRepository userRepository;
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
-    private UserRepository userRepository;
+    public DriverServiceImpl(DriverRepository driverRepository, UserService userService, UserRepository userRepository) {
+        this.driverRepository = driverRepository;
+        this.userService = userService;
+        this.userRepository = userRepository;
+    }
 
     @Override
     @Transactional

@@ -27,14 +27,18 @@ import java.util.List;
 @Service("customAuthenticationProvider")
 public class AuthenticationProviderImpl implements AuthenticationProvider {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    private final DriverService driverService;
+
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    private DriverService driverService;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    public AuthenticationProviderImpl(UserService userService, DriverService driverService, PasswordEncoder passwordEncoder) {
+        this.userService = userService;
+        this.driverService = driverService;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {

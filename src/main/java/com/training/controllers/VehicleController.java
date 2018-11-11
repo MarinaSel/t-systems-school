@@ -16,8 +16,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class VehicleController {
 
+    private final VehicleService vehicleService;
+
     @Autowired
-    private VehicleService vehicleService;
+    public VehicleController(VehicleService vehicleService) {
+        this.vehicleService = vehicleService;
+    }
 
     @GetMapping("/vehicles")
     public ModelAndView getAllVehiclesPage() {

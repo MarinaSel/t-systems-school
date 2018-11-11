@@ -29,14 +29,18 @@ public class VehicleServiceImpl implements VehicleService {
 
     private final static Logger LOGGER = LogManager.getLogger(VehicleServiceImpl.class);
 
-    @Autowired
-    private VehicleRepository vehicleRepository;
+    private final VehicleRepository vehicleRepository;
+
+    private final DriverRepository driverRepository;
+
+    private final LoadRepository loadRepository;
 
     @Autowired
-    private DriverRepository driverRepository;
-
-    @Autowired
-    private LoadRepository loadRepository;
+    public VehicleServiceImpl(VehicleRepository vehicleRepository, DriverRepository driverRepository, LoadRepository loadRepository) {
+        this.vehicleRepository = vehicleRepository;
+        this.driverRepository = driverRepository;
+        this.loadRepository = loadRepository;
+    }
 
     @Override
     @Transactional(readOnly = true)

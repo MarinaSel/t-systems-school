@@ -18,8 +18,12 @@ import java.util.List;
 @Controller
 public class DriverController {
 
+    private final DriverService driverService;
+
     @Autowired
-    private DriverService driverService;
+    public DriverController(DriverService driverService) {
+        this.driverService = driverService;
+    }
 
     @GetMapping("/editDriver/{id}")
     public ModelAndView editDriver(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {

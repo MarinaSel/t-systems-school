@@ -15,9 +15,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
         basePackageClasses = DataConfig.class)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private final AuthenticationProvider authenticationProvider;
+
     @Autowired
-    @Qualifier("customAuthenticationProvider")
-    private AuthenticationProvider authenticationProvider;
+    public WebSecurityConfig(@Qualifier("customAuthenticationProvider") AuthenticationProvider authenticationProvider) {
+        this.authenticationProvider = authenticationProvider;
+    }
 
     protected void configure(HttpSecurity http) throws Exception {
         http

@@ -23,11 +23,15 @@ public class LoadServiceImpl implements LoadService {
 
     private final static Logger LOGGER = LogManager.getLogger(LoadServiceImpl.class);
 
-    @Autowired
-    private LoadRepository loadRepository;
+    private final LoadRepository loadRepository;
+
+    private final VehicleService vehicleService;
 
     @Autowired
-    private VehicleService vehicleService;
+    public LoadServiceImpl(LoadRepository loadRepository, VehicleService vehicleService) {
+        this.loadRepository = loadRepository;
+        this.vehicleService = vehicleService;
+    }
 
     @Override
     @Transactional(readOnly = true)

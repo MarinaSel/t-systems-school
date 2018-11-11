@@ -14,8 +14,12 @@ import java.util.List;
 @RequestMapping("/api/vehicle")
 public class VehicleResource {
 
+    private final VehicleService vehicleService;
+
     @Autowired
-    private VehicleService vehicleService;
+    public VehicleResource(VehicleService vehicleService) {
+        this.vehicleService = vehicleService;
+    }
 
     @GetMapping
     public List<Vehicle> getVehicles(@RequestParam(value = "weight") Integer weight) {
