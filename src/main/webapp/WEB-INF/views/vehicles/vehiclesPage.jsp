@@ -29,11 +29,11 @@
     <c:forEach items="${vehicles}" var="vehicle">
         <tr>
             <td>${vehicle.model}</td>
-            <td>${vehicle.issueDate}</td>
+            <td align="center">${vehicle.issueDate}</td>
             <td>${vehicle.registrationNumber}</td>
             <td>${vehicle.capacity}</td>
             <td>${vehicle.status}</td>
-            <td>
+            <td align="center">
                 <c:if test="${vehicle.primaryDriver == null || vehicle.coDriver == null}">
                     <a href="/editVehicle/${vehicle.id}" class="btn btn-sm btn-outline-info waves-effect"
                        style="font-size: small">Edit</a>

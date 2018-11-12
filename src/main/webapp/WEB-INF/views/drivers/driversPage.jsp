@@ -30,10 +30,10 @@
             <td>${driver.user.firstName}</td>
             <td>${driver.user.lastName}</td>
             <td>${driver.drivingLicenseNum}</td>
-            <td>${driver.licenseEndDate}</td>
+            <td align="center">${driver.licenseEndDate}</td>
             <td>${driver.status}</td>
-            <td>${driver.creationDate}</td>
-            <td>
+            <td align="center">${driver.creationDate}</td>
+            <td align="center">
                 <c:if test="${driver.status != 'FIRED'}">
                     <a href="/editDriver/${driver.id}" class="btn btn-sm btn-outline-info waves-effect"
                        style="font-size: small">Edit</a>

@@ -33,10 +33,10 @@
         <tr>
             <td>${load.title}</td>
             <td>${load.description}</td>
-            <td>${load.dayOfDelivery}</td>
+            <td align="center">${load.dayOfDelivery}</td>
             <td>${load.weight}</td>
             <td>${load.status}</td>
-            <td>
+            <td align="center">
                 <c:if test="${load.status != 'DONE'}">
                     <c:if test="${load.status != 'IN_PROGRESS'}">
                         <a href="/editLoad/${load.id}" class="btn btn-sm btn-outline-info waves-effect"
