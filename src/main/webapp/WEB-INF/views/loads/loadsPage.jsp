@@ -4,27 +4,26 @@
 <head>
     <%@include file="/WEB-INF/views/includeStyles.jsp" %>
     <%@include file="/WEB-INF/views/navbar.html" %>
-    <link rel="stylesheet" type="text/css" href="resources/css/loads.css"/>
-
+    <%@include file="/WEB-INF/views/includeTablePag.jsp" %>
     <title>Loads</title>
 </head>
-<body>
+<body class="body">
 <a href="/getSaveLoadPage" class="btn btn-outline-primary waves-effect"><strong>Add new load</strong></a>
 <hr>
-<table class="table table-striped table-bordered tableView loads">
+<table id="tableScroll" class="table table-striped table-bordered" width="100%">
     <thead>
     <tr>
-        <th>Title</th>
-        <th>Description</th>
-        <th>Day of delivery</th>
-        <th>Weight (kg)</th>
-        <th>Load status</th>
-        <th>Actions</th>
-        <th>Vehicle registration number</th>
-        <th>Vehicle status</th>
-        <th>Drivers names</th>
-        <th>Driving licenses numbers</th>
-        <th>Drivers statuses</th>
+        <th class="th-sm">Title</th>
+        <th class="th-sm">Description</th>
+        <th class="th-sm">Day of delivery</th>
+        <th class="th-sm">Weight (kg)</th>
+        <th class="th-sm">Load status</th>
+        <th class="th-sm">Actions</th>
+        <th class="th-sm">Vehicle registration number</th>
+        <th class="th-sm">Vehicle status</th>
+        <th class="th-sm">Drivers names</th>
+        <th class="th-sm">Driving licenses numbers</th>
+        <th class="th-sm">Drivers statuses</th>
     </tr>
     </thead>
 

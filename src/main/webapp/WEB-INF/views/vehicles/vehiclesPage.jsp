@@ -5,24 +5,25 @@
 <head>
     <title>Vehicles</title>
 
+    <%@include file="/WEB-INF/views/includeTablePag.jsp" %>
     <%@include file="/WEB-INF/views/navbar.html" %>
     <%@include file="/WEB-INF/views/includeStyles.jsp" %>
-    <link rel="stylesheet" type="text/css" href="resources/css/vehicles.css"/>
-</head>
-<body>
+
+</head
+<body class="body">
 <a href="/getSaveVehiclePage" class="btn btn-outline-primary waves-effect"><strong>Add new vehicle</strong></a>
 <hr>
-<table class="table table-striped table-bordered tableView vehicles">
+<table id="tableScroll" class="table table-striped table-bordered" width="100%">
     <thead>
     <tr>
-        <th>Model</th>
-        <th>Issue date</th>
-        <th>Registration number</th>
-        <th>Capacity (kg)</th>
-        <th>Status</th>
-        <th>Actions</th>
-        <th>Drivers names</th>
-        <th>Drivers license numbers</th>
+        <th class="th-sm">Model</th>
+        <th class="th-sm">Issue date</th>
+        <th class="th-sm">Registration number</th>
+        <th class="th-sm">Capacity (kg)</th>
+        <th class="th-sm">Status></th>
+        <th class="th-sm">Actions</th>
+        <th class="th-sm">Drivers names</th>
+        <th class="th-sm">Drivers license numbers</th>
     </tr>
     </thead>
     <tbody>

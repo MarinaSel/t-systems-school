@@ -6,21 +6,21 @@
     <title>Drivers</title>
     <%@include file="/WEB-INF/views/includeStyles.jsp" %>
     <%@include file="/WEB-INF/views/navbar.html" %>
-    <link rel="stylesheet" type="text/css" href="resources/css/drivers.css"/>
+    <%@include file="/WEB-INF/views/includeTablePag.jsp" %>
 </head>
-<body>
+<body class="body">
 <a href="/getSaveDriverPage" class="btn btn-outline-primary waves-effect"><strong>Add new driver</strong></a>
 <hr>
-<table class="table table-striped table-bordered tableView drivers">
+<table id="tableScroll" class="table table-striped table-bordered" width="100%">
     <thead>
     <tr>
-        <th>First name</th>
-        <th>Second name</th>
-        <th>Driver's license number</th>
-        <th>License end date</th>
-        <th>Driver status</th>
-        <th>Creation date</th>
-        <th>Actions</th>
+        <th class="th-sm">First name</th>
+        <th class="th-sm">Second name</th>
+        <th class="th-sm">Driver's license number</th>
+        <th class="th-sm">License end date</th>
+        <th class="th-sm">Driver status</th>
+        <th class="th-sm">Creation date</th>
+        <th class="th-sm">Actions</th>
     </tr>
     </thead>
 
