@@ -37,7 +37,7 @@ public class LoadServiceImpl implements LoadService {
     @Transactional(readOnly = true)
     public Load find(Long id) {
         Load load = LoadMapper.mapEntityToModel(loadRepository.getOne(id));
-        LOGGER.info("Got load with id = {}", load.getId());
+        LOGGER.info("Found load with id = {}", load.getId());
         return load;
     }
 

@@ -8,7 +8,6 @@
     <%@include file="/WEB-INF/views/includeDatepicker.jsp" %>
 </head>
 <body>
-<h1 align="center">${empty editableVehicle.id ? 'Add' : 'Edit'} vehicle</h1>
 <hr>
 <form method="post" action="/saveVehicle" modelAttribute="editableVehicle">
     <input type="hidden" name="id" value="${editableVehicle.id}"/>
@@ -17,6 +16,9 @@
            name="${_csrf.parameterName}"
            value="${_csrf.token}"/>
     <table align="center" id="saveVehicleAndDriverTable" class="table table-bordered">
+        <td colspan="2" align="center" style="font-size: xx-large">
+            ${empty editableVehicle.id ? 'Add' : 'Edit'} vehicle
+        </td>
         <tr>
             <th align="left">Model</th>
             <td>

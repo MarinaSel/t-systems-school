@@ -66,7 +66,7 @@ public class DriverServiceImpl implements DriverService {
     @Transactional(readOnly = true)
     public Driver find(Long id) {
         Driver driver = DriverMapper.mapEntityToModel(driverRepository.getOne(id));
-        LOGGER.info("Got driver with id = {}", driver.getId());
+        LOGGER.info("Found driver with id = {}", driver.getId());
         return driver;
     }
 
