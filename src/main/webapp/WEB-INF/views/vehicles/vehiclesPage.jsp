@@ -5,9 +5,9 @@
 <head>
     <title>Vehicles</title>
 
-    <%@include file="/WEB-INF/views/includeTablePag.jsp" %>
     <%@include file="/WEB-INF/views/navbar.html" %>
     <%@include file="/WEB-INF/views/includeStyles.jsp" %>
+    <%@include file="/WEB-INF/views/includeTablePag.jsp" %>
 
 </head
 <body class="body">
@@ -16,14 +16,14 @@
 <table id="tableScroll" class="table table-striped table-bordered" width="100%">
     <thead>
     <tr>
-        <th class="th-sm">Model</th>
-        <th class="th-sm">Issue date</th>
-        <th class="th-sm">Registration number</th>
-        <th class="th-sm">Capacity (kg)</th>
-        <th class="th-sm">Status></th>
-        <th class="th-sm">Actions</th>
-        <th class="th-sm">Drivers names</th>
-        <th class="th-sm">Drivers license numbers</th>
+        <th class="th-sm textTableHeader">Model</th>
+        <th class="th-sm textTableHeader">Issue date</th>
+        <th class="th-sm textTableHeader">Registration number</th>
+        <th class="th-sm textTableHeader">Capacity (kg)</th>
+        <th class="th-sm textTableHeader">Status</th>
+        <th class="th-sm textTableHeader">Actions</th>
+        <th class="th-sm textTableHeader">Drivers names</th>
+        <th class="th-sm textTableHeader">Drivers license numbers</th>
     </tr>
     </thead>
     <tbody>
