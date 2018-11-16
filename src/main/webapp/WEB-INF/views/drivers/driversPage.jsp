@@ -14,13 +14,13 @@
 <table id="tableScroll" class="table table-striped table-bordered" width="100%">
     <thead>
     <tr>
-        <th class="th-sm">First name</th>
-        <th class="th-sm">Second name</th>
-        <th class="th-sm">Driver's license number</th>
-        <th class="th-sm">License end date</th>
-        <th class="th-sm">Driver status</th>
-        <th class="th-sm">Creation date</th>
-        <th class="th-sm">Actions</th>
+        <th class="th-sm textTableHeader">First name</th>
+        <th class="th-sm textTableHeader">Second name</th>
+        <th class="th-sm textTableHeader">Driver's license number</th>
+        <th class="th-sm textTableHeader">License end date</th>
+        <th class="th-sm textTableHeader">Driver status</th>
+        <th class="th-sm textTableHeader">Creation date</th>
+        <th class="th-sm textTableHeader">Actions</th>
     </tr>
     </thead>
 

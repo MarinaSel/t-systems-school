@@ -13,17 +13,17 @@
 <table id="tableScroll" class="table table-striped table-bordered" width="100%">
     <thead>
     <tr>
-        <th class="th-sm">Title</th>
-        <th class="th-sm">Description</th>
-        <th class="th-sm">Day of delivery</th>
-        <th class="th-sm">Weight (kg)</th>
-        <th class="th-sm">Load status</th>
-        <th class="th-sm">Actions</th>
-        <th class="th-sm">Vehicle registration number</th>
-        <th class="th-sm">Vehicle status</th>
-        <th class="th-sm">Drivers names</th>
-        <th class="th-sm">Driving licenses numbers</th>
-        <th class="th-sm">Drivers statuses</th>
+        <th class="th-sm textTableHeader">Title</th>
+        <th class="th-sm textTableHeader">Description</th>
+        <th class="th-sm textTableHeader">Day of delivery</th>
+        <th class="th-sm textTableHeader">Weight (kg)</th>
+        <th class="th-sm textTableHeader">Load status</th>
+        <th class="th-sm textTableHeader">Actions</th>
+        <th class="th-sm textTableHeader">Vehicle registration number</th>
+        <th class="th-sm textTableHeader">Vehicle status</th>
+        <th class="th-sm textTableHeader">Drivers names</th>
+        <th class="th-sm textTableHeader">Driving licenses numbers</th>
+        <th class="th-sm textTableHeader">Drivers statuses</th>
     </tr>
     </thead>
 
