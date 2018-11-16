@@ -54,10 +54,12 @@ public class AuthenticationProviderImpl implements AuthenticationProvider {
             throw new BadCredentialsException("Wrong password");
         }
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+
 
         if (driverService.findByUser(user) == null) {
             authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        } else {
+            authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         }
         return new UsernamePasswordAuthenticationToken(login, password, authorities);
     }
