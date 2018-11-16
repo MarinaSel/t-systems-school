@@ -3,11 +3,15 @@ package com.training.services.impl;
 import com.training.entities.DriverEntity;
 import com.training.entities.VehicleEntity;
 import com.training.entities.enums.VehicleStatus;
+import com.training.mappers.DriverMapper;
+import com.training.mappers.VehicleMapper;
+import com.training.models.Driver;
 import com.training.models.Load;
 import com.training.models.Vehicle;
 import com.training.repositories.DriverRepository;
 import com.training.repositories.LoadRepository;
 import com.training.repositories.VehicleRepository;
+import com.training.services.DriverService;
 import com.training.services.VehicleService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.logging.log4j.LogManager;
@@ -35,11 +39,15 @@ public class VehicleServiceImpl implements VehicleService {
 
     private final LoadRepository loadRepository;
 
+    private final DriverService driverService;
+
     @Autowired
-    public VehicleServiceImpl(VehicleRepository vehicleRepository, DriverRepository driverRepository, LoadRepository loadRepository) {
+    public VehicleServiceImpl(VehicleRepository vehicleRepository, DriverRepository driverRepository,
+                              LoadRepository loadRepository, DriverService driverService) {
         this.vehicleRepository = vehicleRepository;
         this.driverRepository = driverRepository;
         this.loadRepository = loadRepository;
+        this.driverService = driverService;
     }
 
     @Override
@@ -158,5 +166,13 @@ public class VehicleServiceImpl implements VehicleService {
     void assignDriver(Long driverId) {
         driverRepository.setAssigned(driverId);
         LOGGER.info("Driver with id {} was assigned to vehicle", driverId);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Vehicle getVehicleOfAuthenticatedDriver() {
+        Driver driver = driverService.getAuthenticatedDriver();
+        VehicleEntity vehicle = vehicleRepository.findVehicleByDriver(DriverMapper.mapModelToEntity(driver));
+        return VehicleMapper.mapEntityToModel(vehicle);
     }
 }

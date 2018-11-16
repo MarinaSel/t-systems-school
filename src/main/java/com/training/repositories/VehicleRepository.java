@@ -1,5 +1,6 @@
 package com.training.repositories;
 
+import com.training.entities.DriverEntity;
 import com.training.entities.VehicleEntity;
 import com.training.entities.enums.VehicleStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -52,4 +53,13 @@ public interface VehicleRepository extends JpaRepository<VehicleEntity, Long> {
     @Modifying
     @Query("update VehicleEntity v set v.status = 'WORKING' where v.id = ?1")
     void setWorking(Long id);
+
+    /**
+     * Finds vehicle by driver.
+     *
+     * @param driverEntity DriverEntity object for search
+     * @return found VehicleEntity object
+     */
+    @Query("select v from VehicleEntity v where v.primaryDriver = ?1 or v.coDriver = ?1")
+    VehicleEntity findVehicleByDriver(DriverEntity driverEntity);
 }

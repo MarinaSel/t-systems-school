@@ -62,4 +62,11 @@ public interface VehicleService extends BaseService<Vehicle, Long> {
      * @param coDriverLicense      String object - driving license number of co-driver
      */
     void assignToDrivers(Vehicle vehicle, String primaryDriverLicense, String coDriverLicense);
+
+    /**
+     * Finds vehicle with authenticated driver.
+     *
+     * @return Vehicle object
+     */
+    Vehicle getVehicleOfAuthenticatedDriver();
 }

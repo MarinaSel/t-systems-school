@@ -49,4 +49,11 @@ public interface DriverService extends BaseService<Driver, Long> {
      * @param id Long object - id of driver to be fired
      */
     void fireDriver(Long id);
+
+    /**
+     * Finds authenticated driver.
+     *
+     * @return found Driver object
+     */
+    Driver getAuthenticatedDriver();
 }

@@ -12,6 +12,7 @@ import com.training.services.DriverService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -107,5 +108,14 @@ public class DriverServiceImpl implements DriverService {
     public void fireDriver(Long id) {
         driverRepository.setFired(id);
         LOGGER.info("Fired driver with id = {}", id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Driver getAuthenticatedDriver() {
+        String login = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserEntity user = userRepository.findByLogin(login);
+        DriverEntity driver = driverRepository.findByUser(user);
+        return DriverMapper.mapEntityToModel(driver);
     }
 }
