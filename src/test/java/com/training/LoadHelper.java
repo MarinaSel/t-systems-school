@@ -5,10 +5,12 @@ import com.training.models.Load;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import static com.training.entities.enums.LoadStatus.ASSIGNED;
 import static com.training.entities.enums.LoadStatus.NOT_ASSIGNED;
 import static com.training.mappers.LoadMapper.mapEntityToModel;
+import static java.util.Collections.singleton;
 import static java.util.Collections.singletonList;
 
 public final class LoadHelper {
@@ -75,5 +77,9 @@ public final class LoadHelper {
 
     public static List<LoadEntity> getLoadList() {
         return singletonList(getLoad());
+    }
+
+    static Set<LoadEntity> getLoadSet() {
+        return singleton(getLoad());
     }
 }
