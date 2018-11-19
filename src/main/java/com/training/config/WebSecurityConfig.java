@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @EnableWebSecurity
 @ComponentScan(basePackages = {"com.training.services", "com.training.repositories"},
@@ -16,22 +17,26 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final AuthenticationProvider authenticationProvider;
+    private final AuthenticationSuccessHandler authenticationSuccessHandler;
 
     @Autowired
-    public WebSecurityConfig(@Qualifier("customAuthenticationProvider") AuthenticationProvider authenticationProvider) {
+    public WebSecurityConfig(@Qualifier("customAuthenticationProvider") AuthenticationProvider authenticationProvider,
+                             @Qualifier("customAuthenticationSuccessHandler")
+                                     AuthenticationSuccessHandler authenticationSuccessHandler) {
         this.authenticationProvider = authenticationProvider;
+        this.authenticationSuccessHandler = authenticationSuccessHandler;
     }
 
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/home")
+                .antMatchers("/home/**")
                 .hasRole("USER")
                 .and()
                 .authorizeRequests()
                 .anyRequest().hasRole("ADMIN")
                 .and()
-                .formLogin().permitAll().loginPage("/loginPage")
+                .formLogin().permitAll().loginPage("/loginPage").successHandler(authenticationSuccessHandler)
                 .and()
                 .logout().permitAll().logoutSuccessUrl("/loginPage?logout")
                 .and()
