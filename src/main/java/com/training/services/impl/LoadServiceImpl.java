@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static com.training.entities.enums.LoadStatus.ASSIGNED;
+import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 
 @Service
 public class LoadServiceImpl implements LoadService {
@@ -101,6 +102,10 @@ public class LoadServiceImpl implements LoadService {
         LoadEntity loadEntity = loadRepository.getOne(loadId);
         VehicleEntity vehicleEntity = loadEntity.getVehicle();
         vehicleEntity.getLoads().remove(loadEntity);
-        vehicleService.checkIfVehicleIsEmpty(vehicleEntity);
+
+        if (isEmpty(vehicleEntity.getLoads())) {
+            vehicleService.freeVehicleAndDrivers(vehicleEntity);
+            LOGGER.info("Vehicle with id = {} completed delivery", vehicleEntity.getId());
+        }
     }
 }

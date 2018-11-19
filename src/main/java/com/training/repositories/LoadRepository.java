@@ -47,4 +47,24 @@ public interface LoadRepository extends JpaRepository<LoadEntity, Long> {
     @Modifying
     @Query("update LoadEntity l set l.status = 'ASSIGNED', l.vehicle = ?2 where l.id = ?1")
     void setAssigned(Long id, VehicleEntity vehicleEntity);
+
+    /**
+     * Marks loads assigned to vehicle as done and removes their vehicle.
+     * Used when completing delivery for all loads.
+     *
+     * @param vehicleEntity VehicleEntity object - vehicle delivering loads
+     */
+    @Modifying
+    @Query("update LoadEntity l set l.vehicle = null, l.status = 'DONE' where l.vehicle = ?1")
+    void setDone(VehicleEntity vehicleEntity);
+
+    /**
+     * Marks loads assigned to vehicle as rejected and removes their vehicle.
+     * Used when rejecting delivery.
+     *
+     * @param vehicleEntity VehicleEntity object - vehicle supposed to deliver loads
+     */
+    @Modifying
+    @Query("update LoadEntity l set vehicle = null, l.status = 'REJECTED' where l.vehicle = ?1")
+    void setRejected(VehicleEntity vehicleEntity);
 }

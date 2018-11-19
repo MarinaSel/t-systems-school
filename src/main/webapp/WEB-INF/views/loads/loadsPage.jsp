@@ -36,15 +36,9 @@
             <td>${load.weight}</td>
             <td>${load.status}</td>
             <td align="center">
-                <c:if test="${load.status != 'DONE'}">
-                    <c:if test="${load.status != 'IN_PROGRESS'}">
-                        <a href="/editLoad/${load.id}" class="btn btn-sm btn-outline-info waves-effect"
-                           style="font-size: small">Edit</a>
-                    </c:if>
-                    <c:if test="${load.status == 'IN_PROGRESS'}">
-                        <a href="/delivered/${load.id}"
-                           class="btn btn-sm btn-outline-success waves-effect" style="font-size: small">Delivered</a>
-                    </c:if>
+                <c:if test="${load.status != 'DONE' && load.status != 'IN_PROGRESS'}">
+                    <a href="/editLoad/${load.id}" class="btn btn-sm btn-outline-info waves-effect"
+                       style="font-size: small">Edit</a>
                 </c:if>
             </td>
             <td>${load.vehicle.registrationNumber}</td>

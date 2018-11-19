@@ -79,11 +79,4 @@ public class LoadController {
     public ModelAndView getAllLoadsPage() {
         return new ModelAndView("loadsPage").addObject("loads", loadService.findAll());
     }
-
-    @GetMapping("/delivered/{id}")
-    public ModelAndView deliveredLoad(@PathVariable("id") Long id) {
-        loadService.deliverLoad(id);
-        return new ModelAndView("redirect:/loads");
-    }
-
 }

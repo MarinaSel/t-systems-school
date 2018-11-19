@@ -39,11 +39,6 @@
                     <a href="/editVehicle/${vehicle.id}" class="btn btn-sm btn-outline-info waves-effect"
                        style="font-size: small">Edit</a>
                 </c:if>
-                <c:if test="${vehicle.status != 'BROKEN' && vehicle.status != 'WORKING'
-                && (vehicle.primaryDriver != null || vehicle.coDriver != null) && !empty vehicle.loads}">
-                    <a href="/sent/${vehicle.id}" class="btn btn-sm btn-outline-success waves-effect"
-                       style="font-size: small">Begin delivery</a>
-                </c:if>
             </td>
             <td>
                     ${vehicle.primaryDriver.user.firstName} ${vehicle.primaryDriver.user.lastName}

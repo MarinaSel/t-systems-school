@@ -13,7 +13,6 @@ import com.training.repositories.LoadRepository;
 import com.training.repositories.VehicleRepository;
 import com.training.services.DriverService;
 import com.training.services.VehicleService;
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +23,12 @@ import org.springframework.util.StringUtils;
 import java.util.Iterator;
 import java.util.List;
 
+import static com.training.entities.enums.LoadStatus.IN_PROGRESS;
+import static com.training.entities.enums.VehicleStatus.FREE;
 import static com.training.mappers.VehicleMapper.mapEntityListToModelList;
 import static com.training.mappers.VehicleMapper.mapEntityToModel;
 import static com.training.mappers.VehicleMapper.mapModelToEntity;
+import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 
 @Service
 public class VehicleServiceImpl implements VehicleService {
@@ -117,23 +119,20 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     @Transactional
-    public void checkIfVehicleIsEmpty(VehicleEntity vehicleEntity) {
-        if (CollectionUtils.isEmpty(vehicleEntity.getLoads())) {
-            Long primaryDriverId = (vehicleEntity.getPrimaryDriver() == null) ? null
-                    : vehicleEntity.getPrimaryDriver().getId();
-            Long coDriverId = (vehicleEntity.getCoDriver() == null) ? null : vehicleEntity.getCoDriver().getId();
+    public void freeVehicleAndDrivers(VehicleEntity vehicleEntity) {
+        Long primaryDriverId = (vehicleEntity.getPrimaryDriver() == null) ? null
+                : vehicleEntity.getPrimaryDriver().getId();
+        Long coDriverId = (vehicleEntity.getCoDriver() == null) ? null : vehicleEntity.getCoDriver().getId();
 
-            driverRepository.setFree(primaryDriverId, coDriverId);
-            vehicleRepository.setFree(vehicleEntity.getId());
-            LOGGER.info("Vehicle with id {} completed delivery", vehicleEntity.getId());
-        }
+        driverRepository.setFree(primaryDriverId, coDriverId);
+        vehicleRepository.setFree(vehicleEntity.getId());
     }
 
     @Override
     @Transactional
     public void startDelivery(Long id) {
         VehicleEntity vehicleEntity = vehicleRepository.getOne(id);
-        if (CollectionUtils.isNotEmpty(vehicleEntity.getLoads())) {
+        if (isNotEmpty(vehicleEntity.getLoads())) {
             Long primaryDriverId = (vehicleEntity.getPrimaryDriver() == null)
                     ? null : vehicleEntity.getPrimaryDriver().getId();
             Long coDriverId = (vehicleEntity.getCoDriver() == null) ? null : vehicleEntity.getCoDriver().getId();
@@ -174,5 +173,45 @@ public class VehicleServiceImpl implements VehicleService {
         Driver driver = driverService.getAuthenticatedDriver();
         VehicleEntity vehicle = vehicleRepository.findVehicleByDriver(DriverMapper.mapModelToEntity(driver));
         return VehicleMapper.mapEntityToModel(vehicle);
+    }
+
+    @Override
+    @Transactional
+    public void setBroken(Long id) {
+        vehicleRepository.setBroken(id);
+        LOGGER.info("Vehicle with id = {} has broken", id);
+    }
+
+    @Override
+    @Transactional
+    public void repaired(Long id) {
+        VehicleEntity vehicle = vehicleRepository.getOne(id);
+        if (isNotEmpty(vehicle.getLoads()) && vehicle.getLoads().iterator().next().getStatus() == IN_PROGRESS) {
+            vehicleRepository.setWorking(id);
+            LOGGER.info("Vehicle with id = {} was repaired and is continuing delivery", id);
+
+        } else {
+            vehicle.setStatus(FREE);
+            vehicleRepository.saveAndFlush(vehicle);
+            LOGGER.info("Vehicle with id = {} was repaired and is free now", id);
+        }
+    }
+
+    @Override
+    @Transactional
+    public void allLoadsDelivered(Long id) {
+        VehicleEntity vehicleEntity = vehicleRepository.getOne(id);
+        loadRepository.setDone(vehicleEntity);
+        freeVehicleAndDrivers(vehicleEntity);
+        LOGGER.info("Vehicle with id = {} completed delivery", id);
+    }
+
+    @Override
+    @Transactional
+    public void rejectDelivery(Long id) {
+        VehicleEntity vehicleEntity = vehicleRepository.getOne(id);
+        loadRepository.setRejected(vehicleEntity);
+        freeVehicleAndDrivers(vehicleEntity);
+        LOGGER.info("Vehicle with id = {} rejected delivery", id);
     }
 }

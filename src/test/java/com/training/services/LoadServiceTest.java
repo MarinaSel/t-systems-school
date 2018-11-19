@@ -140,7 +140,7 @@ public class LoadServiceTest {
         String registrationNumber = ANOTHER_VEHICLE_REGISTRATION_NUMBER;
 
         when(loadRepository.getOne(LOAD_ID)).thenReturn(loadAssignedToVehicle);
-        doNothing().when(vehicleService).checkIfVehicleIsEmpty(currentVehicle);
+        doNothing().when(vehicleService).freeVehicleAndDrivers(currentVehicle);
         when(vehicleService.findByRegistrationNumber(registrationNumber))
                 .thenReturn(newVehicleModel);
         when(loadRepository.saveAndFlush(loadAssignedToAnotherVehicle)).thenReturn(loadAssignedToAnotherVehicle);
@@ -159,12 +159,12 @@ public class LoadServiceTest {
         LoadEntity loadEntity = getLoadAssignedToVehicle();
         VehicleEntity vehicleEntity = loadEntity.getVehicle();
         when(loadRepository.getOne(LOAD_ID)).thenReturn(loadEntity);
-        doNothing().when(vehicleService).checkIfVehicleIsEmpty(vehicleEntity);
+        doNothing().when(vehicleService).freeVehicleAndDrivers(vehicleEntity);
         doNothing().when(loadRepository).setDone(LOAD_ID);
 
         loadService.deliverLoad(LOAD_ID);
         verify(loadRepository).getOne(LOAD_ID);
-        verify(vehicleService).checkIfVehicleIsEmpty(vehicleEntity);
+        verify(vehicleService).freeVehicleAndDrivers(vehicleEntity);
         verify(loadRepository).setDone(LOAD_ID);
     }
 }

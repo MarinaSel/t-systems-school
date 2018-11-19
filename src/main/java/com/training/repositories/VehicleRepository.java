@@ -62,4 +62,13 @@ public interface VehicleRepository extends JpaRepository<VehicleEntity, Long> {
      */
     @Query("select v from VehicleEntity v where v.primaryDriver = ?1 or v.coDriver = ?1")
     VehicleEntity findVehicleByDriver(DriverEntity driverEntity);
+
+    /**
+     * Marks vehicle as broken.
+     *
+     * @param id Long object - id of broken vehicle
+     */
+    @Modifying
+    @Query("update VehicleEntity v set v.status = 'BROKEN' where v.id = ?1")
+    void setBroken(Long id);
 }

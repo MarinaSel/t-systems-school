@@ -27,5 +27,10 @@ public enum LoadStatus {
     /**
      * Means that the load has been delivered.
      */
-    DONE
+    DONE,
+
+    /**
+     * Means that the load delivery was rejected.
+     */
+    REJECTED
 }

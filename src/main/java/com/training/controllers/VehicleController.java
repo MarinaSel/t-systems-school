@@ -57,10 +57,4 @@ public class VehicleController {
         vehicleService.remove(id);
         return new ModelAndView("redirect:/vehicles");
     }
-
-    @GetMapping("/sent/{id}")
-    public ModelAndView beginDelivery(@PathVariable("id") Long id) {
-        vehicleService.startDelivery(id);
-        return new ModelAndView("redirect:/loads");
-    }
 }

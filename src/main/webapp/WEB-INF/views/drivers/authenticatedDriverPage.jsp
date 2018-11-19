@@ -5,7 +5,6 @@
 <head>
     <%@include file="/WEB-INF/views/navbarForDriver.html" %>
     <%@include file="/WEB-INF/views/includeStyles.jsp" %>
-    <%@include file="/WEB-INF/views/includeListBox.jsp" %>
     <title>Driver</title>
 </head>
 
@@ -26,8 +25,45 @@
         <h3 align="center">Actions</h3>
         <hr style="width: 30%" align="center">
 
+        <c:if test="${!empty vehicle}">
+            <c:choose>
+                <c:when test="${vehicle.status == 'BROKEN'}">
+                    <a href="/home/repairedVehicle/${vehicle.id}" class="btn btn-sm btn-outline-success waves-effect"
+                       style="font-size: small">Repaired</a>
+                </c:when>
+                <c:otherwise>
+                    <a href="/home/brokenVehicle/${vehicle.id}" class="btn btn-sm btn-outline-danger waves-effect"
+                       style="font-size: small">Broken</a>
+                </c:otherwise>
+            </c:choose>
+        </c:if>
+
+        <c:if test="${vehicle.status == 'WORKING'}">
+            <a href="/home/allDelivered/${vehicle.id}"
+               class="btn btn-sm btn-outline-success waves-effect" style="font-size: small">All Delivered</a>
+        </c:if>
+
+        <c:if test="${driver.status == 'FREE'}">
+            <a href="/home/restDriver/${driver.id}" class="btn btn-sm btn-outline-info waves-effect"
+               style="font-size: small">Rest</a>
+        </c:if>
+        <c:if test="${driver.status == 'REST'}">
+            <a href="/home/freeDriver/${driver.id}" class="btn btn-sm btn-outline-info waves-effect"
+               style="font-size: small">End rest</a>
+        </c:if>
+
+        <c:if test="${vehicle.status == 'FREE'}">
+            <a href="/home/beginDelivery/${vehicle.id}" class="btn btn-sm btn-outline-success waves-effect"
+               style="font-size: small">Begin delivery</a>
+        </c:if>
+
+        <c:if test="${vehicle.status == 'FREE' || (vehicle.status == 'BROKEN' && driver.status != 'WORKING')}">
+            <a href="/home/rejectDelivery/${vehicle.id}" class="btn btn-sm btn-outline-success waves-effect"
+               style="font-size: small">Reject delivery</a>
+        </c:if>
     </div>
 
+    <c:if test="${!empty vehicle}">
     <div class="text vehicleContent">
         <h3 align="center">Your vehicle</h3>
         <hr>
@@ -59,10 +95,16 @@
             <td align="center">${load.dayOfDelivery}</td>
             <td align="center">${load.weight}</td>
             <td align="center">${load.status}</td>
-            <td></td>
+            <td align="center">
+                <c:if test="${load.status == 'IN_PROGRESS' && vehicle.status != 'BROKEN'}">
+                    <a href="/home/delivered/${load.id}"
+                       class="btn btn-sm btn-outline-success waves-effect" style="font-size: small">Delivered</a>
+                </c:if>
+            </td>
         </tr>
     </c:forEach>
     </tbody>
 </table>
+</c:if>
 </body>
 </html>

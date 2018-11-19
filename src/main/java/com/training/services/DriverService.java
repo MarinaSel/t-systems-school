@@ -56,4 +56,18 @@ public interface DriverService extends BaseService<Driver, Long> {
      * @return found Driver object
      */
     Driver getAuthenticatedDriver();
+
+    /**
+     * Marks driver as resting.
+     *
+     * @param id Long object - id of resting driver
+     */
+    void setRest(Long id);
+
+    /**
+     * Marks driver as free.
+     *
+     * @param id Long object - id of driver to be set free
+     */
+    void setFree(Long id);
 }

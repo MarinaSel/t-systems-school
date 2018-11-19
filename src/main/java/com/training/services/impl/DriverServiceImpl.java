@@ -118,4 +118,18 @@ public class DriverServiceImpl implements DriverService {
         DriverEntity driver = driverRepository.findByUser(user);
         return DriverMapper.mapEntityToModel(driver);
     }
+
+    @Override
+    @Transactional
+    public void setRest(Long id) {
+        driverRepository.setRest(id);
+        LOGGER.info("Driver with id = {} is resting now", id);
+    }
+
+    @Override
+    @Transactional
+    public void setFree(Long id) {
+        driverRepository.setFree(id);
+        LOGGER.info("Driver with id = {} is free now", id);
+    }
 }

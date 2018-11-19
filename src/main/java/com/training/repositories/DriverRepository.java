@@ -81,4 +81,22 @@ public interface DriverRepository extends JpaRepository<DriverEntity, Long> {
     @Modifying
     @Query("update DriverEntity d set d.status = 'FIRED', d.dateOfFire = current_date where d.id = ?1")
     void setFired(Long id);
+
+    /**
+     * Marks driver as resting.
+     *
+     * @param id Long object - id of resting driver
+     */
+    @Modifying
+    @Query("update DriverEntity d set d.status = 'REST' where d.id = ?1")
+    void setRest(Long id);
+
+    /**
+     * Marks driver as free.
+     *
+     * @param id Long object - id of driver to be set free
+     */
+    @Modifying
+    @Query("update DriverEntity d set d.status = 'FREE' where d.id = ?1")
+    void setFree(Long id);
 }

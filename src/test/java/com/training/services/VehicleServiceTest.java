@@ -147,7 +147,7 @@ public class VehicleServiceTest {
         doNothing().when(driverRepository).setFree(PRIMARY_DRIVER_ID, CO_DRIVER_ID);
         doNothing().when(vehicleRepository).setFree(VEHICLE_ID);
 
-        vehicleService.checkIfVehicleIsEmpty(vehicleEntity);
+        vehicleService.freeVehicleAndDrivers(vehicleEntity);
         verify(driverRepository).setFree(PRIMARY_DRIVER_ID, CO_DRIVER_ID);
         verify(vehicleRepository).setFree(VEHICLE_ID);
     }
