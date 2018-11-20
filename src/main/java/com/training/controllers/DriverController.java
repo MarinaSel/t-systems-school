@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
 @Controller
+@RequestMapping("/driver")
 public class DriverController {
 
     private final DriverService driverService;
@@ -30,13 +32,13 @@ public class DriverController {
         Driver driverToEdit = driverService.find(id);
         redirectAttributes.addFlashAttribute("statuses", DriverStatus.values());
         redirectAttributes.addFlashAttribute("editableDriver", driverToEdit);
-        return new ModelAndView("redirect:/getSaveDriverPage");
+        return new ModelAndView("redirect:/driver/getSaveDriverPage");
     }
 
     @GetMapping("/addDriver")
     public ModelAndView getAddDriverPage(RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("editableDriver", new Driver());
-        return new ModelAndView("redirect:/getSaveDriverPage");
+        return new ModelAndView("redirect:/driver/getSaveDriverPage");
     }
 
     @GetMapping(value = "/getSaveDriverPage")
@@ -47,10 +49,10 @@ public class DriverController {
     @PostMapping("/saveDriver")
     public ModelAndView saveDriver(@ModelAttribute("editableDriver") Driver driver) {
         driverService.save(driver);
-        return new ModelAndView("redirect:/drivers");
+        return new ModelAndView("redirect:/driver/allDrivers");
     }
 
-    @GetMapping("/drivers")
+    @GetMapping("/allDrivers")
     public ModelAndView getAllDriversPage() {
         List<Driver> drivers = driverService.findAll();
         return new ModelAndView("driversPage").addObject("drivers", drivers);
@@ -59,7 +61,7 @@ public class DriverController {
     @GetMapping("/fireDriver/{id}")
     public ModelAndView fireDriver(@PathVariable("id") Long id) {
         driverService.fireDriver(id);
-        return new ModelAndView("redirect:/drivers");
+        return new ModelAndView("redirect:/driver/allDrivers");
     }
 }
 

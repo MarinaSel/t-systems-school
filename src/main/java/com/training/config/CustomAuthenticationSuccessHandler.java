@@ -24,7 +24,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
             if (grantedAuthority.getAuthority().equals("ROLE_USER")) {
                 redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, "/home/profile");
             } else if (grantedAuthority.getAuthority().equals("ROLE_ADMIN")) {
-                redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, "/loads");
+                redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, "/load/allLoads");
             }
         }
     }

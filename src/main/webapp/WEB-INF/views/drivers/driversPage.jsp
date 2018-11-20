@@ -9,7 +9,7 @@
     <%@include file="/WEB-INF/views/includeTablePag.jsp" %>
 </head>
 <body class="body">
-<a href="/getSaveDriverPage" class="btn btn-outline-primary waves-effect"><strong>Add new driver</strong></a>
+<a href="/driver/getSaveDriverPage" class="btn btn-outline-primary waves-effect"><strong>Add new driver</strong></a>
 <hr>
 <table id="tableScroll" class="table table-striped table-bordered" width="100%">
     <thead>
@@ -35,11 +35,11 @@
             <td align="center">${driver.creationDate}</td>
             <td align="center">
                 <c:if test="${driver.status != 'FIRED'}">
-                    <a href="/editDriver/${driver.id}" class="btn btn-sm btn-outline-info waves-effect"
+                    <a href="/driver/editDriver/${driver.id}" class="btn btn-sm btn-outline-info waves-effect"
                        style="font-size: small">Edit</a>
                 </c:if>
                 <c:if test="${driver.status == 'FREE' || driver.status == 'REST'}">
-                    <a href="/fireDriver/${driver.id}" class="btn btn-sm btn-outline-danger waves-effect"
+                    <a href="/driver/fireDriver/${driver.id}" class="btn btn-sm btn-outline-danger waves-effect"
                        style="font-size: small">Fire</a>
                 </c:if>
                 <c:if test="${driver.status == 'FIRED'}">

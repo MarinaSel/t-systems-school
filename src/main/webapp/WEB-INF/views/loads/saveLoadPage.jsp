@@ -12,7 +12,7 @@
 
 <body>
 <hr>
-<form method="post" action="/saveLoad" modelAttribute="editableLoad">
+<form method="post" action="/load/saveLoad" modelAttribute="editableLoad">
     <input type="hidden" name="id" value="${editableLoad.id}"/>
     <input type="hidden" name="creationDate" value="${editableLoad.creationDate}">
     <input type="hidden" name="status" value="${editableLoad.status}">
@@ -107,5 +107,5 @@
     </table>
 </form>
 </body>
-<script src="resources/js/getDriversAndVehicles.js"></script>
+<script src="/resources/js/getDriversAndVehicles.js"></script>
 </html>

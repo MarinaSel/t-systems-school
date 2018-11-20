@@ -8,7 +8,7 @@
     <title>Loads</title>
 </head>
 <body class="body">
-<a href="/getSaveLoadPage" class="btn btn-outline-primary waves-effect"><strong>Add new load</strong></a>
+<a href="/load/getSaveLoadPage" class="btn btn-outline-primary waves-effect"><strong>Add new load</strong></a>
 <hr>
 <table id="tableScroll" class="table table-striped table-bordered" width="100%">
     <thead>
@@ -37,7 +37,7 @@
             <td>${load.status}</td>
             <td align="center">
                 <c:if test="${load.status != 'DONE' && load.status != 'IN_PROGRESS'}">
-                    <a href="/editLoad/${load.id}" class="btn btn-sm btn-outline-info waves-effect"
+                    <a href="/load/editLoad/${load.id}" class="btn btn-sm btn-outline-info waves-effect"
                        style="font-size: small">Edit</a>
                 </c:if>
             </td>

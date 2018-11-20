@@ -9,7 +9,7 @@
 </head>
 <body>
 <hr>
-<form method="post" action="/saveVehicle" modelAttribute="editableVehicle">
+<form method="post" action="/vehicle/saveVehicle" modelAttribute="editableVehicle">
     <input type="hidden" name="id" value="${editableVehicle.id}"/>
     <input type="hidden" name="creationDate" value="${editableVehicle.creationDate}">
     <input type="hidden"

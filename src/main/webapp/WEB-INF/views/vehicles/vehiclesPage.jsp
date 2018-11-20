@@ -11,7 +11,7 @@
 
 </head
 <body class="body">
-<a href="/getSaveVehiclePage" class="btn btn-outline-primary waves-effect"><strong>Add new vehicle</strong></a>
+<a href="/vehicle/getSaveVehiclePage" class="btn btn-outline-primary waves-effect"><strong>Add new vehicle</strong></a>
 <hr>
 <table id="tableScroll" class="table table-striped table-bordered" width="100%">
     <thead>
@@ -36,7 +36,7 @@
             <td>${vehicle.status}</td>
             <td align="center">
                 <c:if test="${vehicle.primaryDriver == null || vehicle.coDriver == null}">
-                    <a href="/editVehicle/${vehicle.id}" class="btn btn-sm btn-outline-info waves-effect"
+                    <a href="/vehicle/editVehicle/${vehicle.id}" class="btn btn-sm btn-outline-info waves-effect"
                        style="font-size: small">Edit</a>
                 </c:if>
             </td>

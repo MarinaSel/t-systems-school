@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
+@RequestMapping("/vehicle")
 public class VehicleController {
 
     private final VehicleService vehicleService;
@@ -23,7 +25,7 @@ public class VehicleController {
         this.vehicleService = vehicleService;
     }
 
-    @GetMapping("/vehicles")
+    @GetMapping("/allVehicles")
     public ModelAndView getAllVehiclesPage() {
         return new ModelAndView("vehiclesPage").addObject("vehicles", vehicleService.findAll());
     }
@@ -32,13 +34,13 @@ public class VehicleController {
     public ModelAndView editVehicle(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("statuses", VehicleStatus.values());
         redirectAttributes.addFlashAttribute("editableVehicle", vehicleService.find(id));
-        return new ModelAndView("redirect:/getSaveVehiclePage");
+        return new ModelAndView("redirect:/vehicle/getSaveVehiclePage");
     }
 
     @GetMapping("/addVehicle")
     public ModelAndView addVehicle(RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("editableVehicle", new Vehicle());
-        return new ModelAndView("redirect:/getSaveVehiclePage");
+        return new ModelAndView("redirect:/vehicle/getSaveVehiclePage");
     }
 
     @GetMapping("/getSaveVehiclePage")
@@ -49,12 +51,6 @@ public class VehicleController {
     @PostMapping("/saveVehicle")
     public ModelAndView saveVehicle(@ModelAttribute("editableVehicle") Vehicle vehicle) {
         vehicleService.save(vehicle);
-        return new ModelAndView("redirect:/vehicles");
-    }
-
-    @GetMapping("/removeVehicle/{id}")
-    public ModelAndView removeVehicle(@PathVariable("id") Long id) {
-        vehicleService.remove(id);
-        return new ModelAndView("redirect:/vehicles");
+        return new ModelAndView("redirect:/vehicle/allVehicles");
     }
 }

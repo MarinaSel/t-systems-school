@@ -10,7 +10,7 @@
 </head>
 <body>
 <hr>
-<form method="post" action="/saveDriver" modelAttribute="editableDriver">
+<form method="post" action="/driver/saveDriver" modelAttribute="editableDriver">
     <input type="hidden" name="id" value="${editableDriver.id}"/>
     <input type="hidden" name="user.id" value="${editableDriver.user.id}"/>
     <input type="hidden" name="creationDate" value="${editableDriver.creationDate}">
