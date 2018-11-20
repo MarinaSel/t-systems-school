@@ -1,3 +1,4 @@
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,21 +10,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark unique-color-dark">
     <a class="navbar-brand" href="#">TRANSPORT COMPANY</a>
-    <div class="collapse navbar-collapse" id="basicExampleNav">
 
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="/loads">Loads
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/drivers">Drivers</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/vehicles">Vehicles</a>
-            </li>
-        </ul>
-    </div>
     <form class="form-inline my-2 my-lg-0 ml-auto" action="/logout" method="post">
         <input type="hidden"
                name="${_csrf.parameterName}"

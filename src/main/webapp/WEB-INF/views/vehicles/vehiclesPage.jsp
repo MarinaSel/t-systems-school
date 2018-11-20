@@ -1,11 +1,10 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
     <title>Vehicles</title>
 
-    <%@include file="/WEB-INF/views/navbar.html" %>
+    <%@include file="/WEB-INF/views/navbar.jsp" %>
     <%@include file="/WEB-INF/views/includeStyles.jsp" %>
     <%@include file="/WEB-INF/views/includeTablePag.jsp" %>
 

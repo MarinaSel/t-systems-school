@@ -3,7 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <%@include file="/WEB-INF/views/navbarForDriver.html" %>
+    <%@include file="/WEB-INF/views/navbarForDriver.jsp" %>
     <%@include file="/WEB-INF/views/includeStyles.jsp" %>
     <title>Driver</title>
 </head>
