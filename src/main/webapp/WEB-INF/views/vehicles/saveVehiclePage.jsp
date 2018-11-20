@@ -50,18 +50,6 @@
                        title="Must contains only digits and can't be null" autocomplete="off" required/>
             </td>
         </tr>
-        <c:if test="${!empty editableVehicle.status}">
-            <tr>
-                <th align="left">Status</th>
-                <td>
-                    <select class="browser-default custom-select" name="status">
-                        <c:forEach items="${statuses}" var="status">
-                            <option value="${status}" ${status == editableVehicle.status ? 'selected="selected"' : ''}>${status}</option>
-                        </c:forEach>
-                    </select>
-                </td>
-            </tr>
-        </c:if>
         <td colspan="2" align="center">
             <input class="btn btn-outline-success waves-effect" style="font-size: medium" type="submit" value="Save"/>
         </td>

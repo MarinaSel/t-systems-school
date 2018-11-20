@@ -70,19 +70,6 @@
                        placeholder="Licence end date" required readonly="true"/>
             </td>
         </tr>
-        <c:if test="${!empty editableDriver.status}">
-            <tr>
-                <th>Status</th>
-                <td>
-                    <select class="browser-default custom-select" name="status">
-                        <c:forEach items="${statuses}" var="status">
-                            <option value="${status}" ${status == editableDriver.status ? 'selected="selected"' : ''}>
-                                    ${status}</option>
-                        </c:forEach>
-                    </select>
-                </td>
-            </tr>
-        </c:if>
         <td colspan="2" align="center">
             <input class="btn btn-outline-success waves-effect" style="font-size: medium" type="submit" value="Save"/>
         </td>
