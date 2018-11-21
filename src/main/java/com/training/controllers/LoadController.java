@@ -2,7 +2,6 @@ package com.training.controllers;
 
 import com.training.models.Driver;
 import com.training.models.Load;
-import com.training.models.Vehicle;
 import com.training.services.DriverService;
 import com.training.services.LoadService;
 import com.training.services.VehicleService;
@@ -41,11 +40,9 @@ public class LoadController {
     @GetMapping("/editLoad/{id}")
     public ModelAndView editLoad(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
         Load loadToEdit = loadService.find(id);
-        List<Vehicle> vehicles = vehicleService.findAllFreeWithNecessaryCapacity(loadToEdit.getWeight());
         List<Driver> drivers = driverService.findAllFree();
 
         redirectAttributes.addFlashAttribute("editableLoad", loadToEdit);
-        redirectAttributes.addFlashAttribute("freeVehicles", vehicles);
         redirectAttributes.addFlashAttribute("freeDrivers", drivers);
         redirectAttributes.addFlashAttribute("primaryDriverLicense");
         redirectAttributes.addFlashAttribute("coDriverLicense");

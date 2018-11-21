@@ -6,12 +6,13 @@
     <%@include file="/WEB-INF/views/includeStyles.jsp" %>
     <%@include file="/WEB-INF/views/includeDatepicker.jsp" %>
     <%@include file="/WEB-INF/views/includeListBox.jsp" %>
+    <%@include file="/WEB-INF/views/includeScriptsForLoadSaving.jsp" %>
     <title>${empty editableLoad.id ? 'Add' : 'Edit'} load</title>
 </head>
 
 <body>
 <hr>
-<form method="post" action="/load/saveLoad" modelAttribute="editableLoad">
+<form onsubmit="return compareDrivers()" method="post" action="/load/saveLoad" modelAttribute="editableLoad">
     <input type="hidden" name="id" value="${editableLoad.id}"/>
     <input type="hidden" name="creationDate" value="${editableLoad.creationDate}">
     <input type="hidden" name="status" value="${editableLoad.status}">
@@ -59,11 +60,6 @@
                     <c:if test="${editableLoad.vehicle.registrationNumber != null}">
                         <option>${editableLoad.vehicle.registrationNumber}</option>
                     </c:if>
-                    <c:forEach items="${freeVehicles}" var="vehicle">
-                        <c:if test="${vehicle.registrationNumber != editableLoad.vehicle.registrationNumber}">
-                            <option>${vehicle.registrationNumber}</option>
-                        </c:if>
-                    </c:forEach>
                 </select>
             </td>
         </tr>

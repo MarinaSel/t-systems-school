@@ -56,11 +56,11 @@ public interface VehicleService extends BaseService<Vehicle, Long> {
     /**
      * Assigns vehicle to driver(s). Used when saving load assigned to vehicle.
      *
-     * @param vehicle              Vehicle object to be assigned
+     * @param vehicle              VehicleEntity object to be assigned
      * @param primaryDriverLicense String object - driving license number of primary driver
      * @param coDriverLicense      String object - driving license number of co-driver
      */
-    void assignToDrivers(Vehicle vehicle, String primaryDriverLicense, String coDriverLicense);
+    void assignToDrivers(VehicleEntity vehicle, String primaryDriverLicense, String coDriverLicense);
 
     /**
      * Finds vehicle with authenticated driver.

@@ -8,16 +8,12 @@ function getDrivers() {
             datatype: "json",
             url: "/api/driver",
             success: function (result) {
-                var insert = '';
-                $('#primaryDriver').empty();
-                $('#secondDriver').empty();
-                insert += emptyOption;
-
+                var insert = emptyOption;
                 $.each(result, function (index, value) {
                     insert += wrapToOption(value.drivingLicenseNum);
                 });
-                $('#primaryDriver').append(insert);
-                $('#secondDriver').append(insert);
+                $('#primaryDriver').empty().append(insert);
+                $('#secondDriver').empty().append(insert);
             }
         })
 
@@ -44,7 +40,6 @@ function getVehicles() {
                 }
             }
             var insert = '';
-            $('#vehicles').empty();
             $.each(result, function (index, value) {
                 if (value.registrationNumber !== previousVehicle) {
                     insert += wrapToOption(value.registrationNumber);
@@ -52,7 +47,7 @@ function getVehicles() {
                     insertContainsPrevious = true;
                 }
             });
-            $('#vehicles').append(addPreviousVehicleToInsert(insert, insertContainsPrevious));
+            $('#vehicles').empty().append(addPreviousVehicleToInsert(insert, insertContainsPrevious));
         }
     });
 }

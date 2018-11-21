@@ -177,7 +177,7 @@ public class VehicleServiceTest {
         when(driverRepository.findByDrivingLicenseNum(CO_DRIVER_LICENSE)).thenReturn(coDriver);
         when(vehicleRepository.saveAndFlush(vehicleEntity)).thenReturn(vehicleEntity);
 
-        vehicleService.assignToDrivers(VehicleMapper.mapEntityToModel(vehicleEntity), PRIMARY_DRIVER_LICENSE,
+        vehicleService.assignToDrivers(vehicleEntity, PRIMARY_DRIVER_LICENSE,
                 CO_DRIVER_LICENSE);
         verify(driverRepository).findByDrivingLicenseNum(PRIMARY_DRIVER_LICENSE);
         verify(driverRepository).findByDrivingLicenseNum(CO_DRIVER_LICENSE);

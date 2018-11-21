@@ -146,19 +146,18 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     @Transactional
-    public void assignToDrivers(Vehicle vehicle, String primaryDriverLicense, String coDriverLicense) {
-        VehicleEntity vehicleEntity = mapModelToEntity(vehicle);
+    public void assignToDrivers(VehicleEntity vehicle, String primaryDriverLicense, String coDriverLicense) {
         if (!StringUtils.isEmpty(primaryDriverLicense)) {
             DriverEntity driverEntity = driverRepository.findByDrivingLicenseNum(primaryDriverLicense);
-            vehicleEntity.setPrimaryDriver(driverEntity);
+            vehicle.setPrimaryDriver(driverEntity);
             assignDriver(driverEntity.getId());
         }
         if (!StringUtils.isEmpty(coDriverLicense)) {
             DriverEntity driverEntity = driverRepository.findByDrivingLicenseNum(coDriverLicense);
-            vehicleEntity.setCoDriver(driverEntity);
+            vehicle.setCoDriver(driverEntity);
             assignDriver(driverEntity.getId());
         }
-        vehicleRepository.saveAndFlush(vehicleEntity);
+        vehicleRepository.saveAndFlush(vehicle);
     }
 
     @Transactional

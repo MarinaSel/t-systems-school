@@ -5,7 +5,7 @@ import com.training.entities.LoadEntity;
 import com.training.entities.VehicleEntity;
 import com.training.mappers.LoadMapper;
 import com.training.mappers.VehicleMapper;
-import com.training.models.Vehicle;
+import com.training.repositories.DriverRepository;
 import com.training.repositories.LoadRepository;
 import com.training.services.impl.LoadServiceImpl;
 import org.junit.Before;
@@ -34,6 +34,7 @@ import static com.training.VehicleHelper.VEHICLE_REGISTRATION_NUMBER;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -44,13 +45,16 @@ public class LoadServiceTest {
     private LoadRepository loadRepository;
 
     @Mock
+    private DriverRepository driverRepository;
+
+    @Mock
     private VehicleService vehicleService;
 
     private LoadService loadService;
 
     @Before
     public void init() {
-        loadService = new LoadServiceImpl(loadRepository, vehicleService);
+        loadService = new LoadServiceImpl(loadRepository, driverRepository, vehicleService);
     }
 
     @Test
@@ -112,20 +116,20 @@ public class LoadServiceTest {
     public void saveNewLoadAssignedToVehicle() {
         LoadEntity loadForCreationAssignedToVehicle = getLoadForCreationAssignedToVehicle();
         VehicleEntity vehicle = loadForCreationAssignedToVehicle.getVehicle();
-        Vehicle vehicleModel = VehicleMapper.mapEntityToModel(vehicle);
         String primaryDriverLicense = PRIMARY_DRIVER_LICENSE;
         String coDriverLicense = CO_DRIVER_LICENSE;
         String registrationNumber = VEHICLE_REGISTRATION_NUMBER;
 
-        when(vehicleService.findByRegistrationNumber(registrationNumber)).thenReturn(vehicleModel);
+        when(vehicleService.findByRegistrationNumber(registrationNumber))
+                .thenReturn(VehicleMapper.mapEntityToModel(vehicle));
         when(loadRepository.saveAndFlush(loadForCreationAssignedToVehicle)).thenReturn(getLoadAssignedToVehicle());
-        doNothing().when(vehicleService).assignToDrivers(vehicleModel, primaryDriverLicense, coDriverLicense);
+        doNothing().when(vehicleService).assignToDrivers(vehicle, primaryDriverLicense, coDriverLicense);
 
         loadService.saveAssignedLoad(getLoadModelForCreation(), registrationNumber,
                 primaryDriverLicense, coDriverLicense);
         verify(vehicleService).findByRegistrationNumber(registrationNumber);
         verify(loadRepository).saveAndFlush(loadForCreationAssignedToVehicle);
-        verify(vehicleService).assignToDrivers(vehicleModel, primaryDriverLicense, coDriverLicense);
+        verify(vehicleService).assignToDrivers(vehicle, primaryDriverLicense, coDriverLicense);
     }
 
     @Test
@@ -134,7 +138,6 @@ public class LoadServiceTest {
         LoadEntity loadAssignedToAnotherVehicle = getLoadAssignedToAnotherVehicle();
         VehicleEntity currentVehicle = loadAssignedToVehicle.getVehicle();
         VehicleEntity newVehicle = loadAssignedToAnotherVehicle.getVehicle();
-        Vehicle newVehicleModel = VehicleMapper.mapEntityToModel(newVehicle);
         String primaryDriverLicense = PRIMARY_DRIVER_LICENSE;
         String coDriverLicense = CO_DRIVER_LICENSE;
         String registrationNumber = ANOTHER_VEHICLE_REGISTRATION_NUMBER;
@@ -142,16 +145,16 @@ public class LoadServiceTest {
         when(loadRepository.getOne(LOAD_ID)).thenReturn(loadAssignedToVehicle);
         doNothing().when(vehicleService).freeVehicleAndDrivers(currentVehicle);
         when(vehicleService.findByRegistrationNumber(registrationNumber))
-                .thenReturn(newVehicleModel);
+                .thenReturn(VehicleMapper.mapEntityToModel(newVehicle));
         when(loadRepository.saveAndFlush(loadAssignedToAnotherVehicle)).thenReturn(loadAssignedToAnotherVehicle);
-        doNothing().when(vehicleService).assignToDrivers(newVehicleModel, primaryDriverLicense, coDriverLicense);
+        doNothing().when(vehicleService).assignToDrivers(newVehicle, primaryDriverLicense, coDriverLicense);
 
         loadService.saveAssignedLoad(LoadMapper.mapEntityToModel(loadAssignedToVehicle),
                 registrationNumber, primaryDriverLicense, coDriverLicense);
-        verify(loadRepository).getOne(LOAD_ID);
+        verify(loadRepository, times(2)).getOne(LOAD_ID);
         verify(vehicleService).findByRegistrationNumber(registrationNumber);
         verify(loadRepository).saveAndFlush(loadAssignedToAnotherVehicle);
-        verify(vehicleService).assignToDrivers(newVehicleModel, primaryDriverLicense, coDriverLicense);
+        verify(vehicleService).assignToDrivers(newVehicle, primaryDriverLicense, coDriverLicense);
     }
 
     @Test
