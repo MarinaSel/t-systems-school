@@ -13,6 +13,7 @@
     <input type="hidden" name="id" value="${editableDriver.id}"/>
     <input type="hidden" name="user.id" value="${editableDriver.user.id}"/>
     <input type="hidden" name="creationDate" value="${editableDriver.creationDate}">
+    <input type="hidden" name="status" value="${editableDriver.status}">
     <input type="hidden"
            name="${_csrf.parameterName}"
            value="${_csrf.token}"/>

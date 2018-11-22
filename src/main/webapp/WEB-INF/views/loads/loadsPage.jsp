@@ -7,7 +7,7 @@
     <title>Loads</title>
 </head>
 <body class="body">
-<a href="/load/getSaveLoadPage" class="btn btn-outline-primary waves-effect"><strong>Add new load</strong></a>
+<a href="/load/addLoad" class="btn btn-outline-primary waves-effect"><strong>Add new load</strong></a>
 <hr>
 <table id="tableScroll" class="table table-striped table-bordered">
     <thead>

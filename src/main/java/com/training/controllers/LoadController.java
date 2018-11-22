@@ -7,14 +7,12 @@ import com.training.services.LoadService;
 import com.training.services.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -38,30 +36,26 @@ public class LoadController {
     }
 
     @GetMapping("/editLoad/{id}")
-    public ModelAndView editLoad(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+    public ModelAndView editLoad(@PathVariable("id") Long id, ModelAndView modelAndView) {
         Load loadToEdit = loadService.find(id);
         List<Driver> drivers = driverService.findAllFree();
 
-        redirectAttributes.addFlashAttribute("editableLoad", loadToEdit);
-        redirectAttributes.addFlashAttribute("freeDrivers", drivers);
-        redirectAttributes.addFlashAttribute("primaryDriverLicense");
-        redirectAttributes.addFlashAttribute("coDriverLicense");
-        redirectAttributes.addFlashAttribute("regNum");
-        return new ModelAndView("redirect:/load/getSaveLoadPage");
+        modelAndView.addObject("editableLoad", loadToEdit);
+        modelAndView.addObject("freeDrivers", drivers);
+        modelAndView.addObject("primaryDriverLicense");
+        modelAndView.addObject("coDriverLicense");
+        modelAndView.addObject("regNum");
+        modelAndView.setViewName("saveLoadPage");
+        return modelAndView;
     }
 
     @GetMapping("/addLoad")
-    public ModelAndView addLoad(RedirectAttributes redirectAttributes) {
-        redirectAttributes.addFlashAttribute("editableLoad", new Load());
-        return new ModelAndView("redirect:/load/getSaveLoadPage");
+    public ModelAndView addLoad(ModelAndView modelAndView) {
+        modelAndView.addObject("editableLoad", new Load()).setViewName("saveLoadPage");
+        return modelAndView;
     }
 
-    @GetMapping(value = "/getSaveLoadPage")
-    public ModelAndView getSaveLoadPage(Model model) {
-        return new ModelAndView("saveLoadPage").addAllObjects(model.asMap());
-    }
-
-    @PostMapping(value = "/saveLoad")
+    @PostMapping("/saveLoad")
     public ModelAndView saveLoad(@ModelAttribute("editableLoad") Load load,
                                  @ModelAttribute("regNum") String registrationNumber,
                                  @ModelAttribute("primaryDriverLicense") String primaryDriverLicense,

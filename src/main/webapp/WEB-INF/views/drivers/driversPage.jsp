@@ -8,7 +8,7 @@
     <%@include file="/WEB-INF/views/includes/includeTablePag.jsp" %>
 </head>
 <body class="body">
-<a href="/driver/getSaveDriverPage" class="btn btn-outline-primary waves-effect"><strong>Add new driver</strong></a>
+<a href="/driver/addDriver" class="btn btn-outline-primary waves-effect"><strong>Add new driver</strong></a>
 <hr>
 <table id="tableScroll" class="table table-striped table-bordered" width="100%">
     <thead>

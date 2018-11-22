@@ -10,7 +10,7 @@
 
 </head
 <body class="body">
-<a href="/vehicle/getSaveVehiclePage" class="btn btn-outline-primary waves-effect"><strong>Add new vehicle</strong></a>
+<a href="/vehicle/addVehicle" class="btn btn-outline-primary waves-effect"><strong>Add new vehicle</strong></a>
 <hr>
 <table id="tableScroll" class="table table-striped table-bordered" width="100%">
     <thead>

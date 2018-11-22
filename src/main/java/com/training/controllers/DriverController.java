@@ -5,14 +5,12 @@ import com.training.models.Driver;
 import com.training.services.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -28,22 +26,18 @@ public class DriverController {
     }
 
     @GetMapping("/editDriver/{id}")
-    public ModelAndView editDriver(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+    public ModelAndView editDriver(@PathVariable("id") Long id, ModelAndView modelAndView) {
         Driver driverToEdit = driverService.find(id);
-        redirectAttributes.addFlashAttribute("statuses", DriverStatus.values());
-        redirectAttributes.addFlashAttribute("editableDriver", driverToEdit);
-        return new ModelAndView("redirect:/driver/getSaveDriverPage");
+        modelAndView.addObject("statuses", DriverStatus.values());
+        modelAndView.addObject("editableDriver", driverToEdit);
+        modelAndView.setViewName("saveDriverPage");
+        return modelAndView;
     }
 
     @GetMapping("/addDriver")
-    public ModelAndView getAddDriverPage(RedirectAttributes redirectAttributes) {
-        redirectAttributes.addFlashAttribute("editableDriver", new Driver());
-        return new ModelAndView("redirect:/driver/getSaveDriverPage");
-    }
-
-    @GetMapping(value = "/getSaveDriverPage")
-    public ModelAndView getSaveDriverPage(Model model) {
-        return new ModelAndView("saveDriverPage").addAllObjects(model.asMap());
+    public ModelAndView getAddDriverPage(ModelAndView modelAndView) {
+        modelAndView.addObject("editableDriver", new Driver()).setViewName("saveDriverPage");
+        return modelAndView;
     }
 
     @PostMapping("/saveDriver")
