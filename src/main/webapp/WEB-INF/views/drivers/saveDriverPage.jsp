@@ -3,9 +3,9 @@
 <html>
 <head>
     <title>${empty editableDriver.id ? 'Add' : 'Edit'} driver</title>
-    <%@include file="/WEB-INF/views/includeStyles.jsp" %>
+    <%@include file="/WEB-INF/views/includes/includeStyles.jsp" %>
     <%@include file="/WEB-INF/views/navbar.jsp" %>
-    <%@include file="/WEB-INF/views/includeDatepicker.jsp" %>
+    <%@include file="/WEB-INF/views/includes/includeDatepicker.jsp" %>
 </head>
 <body>
 <hr>

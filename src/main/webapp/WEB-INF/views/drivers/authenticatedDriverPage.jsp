@@ -4,7 +4,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/navbarForDriver.jsp" %>
-    <%@include file="/WEB-INF/views/includeStyles.jsp" %>
+    <%@include file="/WEB-INF/views/includes/includeStyles.jsp" %>
     <title>Driver</title>
 </head>
 

@@ -4,7 +4,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/navbarLogin.html" %>
-    <%@include file="/WEB-INF/views/includeStyles.jsp" %>
+    <%@include file="/WEB-INF/views/includes/includeStyles.jsp" %>
     <title>Login</title>
 </head>
 <body>

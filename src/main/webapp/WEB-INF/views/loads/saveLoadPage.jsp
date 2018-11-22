@@ -3,10 +3,10 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/navbar.jsp" %>
-    <%@include file="/WEB-INF/views/includeStyles.jsp" %>
-    <%@include file="/WEB-INF/views/includeDatepicker.jsp" %>
-    <%@include file="/WEB-INF/views/includeListBox.jsp" %>
-    <%@include file="/WEB-INF/views/includeScriptsForLoadSaving.jsp" %>
+    <%@include file="/WEB-INF/views/includes/includeStyles.jsp" %>
+    <%@include file="/WEB-INF/views/includes/includeDatepicker.jsp" %>
+    <%@include file="/WEB-INF/views/includes/includeListBox.jsp" %>
+    <%@include file="/WEB-INF/views/loads/includeScriptsForLoadSaving.jsp" %>
     <title>${empty editableLoad.id ? 'Add' : 'Edit'} load</title>
 </head>
 

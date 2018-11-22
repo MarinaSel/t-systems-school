@@ -3,9 +3,9 @@
 <html>
 <head>
     <title>Drivers</title>
-    <%@include file="/WEB-INF/views/includeStyles.jsp" %>
+    <%@include file="/WEB-INF/views/includes/includeStyles.jsp" %>
     <%@include file="/WEB-INF/views/navbar.jsp" %>
-    <%@include file="/WEB-INF/views/includeTablePag.jsp" %>
+    <%@include file="/WEB-INF/views/includes/includeTablePag.jsp" %>
 </head>
 <body class="body">
 <a href="/driver/getSaveDriverPage" class="btn btn-outline-primary waves-effect"><strong>Add new driver</strong></a>
