@@ -30,7 +30,7 @@
             <th align="left">Issue date</th>
             <td>
                 <input class="form-control" name="issueDate" id="issueDate" value="${editableVehicle.issueDate}"
-                       placeholder="Issue date" required readonly="true">
+                       placeholder="Issue date" required onkeypress="return false;">
             </td>
         </tr>
         <tr>

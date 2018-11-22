@@ -81,7 +81,7 @@
             <th>License end date</th>
             <td>
                 <input class="form-control" name="licenseEndDate" id="date" value="${editableDriver.licenseEndDate}"
-                       placeholder="Licence end date" readonly="true" requiredr/>
+                       placeholder="Licence end date" onkeypress="return false;" required/>
             </td>
         </tr>
         <td colspan="2" align="center">
