@@ -12,6 +12,10 @@
     <a class="navbar-brand" href="#">TRANSPORT COMPANY</a>
 
     <form class="form-inline my-2 my-lg-0 ml-auto" action="/logout" method="post">
+        <a class="nav-link" href="#" style="color: white">
+            Signed in as
+            <sec:authentication property="principal"></sec:authentication>
+        </a>
         <input type="hidden"
                name="${_csrf.parameterName}"
                value="${_csrf.token}"/>

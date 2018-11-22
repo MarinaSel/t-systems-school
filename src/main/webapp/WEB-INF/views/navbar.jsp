@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -25,6 +25,9 @@
         </ul>
     </div>
     <form class="form-inline my-2 my-lg-0 ml-auto" action="/logout" method="post">
+        <a class="nav-link" href="#" style="color: white">
+            Signed in as <sec:authentication property="principal"></sec:authentication>
+        </a>
         <input type="hidden"
                name="${_csrf.parameterName}"
                value="${_csrf.token}"/>
