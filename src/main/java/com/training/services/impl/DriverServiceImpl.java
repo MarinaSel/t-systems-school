@@ -45,14 +45,13 @@ public class DriverServiceImpl implements DriverService {
             User user = userService.save(driver.getUser());
             driver.setUser(user);
         }
-        DriverEntity driverEntity = DriverMapper.mapModelToEntity(driver);
-        UserEntity userEntity = userRepository.saveAndFlush(driverEntity.getUser());
-        driverEntity.setUser(userEntity);
-        driverRepository.saveAndFlush(driverEntity);
+        User user = userService.save(driver.getUser());
+        driver.setUser(user);
+        driverRepository.saveAndFlush(DriverMapper.mapModelToEntity(driver));
         if (driver.getId() == null) {
-            LOGGER.info("Created driver with id = {}", driverEntity.getId());
+            LOGGER.info("Created driver with id = {}", driver.getId());
         } else {
-            LOGGER.info("Updated driver with id = {}", driverEntity.getId());
+            LOGGER.info("Updated driver with id = {}", driver.getId());
         }
     }
 
