@@ -6,10 +6,12 @@
     <%@include file="/WEB-INF/views/includes/includeStyles.jsp" %>
     <%@include file="/WEB-INF/views/navbar.jsp" %>
     <%@include file="/WEB-INF/views/includes/includeDatepicker.jsp" %>
+    <script type="text/javascript" src="/resources/js/passwordValidator.js"></script>
+
 </head>
 <body>
 <hr>
-<form method="post" action="/driver/saveDriver" modelAttribute="editableDriver">
+<form onsubmit="return comparePassword();" method="post" action="/driver/saveDriver" modelAttribute="editableDriver">
     <input type="hidden" name="id" value="${editableDriver.id}"/>
     <input type="hidden" name="user.id" value="${editableDriver.user.id}"/>
     <input type="hidden" name="creationDate" value="${editableDriver.creationDate}">
@@ -49,9 +51,21 @@
         <tr>
             <th>Password</th>
             <td>
-                <input class="form-control" type="password" name="user.password" maxlength="50"
+                <input oninput="comparePassword();" class="form-control" type="password" name="user.password"
+                       id="password" maxlength="50"
                        value="${editableDriver.user.password}"
                        placeholder="Password"
+                       autocomplete="off" required/>
+            </td>
+        </tr>
+        <tr>
+            <th>Password confirmation
+                <p><span id='message'></span></th>
+            </p>
+            <td>
+                <input oninput="comparePassword();" class="form-control" type="password"
+                       id="confirmation" maxlength="50"
+                       placeholder="Password confirmation"
                        autocomplete="off" required/>
             </td>
         </tr>
