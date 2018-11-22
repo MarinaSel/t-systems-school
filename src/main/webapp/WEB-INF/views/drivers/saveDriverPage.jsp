@@ -11,7 +11,7 @@
 </head>
 <body>
 <hr>
-<form onsubmit="return comparePassword();" method="post" action="/driver/saveDriver" modelAttribute="editableDriver">
+<form onsubmit="return compareOnSubmit();" method="post" action="/driver/saveDriver" modelAttribute="editableDriver">
     <input type="hidden" name="id" value="${editableDriver.id}"/>
     <input type="hidden" name="user.id" value="${editableDriver.user.id}"/>
     <input type="hidden" name="creationDate" value="${editableDriver.creationDate}">
@@ -51,7 +51,7 @@
         <tr>
             <th>Password</th>
             <td>
-                <input oninput="comparePassword();" class="form-control" type="password" name="user.password"
+                <input oninput="confirmPasswords();" class="form-control" type="password" name="user.password"
                        id="password" maxlength="50"
                        value="${editableDriver.user.password}"
                        placeholder="Password"
@@ -60,10 +60,9 @@
         </tr>
         <tr>
             <th>Password confirmation
-                <p><span id='message'></span></th>
-            </p>
+                <p><span id='message'></span></p></th>
             <td>
-                <input oninput="comparePassword();" class="form-control" type="password"
+                <input oninput="confirmPasswords();" class="form-control" type="password"
                        id="confirmation" maxlength="50"
                        placeholder="Password confirmation"
                        autocomplete="off" required/>
@@ -82,7 +81,7 @@
             <th>License end date</th>
             <td>
                 <input class="form-control" name="licenseEndDate" id="date" value="${editableDriver.licenseEndDate}"
-                       placeholder="Licence end date" required readonly="true"/>
+                       placeholder="Licence end date" readonly="true" requiredr/>
             </td>
         </tr>
         <td colspan="2" align="center">
