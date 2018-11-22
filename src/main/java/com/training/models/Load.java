@@ -14,7 +14,6 @@ public class Load extends BaseModel {
     @NotNull(message = "Description cannot be null")
     private String description;
 
-    @NotNull(message = "Day od delivery cannot be null")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dayOfDelivery;
 

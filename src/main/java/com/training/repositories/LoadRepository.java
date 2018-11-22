@@ -24,7 +24,8 @@ public interface LoadRepository extends JpaRepository<LoadEntity, Long> {
      * @param id Long object - id of load
      */
     @Modifying
-    @Query("update LoadEntity l set l.vehicle = null, l.status = 'DONE' where l.id = ?1")
+    @Query("update LoadEntity l set l.vehicle = null, l.status = 'DONE', l.dayOfDelivery = current_date " +
+            "where l.id = ?1")
     void setDone(Long id);
 
     /**
@@ -55,7 +56,8 @@ public interface LoadRepository extends JpaRepository<LoadEntity, Long> {
      * @param vehicleEntity VehicleEntity object - vehicle delivering loads
      */
     @Modifying
-    @Query("update LoadEntity l set l.vehicle = null, l.status = 'DONE' where l.vehicle = ?1")
+    @Query("update LoadEntity l set l.vehicle = null, l.status = 'DONE', l.dayOfDelivery = current_date " +
+            "where l.vehicle = ?1")
     void setDone(VehicleEntity vehicleEntity);
 
     /**

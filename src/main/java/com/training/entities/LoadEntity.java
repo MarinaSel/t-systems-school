@@ -39,10 +39,9 @@ public class LoadEntity extends BaseEntity {
     @Column(name = "description", nullable = false)
     private String description;
 
-    @NotNull(message = "Day od delivery cannot be null")
     @Temporal(DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Column(name = "date_of_delivery", nullable = false)
+    @Column(name = "date_of_delivery")
     private Date dayOfDelivery;
 
     @Enumerated(STRING)

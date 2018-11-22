@@ -39,13 +39,6 @@
             </td>
         </tr>
         <tr>
-            <th align="left">Day of delivery</th>
-            <td>
-                <input class="form-control" name="dayOfDelivery" id="date" value="${editableLoad.dayOfDelivery}"
-                       placeholder="Day of delivery" required onkeypress="return false;"/>
-            </td>
-        </tr>
-        <tr>
             <th align="left">Weight (kg)</th>
             <td>
                 <input class="form-control" id="vehicleWeight" type="number" name="weight"
