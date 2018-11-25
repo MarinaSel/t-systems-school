@@ -113,7 +113,11 @@ public class VehicleServiceImpl implements VehicleService {
     @Transactional(readOnly = true)
     public Vehicle findByRegistrationNumber(String registrationNumber) {
         Vehicle vehicle = mapEntityToModel(vehicleRepository.findVehicleEntityByRegistrationNumber(registrationNumber));
-        LOGGER.info("Found vehicle by registration number = {}", registrationNumber);
+        if (vehicle == null) {
+            LOGGER.info("Vehicle with registration number = {} was not found", registrationNumber);
+        } else {
+            LOGGER.info("Found vehicle by registration number = {}", registrationNumber);
+        }
         return vehicle;
     }
 

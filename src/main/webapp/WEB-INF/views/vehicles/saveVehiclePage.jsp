@@ -5,10 +5,11 @@
     <%@include file="/WEB-INF/views/includes/includeStyles.jsp" %>
     <%@include file="/WEB-INF/views/navbar.jsp" %>
     <%@include file="/WEB-INF/views/includes/includeDatepicker.jsp" %>
+    <script type="text/javascript" src="/resources/js/vehicleValidator.js"></script>
 </head>
 <body>
 <hr>
-<form method="post" action="/vehicle/saveVehicle" modelAttribute="editableVehicle">
+<form onsubmit="return onVehicleSubmit()" method="post" action="/vehicle/saveVehicle" modelAttribute="editableVehicle">
     <input type="hidden" name="id" value="${editableVehicle.id}"/>
     <input type="hidden" name="creationDate" value="${editableVehicle.creationDate}">
     <input type="hidden" name="status" value="${editableVehicle.status}">
@@ -37,7 +38,7 @@
             <th align="left">Registration number</th>
             <td>
                 <input class="form-control" name="registrationNumber" value="${editableVehicle.registrationNumber}"
-                       placeholder="AA12345"
+                       placeholder="AA12345" id="regNumber"
                        title="Example:AA12345 " pattern="[A-Za-z]{2}[0-9]{5}"
                        maxlength="7" minlength="7" autocomplete="off" required/>
             </td>
@@ -52,7 +53,9 @@
             </td>
         </tr>
         <td colspan="2" align="center">
-            <input class="btn btn-outline-success waves-effect" style="font-size: medium" type="submit" value="Save"/>
+            <input class="btn btn-outline-success waves-effect" style="font-size: medium" type="submit" value="Save"
+                   onclick="clearVehicleErrorMessage()"/>
+            <p><span id="vehicleErrorMessage"></span></p>
         </td>
     </table>
 </form>

@@ -11,14 +11,12 @@
 </head>
 <body>
 <hr>
-<form onsubmit="return onSubmit();" method="post" action="/driver/saveDriver" modelAttribute="editableDriver">
+<form onsubmit="return onDriverSubmit();" method="post" action="/driver/saveDriver" modelAttribute="editableDriver">
     <input type="hidden" name="id" value="${editableDriver.id}"/>
     <input type="hidden" name="user.id" value="${editableDriver.user.id}"/>
     <input type="hidden" name="creationDate" value="${editableDriver.creationDate}">
     <input type="hidden" name="status" value="${editableDriver.status}">
-    <input type="hidden"
-           name="${_csrf.parameterName}"
-           value="${_csrf.token}"/>
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     <table align="center" id="saveVehicleAndDriverTable" class="table table-bordered">
         <td align="center" colspan="2" style="font-size: xx-large">
             ${empty editableDriver.id ? 'Add' : 'Edit'} driver
@@ -89,8 +87,9 @@
         </tr>
 
         <td colspan="2" align="center">
-            <input class="btn btn-outline-success waves-effect" style="font-size: medium" type="submit" value="Save"/>
-            <p><span id="errorMessage"></span></p>
+            <input class="btn btn-outline-success waves-effect" style="font-size: medium" type="submit" value="Save"
+                   onclick="clearDriverErrorMessage()"/>
+            <p><span id="driverErrorMessage"></span></p>
         </td>
     </table>
 </form>

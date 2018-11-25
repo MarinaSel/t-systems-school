@@ -17,14 +17,12 @@ function confirmPasswords() {
     }
 }
 
-function onSubmit() {
+function onDriverSubmit() {
     var login = document.getElementById('login');
-    var errorMessage = document.getElementById('errorMessage');
+    var errorMessage = document.getElementById('driverErrorMessage');
     var drivingLicenseNum = document.getElementById('dln');
     if (isLoginAvailable(login.value)) {
-        errorMessage.innerText = "";
         if (isDrivingLicenseNumAvailable(drivingLicenseNum.value)) {
-            errorMessage.innerText = "";
             return passwordsAreEquals(
                 document.getElementById('password').value, document.getElementById('confirmation').value);
         } else {
@@ -64,7 +62,7 @@ function isLoginAvailable(login) {
 }
 
 function isDrivingLicenseNumAvailable(drivingLicenseNum) {
-    var drivingLicNum = "";
+    var drivingLicNumAvailable = "";
     if (drivingLicenseNum !== "") {
         $.ajax({
             type: 'GET',
@@ -72,9 +70,14 @@ function isDrivingLicenseNumAvailable(drivingLicenseNum) {
             async: false,
             url: "/api/driver/findByDrivingLicenseNum/" + drivingLicenseNum,
             success: function (result) {
-                drivingLicNum = (JSON.stringify(result) === '""');
+                drivingLicNumAvailable = (JSON.stringify(result) === '""');
             }
         })
     }
-    return drivingLicNum;
+    return drivingLicNumAvailable;
+}
+
+function clearDriverErrorMessage() {
+    var errorMessage = document.getElementById('driverErrorMessage');
+    errorMessage.innerText = "";
 }
