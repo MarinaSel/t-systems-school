@@ -1,9 +1,12 @@
 package com.training.rest;
 
 import com.training.models.Driver;
+import com.training.models.User;
 import com.training.services.DriverService;
+import com.training.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,13 +18,21 @@ public class DriversResource {
 
     private final DriverService driverService;
 
+    private final UserService userService;
+
     @Autowired
-    public DriversResource(DriverService driverService) {
+    public DriversResource(DriverService driverService, UserService userService) {
         this.driverService = driverService;
+        this.userService = userService;
     }
 
     @GetMapping
     public List<Driver> getDrivers() {
         return driverService.findAllFree();
+    }
+
+    @GetMapping("/findByLogin/{login}")
+    public User findByLogin(@PathVariable("login") String login) {
+        return userService.findByLogin(login);
     }
 }

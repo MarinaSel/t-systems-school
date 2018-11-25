@@ -7,7 +7,6 @@ import com.training.mappers.UserMapper;
 import com.training.repositories.DriverRepository;
 import com.training.repositories.UserRepository;
 import com.training.services.impl.DriverServiceImpl;
-import com.training.services.impl.UserService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -2,6 +2,7 @@ package com.training.services.impl;
 
 import com.training.models.User;
 import com.training.services.DriverService;
+import com.training.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -20,7 +21,7 @@ import java.util.List;
 /**
  * Class that implements AuthenticationProvider and is used for users authentication.
  *
- * @see UserService
+ * @see UserServiceImpl
  * @see DriverService
  * @see PasswordEncoder
  */
