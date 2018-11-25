@@ -75,7 +75,7 @@
             <th>Driver's license number</th>
             <td>
                 <input class="form-control" name="drivingLicenseNum" value="${editableDriver.drivingLicenseNum}"
-                       placeholder="12AA345678"
+                       id="dln" placeholder="12AA345678"
                        title="Example: 12AA345678" pattern="[0-9]{2}[A-Za-z]{2}[0-9]{6}"
                        maxlength="10" minlength="10" autocomplete="off" required/>
             </td>
@@ -87,9 +87,10 @@
                        placeholder="License end date" onkeypress="return false;" required/>
             </td>
         </tr>
+
         <td colspan="2" align="center">
             <input class="btn btn-outline-success waves-effect" style="font-size: medium" type="submit" value="Save"/>
-            <p><span id="loginMessage"></span></p>
+            <p><span id="errorMessage"></span></p>
         </td>
     </table>
 </form>

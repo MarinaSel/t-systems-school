@@ -35,4 +35,9 @@ public class DriversResource {
     public User findByLogin(@PathVariable("login") String login) {
         return userService.findByLogin(login);
     }
+
+    @GetMapping("/findByDrivingLicenseNum/{drivingLicenseNum}")
+    public Driver findByDrivingLicenseNumber(@PathVariable("drivingLicenseNum") String drivingLicenseNum) {
+        return driverService.findByDrivingLicenseNum(drivingLicenseNum);
+    }
 }

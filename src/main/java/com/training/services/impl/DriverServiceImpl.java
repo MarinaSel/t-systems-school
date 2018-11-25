@@ -90,9 +90,13 @@ public class DriverServiceImpl implements DriverService {
     @Override
     @Transactional(readOnly = true)
     public Driver findByDrivingLicenseNum(String drivingLicenseNum) {
-        Driver driver = DriverMapper.mapEntityToModel(driverRepository.findByDrivingLicenseNum(drivingLicenseNum));
-        LOGGER.info("Found driver with driving license number = {}", drivingLicenseNum);
-        return driver;
+        DriverEntity driver = driverRepository.findByDrivingLicenseNum(drivingLicenseNum);
+        if (driver == null) {
+            LOGGER.info("Driver with driving license number = {} was not found", drivingLicenseNum);
+        } else {
+            LOGGER.info("Found driver by driving license number = {}", drivingLicenseNum);
+        }
+        return DriverMapper.mapEntityToModel(driver);
     }
 
     @Override

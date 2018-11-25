@@ -6,10 +6,10 @@ function confirmPasswords() {
     if (!passwordsAreEmpty(password, passwordConfirmation)) {
         if (passwordsAreEquals(password, passwordConfirmation)) {
             message.style.color = 'green';
-            message.innerHTML = "Password matches";
+            message.innerHTML = "Matches";
         } else {
             message.style.color = 'red';
-            message.innerHTML = "Password doesn't match";
+            message.innerHTML = "Doesn't match";
         }
     }
     else {
@@ -19,14 +19,22 @@ function confirmPasswords() {
 
 function onSubmit() {
     var login = document.getElementById('login');
-    var message = document.getElementById('loginMessage');
+    var errorMessage = document.getElementById('errorMessage');
+    var drivingLicenseNum = document.getElementById('dln');
     if (isLoginAvailable(login.value)) {
-        message.innerText = "";
-        return passwordsAreEquals(
-            document.getElementById('password').value, document.getElementById('confirmation').value);
+        errorMessage.innerText = "";
+        if (isDrivingLicenseNumAvailable(drivingLicenseNum.value)) {
+            errorMessage.innerText = "";
+            return passwordsAreEquals(
+                document.getElementById('password').value, document.getElementById('confirmation').value);
+        } else {
+            errorMessage.style.color = 'red';
+            errorMessage.innerText = "Driving license number already exists";
+            return false;
+        }
     } else {
-        message.style.color = 'red';
-        message.innerText = "Login already exists";
+        errorMessage.style.color = 'red';
+        errorMessage.innerText = "Login already exists";
         return false;
     }
 }
@@ -49,9 +57,24 @@ function isLoginAvailable(login) {
             url: "/api/driver/findByLogin/" + login,
             success: function (result) {
                 loginAvailable = (JSON.stringify(result) === '""');
-                return (JSON.stringify(result) === '""');
             }
         })
     }
     return loginAvailable;
+}
+
+function isDrivingLicenseNumAvailable(drivingLicenseNum) {
+    var drivingLicNum = "";
+    if (drivingLicenseNum !== "") {
+        $.ajax({
+            type: 'GET',
+            datatype: "json",
+            async: false,
+            url: "/api/driver/findByDrivingLicenseNum/" + drivingLicenseNum,
+            success: function (result) {
+                drivingLicNum = (JSON.stringify(result) === '""');
+            }
+        })
+    }
+    return drivingLicNum;
 }
