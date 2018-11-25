@@ -1,0 +1,110 @@
+.select {
+    width: 348px;
+    height: 38px;
+}
+
+.body {
+    overflow-x: hidden;
+}
+#saveLoadTable {
+    width: 600px;
+}
+
+#saveVehicleAndDriverTable {
+    width: 500px;
+}
+
+#loginTable {
+    width: 450px;
+}
+
+input {
+    width: 220px;
+}
+
+.table-wrapper-scroll-y {
+    display: block;
+    max-height: 200px;
+    overflow-y: auto;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+.tableView tbody {
+    display: block;
+    overflow: auto;
+    height: 400px;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.tableView thead tr {
+    display: block;
+    position: relative;
+    font-size: large;
+}
+
+.tableView thead th {
+    text-align: center;
+    font-size: large;
+}
+
+.soflow {
+    -webkit-border-radius: 2px;
+    -webkit-box-shadow: 1px 3px rgba(0, 0, 0, 0.1);
+    -webkit-padding-end: 20px;
+    -webkit-padding-start: 2px;
+    -webkit-user-select: none;
+    background-repeat: no-repeat;
+    border: 1px solid #AAA;
+    color: #555;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#container {
+    overflow: hidden;
+    margin: 2%;
+    width: 100%;
+}
+
+#header {
+    text-align: center;
+    width: 20%;
+
+}
+
+.text {
+    font-size: 20px;
+}
+
+.textTableHeader {
+    font-size: 20px;
+    text-align: center;
+}
+
+.driverContent {
+    overflow: hidden;
+    padding: 1%;
+    float: left;
+    width: 20%;
+}
+
+.vehicleContent {
+    overflow: hidden;
+    margin-right: 4%;
+    padding: 1%;
+    width: 20%;
+    float: left;
+}
+
+.actionsContent {
+    text-align: center;
+    overflow: hidden;
+    padding: 1%;
+    float: left;
+    width: 56%;
+
+}
+

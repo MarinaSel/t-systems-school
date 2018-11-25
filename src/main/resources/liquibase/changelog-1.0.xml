@@ -1,0 +1,262 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet author="Marina" id="1">
+        <preConditions>
+            <not>
+                <sequenceExists sequenceName="drivers_id_seq"/>
+                <sequenceExists sequenceName="loads_id_seq"/>
+                <sequenceExists sequenceName="locations_id_seq"/>
+                <sequenceExists sequenceName="vehicles_id_seq"/>
+                <sequenceExists sequenceName="users_id_seq"/>
+            </not>
+        </preConditions>
+        <createSequence sequenceName="drivers_id_seq" startValue="1" incrementBy="1"/>
+        <createSequence sequenceName="loads_id_seq" startValue="1" incrementBy="1"/>
+        <createSequence sequenceName="locations_id_seq" startValue="1" incrementBy="1"/>
+        <createSequence sequenceName="vehicles_id_seq" startValue="1" incrementBy="1"/>
+        <createSequence sequenceName="users_id_seq" startValue="1" incrementBy="1"/>
+    </changeSet>
+
+    <changeSet author="Marina" id="74">
+        <preConditions>
+            <not>
+                <tableExists tableName="drivers"/>
+            </not>
+        </preConditions>
+        <createTable tableName="drivers">
+            <column autoIncrement="true" name="id" type="BIGSERIAL">
+                <constraints primaryKey="true" primaryKeyName="drivers_pk"/>
+            </column>
+            <column name="vehicle_id" type="BIGINT">
+            </column>
+            <column name="driving_license_num" type="VARCHAR(10)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="first_name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="license_end_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR">
+                <constraints nullable="false"/>
+            </column>
+            <column name="creation_date" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="current_city" type="VARCHAR"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Marina" id="73">
+        <preConditions>
+            <not>
+                <tableExists tableName="loads"/>
+            </not>
+        </preConditions>
+        <createTable tableName="loads">
+            <column autoIncrement="true" name="id" type="BIGSERIAL">
+                <constraints primaryKey="true" primaryKeyName="loads_pk"/>
+            </column>
+            <column name="title" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_of_delivery" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="vehicle_id" type="BIGINT">
+            </column>
+            <column name="location_id" type="BIGINT"/>
+            <column name="status" type="VARCHAR">
+                <constraints nullable="false"/>
+            </column>
+            <column name="weight" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="creation_date" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Marina" id="57">
+        <preConditions>
+            <not>
+                <tableExists tableName="locations"/>
+            </not>
+        </preConditions>
+        <createTable tableName="locations">
+            <column autoIncrement="true" name="id" type="BIGSERIAL">
+                <constraints primaryKey="true" primaryKeyName="locations_pk"/>
+            </column>
+            <column name="name" type="VARCHAR">
+                <constraints nullable="false"/>
+            </column>
+            <column name="latitude" type="FLOAT8">
+                <constraints nullable="false"/>
+            </column>
+            <column name="longitude" type="FLOAT8">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Marina" id="76">
+        <preConditions>
+            <not>
+                <tableExists tableName="vehicles"/>
+            </not>
+        </preConditions>
+        <createTable tableName="vehicles">
+            <column autoIncrement="true" name="id" type="BIGSERIAL">
+                <constraints primaryKey="true" primaryKeyName="vehicles_pk"/>
+            </column>
+            <column name="model" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_of_issue" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="location_id" type="BIGINT"/>
+            <column name="registration_number" type="VARCHAR(7)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="status" type="VARCHAR">
+                <constraints nullable="false"/>
+            </column>
+            <column name="capacity" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="creation_date" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="current_city" type="VARCHAR"/>
+        </createTable>
+    </changeSet>
+
+
+    <changeSet id="88" author="Marina">
+        <preConditions>
+            <not>
+                <tableExists tableName="users"/>
+            </not>
+        </preConditions>
+        <createTable tableName="users">
+            <column autoIncrement="true" name="id" type="BIGSERIAL">
+                <constraints primaryKey="true" primaryKeyName="users_pk"/>
+            </column>
+            <column name="login" type="VARCHAR">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="password" type="VARCHAR">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Marina" id="41">
+        <addForeignKeyConstraint baseColumnNames="location_id" baseTableName="loads" constraintName="locations_loads_fk"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="locations"/>
+        <addForeignKeyConstraint baseColumnNames="location_id" baseTableName="vehicles"
+                                 constraintName="locations_vehicles_fk" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id"
+                                 referencedTableName="locations"/>
+        <addForeignKeyConstraint baseColumnNames="vehicle_id" baseTableName="drivers"
+                                 constraintName="vehicles_drivers_fk" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id"
+                                 referencedTableName="vehicles"/>
+        <addForeignKeyConstraint baseColumnNames="vehicle_id" baseTableName="loads" constraintName="vehicles_loads_fk"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="vehicles"/>
+    </changeSet>
+
+    <changeSet id="90" author="Marina">
+        <preConditions>
+            <not>
+                <columnExists tableName="users" columnName="first_name"/>
+                <columnExists tableName="users" columnName="last_name"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="users">
+            <column name="first_name" type="VARCHAR">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="VARCHAR">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="91" author="Marina">
+        <preConditions>
+            <not>
+                <columnExists tableName="drivers" columnName="user_id"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="drivers">
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="92" author="Marina">
+        <preConditions>
+            <columnExists tableName="drivers" columnName="first_name"/>
+            <columnExists tableName="drivers" columnName="last_name"/>
+        </preConditions>
+        <dropColumn tableName="drivers" columnName="first_name"/>
+        <dropColumn tableName="drivers" columnName="last_name"/>
+    </changeSet>
+
+    <changeSet id="93" author="Marina">
+        <preConditions>
+            <not>
+                <columnExists tableName="vehicles" columnName="primary_driver_id"/>
+                <columnExists tableName="vehicles" columnName="co_driver_id"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="vehicles">
+            <column name="primary_driver_id" type="BIGINT">
+            </column>
+            <column name="co_driver_id" type="BIGINT">
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="94" author="Marina">
+        <preConditions>
+            <columnExists tableName="drivers" columnName="vehicle_id"/>
+        </preConditions>
+        <dropColumn tableName="drivers" columnName="vehicle_id"/>
+    </changeSet>
+
+    <changeSet id="96" author="Marina">
+        <preConditions>
+            <not>
+                <columnExists tableName="drivers" columnName="date_of_fire"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="drivers">
+            <column name="date_of_fire" type="DATE">
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="97" author="Marina">
+        <preConditions>
+            <columnExists tableName="loads" columnName="date_of_delivery"/>
+        </preConditions>
+        <dropNotNullConstraint tableName="loads" columnName="date_of_delivery"/>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,4 +1,4 @@
-package com.training.config;
+package com.training.test_config;
 
 import liquibase.integration.spring.SpringLiquibase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,35 +20,32 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
 
-@Configuration
-@PropertySources({
-        @PropertySource("classpath:properties/database.properties"),
-        @PropertySource("classpath:properties/liquibase.properties")
-})
 @EnableTransactionManagement
 @EnableJpaRepositories("com.training.repositories")
-public class DataConfig {
-
-    private final Environment env;
+@Configuration
+@PropertySources({
+        @PropertySource("classpath:properties/liquibase.properties"),
+        @PropertySource("classpath:test-data.properties")
+})
+public class TestDataConfig {
 
     @Autowired
-    public DataConfig(Environment env) {
-        this.env = env;
-    }
+    private Environment env;
 
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(env.getProperty("spring.datasource.driver_class_name"));
         dataSource.setUrl(env.getProperty("spring.datasource.url"));
         dataSource.setUsername(env.getProperty("spring.datasource.username"));
         dataSource.setPassword(env.getProperty("spring.datasource.password"));
+        dataSource.setDriverClassName(env.getProperty("spring.datasource.driver_class_name"));
         return dataSource;
     }
 
     @Bean
     public SpringLiquibase liquibase(DataSource dataSource) {
         SpringLiquibase liquibase = new SpringLiquibase();
+        liquibase.setDropFirst(true);
         liquibase.setChangeLog(env.getProperty("changeLogFile"));
         liquibase.setDataSource(dataSource);
         return liquibase;
@@ -56,9 +53,9 @@ public class DataConfig {
 
     @Bean
     @DependsOn("liquibase")
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
         LocalContainerEntityManagerFactoryBean lemfb = new LocalContainerEntityManagerFactoryBean();
-        lemfb.setDataSource(dataSource());
+        lemfb.setDataSource(dataSource);
         lemfb.setPackagesToScan(env.getProperty("packages_to_scan"));
         lemfb.setJpaProperties(getHibernateProperties());
         lemfb.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
@@ -74,9 +71,7 @@ public class DataConfig {
 
     private Properties getHibernateProperties() {
         Properties properties = new Properties();
-        properties.put("hibernate.dialect", env.getProperty("hibernate.dialect"));
         properties.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
-        properties.put("hibernate.enable_lazy_load_no_trans", env.getProperty("hibernate.enable_lazy_load_no_trans"));
         return properties;
     }
 }
