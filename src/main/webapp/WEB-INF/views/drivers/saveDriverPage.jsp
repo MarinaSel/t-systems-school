@@ -15,6 +15,7 @@
     <input type="hidden" name="id" value="${editableDriver.id}"/>
     <input type="hidden" name="user.id" value="${editableDriver.user.id}"/>
     <input type="hidden" name="creationDate" value="${editableDriver.creationDate}">
+    <input type="hidden" name="user.login" value="${editableDriver.user.login}">
     <input type="hidden" name="status" value="${editableDriver.status}">
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     <table align="center" id="saveVehicleAndDriverTable" class="table table-bordered">
@@ -63,8 +64,9 @@
             <th>Password confirmation
                 <p><span id='passwordMessage'></span></p></th>
             <td>
-                <input oninput="confirmPasswords();" class="form-control" type="password"
+                <input oninput="confirmPasswords();" class="form-control" type="password" name="user.password"
                        id="confirmation" maxlength="50"
+                       value="${editableDriver.user.password}"
                        placeholder="Password confirmation"
                        autocomplete="off" required/>
             </td>
