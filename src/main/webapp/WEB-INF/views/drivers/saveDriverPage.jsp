@@ -64,7 +64,7 @@
             <th>Password confirmation
                 <p><span id='passwordMessage'></span></p></th>
             <td>
-                <input oninput="confirmPasswords();" class="form-control" type="password" name="user.password"
+                <input oninput="confirmPasswords();" class="form-control" type="password"
                        id="confirmation" maxlength="50"
                        value="${editableDriver.user.password}"
                        placeholder="Password confirmation"
