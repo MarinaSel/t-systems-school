@@ -7,15 +7,13 @@
     <%@include file="/WEB-INF/views/navbar.jsp" %>
     <%@include file="/WEB-INF/views/includes/includeDatepicker.jsp" %>
     <script type="text/javascript" src="/resources/js/driverValidator.js"></script>
-
 </head>
 <body>
 <hr>
-<form onsubmit="return onDriverSubmit();" method="post" action="/driver/saveDriver" modelAttribute="editableDriver">
+<form onsubmit="return onDriverSubmit()" method="post" action="/driver/saveDriver" modelAttribute="editableDriver">
     <input type="hidden" name="id" value="${editableDriver.id}"/>
     <input type="hidden" name="user.id" value="${editableDriver.user.id}"/>
     <input type="hidden" name="creationDate" value="${editableDriver.creationDate}">
-    <input type="hidden" name="user.login" value="${editableDriver.user.login}">
     <input type="hidden" name="status" value="${editableDriver.status}">
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     <table align="center" id="saveVehicleAndDriverTable" class="table table-bordered">
@@ -39,21 +37,19 @@
                        autocomplete="off" required/>
             </td>
         </tr>
-        <c:if test="${editableDriver.id == null}">
-            <tr>
-                <th>Login</th>
-                <td>
-                    <input class="form-control" id="login" name="user.login" maxlength="50"
-                           value="${editableDriver.user.login}"
-                           placeholder="Login"
-                           autocomplete="off" required/>
-                </td>
-            </tr>
-        </c:if>
+        <tr>
+            <th>Login</th>
+            <td>
+                <input class="form-control" id="login" name="user.login" maxlength="50"
+                       value="${editableDriver.user.login}"
+                       placeholder="Login"
+                       autocomplete="off" required/>
+            </td>
+        </tr>
         <tr>
             <th>Password</th>
             <td>
-                <input oninput="confirmPasswords();" class="form-control" type="password" name="user.password"
+                <input oninput="confirmPasswords()" class="form-control" type="password" name="user.password"
                        id="password" maxlength="50"
                        value="${editableDriver.user.password}"
                        placeholder="Password"
@@ -64,7 +60,7 @@
             <th>Password confirmation
                 <p><span id='passwordMessage'></span></p></th>
             <td>
-                <input oninput="confirmPasswords();" class="form-control" type="password"
+                <input oninput="confirmPasswords()" class="form-control" type="password"
                        id="confirmation" maxlength="50"
                        value="${editableDriver.user.password}"
                        placeholder="Password confirmation"
@@ -84,7 +80,7 @@
             <th>License end date</th>
             <td>
                 <input class="form-control" name="licenseEndDate" id="date" value="${editableDriver.licenseEndDate}"
-                       placeholder="License end date" onkeypress="return false;" required/>
+                       placeholder="License end date" onkeypress="return false" required/>
             </td>
         </tr>
 
