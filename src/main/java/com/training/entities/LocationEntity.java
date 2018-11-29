@@ -25,7 +25,7 @@ public class LocationEntity {
     @Column(name = "longitude", nullable = false)
     private Double longitude;
 
-    protected LocationEntity() {
+    public LocationEntity() {
     }
 
     public Long getId() {

@@ -252,4 +252,25 @@
             </column>
         </addColumn>
     </changeSet>
+
+    <changeSet id="100" author="Marina">
+        <preConditions>
+            <columnExists tableName="loads" columnName="location_id"/>
+            <columnExists tableName="vehicles" columnName="location_id"/>
+        </preConditions>
+        <dropColumn tableName="loads" columnName="location_id"/>
+        <dropColumn tableName="vehicles" columnName="location_id"/>
+    </changeSet>
+
+    <changeSet id="102" author="Marina">
+        <preConditions>
+            <tableExists tableName="loads"/>
+        </preConditions>
+        <addColumn tableName="loads">
+            <column name="pick_up_location_id" type="BIGINT">
+            </column>
+            <column name="delivery_location_id" type="BIGINT">
+            </column>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>
