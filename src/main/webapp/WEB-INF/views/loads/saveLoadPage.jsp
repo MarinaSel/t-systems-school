@@ -4,7 +4,6 @@
 <head>
     <%@include file="/WEB-INF/views/navbar.jsp" %>
     <%@include file="/WEB-INF/views/includes/includeStyles.jsp" %>
-    <%@include file="/WEB-INF/views/includes/includeDatepicker.jsp" %>
     <%@include file="/WEB-INF/views/includes/includeListBox.jsp" %>
     <%@include file="/WEB-INF/views/loads/includeScriptsForLoadSaving.jsp" %>
     <title>${empty editableLoad.id ? 'Add' : 'Edit'} load</title>
@@ -12,7 +11,7 @@
 
 <body>
 <hr>
-<form onsubmit="return compareDrivers()" method="post" action="/load/saveLoad" modelAttribute="editableLoad">
+<form onsubmit="return compare()" method="post" action="/load/saveLoad" modelAttribute="editableLoad">
     <input type="hidden" name="id" value="${editableLoad.id}"/>
     <input type="hidden" name="creationDate" value="${editableLoad.creationDate}">
     <input type="hidden" name="status" value="${editableLoad.status}">
@@ -36,6 +35,36 @@
                 <input class="form-control" name="description" value="${editableLoad.description}"
                        placeholder="Description"
                        maxlength="255" autocomplete="off" required/>
+            </td>
+        </tr>
+        <tr>
+            <th align="left">Pick up location</th>
+            <td>
+                <select class="select custom-select" id="pickUpLocation" name="pickUpLocationName" required>
+                    <option>${editableLoad.pickUpLocation.name == null ? ""
+                            : editableLoad.pickUpLocation.name}</option>
+                    <c:forEach items="${locations}" var="location">
+                        <c:if test="${location.name != editableLoad.pickUpLocation.name
+                        && location.name != editableLoad.pickUpLocation.name}">
+                            <option>${location.name}</option>
+                        </c:if>
+                    </c:forEach>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th align="left">Delivery location</th>
+            <td>
+                <select class="select custom-select" id="deliveryLocation" name="deliveryLocationName" required>
+                    <option>${editableLoad.deliveryLocation.name == null ? ""
+                            : editableLoad.deliveryLocation.name}</option>
+                    <c:forEach items="${locations}" var="location">
+                        <c:if test="${location.name != editableLoad.deliveryLocation.name
+                        && location.name != editableLoad.deliveryLocation.name}">
+                            <option>${location.name}</option>
+                        </c:if>
+                    </c:forEach>
+                </select>
             </td>
         </tr>
         <tr>

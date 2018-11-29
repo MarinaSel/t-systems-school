@@ -15,6 +15,7 @@
         <th class="th-sm textTableHeader">Title</th>
         <th class="th-sm textTableHeader">Description</th>
         <th class="th-sm textTableHeader">Day of delivery</th>
+        <th class="th-sm textTableHeader">Location</th>
         <th class="th-sm textTableHeader">Weight (kg)</th>
         <th class="th-sm textTableHeader">Load status</th>
         <th class="th-sm textTableHeader">Actions</th>
@@ -31,6 +32,8 @@
             <td>${load.title}</td>
             <td>${load.description}</td>
             <td align="center">${load.dayOfDelivery}</td>
+            <td>Pick up location: ${load.pickUpLocation.name}
+                <p>Delivery location: ${load.deliveryLocation.name}</p></td>
             <td>${load.weight}</td>
             <td>${load.status}</td>
             <td align="center">
