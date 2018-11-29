@@ -65,13 +65,6 @@ public class LoadServiceImpl implements LoadService {
     }
 
     @Override
-    @Transactional
-    public void remove(Long id) {
-        loadRepository.deleteById(id);
-        LOGGER.info("Deleted load with id = {}", id);
-    }
-
-    @Override
     @Transactional(readOnly = true)
     public List<Load> findAll() {
         List<Load> loads = LoadMapper.mapEntityListToModelList(loadRepository.findAll());

@@ -57,13 +57,6 @@ public class DriverServiceImpl implements DriverService {
     }
 
     @Override
-    @Transactional
-    public void remove(Long id) {
-        driverRepository.deleteById(id);
-        LOGGER.info("Deleted driver with id = {}", id);
-    }
-
-    @Override
     @Transactional(readOnly = true)
     public Driver find(Long id) {
         Driver driver = DriverMapper.mapEntityToModel(driverRepository.getOne(id));

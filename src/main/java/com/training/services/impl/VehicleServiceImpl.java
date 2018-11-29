@@ -75,13 +75,6 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    @Transactional
-    public void remove(Long id) {
-        vehicleRepository.deleteById(id);
-        LOGGER.info("Deleted vehicle with id = {}", id);
-    }
-
-    @Override
     @Transactional(readOnly = true)
     public List<Vehicle> findAll() {
         List<Vehicle> vehicles = mapEntityListToModelList(vehicleRepository.findAll());

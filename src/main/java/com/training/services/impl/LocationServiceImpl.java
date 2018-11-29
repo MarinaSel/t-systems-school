@@ -34,11 +34,6 @@ public class LocationServiceImpl implements LocationService {
         locationRepository.saveAndFlush(locationEntity);
     }
 
-    @Transactional
-    public void remove(Long id) {
-        locationRepository.deleteById(id);
-    }
-
     @Override
     public List<Location> findAll() {
         List<Location> locations = LocationMapper.mapEntityListToModelList(locationRepository.findAll());
