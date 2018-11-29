@@ -2,9 +2,10 @@ package com.training.controllers;
 
 import com.training.models.Driver;
 import com.training.models.Load;
+import com.training.models.Location;
 import com.training.services.DriverService;
 import com.training.services.LoadService;
-import com.training.services.VehicleService;
+import com.training.services.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,24 +25,26 @@ public class LoadController {
 
     private final LoadService loadService;
 
-    private final VehicleService vehicleService;
 
     private final DriverService driverService;
+    private final LocationService locationService;
 
     @Autowired
-    public LoadController(LoadService loadService, VehicleService vehicleService, DriverService driverService) {
+    public LoadController(LoadService loadService, DriverService driverService, LocationService locationService) {
         this.loadService = loadService;
-        this.vehicleService = vehicleService;
         this.driverService = driverService;
+        this.locationService = locationService;
     }
 
     @GetMapping("/editLoad/{id}")
     public ModelAndView editLoad(@PathVariable("id") Long id, ModelAndView modelAndView) {
         Load loadToEdit = loadService.find(id);
         List<Driver> drivers = driverService.findAllFree();
+        List<Location> locations = locationService.findAll();
 
         modelAndView.addObject("editableLoad", loadToEdit);
         modelAndView.addObject("freeDrivers", drivers);
+        modelAndView.addObject("locations", locations);
         modelAndView.addObject("primaryDriverLicense");
         modelAndView.addObject("coDriverLicense");
         modelAndView.addObject("regNum");
@@ -51,6 +54,8 @@ public class LoadController {
 
     @GetMapping("/addLoad")
     public ModelAndView addLoad(ModelAndView modelAndView) {
+        List<Location> locations = locationService.findAll();
+        modelAndView.addObject("locations", locations);
         modelAndView.addObject("editableLoad", new Load()).setViewName("saveLoadPage");
         return modelAndView;
     }
@@ -59,11 +64,14 @@ public class LoadController {
     public ModelAndView saveLoad(@ModelAttribute("editableLoad") Load load,
                                  @ModelAttribute("regNum") String registrationNumber,
                                  @ModelAttribute("primaryDriverLicense") String primaryDriverLicense,
-                                 @ModelAttribute("coDriverLicense") String coDriverLicense) {
+                                 @ModelAttribute("coDriverLicense") String coDriverLicense,
+                                 @ModelAttribute("pickUpLocationName") String pickUpLocationName,
+                                 @ModelAttribute("deliveryLocationName") String deliveryLocationName) {
         if (!isEmpty(registrationNumber)) {
-            loadService.saveAssignedLoad(load, registrationNumber, primaryDriverLicense, coDriverLicense);
+            loadService.saveAssignedLoad(load, registrationNumber, primaryDriverLicense, coDriverLicense,
+                    pickUpLocationName, deliveryLocationName);
         } else {
-            loadService.save(load);
+            loadService.saveAssignedToLocationLoad(load, pickUpLocationName, deliveryLocationName);
         }
         return new ModelAndView("redirect:/load/allLoads");
     }

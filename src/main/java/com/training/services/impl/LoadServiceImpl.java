@@ -4,11 +4,13 @@ import com.training.entities.DriverEntity;
 import com.training.entities.LoadEntity;
 import com.training.entities.VehicleEntity;
 import com.training.mappers.LoadMapper;
+import com.training.mappers.LocationMapper;
 import com.training.mappers.VehicleMapper;
 import com.training.models.Load;
 import com.training.repositories.DriverRepository;
 import com.training.repositories.LoadRepository;
 import com.training.services.LoadService;
+import com.training.services.LocationService;
 import com.training.services.VehicleService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.logging.log4j.LogManager;
@@ -30,13 +32,15 @@ public class LoadServiceImpl implements LoadService {
     private final LoadRepository loadRepository;
     private final DriverRepository driverRepository;
     private final VehicleService vehicleService;
+    private final LocationService locationService;
 
     @Autowired
     public LoadServiceImpl(LoadRepository loadRepository, DriverRepository driverRepository,
-                           VehicleService vehicleService) {
+                           VehicleService vehicleService, LocationService locationService) {
         this.loadRepository = loadRepository;
         this.driverRepository = driverRepository;
         this.vehicleService = vehicleService;
+        this.locationService = locationService;
     }
 
     @Override
@@ -78,7 +82,7 @@ public class LoadServiceImpl implements LoadService {
     @Override
     @Transactional
     public void saveAssignedLoad(Load load, String registrationNumber, String primaryDriverLicense,
-                                 String coDriverLicense) {
+                                 String coDriverLicense, String pickUpLocationName, String deliveryLocationName) {
         if (load.getStatus() == ASSIGNED) {
             VehicleEntity previousVehicle = loadRepository.getOne(load.getId()).getVehicle();
             if (previousVehicle.getRegistrationNumber().equals(registrationNumber)) {
@@ -95,10 +99,20 @@ public class LoadServiceImpl implements LoadService {
 
         LoadEntity loadEntity = LoadMapper.mapModelToEntity(load);
         loadEntity.setVehicle(newVehicle);
+        loadEntity.setPickUpLocation(LocationMapper.mapModelToEntity(locationService.findByName(pickUpLocationName)));
+        loadEntity.setDeliveryLocation(LocationMapper.mapModelToEntity(locationService.findByName(deliveryLocationName)));
         loadRepository.saveAndFlush(loadEntity);
         LOGGER.info("Load with id {} was saved and assigned to vehicle with id {}", loadEntity.getId(),
                 newVehicle.getId());
         vehicleService.assignToDrivers(newVehicle, primaryDriverLicense, coDriverLicense);
+    }
+
+    @Override
+    @Transactional
+    public void saveAssignedToLocationLoad(Load load, String pickUpLocationName, String deliveryLocationName) {
+        load.setPickUpLocation(locationService.findByName(pickUpLocationName));
+        load.setDeliveryLocation(locationService.findByName(deliveryLocationName));
+        loadRepository.saveAndFlush(LoadMapper.mapModelToEntity(load));
     }
 
     @Override
