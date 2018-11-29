@@ -252,11 +252,4 @@
             </column>
         </addColumn>
     </changeSet>
-    <changeSet id="97" author="Marina">
-        <preConditions>
-            <columnExists tableName="loads" columnName="date_of_delivery"/>
-        </preConditions>
-        <dropNotNullConstraint tableName="loads" columnName="date_of_delivery"/>
-    </changeSet>
-
 </databaseChangeLog>

@@ -13,8 +13,8 @@
 <table id="tableScroll" class="table table-striped table-bordered" width="100%">
     <thead>
     <tr>
-        <th class="th-sm textTableHeader">First name</th>
-        <th class="th-sm textTableHeader">Second name</th>
+        <th class="th-sm textTableHeader">Name</th>
+        <th class="th-sm textTableHeader">Login</th>
         <th class="th-sm textTableHeader">Driver's license number</th>
         <th class="th-sm textTableHeader">License end date</th>
         <th class="th-sm textTableHeader">Driver status</th>
@@ -26,8 +26,8 @@
     <tbody>
     <c:forEach items="${drivers}" var="driver">
         <tr class="trThead">
-            <td>${driver.user.firstName}</td>
-            <td>${driver.user.lastName}</td>
+            <td>${driver.user.firstName} ${driver.user.lastName}</td>
+            <td>${driver.user.login}</td>
             <td>${driver.drivingLicenseNum}</td>
             <td align="center">${driver.licenseEndDate}</td>
             <td>${driver.status}</td>
