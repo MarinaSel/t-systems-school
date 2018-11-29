@@ -273,4 +273,13 @@
             </column>
         </addColumn>
     </changeSet>
+
+    <changeSet id="103" author="Marina">
+        <preConditions>
+            <columnExists tableName="loads" columnName="pick_up_location_id"/>
+            <columnExists tableName="loads" columnName="delivery_location_id"/>
+        </preConditions>
+        <addNotNullConstraint tableName="loads" columnName="pick_up_location_id"/>
+        <addNotNullConstraint tableName="loads" columnName="delivery_location_id"/>
+    </changeSet>
 </databaseChangeLog>
