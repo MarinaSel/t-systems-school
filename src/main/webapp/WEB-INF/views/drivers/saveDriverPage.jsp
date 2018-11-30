@@ -15,6 +15,8 @@
     <input type="hidden" name="user.id" value="${editableDriver.user.id}"/>
     <input type="hidden" name="creationDate" value="${editableDriver.creationDate}">
     <input type="hidden" name="status" value="${editableDriver.status}">
+    <input type="hidden" name="user.login" value="${editableDriver.user.login}">
+    <input type="hidden" name="drivingLicenseNum" value="${editableDriver.drivingLicenseNum}">
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     <table align="center" id="saveVehicleAndDriverTable" class="table table-bordered">
         <td align="center" colspan="2" style="font-size: xx-large">
@@ -37,15 +39,17 @@
                        autocomplete="off" required/>
             </td>
         </tr>
-        <tr>
-            <th>Login</th>
-            <td>
-                <input class="form-control" id="login" name="user.login" maxlength="50"
-                       value="${editableDriver.user.login}"
-                       placeholder="Login"
-                       autocomplete="off" required/>
-            </td>
-        </tr>
+        <c:if test="${editableDriver.id == null}">
+            <tr>
+                <th>Login</th>
+                <td>
+                    <input class="form-control" id="login" name="user.login" maxlength="50"
+                           value="${editableDriver.user.login}"
+                           placeholder="Login"
+                           autocomplete="off" required/>
+                </td>
+            </tr>
+        </c:if>
         <tr>
             <th>Password</th>
             <td>
@@ -67,15 +71,17 @@
                        autocomplete="off" required/>
             </td>
         </tr>
-        <tr>
-            <th>Driver's license number</th>
-            <td>
-                <input class="form-control" name="drivingLicenseNum" value="${editableDriver.drivingLicenseNum}"
-                       id="dln" placeholder="12AA345678"
-                       title="Example: 12AA345678" pattern="[0-9]{2}[A-Za-z]{2}[0-9]{6}"
-                       maxlength="10" minlength="10" autocomplete="off" required/>
-            </td>
-        </tr>
+        <c:if test="${editableDriver.id == null}">
+            <tr>
+                <th>Driver's license number</th>
+                <td>
+                    <input class="form-control" name="drivingLicenseNum" value="${editableDriver.drivingLicenseNum}"
+                           id="dln" placeholder="12AA345678"
+                           title="Example: 12AA345678" pattern="[0-9]{2}[A-Za-z]{2}[0-9]{6}"
+                           maxlength="10" minlength="10" autocomplete="off" required/>
+                </td>
+            </tr>
+        </c:if>
         <tr>
             <th>License end date</th>
             <td>
