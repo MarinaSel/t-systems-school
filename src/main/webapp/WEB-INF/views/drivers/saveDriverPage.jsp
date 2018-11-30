@@ -39,15 +39,17 @@
                        autocomplete="off" required/>
             </td>
         </tr>
-        <tr>
-            <th>Login</th>
-            <td>
-                <input class="form-control" id="login" name="user.login" maxlength="50"
-                       value="${editableDriver.user.login}"
-                       placeholder="Login"
-                       autocomplete="off" required/>
-            </td>
-        </tr>
+        <c:if test="${editableDriver.id == null}">
+            <tr>
+                <th>Login</th>
+                <td>
+                    <input class="form-control" id="login" name="user.login" maxlength="50"
+                           value="${editableDriver.user.login}"
+                           placeholder="Login"
+                           autocomplete="off" required/>
+                </td>
+            </tr>
+        </c:if>
         <tr>
             <th>Password</th>
             <td>

@@ -46,10 +46,6 @@ public class DriverServiceImpl implements DriverService {
         String parseDrivingLicenseNum = driver.getDrivingLicenseNum().replaceAll(",", "");
         driver.getUser().setLogin(parseLogin);
         driver.setDrivingLicenseNum(parseDrivingLicenseNum);
-        if (driver.getId() == null) {
-            User user = userService.save(driver.getUser());
-            driver.setUser(user);
-        }
         User user = userService.save(driver.getUser());
         driver.setUser(user);
         driverRepository.saveAndFlush(DriverMapper.mapModelToEntity(driver));
