@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -36,8 +37,13 @@ public class DriversResource {
         return userService.findByLogin(login);
     }
 
-    @GetMapping("/findByDrivingLicenseNum/{drivingLicenseNum}")
-    public Driver findByDrivingLicenseNumber(@PathVariable("drivingLicenseNum") String drivingLicenseNum) {
-        return driverService.findByDrivingLicenseNum(drivingLicenseNum);
+    @GetMapping("/findByDrivingLicenseNum")
+    public Driver findByDrivingLicenseNumber(@RequestParam("drivingLicenseNum") String drivingLicenseNum,
+                                             @RequestParam("driverId") Long id) {
+        Driver driver = driverService.findByDrivingLicenseNum(drivingLicenseNum);
+        if (driver != null && driver.getId().equals(id)) {
+            return null;
+        }
+        return driver;
     }
 }

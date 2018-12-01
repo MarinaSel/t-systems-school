@@ -21,8 +21,10 @@ function onDriverSubmit() {
     var login = document.getElementById('login');
     var errorMessage = document.getElementById('driverErrorMessage');
     var drivingLicenseNum = document.getElementById('dln');
-    if (isLoginAvailable(login.value)) {
-        if (isDrivingLicenseNumAvailable(drivingLicenseNum.value)) {
+    var driverId = document.getElementById('driverId');
+    var loginAvailable = login !== null ? isLoginAvailable(login.value) : true;
+    if (loginAvailable) {
+        if (isDrivingLicenseNumAvailable(drivingLicenseNum.value, driverId.value)) {
             return passwordsAreEquals(
                 document.getElementById('password').value, document.getElementById('confirmation').value);
         } else {
@@ -46,8 +48,8 @@ function passwordsAreEmpty(pass1, pass2) {
 }
 
 function isLoginAvailable(login) {
-    var loginAvailable = "";
-    if (login !== "") {
+    var loginAvailable = true;
+    if (login !== null) {
         $.ajax({
             type: 'GET',
             datatype: "json",
@@ -61,14 +63,18 @@ function isLoginAvailable(login) {
     return loginAvailable;
 }
 
-function isDrivingLicenseNumAvailable(drivingLicenseNum) {
+function isDrivingLicenseNumAvailable(drivingLicenseNum, driverId) {
     var drivingLicNumAvailable = "";
     if (drivingLicenseNum !== "") {
         $.ajax({
             type: 'GET',
             datatype: "json",
             async: false,
-            url: "/api/driver/findByDrivingLicenseNum/" + drivingLicenseNum,
+            url: "/api/driver/findByDrivingLicenseNum",
+            data: {
+                drivingLicenseNum: drivingLicenseNum,
+                driverId: driverId
+            },
             success: function (result) {
                 drivingLicNumAvailable = (JSON.stringify(result) === '""');
             }
