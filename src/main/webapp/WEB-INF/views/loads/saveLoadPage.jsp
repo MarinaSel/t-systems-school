@@ -40,7 +40,7 @@
         <tr>
             <th align="left">Pick up location</th>
             <td>
-                <select class="select custom-select" id="pickUpLocation" name="pickUpLocationName" required>
+                <select class="select" id="pickUpLocation" name="pickUpLocationName" required>
                     <option>${editableLoad.pickUpLocation.name == null ? ""
                             : editableLoad.pickUpLocation.name}</option>
                     <c:forEach items="${locations}" var="location">
