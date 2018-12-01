@@ -33,6 +33,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/home/**")
                 .hasRole("USER")
                 .and()
+                .authorizeRequests().antMatchers("/api/vehicle/findVehicleWithLoads").hasRole("USER")
+                .and()
                 .authorizeRequests()
                 .anyRequest().hasRole("ADMIN")
                 .and()

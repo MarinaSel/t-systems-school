@@ -1,5 +1,6 @@
 package com.training.rest;
 
+import com.training.models.Load;
 import com.training.models.Vehicle;
 import com.training.services.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/vehicle")
@@ -30,5 +32,11 @@ public class VehicleResource {
     @GetMapping("/findByRegistrationNumber/{registrationNumber}")
     public Vehicle findByRegistrationNumber(@PathVariable("registrationNumber") String registrationNumber) {
         return vehicleService.findByRegistrationNumber(registrationNumber);
+    }
+
+    @GetMapping("/findVehicleWithLoads")
+    public Set<Load> getVehicleOfAuthenticatedDriver() {
+        Vehicle vehicle = vehicleService.getVehicleOfAuthenticatedDriver();
+        return vehicle.getLoads();
     }
 }
