@@ -20,7 +20,6 @@
         <h3 align="center">Your data</h3>
         <hr>
         Name: ${driver.user.firstName} ${driver.user.lastName}
-        <br>Login: ${driver.user.login}
         <br>Driver's license number: ${driver.drivingLicenseNum}
         <br>Status: ${driver.status}
         <br>License end date: ${driver.licenseEndDate}
