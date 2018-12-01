@@ -32,9 +32,18 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public User save(User user) {
         UserEntity userEntity = mapModelToEntity(user);
-        userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
+        Long userId = user.getId();
+        if (userId != null && userEntity.getPassword().equals(userRepository.getOne(userId).getPassword())) {
+            userEntity.setPassword(user.getPassword());
+        } else {
+            userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
+        }
+        if (userId == null) {
+            LOGGER.info("Created user with id = {}", userId);
+        } else {
+            LOGGER.info("Updated user with id = {}", userId);
+        }
         userRepository.saveAndFlush(userEntity);
-        LOGGER.info("Created user with id = {}", userEntity.getId());
         return mapEntityToModel(userEntity);
     }
 
