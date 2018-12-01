@@ -5,7 +5,6 @@ import com.training.models.Vehicle;
 import com.training.services.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,9 +28,14 @@ public class VehicleResource {
         return vehicleService.findAllFreeWithNecessaryCapacity(weight);
     }
 
-    @GetMapping("/findByRegistrationNumber/{registrationNumber}")
-    public Vehicle findByRegistrationNumber(@PathVariable("registrationNumber") String registrationNumber) {
-        return vehicleService.findByRegistrationNumber(registrationNumber);
+    @GetMapping("/findByRegistrationNumber")
+    public Vehicle findByRegistrationNumber(@RequestParam("registrationNumber") String registrationNumber,
+                                            @RequestParam("vehicleId") Long id) {
+        Vehicle vehicle = vehicleService.findByRegistrationNumber(registrationNumber);
+        if (vehicle != null && vehicle.getId().equals(id)) {
+            return null;
+        }
+        return vehicle;
     }
 
     @GetMapping("/findVehicleWithLoads")

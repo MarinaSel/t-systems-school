@@ -10,7 +10,7 @@
 <body>
 <hr>
 <form onsubmit="return onVehicleSubmit()" method="post" action="/vehicle/saveVehicle" modelAttribute="editableVehicle">
-    <input type="hidden" name="id" value="${editableVehicle.id}"/>
+    <input type="hidden" name="id" id="vehicleId" value="${editableVehicle.id}"/>
     <input type="hidden" name="creationDate" value="${editableVehicle.creationDate}">
     <input type="hidden" name="status" value="${editableVehicle.status}">
     <input type="hidden"
