@@ -2,8 +2,8 @@
 <html>
 <head>
     <title>${empty editableVehicle.id ? 'Add' : 'Edit'} vehicle</title>
-    <%@include file="/WEB-INF/views/includes/includeStyles.jsp" %>
     <%@include file="/WEB-INF/views/navbar.jsp" %>
+    <%@include file="/WEB-INF/views/includes/includeStyles.jsp" %>
     <%@include file="/WEB-INF/views/includes/includeDatepicker.jsp" %>
     <script type="text/javascript" src="/resources/js/vehicleValidator.js"></script>
 </head>

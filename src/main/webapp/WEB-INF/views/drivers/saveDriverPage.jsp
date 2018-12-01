@@ -3,8 +3,8 @@
 <html>
 <head>
     <title>${empty editableDriver.id ? 'Add' : 'Edit'} driver</title>
-    <%@include file="/WEB-INF/views/includes/includeStyles.jsp" %>
     <%@include file="/WEB-INF/views/navbar.jsp" %>
+    <%@include file="/WEB-INF/views/includes/includeStyles.jsp" %>
     <%@include file="/WEB-INF/views/includes/includeDatepicker.jsp" %>
     <script type="text/javascript" src="/resources/js/driverValidator.js"></script>
 </head>

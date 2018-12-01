@@ -3,7 +3,6 @@
 <html>
 <head>
     <title>Vehicles</title>
-
     <%@include file="/WEB-INF/views/navbar.jsp" %>
     <%@include file="/WEB-INF/views/includes/includeStyles.jsp" %>
     <%@include file="/WEB-INF/views/includes/includeTablePag.jsp" %>
