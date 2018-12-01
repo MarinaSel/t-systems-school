@@ -282,4 +282,11 @@
         <addNotNullConstraint tableName="loads" columnName="pick_up_location_id"/>
         <addNotNullConstraint tableName="loads" columnName="delivery_location_id"/>
     </changeSet>
+
+    <changeSet id="104" author="Marina">
+        <preConditions>
+            <columnExists tableName="loads" columnName="date_of_delivery"/>
+        </preConditions>
+        <dropNotNullConstraint tableName="loads" columnName="date_of_delivery"/>
+    </changeSet>
 </databaseChangeLog>
