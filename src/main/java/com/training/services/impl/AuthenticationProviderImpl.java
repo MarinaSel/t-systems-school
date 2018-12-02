@@ -1,11 +1,13 @@
 package com.training.services.impl;
 
+import com.training.models.Driver;
 import com.training.models.User;
 import com.training.services.DriverService;
 import com.training.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.LockedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -17,6 +19,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.training.entities.enums.DriverStatus.FIRED;
 
 /**
  * Class that implements AuthenticationProvider and is used for users authentication.
@@ -55,12 +59,16 @@ public class AuthenticationProviderImpl implements AuthenticationProvider {
             throw new BadCredentialsException("Wrong password");
         }
         List<GrantedAuthority> authorities = new ArrayList<>();
+        Driver driver = driverService.findByUser(user);
 
-
-        if (driverService.findByUser(user) == null) {
+        if (driver == null) {
             authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         } else {
-            authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+            if (driver.getStatus() == FIRED) {
+                throw new LockedException("You were fired");
+            } else {
+                authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+            }
         }
         return new UsernamePasswordAuthenticationToken(login, password, authorities);
     }
