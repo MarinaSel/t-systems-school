@@ -42,10 +42,12 @@ public class DriverServiceImpl implements DriverService {
     @Override
     @Transactional
     public void save(Driver driver) {
-        String parseLogin = driver.getUser().getLogin().replaceAll(",", "");
-        driver.getUser().setLogin(parseLogin);
-        User user = userService.save(driver.getUser());
-        driver.setUser(user);
+        if (driver.getUser() != null) {
+            String parseLogin = driver.getUser().getLogin().replaceAll(",", "");
+            driver.getUser().setLogin(parseLogin);
+            User user = userService.save(driver.getUser());
+            driver.setUser(user);
+        }
         driverRepository.saveAndFlush(DriverMapper.mapModelToEntity(driver));
         if (driver.getId() == null) {
             LOGGER.info("Created driver with id = {}", driver.getId());

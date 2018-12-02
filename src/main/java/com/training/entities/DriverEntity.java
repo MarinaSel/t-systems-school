@@ -46,9 +46,6 @@ public class DriverEntity extends BaseEntity {
     @Column(name = "status", nullable = false)
     private DriverStatus status;
 
-    @Column(name = "current_city")
-    private String currentCity;
-
     @NotNull(message = "User cannot be null")
     @OneToOne
     private UserEntity user;
@@ -108,14 +105,6 @@ public class DriverEntity extends BaseEntity {
         this.status = status;
     }
 
-    public String getCurrentCity() {
-        return currentCity;
-    }
-
-    public void setCurrentCity(String currentCity) {
-        this.currentCity = currentCity;
-    }
-
     public UserEntity getUser() {
         return user;
     }
@@ -145,7 +134,6 @@ public class DriverEntity extends BaseEntity {
         if (licenseEndDate != null ? !licenseEndDate.equals(that.licenseEndDate) : that.licenseEndDate != null)
             return false;
         if (status != that.status) return false;
-        if (currentCity != null ? !currentCity.equals(that.currentCity) : that.currentCity != null) return false;
         if (user != null ? !user.equals(that.user) : that.user != null) return false;
         return dateOfFire != null ? dateOfFire.equals(that.dateOfFire) : that.dateOfFire == null;
     }
@@ -156,7 +144,6 @@ public class DriverEntity extends BaseEntity {
         result = 31 * result + (drivingLicenseNum != null ? drivingLicenseNum.hashCode() : 0);
         result = 31 * result + (licenseEndDate != null ? licenseEndDate.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
-        result = 31 * result + (currentCity != null ? currentCity.hashCode() : 0);
         result = 31 * result + (user != null ? user.hashCode() : 0);
         result = 31 * result + (dateOfFire != null ? dateOfFire.hashCode() : 0);
         return result;
@@ -169,7 +156,6 @@ public class DriverEntity extends BaseEntity {
                 ", drivingLicenseNum='" + drivingLicenseNum + '\'' +
                 ", licenseEndDate=" + licenseEndDate +
                 ", status=" + status +
-                ", currentCity='" + currentCity + '\'' +
                 '}';
     }
 }

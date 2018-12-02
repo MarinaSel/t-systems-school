@@ -54,7 +54,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet author="Marina" id="73">
+    <changeSet author="Marina" id="108">
         <preConditions>
             <not>
                 <tableExists tableName="loads"/>
@@ -71,7 +71,6 @@
                 <constraints nullable="false"/>
             </column>
             <column name="date_of_delivery" type="DATE">
-                <constraints nullable="false"/>
             </column>
             <column name="vehicle_id" type="BIGINT">
             </column>
@@ -262,31 +261,25 @@
         <dropColumn tableName="vehicles" columnName="location_id"/>
     </changeSet>
 
-    <changeSet id="102" author="Marina">
+    <changeSet id="109" author="Marina">
         <preConditions>
             <tableExists tableName="loads"/>
         </preConditions>
         <addColumn tableName="loads">
             <column name="pick_up_location_id" type="BIGINT">
+                <constraints nullable="true"/>
             </column>
             <column name="delivery_location_id" type="BIGINT">
+                <constraints nullable="true"/>
             </column>
         </addColumn>
     </changeSet>
 
-    <changeSet id="103" author="Marina">
+    <changeSet id="106" author="Marina">
         <preConditions>
-            <columnExists tableName="loads" columnName="pick_up_location_id"/>
-            <columnExists tableName="loads" columnName="delivery_location_id"/>
+            <columnExists tableName="drivers" columnName="current_city"/>
         </preConditions>
-        <addNotNullConstraint tableName="loads" columnName="pick_up_location_id"/>
-        <addNotNullConstraint tableName="loads" columnName="delivery_location_id"/>
+        <dropColumn tableName="drivers" columnName="current_city"/>
     </changeSet>
 
-    <changeSet id="104" author="Marina">
-        <preConditions>
-            <columnExists tableName="loads" columnName="date_of_delivery"/>
-        </preConditions>
-        <dropNotNullConstraint tableName="loads" columnName="date_of_delivery"/>
-    </changeSet>
 </databaseChangeLog>
