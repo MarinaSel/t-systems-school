@@ -155,6 +155,9 @@ input {
     padding: 1%;
     float: left;
     width: 56%;
+}
 
+.table td {
+    vertical-align: middle;
 }
 
