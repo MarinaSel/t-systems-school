@@ -37,6 +37,10 @@
                     <a href="/vehicle/editVehicle/${vehicle.id}" class="btn btn-sm btn-outline-info waves-effect"
                        style="font-size: small">Edit</a>
                 </c:if>
+                <c:if test="${vehicle.status == 'BROKEN'}">
+                    <a href="/vehicle/repairedVehicle/${vehicle.id}" class="btn btn-sm btn-outline-info waves-effect"
+                       style="font-size: small">Repaired</a>
+                </c:if>
             </td>
             <td>
                     ${vehicle.primaryDriver.user.firstName} ${vehicle.primaryDriver.user.lastName}

@@ -47,4 +47,10 @@ public class VehicleController {
         vehicleService.save(vehicle);
         return new ModelAndView("redirect:/vehicle/allVehicles");
     }
+
+    @GetMapping("/repairedVehicle/{id}")
+    public ModelAndView repairedVehicle(@PathVariable("id") Long id) {
+        vehicleService.repaired(id);
+        return new ModelAndView("redirect:/vehicle/allVehicles");
+    }
 }
