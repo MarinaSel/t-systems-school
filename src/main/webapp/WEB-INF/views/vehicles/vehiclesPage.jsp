@@ -33,7 +33,7 @@
             <td>${vehicle.capacity}</td>
             <td>${vehicle.status}</td>
             <td align="center">
-                <c:if test="${vehicle.primaryDriver == null || vehicle.coDriver == null}">
+                <c:if test="${empty vehicle.primaryDriver}">
                     <a href="/vehicle/editVehicle/${vehicle.id}" class="btn btn-sm btn-outline-info waves-effect"
                        style="font-size: small">Edit</a>
                 </c:if>
