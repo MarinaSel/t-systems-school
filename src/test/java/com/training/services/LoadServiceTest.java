@@ -122,8 +122,8 @@ public class LoadServiceTest {
         String primaryDriverLicense = PRIMARY_DRIVER_LICENSE;
         String coDriverLicense = CO_DRIVER_LICENSE;
         String registrationNumber = VEHICLE_REGISTRATION_NUMBER;
-        String pickUpLocationName = "Voronezh";
-        String deliveryLocationName = "Belgorod";
+        Long pickUpLocationId = 1L;
+        Long deliveryLocationId = 1L;
 
         when(vehicleService.findByRegistrationNumber(registrationNumber))
                 .thenReturn(VehicleMapper.mapEntityToModel(vehicle));
@@ -131,7 +131,7 @@ public class LoadServiceTest {
         doNothing().when(vehicleService).assignToDrivers(vehicle, primaryDriverLicense, coDriverLicense);
 
         loadService.saveAssignedLoad(getLoadModelForCreation(), registrationNumber,
-                primaryDriverLicense, coDriverLicense, pickUpLocationName, deliveryLocationName);
+                primaryDriverLicense, coDriverLicense, pickUpLocationId, deliveryLocationId);
         verify(vehicleService).findByRegistrationNumber(registrationNumber);
         verify(loadRepository).saveAndFlush(loadForCreationAssignedToVehicle);
         verify(vehicleService).assignToDrivers(vehicle, primaryDriverLicense, coDriverLicense);
@@ -146,8 +146,8 @@ public class LoadServiceTest {
         String primaryDriverLicense = PRIMARY_DRIVER_LICENSE;
         String coDriverLicense = CO_DRIVER_LICENSE;
         String registrationNumber = ANOTHER_VEHICLE_REGISTRATION_NUMBER;
-        String pickUpLocationName = "Voronezh";
-        String deliveryLocationName = "Belgorod";
+        Long pickUpLocationId = 1L;
+        Long deliveryLocationId = 1L;
 
         when(loadRepository.getOne(LOAD_ID)).thenReturn(loadAssignedToVehicle);
         doNothing().when(vehicleService).freeVehicleAndDrivers(currentVehicle);
@@ -157,7 +157,7 @@ public class LoadServiceTest {
         doNothing().when(vehicleService).assignToDrivers(newVehicle, primaryDriverLicense, coDriverLicense);
 
         loadService.saveAssignedLoad(LoadMapper.mapEntityToModel(loadAssignedToVehicle),
-                registrationNumber, primaryDriverLicense, coDriverLicense, pickUpLocationName, deliveryLocationName);
+                registrationNumber, primaryDriverLicense, coDriverLicense, pickUpLocationId, deliveryLocationId);
         verify(loadRepository, times(2)).getOne(LOAD_ID);
         verify(vehicleService).findByRegistrationNumber(registrationNumber);
         verify(loadRepository).saveAndFlush(loadAssignedToAnotherVehicle);

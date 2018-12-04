@@ -9,6 +9,13 @@ public class Location extends BaseModel {
     public Location() {
     }
 
+    public Location(Long id, String name, Double latitude, Double longitude) {
+        this.id = id;
+        this.name = name;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
     public Long getId() {
         return id;
     }
