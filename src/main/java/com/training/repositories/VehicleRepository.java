@@ -46,6 +46,15 @@ public interface VehicleRepository extends JpaRepository<VehicleEntity, Long> {
     void setFree(Long id);
 
     /**
+     * Marks vehicle as broken. Used when driver reject delivery due to a broken vehicle.
+     *
+     * @param id Long object - id of broken vehicle
+     */
+    @Modifying
+    @Query("update VehicleEntity v set v.status = 'BROKEN', v.primaryDriver = null, v.coDriver = null where v.id = ?1 ")
+    void setBrokenVehicle(Long id);
+
+    /**
      * Marks vehicle as working. Used when starting delivery.
      *
      * @param id Long object - id of vehicle

@@ -24,6 +24,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import static com.training.entities.enums.LoadStatus.IN_PROGRESS;
+import static com.training.entities.enums.VehicleStatus.BROKEN;
 import static com.training.entities.enums.VehicleStatus.FREE;
 import static com.training.mappers.VehicleMapper.mapEntityListToModelList;
 import static com.training.mappers.VehicleMapper.mapEntityToModel;
@@ -75,13 +76,6 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    @Transactional
-    public void remove(Long id) {
-        vehicleRepository.deleteById(id);
-        LOGGER.info("Deleted vehicle with id = {}", id);
-    }
-
-    @Override
     @Transactional(readOnly = true)
     public List<Vehicle> findAll() {
         List<Vehicle> vehicles = mapEntityListToModelList(vehicleRepository.findAll());
@@ -129,7 +123,11 @@ public class VehicleServiceImpl implements VehicleService {
         Long coDriverId = (vehicleEntity.getCoDriver() == null) ? null : vehicleEntity.getCoDriver().getId();
 
         driverRepository.setFree(primaryDriverId, coDriverId);
-        vehicleRepository.setFree(vehicleEntity.getId());
+        if (vehicleEntity.getStatus() == BROKEN) {
+            vehicleRepository.setBrokenVehicle(vehicleEntity.getId());
+        } else {
+            vehicleRepository.setFree(vehicleEntity.getId());
+        }
     }
 
     @Override

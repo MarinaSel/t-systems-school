@@ -9,7 +9,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
@@ -71,10 +70,6 @@ public class VehicleEntity extends BaseEntity {
 
     @OneToMany(mappedBy = "vehicle")
     private Set<LoadEntity> loads = new HashSet<>();
-
-    @ManyToOne
-    @JoinColumn(name = "location_id")
-    private LocationEntity location;
 
     public VehicleEntity() {
     }
@@ -142,14 +137,6 @@ public class VehicleEntity extends BaseEntity {
         this.status = status;
     }
 
-    public String getCurrentCity() {
-        return currentCity;
-    }
-
-    public void setCurrentCity(String currentCity) {
-        this.currentCity = currentCity;
-    }
-
     public DriverEntity getPrimaryDriver() {
         return primaryDriver;
     }
@@ -174,14 +161,6 @@ public class VehicleEntity extends BaseEntity {
         this.loads = loads;
     }
 
-    public LocationEntity getLocation() {
-        return location;
-    }
-
-    public void setLocation(LocationEntity location) {
-        this.location = location;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -200,7 +179,7 @@ public class VehicleEntity extends BaseEntity {
         if (primaryDriver != null ? !primaryDriver.equals(that.primaryDriver) : that.primaryDriver != null)
             return false;
         if (coDriver != null ? !coDriver.equals(that.coDriver) : that.coDriver != null) return false;
-        return location != null ? location.equals(that.location) : that.location == null;
+        return loads != null ? loads.equals(that.loads) : that.loads == null;
     }
 
     @Override
@@ -214,7 +193,6 @@ public class VehicleEntity extends BaseEntity {
         result = 31 * result + (currentCity != null ? currentCity.hashCode() : 0);
         result = 31 * result + (primaryDriver != null ? primaryDriver.hashCode() : 0);
         result = 31 * result + (coDriver != null ? coDriver.hashCode() : 0);
-        result = 31 * result + (location != null ? location.hashCode() : 0);
         return result;
     }
 
@@ -231,7 +209,6 @@ public class VehicleEntity extends BaseEntity {
                 ", primaryDriver=" + primaryDriver +
                 ", coDriver=" + coDriver +
                 ", loads=" + loads +
-                ", location=" + location +
                 '}';
     }
 }

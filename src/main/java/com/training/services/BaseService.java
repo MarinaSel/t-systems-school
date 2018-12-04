@@ -22,11 +22,4 @@ public interface BaseService<T, Long> {
      * @param object object to be created or updated
      */
     void save(T object);
-
-    /**
-     * Removes object by id.
-     *
-     * @param id id of object to be removed
-     */
-    void remove(Long id);
 }

@@ -4,11 +4,13 @@ import com.training.entities.DriverEntity;
 import com.training.entities.LoadEntity;
 import com.training.entities.VehicleEntity;
 import com.training.mappers.LoadMapper;
+import com.training.mappers.LocationMapper;
 import com.training.mappers.VehicleMapper;
 import com.training.models.Load;
 import com.training.repositories.DriverRepository;
 import com.training.repositories.LoadRepository;
 import com.training.services.LoadService;
+import com.training.services.LocationService;
 import com.training.services.VehicleService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.logging.log4j.LogManager;
@@ -21,6 +23,7 @@ import org.springframework.util.StringUtils;
 import java.util.List;
 
 import static com.training.entities.enums.LoadStatus.ASSIGNED;
+import static com.training.entities.enums.LoadStatus.NOT_ASSIGNED;
 
 @Service
 public class LoadServiceImpl implements LoadService {
@@ -30,13 +33,15 @@ public class LoadServiceImpl implements LoadService {
     private final LoadRepository loadRepository;
     private final DriverRepository driverRepository;
     private final VehicleService vehicleService;
+    private final LocationService locationService;
 
     @Autowired
     public LoadServiceImpl(LoadRepository loadRepository, DriverRepository driverRepository,
-                           VehicleService vehicleService) {
+                           VehicleService vehicleService, LocationService locationService) {
         this.loadRepository = loadRepository;
         this.driverRepository = driverRepository;
         this.vehicleService = vehicleService;
+        this.locationService = locationService;
     }
 
     @Override
@@ -61,13 +66,6 @@ public class LoadServiceImpl implements LoadService {
     }
 
     @Override
-    @Transactional
-    public void remove(Long id) {
-        loadRepository.deleteById(id);
-        LOGGER.info("Deleted load with id = {}", id);
-    }
-
-    @Override
     @Transactional(readOnly = true)
     public List<Load> findAll() {
         List<Load> loads = LoadMapper.mapEntityListToModelList(loadRepository.findAll());
@@ -78,27 +76,36 @@ public class LoadServiceImpl implements LoadService {
     @Override
     @Transactional
     public void saveAssignedLoad(Load load, String registrationNumber, String primaryDriverLicense,
-                                 String coDriverLicense) {
-        if (load.getStatus() == ASSIGNED) {
-            VehicleEntity previousVehicle = loadRepository.getOne(load.getId()).getVehicle();
-            if (previousVehicle.getRegistrationNumber().equals(registrationNumber)) {
-                checkVehicle(previousVehicle, primaryDriverLicense, coDriverLicense);
+                                 String coDriverLicense, Long pickUpLocationName, Long deliveryLocationId) {
+        if (!StringUtils.isEmpty(registrationNumber)) {
+            if (load.getStatus() == ASSIGNED) {
+                VehicleEntity previousVehicle = loadRepository.getOne(load.getId()).getVehicle();
+                if (previousVehicle.getRegistrationNumber().equals(registrationNumber)) {
+                    checkVehicle(previousVehicle, primaryDriverLicense, coDriverLicense);
+                } else {
+                    deleteVehicleFromLoad(load.getId());
+                }
             } else {
-                deleteVehicleFromLoad(load.getId());
+                load.setStatus(ASSIGNED);
             }
         } else {
-            load.setStatus(ASSIGNED);
+            if (load.getStatus() == ASSIGNED) {
+                load.setStatus(NOT_ASSIGNED);
+                deleteVehicleFromLoad(load.getId());
+            }
         }
+        LoadEntity loadEntity = LoadMapper.mapModelToEntity(load);
+        loadEntity.setPickUpLocation(LocationMapper.mapModelToEntity(locationService.find(pickUpLocationName)));
+        loadEntity.setDeliveryLocation(LocationMapper.mapModelToEntity(locationService.find(deliveryLocationId)));
+
         VehicleEntity newVehicle = VehicleMapper.mapModelToEntity(
                 vehicleService.findByRegistrationNumber(registrationNumber));
-        checkVehicle(newVehicle, primaryDriverLicense, coDriverLicense);
-
-        LoadEntity loadEntity = LoadMapper.mapModelToEntity(load);
-        loadEntity.setVehicle(newVehicle);
+        if (!StringUtils.isEmpty(registrationNumber)) {
+            checkVehicle(newVehicle, primaryDriverLicense, coDriverLicense);
+            loadEntity.setVehicle(newVehicle);
+            vehicleService.assignToDrivers(newVehicle, primaryDriverLicense, coDriverLicense);
+        }
         loadRepository.saveAndFlush(loadEntity);
-        LOGGER.info("Load with id {} was saved and assigned to vehicle with id {}", loadEntity.getId(),
-                newVehicle.getId());
-        vehicleService.assignToDrivers(newVehicle, primaryDriverLicense, coDriverLicense);
     }
 
     @Override

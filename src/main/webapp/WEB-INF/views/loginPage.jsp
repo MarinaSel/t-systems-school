@@ -18,6 +18,9 @@
         <input type="text" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="Username" name="username">
         <input type="password" id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Password"
                name="password">
+        <c:if test="${!empty error}">
+            <div class="error">${error}</div>
+        </c:if>
         <button class="btn btn-outline-default waves-effect" style="font-size: medium" type="submit">
             <i class="fa fa-sign-in"></i> <strong>Sign in</strong></button>
     </form>

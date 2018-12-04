@@ -23,6 +23,8 @@ public class Load extends BaseModel {
     private Long id;
     private LoadStatus status;
     private Vehicle vehicle;
+    private Location pickUpLocation;
+    private Location deliveryLocation;
 
     public Load() {
     }
@@ -94,6 +96,22 @@ public class Load extends BaseModel {
         this.status = loadStatus;
     }
 
+    public Location getPickUpLocation() {
+        return pickUpLocation;
+    }
+
+    public void setPickUpLocation(Location pickUpLocation) {
+        this.pickUpLocation = pickUpLocation;
+    }
+
+    public Location getDeliveryLocation() {
+        return deliveryLocation;
+    }
+
+    public void setDeliveryLocation(Location deliveryLocation) {
+        this.deliveryLocation = deliveryLocation;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -101,25 +119,30 @@ public class Load extends BaseModel {
 
         Load load = (Load) o;
 
-        if (id != null ? !id.equals(load.id) : load.id != null) return false;
         if (title != null ? !title.equals(load.title) : load.title != null) return false;
         if (description != null ? !description.equals(load.description) : load.description != null) return false;
         if (dayOfDelivery != null ? !dayOfDelivery.equals(load.dayOfDelivery) : load.dayOfDelivery != null)
             return false;
         if (weight != null ? !weight.equals(load.weight) : load.weight != null) return false;
+        if (id != null ? !id.equals(load.id) : load.id != null) return false;
         if (status != load.status) return false;
-        return vehicle != null ? vehicle.equals(load.vehicle) : load.vehicle == null;
+        if (vehicle != null ? !vehicle.equals(load.vehicle) : load.vehicle != null) return false;
+        if (pickUpLocation != null ? !pickUpLocation.equals(load.pickUpLocation) : load.pickUpLocation != null)
+            return false;
+        return deliveryLocation != null ? deliveryLocation.equals(load.deliveryLocation) : load.deliveryLocation == null;
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (title != null ? title.hashCode() : 0);
+        int result = title != null ? title.hashCode() : 0;
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (dayOfDelivery != null ? dayOfDelivery.hashCode() : 0);
         result = 31 * result + (weight != null ? weight.hashCode() : 0);
+        result = 31 * result + (id != null ? id.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
         result = 31 * result + (vehicle != null ? vehicle.hashCode() : 0);
+        result = 31 * result + (pickUpLocation != null ? pickUpLocation.hashCode() : 0);
+        result = 31 * result + (deliveryLocation != null ? deliveryLocation.hashCode() : 0);
         return result;
     }
 

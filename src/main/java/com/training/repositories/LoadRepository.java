@@ -39,17 +39,6 @@ public interface LoadRepository extends JpaRepository<LoadEntity, Long> {
     void setInProgress(VehicleEntity vehicleEntity);
 
     /**
-     * Assigns load to vehicle and marks it as assigned.
-     * Used when saving load assigned to vehicle.
-     *
-     * @param id            Long object - id of load to be assigned
-     * @param vehicleEntity VehicleEntity object to be assigned to
-     */
-    @Modifying
-    @Query("update LoadEntity l set l.status = 'ASSIGNED', l.vehicle = ?2 where l.id = ?1")
-    void setAssigned(Long id, VehicleEntity vehicleEntity);
-
-    /**
      * Marks loads assigned to vehicle as done and removes their vehicle.
      * Used when completing delivery for all loads.
      *

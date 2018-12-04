@@ -31,7 +31,7 @@ public interface DriverService extends BaseService<Driver, Long> {
      * Finds driver by driving license number.
      *
      * @param drivingLicenseNum String object with driving license number for search
-     * @return Driver object with specified id
+     * @return Driver object with specified driving license number
      */
     Driver findByDrivingLicenseNum(String drivingLicenseNum);
 

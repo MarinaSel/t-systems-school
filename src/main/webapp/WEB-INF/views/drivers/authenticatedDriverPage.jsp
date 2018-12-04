@@ -5,6 +5,11 @@
 <head>
     <%@include file="/WEB-INF/views/navbarForDriver.jsp" %>
     <%@include file="/WEB-INF/views/includes/includeStyles.jsp" %>
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=<d5ee42b2-f24d-4ace-a155-4db206670417>"
+            type="text/javascript"></script>
+    <script src="https://yandex.st/jquery/2.2.3/jquery.min.js" type="text/javascript"></script>
+    <script src="/resources/js/yandexMap.js" type="text/javascript"></script>
+    <script src="/resources/js/getAssignedLoads.js" type="text/javascript"></script>
     <title>Driver</title>
 </head>
 
@@ -15,7 +20,6 @@
         <h3 align="center">Your data</h3>
         <hr>
         Name: ${driver.user.firstName} ${driver.user.lastName}
-        <br>Login: ${driver.user.login}
         <br>Driver's license number: ${driver.drivingLicenseNum}
         <br>Status: ${driver.status}
         <br>License end date: ${driver.licenseEndDate}
@@ -83,7 +87,7 @@
         <th class="textTableHeader">Day of delivery</th>
         <th class="textTableHeader">Weight (kg)</th>
         <th class="textTableHeader">Status</th>
-        <th class="textTableHeader">Action</th>
+        <th class="textTableHeader">Actions</th>
     </tr>
     </thead>
 
@@ -105,6 +109,9 @@
     </c:forEach>
     </tbody>
 </table>
+</c:if>
+<c:if test="${!empty vehicle}">
+    <div onchange="init()" id="map"></div>
 </c:if>
 </body>
 </html>

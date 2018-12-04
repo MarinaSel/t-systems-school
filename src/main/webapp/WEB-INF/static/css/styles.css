@@ -1,13 +1,63 @@
-.select {
-    width: 348px;
-    height: 38px;
+#pickUpLocation {
+    width: 125%;
 }
 
 .body {
     overflow-x: hidden;
 }
+
+.mapBody {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+#loadsDiv {
+    overflow: hidden;
+    padding: 1%;
+    float: left;
+    width: 40%;
+}
+
+#map {
+    padding: 1%;
+    width: 40%;
+    height: 90%;
+    float: left;
+}
+
+.menu {
+    list-style: none;
+    padding: 5px;
+    margin: 0;
+}
+
+.liMenu {
+    margin-bottom: 1%;
+}
+
+.submenu {
+    list-style: none;
+    margin: 0 0 0 20px;
+    padding: 0;
+}
+
+.submenu li {
+    font-size: 90%;
+}
+
+.aSubmenuMap {
+    color: darkcyan;
+    font-weight: normal;
+}
+
+.aMenuMap {
+    color: darkblue;
+    font-weight: bold;
+}
+
 #saveLoadTable {
-    width: 600px;
+    width: 570px;
 }
 
 #saveVehicleAndDriverTable {
@@ -105,6 +155,20 @@ input {
     padding: 1%;
     float: left;
     width: 56%;
+}
 
+.table td {
+    vertical-align: middle;
+}
+
+.error {
+    color: red;
+    margin-bottom: 4%;
+}
+
+.accessDeniedMessage {
+    margin: 10%;
+    text-align: center;
+    font-size: 30px;
 }
 

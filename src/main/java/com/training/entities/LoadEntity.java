@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -55,6 +56,14 @@ public class LoadEntity extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "vehicle_id")
     private VehicleEntity vehicle;
+
+    @OneToOne
+    @JoinColumn(name = "pick_up_location_id")
+    private LocationEntity pickUpLocation;
+
+    @OneToOne
+    @JoinColumn(name = "delivery_location_id")
+    private LocationEntity deliveryLocation;
 
     public LoadEntity() {
     }
@@ -148,6 +157,22 @@ public class LoadEntity extends BaseEntity {
         if (status != that.status) return false;
         if (weight != null ? !weight.equals(that.weight) : that.weight != null) return false;
         return vehicle != null ? vehicle.equals(that.vehicle) : that.vehicle == null;
+    }
+
+    public LocationEntity getPickUpLocation() {
+        return pickUpLocation;
+    }
+
+    public void setPickUpLocation(LocationEntity pickUpLocation) {
+        this.pickUpLocation = pickUpLocation;
+    }
+
+    public LocationEntity getDeliveryLocation() {
+        return deliveryLocation;
+    }
+
+    public void setDeliveryLocation(LocationEntity deliveryLocation) {
+        this.deliveryLocation = deliveryLocation;
     }
 
     @Override

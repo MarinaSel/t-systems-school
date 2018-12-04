@@ -4,12 +4,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="/resources/image/favicon.png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.3/css/mdb.min.css" rel="stylesheet">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark unique-color-dark">
-    <a class="navbar-brand" href="#">TRANSPORT COMPANY</a>
+    <a class="navbar-brand" href="#">LOGISTIC COMPANY</a>
 
     <form class="form-inline my-2 my-lg-0 ml-auto" action="/logout" method="post">
         <a class="nav-link" href="#" style="color: white">

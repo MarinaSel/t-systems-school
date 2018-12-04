@@ -3,20 +3,21 @@
 <html>
 <head>
     <title>${empty editableDriver.id ? 'Add' : 'Edit'} driver</title>
-    <%@include file="/WEB-INF/views/includes/includeStyles.jsp" %>
     <%@include file="/WEB-INF/views/navbar.jsp" %>
+    <%@include file="/WEB-INF/views/includes/includeStyles.jsp" %>
     <%@include file="/WEB-INF/views/includes/includeDatepicker.jsp" %>
     <script type="text/javascript" src="/resources/js/driverValidator.js"></script>
 </head>
 <body>
 <hr>
 <form onsubmit="return onDriverSubmit()" method="post" action="/driver/saveDriver" modelAttribute="editableDriver">
-    <input type="hidden" name="id" value="${editableDriver.id}"/>
+    <input type="hidden" name="id" id="driverId" value="${editableDriver.id}"/>
     <input type="hidden" name="user.id" value="${editableDriver.user.id}"/>
     <input type="hidden" name="creationDate" value="${editableDriver.creationDate}">
     <input type="hidden" name="user.login" value="${editableDriver.user.login}">
     <input type="hidden" name="drivingLicenseNum" value="${editableDriver.drivingLicenseNum}">
     <input type="hidden" name="status" value="${editableDriver.status}">
+    <input type="hidden" name="user.login" value="${editableDriver.user.login}">
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     <table align="center" id="saveVehicleAndDriverTable" class="table table-bordered">
         <td align="center" colspan="2" style="font-size: xx-large">
@@ -54,7 +55,7 @@
             <th>Password</th>
             <td>
                 <input oninput="confirmPasswords()" class="form-control" type="password" name="user.password"
-                       id="password" maxlength="50"
+                       id="password" maxlength="50" minlength="5"
                        value="${editableDriver.user.password}"
                        placeholder="Password"
                        autocomplete="off" required/>

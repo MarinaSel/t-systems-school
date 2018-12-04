@@ -3,7 +3,6 @@
 <html>
 <head>
     <title>Vehicles</title>
-
     <%@include file="/WEB-INF/views/navbar.jsp" %>
     <%@include file="/WEB-INF/views/includes/includeStyles.jsp" %>
     <%@include file="/WEB-INF/views/includes/includeTablePag.jsp" %>
@@ -34,9 +33,17 @@
             <td>${vehicle.capacity}</td>
             <td>${vehicle.status}</td>
             <td align="center">
-                <c:if test="${vehicle.primaryDriver == null || vehicle.coDriver == null}">
+                <c:if test="${empty vehicle.primaryDriver}">
                     <a href="/vehicle/editVehicle/${vehicle.id}" class="btn btn-sm btn-outline-info waves-effect"
                        style="font-size: small">Edit</a>
+                </c:if>
+                <c:if test="${vehicle.status == 'BROKEN'}">
+                    <a href="/vehicle/repairedVehicle/${vehicle.id}" class="btn btn-sm btn-outline-info waves-effect"
+                       style="font-size: small">Repaired</a>
+                </c:if>
+                <c:if test="${vehicle.status == 'FREE'}">
+                    <a href="/vehicle/brokenVehicle/${vehicle.id}" class="btn btn-sm btn-outline-danger waves-effect"
+                       style="font-size: small">Broken</a>
                 </c:if>
             </td>
             <td>
