@@ -9,7 +9,7 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark unique-color-dark">
-    <a class="navbar-brand" href="#">TRANSPORT COMPANY</a>
+    <a class="navbar-brand" href="#">LOGISTIC COMPANY</a>
     <div class="collapse navbar-collapse" id="basicExampleNav">
 
         <ul class="navbar-nav mr-auto">
