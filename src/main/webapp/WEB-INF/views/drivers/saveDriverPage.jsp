@@ -53,7 +53,7 @@
             <th>Password</th>
             <td>
                 <input oninput="confirmPasswords()" class="form-control" type="password" name="user.password"
-                       id="password" maxlength="50"
+                       id="password" maxlength="50" minlength="5"
                        value="${editableDriver.user.password}"
                        placeholder="Password"
                        autocomplete="off" required/>
