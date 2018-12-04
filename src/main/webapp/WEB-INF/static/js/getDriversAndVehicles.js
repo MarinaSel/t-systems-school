@@ -16,7 +16,6 @@ function getDrivers() {
                 $('#secondDriver').empty().append(insert);
             }
         })
-
     }
 }
 
