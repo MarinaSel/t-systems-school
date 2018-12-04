@@ -9,7 +9,7 @@
 <body class="body">
 <a href="/load/addLoad" class="btn btn-outline-primary waves-effect"><strong>Add new load</strong></a>
 <hr>
-<table id="tableScroll" class="table table-striped table-bordered">
+<table id="tableScroll" class="table table-striped table-bordered" width="100%">
     <thead>
     <tr>
         <th class="th-sm textTableHeader">Title</th>
@@ -21,9 +21,7 @@
         <th class="th-sm textTableHeader">Actions</th>
         <th class="th-sm textTableHeader">Vehicle registration number</th>
         <th class="th-sm textTableHeader">Vehicle status</th>
-        <th class="th-sm textTableHeader">Drivers names</th>
-        <th class="th-sm textTableHeader">Driving licenses numbers</th>
-        <th class="th-sm textTableHeader">Drivers statuses</th>
+        <th class="th-sm textTableHeader">Drivers</th>
     </tr>
     </thead>
     <tbody>
@@ -46,15 +44,12 @@
             <td>${load.vehicle.status}</td>
             <td>
                     ${load.vehicle.primaryDriver.user.firstName} ${load.vehicle.primaryDriver.user.lastName}
-                <p>${load.vehicle.coDriver.user.firstName} ${load.vehicle.coDriver.user.lastName}</p>
-            </td>
-            <td>
-                    ${load.vehicle.primaryDriver.drivingLicenseNum}
-                <p>${load.vehicle.coDriver.drivingLicenseNum}</p>
-            </td>
-            <td>
-                    ${load.vehicle.primaryDriver.status}
-                <p>${load.vehicle.coDriver.status}</p>
+                <br>${load.vehicle.primaryDriver.drivingLicenseNum}
+                <p>${load.vehicle.primaryDriver.status}</p>
+                <br>${load.vehicle.coDriver.user.firstName} ${load.vehicle.coDriver.user.lastName}
+                <br>${load.vehicle.coDriver.drivingLicenseNum}
+                <br>${load.vehicle.coDriver.status}
+                <p></p>
             </td>
         </tr>
     </c:forEach>
