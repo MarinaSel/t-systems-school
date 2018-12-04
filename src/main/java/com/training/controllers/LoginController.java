@@ -1,6 +1,7 @@
 package com.training.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,5 +19,10 @@ public class LoginController {
         }
         model.setViewName("loginPage");
         return model;
+    }
+
+    @GetMapping("/accessDenied")
+    public ModelAndView accessDenied() {
+        return new ModelAndView("accessDeniedPage");
     }
 }
