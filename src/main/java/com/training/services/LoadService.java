@@ -34,17 +34,9 @@ public interface LoadService extends BaseService<Load, Long> {
      * @param registrationNumber   String object - registration number of vehicle
      * @param primaryDriverLicense String object - primary driver license number
      * @param coDriverLicense      String object - co-driver license number
+     * @param pickUpLocationId     Long object - pick up location id
+     * @param deliveryLocationId   Long object - delivery location id
      */
     void saveAssignedLoad(Load load, String registrationNumber, String primaryDriverLicense, String coDriverLicense,
-                          String pickUpLocationName, String deliveryLocationName);
-
-    /**
-     * Assigns load to locations.
-     * Used when saving load without vehicle and drivers.
-     *
-     * @param load
-     * @param pickUpLocationName
-     * @param deliveryLocationName
-     */
-    void saveAssignedToLocationLoad(Load load, String pickUpLocationName, String deliveryLocationName);
+                          Long pickUpLocationId, Long deliveryLocationId);
 }

@@ -1,11 +1,10 @@
 package com.training.services;
 
-import com.training.entities.LocationEntity;
 import com.training.models.Location;
 
 import java.util.List;
 
-public interface LocationService extends BaseService<LocationEntity, Long> {
+public interface LocationService extends BaseService<Location, Long> {
 
 
     /**

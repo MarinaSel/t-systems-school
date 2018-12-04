@@ -40,13 +40,13 @@
         <tr>
             <th align="left">Pick up location</th>
             <td>
-                <select class="select" id="pickUpLocation" name="pickUpLocationName" required>
-                    <option>${editableLoad.pickUpLocation.name == null ? ""
+                <select class="select" id="pickUpLocation" name="pickUpLocationId" required>
+                    <option value="${editableLoad.pickUpLocation.id}">${editableLoad.pickUpLocation.name == null ? ""
                             : editableLoad.pickUpLocation.name}</option>
                     <c:forEach items="${locations}" var="location">
                         <c:if test="${location.name != editableLoad.pickUpLocation.name
                         && location.name != editableLoad.pickUpLocation.name}">
-                            <option>${location.name}</option>
+                            <option value="${location.id}">${location.name}</option>
                         </c:if>
                     </c:forEach>
                 </select>
@@ -55,13 +55,13 @@
         <tr>
             <th align="left">Delivery location</th>
             <td>
-                <select class="select custom-select" id="deliveryLocation" name="deliveryLocationName" required>
-                    <option>${editableLoad.deliveryLocation.name == null ? ""
+                <select class="select custom-select" id="deliveryLocation" name="deliveryLocationId" required>
+                    <option value="${editableLoad.deliveryLocation.id}">${editableLoad.deliveryLocation.name == null ? ""
                             : editableLoad.deliveryLocation.name}</option>
                     <c:forEach items="${locations}" var="location">
                         <c:if test="${location.name != editableLoad.deliveryLocation.name
                         && location.name != editableLoad.deliveryLocation.name}">
-                            <option>${location.name}</option>
+                            <option value="${location.id}">${location.name}</option>
                         </c:if>
                     </c:forEach>
                 </select>

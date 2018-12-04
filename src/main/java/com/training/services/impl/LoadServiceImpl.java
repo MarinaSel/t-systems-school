@@ -23,6 +23,7 @@ import org.springframework.util.StringUtils;
 import java.util.List;
 
 import static com.training.entities.enums.LoadStatus.ASSIGNED;
+import static com.training.entities.enums.LoadStatus.NOT_ASSIGNED;
 
 @Service
 public class LoadServiceImpl implements LoadService {
@@ -75,37 +76,36 @@ public class LoadServiceImpl implements LoadService {
     @Override
     @Transactional
     public void saveAssignedLoad(Load load, String registrationNumber, String primaryDriverLicense,
-                                 String coDriverLicense, String pickUpLocationName, String deliveryLocationName) {
-        if (load.getStatus() == ASSIGNED) {
-            VehicleEntity previousVehicle = loadRepository.getOne(load.getId()).getVehicle();
-            if (previousVehicle.getRegistrationNumber().equals(registrationNumber)) {
-                checkVehicle(previousVehicle, primaryDriverLicense, coDriverLicense);
+                                 String coDriverLicense, Long pickUpLocationName, Long deliveryLocationId) {
+        if (!StringUtils.isEmpty(registrationNumber)) {
+            if (load.getStatus() == ASSIGNED) {
+                VehicleEntity previousVehicle = loadRepository.getOne(load.getId()).getVehicle();
+                if (previousVehicle.getRegistrationNumber().equals(registrationNumber)) {
+                    checkVehicle(previousVehicle, primaryDriverLicense, coDriverLicense);
+                } else {
+                    deleteVehicleFromLoad(load.getId());
+                }
             } else {
-                deleteVehicleFromLoad(load.getId());
+                load.setStatus(ASSIGNED);
             }
         } else {
-            load.setStatus(ASSIGNED);
+            if (load.getStatus() == ASSIGNED) {
+                load.setStatus(NOT_ASSIGNED);
+                deleteVehicleFromLoad(load.getId());
+            }
         }
+        LoadEntity loadEntity = LoadMapper.mapModelToEntity(load);
+        loadEntity.setPickUpLocation(LocationMapper.mapModelToEntity(locationService.find(pickUpLocationName)));
+        loadEntity.setDeliveryLocation(LocationMapper.mapModelToEntity(locationService.find(deliveryLocationId)));
+
         VehicleEntity newVehicle = VehicleMapper.mapModelToEntity(
                 vehicleService.findByRegistrationNumber(registrationNumber));
-        checkVehicle(newVehicle, primaryDriverLicense, coDriverLicense);
-
-        LoadEntity loadEntity = LoadMapper.mapModelToEntity(load);
-        loadEntity.setVehicle(newVehicle);
-        loadEntity.setPickUpLocation(LocationMapper.mapModelToEntity(locationService.findByName(pickUpLocationName)));
-        loadEntity.setDeliveryLocation(LocationMapper.mapModelToEntity(locationService.findByName(deliveryLocationName)));
+        if (!StringUtils.isEmpty(registrationNumber)) {
+            checkVehicle(newVehicle, primaryDriverLicense, coDriverLicense);
+            loadEntity.setVehicle(newVehicle);
+            vehicleService.assignToDrivers(newVehicle, primaryDriverLicense, coDriverLicense);
+        }
         loadRepository.saveAndFlush(loadEntity);
-        LOGGER.info("Load with id {} was saved and assigned to vehicle with id {}", loadEntity.getId(),
-                newVehicle.getId());
-        vehicleService.assignToDrivers(newVehicle, primaryDriverLicense, coDriverLicense);
-    }
-
-    @Override
-    @Transactional
-    public void saveAssignedToLocationLoad(Load load, String pickUpLocationName, String deliveryLocationName) {
-        load.setPickUpLocation(locationService.findByName(pickUpLocationName));
-        load.setDeliveryLocation(locationService.findByName(deliveryLocationName));
-        loadRepository.saveAndFlush(LoadMapper.mapModelToEntity(load));
     }
 
     @Override

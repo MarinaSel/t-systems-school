@@ -25,16 +25,30 @@ public class LocationServiceImpl implements LocationService {
         this.locationRepository = locationRepository;
     }
 
-    public LocationEntity find(Long id) {
-        return locationRepository.getOne(id);
-    }
-
-    @Transactional
-    public void save(LocationEntity locationEntity) {
-        locationRepository.saveAndFlush(locationEntity);
+    @Override
+    @Transactional(readOnly = true)
+    public Location find(Long id) {
+        Location location = LocationMapper.mapEntityToModel(locationRepository.getOne(id));
+        LOGGER.info("Found location with id = {}", location.getId());
+        return location;
     }
 
     @Override
+    @Transactional
+    public void save(Location location) {
+        LocationEntity locationEntity = LocationMapper.mapModelToEntity(location);
+        locationRepository.saveAndFlush(locationEntity);
+        if (location.getId() == null) {
+            LOGGER.info("Created location with id = {}", locationEntity.getId());
+        } else {
+            LOGGER.info("Updated location with id = {}", locationEntity.getId());
+        }
+        LocationMapper.mapEntityToModel(locationEntity);
+        ;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public List<Location> findAll() {
         List<Location> locations = LocationMapper.mapEntityListToModelList(locationRepository.findAll());
         LOGGER.info("Found all locations");
