@@ -12,6 +12,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
 
 public class LocationMapperTest {
+
     private static final Long ID = 1L;
     private static final String NAME = "Voronezh";
     private static final String ANOTHER_NAME = "Belgorod";
@@ -51,5 +52,4 @@ public class LocationMapperTest {
     public void getModelFromNullEntity() {
         assertNull(mapEntityToModel(null));
     }
-
 }

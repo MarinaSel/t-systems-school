@@ -26,7 +26,6 @@ public class LoadMapperTest {
             new LoadEntity(ID, TITLE, DESCRIPTION, DATE, NOT_ASSIGNED, WEIGHT, null);
     private static final Load LOAD_MODEL = new Load(ID, TITLE, DESCRIPTION, DATE, WEIGHT, NOT_ASSIGNED, null);
 
-
     @Test
     public void getModelFromEntity() {
         assertEquals(LOAD_MODEL, mapEntityToModel(LOAD_ENTITY));
