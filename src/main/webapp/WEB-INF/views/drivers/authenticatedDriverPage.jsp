@@ -84,7 +84,6 @@
     <tr>
         <th class="textTableHeader">Title</th>
         <th class="textTableHeader">Description</th>
-        <th class="textTableHeader">Day of delivery</th>
         <th class="textTableHeader">Weight (kg)</th>
         <th class="textTableHeader">Status</th>
         <th class="textTableHeader">Actions</th>
@@ -96,7 +95,6 @@
         <tr>
             <td>${load.title}</td>
             <td>${load.description}</td>
-            <td align="center">${load.dayOfDelivery}</td>
             <td align="center">${load.weight}</td>
             <td align="center">${load.status}</td>
             <td align="center">
