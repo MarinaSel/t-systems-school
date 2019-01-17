@@ -1,13 +1,16 @@
 package com.training.services.impl;
 
 import com.training.entities.DriverEntity;
+import com.training.entities.HistoryEntity;
 import com.training.entities.LoadEntity;
 import com.training.entities.VehicleEntity;
+import com.training.entities.enums.LoadStatus;
 import com.training.mappers.LoadMapper;
 import com.training.mappers.LocationMapper;
 import com.training.mappers.VehicleMapper;
 import com.training.models.Load;
 import com.training.repositories.DriverRepository;
+import com.training.repositories.HistoryRepository;
 import com.training.repositories.LoadRepository;
 import com.training.services.LoadService;
 import com.training.services.LocationService;
@@ -34,14 +37,16 @@ public class LoadServiceImpl implements LoadService {
     private final DriverRepository driverRepository;
     private final VehicleService vehicleService;
     private final LocationService locationService;
+    private final HistoryRepository historyRepository;
 
     @Autowired
     public LoadServiceImpl(LoadRepository loadRepository, DriverRepository driverRepository,
-                           VehicleService vehicleService, LocationService locationService) {
+                           VehicleService vehicleService, LocationService locationService, HistoryRepository historyRepository) {
         this.loadRepository = loadRepository;
         this.driverRepository = driverRepository;
         this.vehicleService = vehicleService;
         this.locationService = locationService;
+        this.historyRepository = historyRepository;
     }
 
     @Override
@@ -111,6 +116,7 @@ public class LoadServiceImpl implements LoadService {
     @Override
     @Transactional
     public void deliverLoad(Long loadId) {
+        setHistory(loadId);
         deleteVehicleFromLoad(loadId);
         loadRepository.setDone(loadId);
         LOGGER.info("Load with id {} delivered", loadId);
@@ -140,5 +146,26 @@ public class LoadServiceImpl implements LoadService {
                 !StringUtils.isEmpty(newDriverLicense)) {
             driverRepository.setFree(previousDriver.getId());
         }
+    }
+
+    @Override
+    @Transactional
+    public void setHistory(Long loadId) {
+        LoadEntity loadEntity = loadRepository.getOne(loadId);
+        HistoryEntity historyEntity = new HistoryEntity();
+        historyEntity.setVehicle(loadEntity.getVehicle());
+        historyEntity.setPrimaryDriver(loadEntity.getVehicle().getPrimaryDriver());
+        historyEntity.setCoDriver(loadEntity.getVehicle().getCoDriver());
+        historyRepository.saveAndFlush(historyEntity);
+        loadEntity.setHistory(historyEntity);
+        loadRepository.saveAndFlush(loadEntity);
+    }
+
+    @Override
+    @Transactional
+    public List<Load> findDoneLoads() {
+        List<Load> loads = LoadMapper.mapEntityListToModelList(loadRepository.findAllByStatus(LoadStatus.DONE));
+        LOGGER.info("Found all done loads");
+        return loads;
     }
 }

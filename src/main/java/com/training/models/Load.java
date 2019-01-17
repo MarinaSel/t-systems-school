@@ -25,6 +25,7 @@ public class Load extends BaseModel {
     private Vehicle vehicle;
     private Location pickUpLocation;
     private Location deliveryLocation;
+    private History history;
 
     public Load() {
     }
@@ -110,6 +111,14 @@ public class Load extends BaseModel {
 
     public void setDeliveryLocation(Location deliveryLocation) {
         this.deliveryLocation = deliveryLocation;
+    }
+
+    public History getHistory() {
+        return history;
+    }
+
+    public void setHistory(History history) {
+        this.history = history;
     }
 
     @Override

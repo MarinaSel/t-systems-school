@@ -2,10 +2,13 @@ package com.training.repositories;
 
 import com.training.entities.LoadEntity;
 import com.training.entities.VehicleEntity;
+import com.training.entities.enums.LoadStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 
 /**
@@ -58,4 +61,12 @@ public interface LoadRepository extends JpaRepository<LoadEntity, Long> {
     @Modifying
     @Query("update LoadEntity l set vehicle = null, l.status = 'REJECTED' where l.vehicle = ?1")
     void setRejected(VehicleEntity vehicleEntity);
+
+    /**
+     * Finds all loads with specified status.
+     *
+     * @param status String object with status for search
+     * @return List of LoadEntities objects with specified status
+     */
+    List<LoadEntity> findAllByStatus(LoadStatus status);
 }

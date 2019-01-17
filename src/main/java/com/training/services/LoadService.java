@@ -39,4 +39,13 @@ public interface LoadService extends BaseService<Load, Long> {
      */
     void saveAssignedLoad(Load load, String registrationNumber, String primaryDriverLicense, String coDriverLicense,
                           Long pickUpLocationId, Long deliveryLocationId);
+
+    /**
+     * Finds all done loads.
+     *
+     * @return List of Load objects
+     */
+    List<Load> findDoneLoads();
+
+    void setHistory(Long loadId);
 }

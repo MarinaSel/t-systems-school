@@ -65,6 +65,10 @@ public class LoadEntity extends BaseEntity {
     @JoinColumn(name = "delivery_location_id")
     private LocationEntity deliveryLocation;
 
+    @OneToOne
+    @JoinColumn(name = "history_id")
+    private HistoryEntity history;
+
     public LoadEntity() {
     }
 
@@ -142,6 +146,30 @@ public class LoadEntity extends BaseEntity {
         this.vehicle = vehicle;
     }
 
+    public LocationEntity getPickUpLocation() {
+        return pickUpLocation;
+    }
+
+    public void setPickUpLocation(LocationEntity pickUpLocation) {
+        this.pickUpLocation = pickUpLocation;
+    }
+
+    public LocationEntity getDeliveryLocation() {
+        return deliveryLocation;
+    }
+
+    public void setDeliveryLocation(LocationEntity deliveryLocation) {
+        this.deliveryLocation = deliveryLocation;
+    }
+
+    public HistoryEntity getHistory() {
+        return history;
+    }
+
+    public void setHistory(HistoryEntity history) {
+        this.history = history;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -157,22 +185,6 @@ public class LoadEntity extends BaseEntity {
         if (status != that.status) return false;
         if (weight != null ? !weight.equals(that.weight) : that.weight != null) return false;
         return vehicle != null ? vehicle.equals(that.vehicle) : that.vehicle == null;
-    }
-
-    public LocationEntity getPickUpLocation() {
-        return pickUpLocation;
-    }
-
-    public void setPickUpLocation(LocationEntity pickUpLocation) {
-        this.pickUpLocation = pickUpLocation;
-    }
-
-    public LocationEntity getDeliveryLocation() {
-        return deliveryLocation;
-    }
-
-    public void setDeliveryLocation(LocationEntity deliveryLocation) {
-        this.deliveryLocation = deliveryLocation;
     }
 
     @Override
@@ -191,9 +203,13 @@ public class LoadEntity extends BaseEntity {
     public String toString() {
         return "LoadEntity{" +
                 "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", dayOfDelivery=" + dayOfDelivery +
                 ", status=" + status +
                 ", weight=" + weight +
                 ", vehicle=" + vehicle +
+                ", history=" + history +
                 '}';
     }
 }
