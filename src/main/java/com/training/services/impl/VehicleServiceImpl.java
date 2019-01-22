@@ -1,6 +1,7 @@
 package com.training.services.impl;
 
 import com.training.entities.DriverEntity;
+import com.training.entities.HistoryEntity;
 import com.training.entities.VehicleEntity;
 import com.training.entities.enums.VehicleStatus;
 import com.training.mappers.DriverMapper;
@@ -9,6 +10,7 @@ import com.training.models.Driver;
 import com.training.models.Load;
 import com.training.models.Vehicle;
 import com.training.repositories.DriverRepository;
+import com.training.repositories.HistoryRepository;
 import com.training.repositories.LoadRepository;
 import com.training.repositories.VehicleRepository;
 import com.training.services.DriverService;
@@ -44,13 +46,16 @@ public class VehicleServiceImpl implements VehicleService {
 
     private final DriverService driverService;
 
+    private final HistoryRepository historyRepository;
+
     @Autowired
     public VehicleServiceImpl(VehicleRepository vehicleRepository, DriverRepository driverRepository,
-                              LoadRepository loadRepository, DriverService driverService) {
+                              LoadRepository loadRepository, DriverService driverService, HistoryRepository historyRepository) {
         this.vehicleRepository = vehicleRepository;
         this.driverRepository = driverRepository;
         this.loadRepository = loadRepository;
         this.driverService = driverService;
+        this.historyRepository = historyRepository;
     }
 
     @Override
@@ -91,10 +96,7 @@ public class VehicleServiceImpl implements VehicleService {
 
         while (iterator.hasNext()) {
             Vehicle vehicle = iterator.next();
-            int sumWeight = 0;
-            for (Load load : vehicle.getLoads()) {
-                sumWeight += load.getWeight();
-            }
+            int sumWeight = vehicle.getLoads().stream().mapToInt(Load::getWeight).sum();
             if ((vehicle.getCapacity() - sumWeight < necessaryCapacity)) {
                 iterator.remove();
             }
@@ -202,6 +204,15 @@ public class VehicleServiceImpl implements VehicleService {
     @Transactional
     public void allLoadsDelivered(Long id) {
         VehicleEntity vehicleEntity = vehicleRepository.getOne(id);
+        vehicleEntity.getLoads().forEach(loadEntity -> {
+            HistoryEntity historyEntity = new HistoryEntity();
+            historyEntity.setVehicle(loadEntity.getVehicle());
+            historyEntity.setPrimaryDriver(loadEntity.getVehicle().getPrimaryDriver());
+            historyEntity.setCoDriver(loadEntity.getVehicle().getCoDriver());
+            historyRepository.saveAndFlush(historyEntity);
+            loadEntity.setHistory(historyEntity);
+            loadRepository.saveAndFlush(loadEntity);
+        });
         loadRepository.setDone(vehicleEntity);
         freeVehicleAndDrivers(vehicleEntity);
         LOGGER.info("Vehicle with id = {} completed delivery", id);

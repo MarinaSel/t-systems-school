@@ -20,6 +20,15 @@
         <createSequence sequenceName="users_id_seq" startValue="1" incrementBy="1"/>
     </changeSet>
 
+    <changeSet id="112" author="Marina">
+        <preConditions>
+            <not>
+                <sequenceExists sequenceName="history_id_seq"/>
+            </not>
+        </preConditions>
+        <createSequence sequenceName="history_id_seq" startValue="1" incrementBy="1"/>
+    </changeSet>
+
     <changeSet author="Marina" id="74">
         <preConditions>
             <not>
@@ -280,5 +289,38 @@
             <columnExists tableName="drivers" columnName="current_city"/>
         </preConditions>
         <dropColumn tableName="drivers" columnName="current_city"/>
+    </changeSet>
+
+    <changeSet id="115" author="Marina">
+        <preConditions>
+            <not>
+                <tableExists tableName="history"/>
+            </not>
+        </preConditions>
+        <createTable tableName="history">
+            <column name="id" type="BIGINT"/>
+            <column name="primary_driver_history_id" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="co_driver_history_id" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="vehicle_history_id" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="111" author="Marina">
+        <preConditions>
+            <not>
+                <columnExists tableName="loads" columnName="history_id"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="loads">
+            <column name="history_id" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
     </changeSet>
 </databaseChangeLog>

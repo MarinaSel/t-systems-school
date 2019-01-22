@@ -6,7 +6,6 @@ import com.training.models.Location;
 import com.training.services.DriverService;
 import com.training.services.LoadService;
 import com.training.services.LocationService;
-import com.training.services.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,15 +25,12 @@ public class LoadController {
     private final LoadService loadService;
     private final DriverService driverService;
     private final LocationService locationService;
-    private final VehicleService vehicleService;
 
     @Autowired
-    public LoadController(LoadService loadService, DriverService driverService, LocationService locationService,
-                          VehicleService vehicleService) {
+    public LoadController(LoadService loadService, DriverService driverService, LocationService locationService) {
         this.loadService = loadService;
         this.driverService = driverService;
         this.locationService = locationService;
-        this.vehicleService = vehicleService;
     }
 
     @GetMapping("/editLoad/{id}")
@@ -77,5 +73,10 @@ public class LoadController {
     @GetMapping("/allLoads")
     public ModelAndView getAllLoadsPage() {
         return new ModelAndView("loadsPage").addObject("loads", loadService.findAll());
+    }
+
+    @GetMapping("/doneLoads")
+    public ModelAndView getDoneLoadsPage() {
+        return new ModelAndView("doneLoadsPage").addObject("doneLoads", loadService.findDoneLoads());
     }
 }

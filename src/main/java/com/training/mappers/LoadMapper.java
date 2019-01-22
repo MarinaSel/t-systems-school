@@ -40,6 +40,7 @@ public final class LoadMapper {
         loadEntity.setVehicle(VehicleMapper.mapModelToEntity(load.getVehicle()));
         loadEntity.setPickUpLocation(LocationMapper.mapModelToEntity(load.getPickUpLocation()));
         loadEntity.setDeliveryLocation(LocationMapper.mapModelToEntity(load.getDeliveryLocation()));
+        loadEntity.setHistory(HistoryMapper.mapModelToEntity(load.getHistory()));
         return loadEntity;
     }
 
@@ -89,6 +90,7 @@ public final class LoadMapper {
         load.setVehicle(VehicleMapper.mapEntityToSimpleModel(loadEntity.getVehicle()));
         load.setPickUpLocation(LocationMapper.mapEntityToModel(loadEntity.getPickUpLocation()));
         load.setDeliveryLocation(LocationMapper.mapEntityToModel(loadEntity.getDeliveryLocation()));
+        load.setHistory(HistoryMapper.mapEntityToModel(loadEntity.getHistory()));
         return load;
 
     }
