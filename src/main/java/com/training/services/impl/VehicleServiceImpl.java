@@ -2,7 +2,6 @@ package com.training.services.impl;
 
 import com.training.entities.DriverEntity;
 import com.training.entities.HistoryEntity;
-import com.training.entities.LoadEntity;
 import com.training.entities.VehicleEntity;
 import com.training.entities.enums.VehicleStatus;
 import com.training.mappers.DriverMapper;
@@ -97,10 +96,7 @@ public class VehicleServiceImpl implements VehicleService {
 
         while (iterator.hasNext()) {
             Vehicle vehicle = iterator.next();
-            int sumWeight = 0;
-            for (Load load : vehicle.getLoads()) {
-                sumWeight += load.getWeight();
-            }
+            int sumWeight = vehicle.getLoads().stream().mapToInt(Load::getWeight).sum();
             if ((vehicle.getCapacity() - sumWeight < necessaryCapacity)) {
                 iterator.remove();
             }
@@ -208,7 +204,7 @@ public class VehicleServiceImpl implements VehicleService {
     @Transactional
     public void allLoadsDelivered(Long id) {
         VehicleEntity vehicleEntity = vehicleRepository.getOne(id);
-        for (LoadEntity loadEntity : vehicleEntity.getLoads()) {
+        vehicleEntity.getLoads().forEach(loadEntity -> {
             HistoryEntity historyEntity = new HistoryEntity();
             historyEntity.setVehicle(loadEntity.getVehicle());
             historyEntity.setPrimaryDriver(loadEntity.getVehicle().getPrimaryDriver());
@@ -216,7 +212,7 @@ public class VehicleServiceImpl implements VehicleService {
             historyRepository.saveAndFlush(historyEntity);
             loadEntity.setHistory(historyEntity);
             loadRepository.saveAndFlush(loadEntity);
-        }
+        });
         loadRepository.setDone(vehicleEntity);
         freeVehicleAndDrivers(vehicleEntity);
         LOGGER.info("Vehicle with id = {} completed delivery", id);
